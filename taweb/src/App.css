@@ -1,0 +1,33 @@
+@import '~antd/dist/antd.css';
+@import '~@ant-design/pro-layout/dist/layout.css';
+
+.App {
+  height: 100vh;
+}
+
+.content {
+  background-color: white;
+  padding: 10px;
+}
+
+.content-area {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+.light-row {
+  background-color: rgb(227, 243, 242);
+}
+
+.dark-row {
+  background-color: white;
+}
+
+.ant-upload-list-picture-card-container {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  margin: 0 8px 8px 0;
+  vertical-align: top;
+}

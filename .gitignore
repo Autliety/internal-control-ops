@@ -1,0 +1,81 @@
+### Gradle ###
+HELP.md
+.gradle
+gradle/
+!/gradle
+!**/android/gradle
+gradlew
+!/gradlew
+!**/android/gradlew
+gradlew.bat
+!/gradlew.bat
+!**/android/gradlew.bat
+
+### Node.js ###
+node_modules/
+.pnp/
+.pnp.js
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### Product ###
+**/src/**/resources/public
+bundle/
+!**/src/main/**/bundle/
+!**/src/test/**/bundle/
+!**/src/App/**/bundle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+!**/src/App/**/build/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+!**/src/App/**/out/
+static/
+!**/src/main/**/static/
+!**/src/test/**/static/
+!**/src/App/**/static/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+local.properties
+
+### VS Code ###
+.vscode/
+
+### Xcode ###
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+### BUCK ###
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
+
+### Misc ###
+.DS_Store
+*.jsbundle
+/ios/Pods/

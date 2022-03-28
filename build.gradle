@@ -1,0 +1,22 @@
+group 'com.hcit'
+version '0.0.1-SNAPSHOT'
+
+task cleanup(type: Delete) {
+  dependsOn(':taserver:clean', ':taserver:clean')
+  delete 'bundle/'
+  delete 'taserver/src/main/resources/public'
+}
+
+task copyWeb(type: Copy) {
+  dependsOn(':taweb:npm_run_build')
+  from 'amweb/build'
+  into 'taserver/src/main/resources/public'
+}
+
+tasks.getByPath(':taserver:assemble').dependsOn(copyWeb)
+
+task bundle(type: Copy) {
+  dependsOn(':taserver:assemble')
+  from 'taserver/build/libs'
+  into 'bundle/'
+}

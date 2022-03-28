@@ -1,0 +1,148 @@
+import React from 'react';
+import {
+  HomeOutlined,
+  ProjectOutlined,
+  BarsOutlined,
+  FundProjectionScreenOutlined,
+  WhatsAppOutlined,
+  ReconciliationOutlined,
+} from '@ant-design/icons';
+
+import Home from '../pages/Home';
+import Assessment from '../pages/Assessment';
+
+import NotFound from '../pages/NotFound';
+import Settings from '../pages/Settings';
+import WorkPlan from "../pages/WorkPlan";
+import WorkProcess from "../pages/WorkProcess";
+import EchoWall from "../pages/EchoWall";
+import WorkReply from "../pages/EchoWall/WorkReply";
+import Appraisal from "../pages/Appraisal";
+
+
+export const router = {
+  routes: [
+    {
+      name: '首页',
+      icon: <HomeOutlined/>,
+      path: '/',
+      element: <Home/>,
+    },
+    {
+      name: '考核指标',
+      icon: <ProjectOutlined/>,
+      path: '/assessment',
+      element: <Assessment/>,
+      routes: [
+        {
+          name: '常规考核指标',
+          path: '/assessment/convention',
+          element: <Assessment/>,
+        },
+        {
+          name: '临时考核指标',
+          path: '/assessment/temporary',
+          element: <Assessment/>
+        }
+      ]
+    },
+    {
+      name: '工作计划',
+      icon: <BarsOutlined/>,
+      path: '/plan',
+      element: <WorkPlan isSelected={true}/>,
+      routes: [
+        {
+          name: '年度工作计划',
+          path: '/plan/annual',
+          element: <WorkPlan isSelected={false}/>,
+        },
+        {
+          name: '时限工作计划',
+          path: '/plan/limitTime',
+          element: <WorkPlan isSelected={true}/>,
+        },
+        {
+          name: '无时限工作计划',
+          path: '/plan/infinite',
+          element: <WorkPlan isSelected={false}/>,
+        }
+      ]
+    },
+    {
+      name: '工作进度',
+      icon: <FundProjectionScreenOutlined/>,
+      path: '/process',
+      element: <WorkProcess/>,
+      routes: [
+        {
+          name: '时限工作进度',
+          path: '/process/limitTime',
+          element: <WorkProcess/>
+        },
+        {
+          name: '无时限工作进度',
+          path: '/process/infinite',
+          element: <WorkProcess/>
+        }
+      ]
+    },
+    {
+      name: '考评情况',
+      icon: <ReconciliationOutlined/>,
+      path: '/appraisal',
+      element: <Appraisal/>,
+      routes: [
+        {
+          name: '计划制定考评',
+          path: '/appraisal/plan',
+          element: <Appraisal/>,
+        },
+        {
+          name: '实际工作考评',
+          path: '/appraisal/actual',
+          element: <Appraisal/>,
+        }
+      ]
+    },
+    {
+      name: '回音壁',
+      icon: <WhatsAppOutlined/>,
+      path: '/wall',
+      element: <EchoWall/>,
+      routes: [
+        {
+          name: '投诉建议',
+          path: '/wall/complaint',
+          element: <EchoWall/>
+        },
+        {
+          name: '工作回复',
+          path: '/wall/reply',
+          element: <WorkReply/>
+        }
+      ]
+    },
+  ],
+};
+
+const extRoutes = [
+  {
+    path: '/admin/settings',
+    element: <Settings/>,
+  },
+  {
+    path: '*',
+    element: <NotFound/>,
+  },
+];
+
+function routerConcat(routes: any) {
+  let result = routes;
+  for (let route of routes) {
+    result = route.routes ? routerConcat(route.routes).concat(result) : result;
+  }
+  return result;
+}
+
+export const routesConfig = routerConcat(router.routes).concat(routerConcat(extRoutes));
