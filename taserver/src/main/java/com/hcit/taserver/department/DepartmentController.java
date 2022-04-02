@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,4 +18,5 @@ public class DepartmentController {
   public List<Department> getAll() {
     return departmentService.getAll();
   }
+
 }

@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,10 +16,16 @@ public class DepartmentService {
 
   private final DepartmentRepository departmentRepository;
 
-  public List<Department> getAll() {
-    Map<Integer, Department> map = departmentRepository.findAll()
+  public Map<Integer, Department> getDeptMap() {
+    return departmentRepository.findAll()
         .stream()
-        .collect(Collectors.toMap(Department::getId, Function.identity()));
+        .collect(Collectors.toMap(
+            Department::getId,
+            Function.identity()));
+  }
+
+  public List<Department> getAll() {
+    Map<Integer, Department> map = getDeptMap();
 
     List<Department> result = new ArrayList<>();
     for (Department dept : map.values()) {
@@ -37,5 +43,9 @@ public class DepartmentService {
       parent.setChildren(children);
     }
     return result;
+  }
+
+  public Department getOne(Integer id) {
+    return departmentRepository.findById(id).get();
   }
 }

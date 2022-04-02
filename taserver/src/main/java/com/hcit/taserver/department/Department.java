@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import java.util.Collection;
 import javax.persistence.Column;
@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,16 +23,11 @@ public class Department {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(unique = true)
-  private String uuid;
-
-  private String code;
-
   private String name;
 
-  private String shortName;
-
   private Integer parentId;
+
+  private Integer deptId;
 
   @Transient
   private Department parent;

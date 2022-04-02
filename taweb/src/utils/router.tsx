@@ -6,6 +6,7 @@ import {
   FundProjectionScreenOutlined,
   WhatsAppOutlined,
   ReconciliationOutlined,
+  ClusterOutlined,
 } from '@ant-design/icons';
 
 import Home from '../pages/Home';
@@ -18,6 +19,8 @@ import WorkProcess from "../pages/WorkProcess";
 import EchoWall from "../pages/EchoWall";
 import WorkReply from "../pages/EchoWall/WorkReply";
 import Appraisal from "../pages/Appraisal";
+import Department from "../pages/Department";
+import Users from "../pages/Department/Users";
 
 
 export const router = {
@@ -50,22 +53,22 @@ export const router = {
       name: '工作计划',
       icon: <BarsOutlined/>,
       path: '/plan',
-      element: <WorkPlan isSelected={true}/>,
+      element: <WorkPlan isSelected={ true }/>,
       routes: [
         {
           name: '年度工作计划',
           path: '/plan/annual',
-          element: <WorkPlan isSelected={false}/>,
+          element: <WorkPlan isSelected={ false }/>,
         },
         {
           name: '时限工作计划',
           path: '/plan/limitTime',
-          element: <WorkPlan isSelected={true}/>,
+          element: <WorkPlan isSelected={ true }/>,
         },
         {
           name: '无时限工作计划',
           path: '/plan/infinite',
-          element: <WorkPlan isSelected={false}/>,
+          element: <WorkPlan isSelected={ false }/>,
         }
       ]
     },
@@ -103,6 +106,24 @@ export const router = {
           path: '/appraisal/actual',
           element: <Appraisal/>,
         }
+      ]
+    },
+    {
+      name: '组织管理',
+      icon: <ClusterOutlined/>,
+      path: '/dept',
+      element: <Department/>,
+      routes: [
+        {
+          name: '组织架构',
+          path: '/dept/depts',
+          element: <Department/>,
+        },
+        {
+          name: '员工档案',
+          path: '/dept/users',
+          element: <Users/>,
+        },
       ]
     },
     {
