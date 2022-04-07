@@ -16,16 +16,12 @@ public class DepartmentService {
 
   private final DepartmentRepository departmentRepository;
 
-  public Map<Integer, Department> getDeptMap() {
-    return departmentRepository.findAll()
-        .stream()
-        .collect(Collectors.toMap(
-            Department::getId,
-            Function.identity()));
+  public Map<Integer, Department> getMap() {
+    return departmentRepository.findAll().stream().collect(Collectors.toMap(Department::getId, Function.identity()));
   }
 
-  public List<Department> getAll() {
-    Map<Integer, Department> map = getDeptMap();
+  public List<Department> getTree() {
+    var map = getMap();
 
     List<Department> result = new ArrayList<>();
     for (Department dept : map.values()) {
@@ -46,6 +42,6 @@ public class DepartmentService {
   }
 
   public Department getOne(Integer id) {
-    return departmentRepository.findById(id).get();
+    return departmentRepository.findById(id).orElseThrow();
   }
 }

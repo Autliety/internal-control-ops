@@ -17,19 +17,19 @@ public class StationService {
 
   Collection<Station> findAll() {
     Collection<Station> stations = stationRepository.findAll();
-    Map<Integer, Department> map = departmentService.getDeptMap();
-    stations.forEach(station -> {
-      station.setDepartment(map.get(station.getDeptId()));
-    });
+    Map<Integer, Department> map = departmentService.getMap();
+    stations.forEach(station ->
+      station.setDepartment(map.get(station.getDeptId()))
+    );
     return stations;
   }
 
   Collection<Station> findAllByDeptId(Integer deptId) {
     Collection<Station> stations = stationRepository.findAllByDeptId(deptId);
     Department department = departmentService.getOne(deptId);
-    stations.forEach(station -> {
-      station.setDepartment(department);
-    });
+    stations.forEach(station ->
+      station.setDepartment(department)
+    );
     return stations;
   }
 }
