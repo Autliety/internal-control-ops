@@ -22,8 +22,6 @@ public class Station {
 
   private Integer deptId;
 
-  private Integer stationId;
-
   @Transient
   private Department department;
 }

@@ -16,7 +16,7 @@ public class DepartmentController {
 
   @GetMapping
   public List<Department> getAll() {
-    return departmentService.getAll();
+    return departmentService.getTree();
   }
 
 }
