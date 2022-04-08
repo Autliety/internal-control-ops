@@ -37,4 +37,8 @@ public class AssessmentService {
     return result;
   }
 
+  public Assessment findById(Integer id){
+    return assessmentRepository.findById(id).orElseThrow();
+  }
+
 }
