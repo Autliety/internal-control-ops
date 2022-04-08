@@ -1,6 +1,8 @@
 package com.hcit.taserver.measure;
 
 
+import com.hcit.taserver.assessment.Assessment;
+import com.hcit.taserver.assessment.AssessmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,14 +11,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlanService {
 
+  private final AssessmentService assessmentService;
   private final PlanRepository planRepository;
 
   private final MeasureService measureService;
 
   public Plan findById(Integer id) {
     Plan plan = planRepository.findById(id).get();
+    Assessment assessment = assessmentService.findById(id);
     List<Measure> measures = measureService.findAllByPlanId(id);
     plan.setMeasures(measures);
+    plan.setAssessment(assessment);
     return plan;
   }
 

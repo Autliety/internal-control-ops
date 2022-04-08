@@ -3,10 +3,7 @@ package com.hcit.taserver.measure;
 import com.hcit.taserver.common.ValueType;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 /*
 *计划措施
@@ -29,6 +26,7 @@ public class Measure {
 
   private String name;
 
+  @Enumerated(EnumType.STRING)
   private ValueType type;
 
   private String value;
