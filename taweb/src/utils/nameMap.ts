@@ -192,8 +192,15 @@ export const roleType = {
 };
 
 // 盘点
-export const countingStatus={
+export const countingStatus = {
   WAITING: { label: '进行中', tag: 'processing' },
   DONE: { label: '已完成', tag: 'success' },
   CANCEL: { label: '已取消', tag: 'error' },
+}
+
+// 指标值类型
+export const assessmentValueType = {
+  MONEY: '￥',
+  PERCENT: '%',
+  AMOUNT: '件'
 }

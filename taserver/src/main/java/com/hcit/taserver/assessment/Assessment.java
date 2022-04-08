@@ -36,7 +36,7 @@ public class Assessment {
   @Enumerated(EnumType.STRING)
   private PointType valueType;
 
-  private BigDecimal value;
+  private String value;
 
   private String standard;
 
