@@ -347,6 +347,6 @@ INSERT INTO
   assessment (id, name, parent_id, dept_id, point, value_type, value)
 VALUES
   (1, '实际利用外资', NULL, 1, NULL, NULL, NULL),
-  (2, '合同利用外资', 1, 1, 0.5, 'MONEY', 10500),
-  (3, '实际利用外资', 1, 1, 2.0, 'MONEY', 10500),
-  (4, '高技术实际利用外资占比', 1, 1, 0.5, 'PERCENT', 40);
+  (2, '合同利用外资', 1, 1, 0.5, 'MONEY', '10500'),
+  (3, '实际利用外资', 1, 1, 2.0, 'MONEY', '10500'),
+  (4, '高技术实际利用外资占比', 1, 1, 0.5, 'PERCENT', '40');

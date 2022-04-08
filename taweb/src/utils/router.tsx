@@ -21,6 +21,8 @@ import WorkReply from "../pages/EchoWall/WorkReply";
 import Appraisal from "../pages/Appraisal";
 import Department from "../pages/Department";
 import Users from "../pages/Department/Users";
+import AssessmentResolve from "../pages/Assessment/AssessmentResolve";
+
 
 
 export const router = {
@@ -45,7 +47,7 @@ export const router = {
         {
           name: '临时考核指标',
           path: '/assessment/temporary',
-          element: <Assessment/>
+          element: <AssessmentResolve/>
         }
       ]
     },
