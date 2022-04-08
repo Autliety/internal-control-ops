@@ -1,15 +1,12 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { LaptopOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Collapse, List, Row } from 'antd';
+import { Avatar, Col, List, Row } from 'antd';
 
 import { useHttp } from '../../utils/request';
+import DepartmentList from './DepartmentList';
 
 export default function Department() {
-
-  const { Panel } = Collapse;
-  // 获取部门
-  const { state: departmentState, loading } = useHttp('/department', { initState: [] });
   // 存放部门id和名称
   const [deptId, setDeptId] = React.useState('');
   const [deptName, setDeptName] = React.useState('');
@@ -18,41 +15,7 @@ export default function Department() {
   return <PageContainer>
     <Row>
       <Col span={10}>
-        <Collapse bordered={false} accordion defaultActiveKey={0}>
-          {
-            departmentState.map((item, index) => <Panel
-                    key={index}
-                    header={<div onClick={() => {
-                      setDeptId(item.id);
-                      setDeptName(item.name);
-                    }}>
-                      {item.name}
-                    </div>}
-                >
-                  <List
-                      dataSource={item.children}
-                      loading={loading}
-                      renderItem={(item: any) => (
-                          <List.Item>
-                            <div
-                                onClick={() => {
-                                  setDeptId(item.id);
-                                  setDeptName(item.name);
-                                }}
-                                style={{ cursor: 'pointer' }}
-                            >
-                              {item.name}
-                            </div>
-                            <Button type='link'>
-                              编辑
-                            </Button>
-                          </List.Item>
-                      )}
-                  />
-                </Panel>
-            )
-          }
-        </Collapse>
+        <DepartmentList isEdit onChange={setDeptId} onNameChange={setDeptName}/>
       </Col>
 
       <Col span={1}/>

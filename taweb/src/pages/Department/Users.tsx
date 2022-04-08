@@ -1,14 +1,13 @@
 import React from 'react';
-import { Avatar, Button, Col, Collapse, List, Modal, Row } from 'antd';
+import { Avatar, Button, Col, List, Modal, Row } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { UserOutlined } from '@ant-design/icons';
-import { useHttp } from "../../utils/request";
+
+import { useHttp } from '../../utils/request';
+import DepartmentList from './DepartmentList';
 
 export default function Users() {
 
-  const { Panel } = Collapse;
-  // 获取部门
-  const { state: departmentState, loading } = useHttp('/department', { initState: [] });
   // 存放部门id和名称
   const [deptId, setDeptId] = React.useState('');
   const [deptName, setDeptName] = React.useState('');
@@ -20,38 +19,7 @@ export default function Users() {
   return <PageContainer>
     <Row>
       <Col span={10}>
-        <Collapse bordered={false} accordion defaultActiveKey={0}>
-          {
-            departmentState.map((item, index) => <Panel
-                    key={index}
-                    header={<div onClick={() => {
-                      setDeptId(item.id);
-                      setDeptName(item.name);
-                    }}>
-                      {item.name}
-                    </div>}
-                >
-                  <List
-                      dataSource={item.children}
-                      loading={loading}
-                      renderItem={(item: any) => (
-                          <List.Item>
-                            <div
-                                onClick={() => {
-                                  setDeptId(item.id);
-                                  setDeptName(item.name);
-                                }}
-                                style={{ cursor: 'pointer' }}
-                            >
-                              {item.name}
-                            </div>
-                          </List.Item>
-                      )}
-                  />
-                </Panel>
-            )
-          }
-        </Collapse>
+        <DepartmentList onChange={setDeptId} onNameChange={setDeptName}/>
       </Col>
       <Col span={1}/>
       <Col span={13} className='content'>
