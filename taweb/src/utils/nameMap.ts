@@ -202,5 +202,7 @@ export const countingStatus = {
 export const assessmentValueType = {
   MONEY: '￥',
   PERCENT: '%',
-  AMOUNT: '件'
+  AMOUNT: '件',
+  FILE: '',
+  RESULT: '',
 }

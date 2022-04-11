@@ -21,8 +21,7 @@ import WorkReply from "../pages/EchoWall/WorkReply";
 import Appraisal from "../pages/Appraisal";
 import Department from "../pages/Department";
 import Users from "../pages/Department/Users";
-import AssessmentResolve from "../pages/Assessment/AssessmentResolve";
-
+import PlanInfo from "../pages/WorkPlan/PlanInfo";
 
 
 export const router = {
@@ -47,7 +46,7 @@ export const router = {
         {
           name: '临时考核指标',
           path: '/assessment/temporary',
-          element: <AssessmentResolve/>
+          element: <Assessment/>
         }
       ]
     },
@@ -55,22 +54,22 @@ export const router = {
       name: '工作计划',
       icon: <BarsOutlined/>,
       path: '/plan',
-      element: <WorkPlan isSelected={ true }/>,
+      element: <WorkPlan/>,
       routes: [
         {
           name: '年度工作计划',
           path: '/plan/annual',
-          element: <WorkPlan isSelected={ false }/>,
+          element: <WorkPlan/>,
         },
         {
           name: '时限工作计划',
           path: '/plan/limitTime',
-          element: <WorkPlan isSelected={ true }/>,
+          element: <WorkPlan/>,
         },
         {
           name: '无时限工作计划',
           path: '/plan/infinite',
-          element: <WorkPlan isSelected={ false }/>,
+          element: <WorkPlan/>,
         }
       ]
     },
@@ -150,6 +149,10 @@ export const router = {
 };
 
 const extRoutes = [
+  {
+    path: '/plan/:id',
+    element: <PlanInfo/>,
+  },
   {
     path: '/admin/settings',
     element: <Settings/>,

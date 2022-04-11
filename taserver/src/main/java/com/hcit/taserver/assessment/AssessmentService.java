@@ -19,6 +19,10 @@ public class AssessmentService {
     return assessmentRepository.findAll().stream().collect(Collectors.toMap(Assessment::getId, Function.identity()));
   }
 
+  public List<Assessment> findAll() {
+    return assessmentRepository.findAll();
+  }
+
   public List<Assessment> getTree() {
     var map = getMap();
 
@@ -35,6 +39,10 @@ public class AssessmentService {
       parent.setChildren(children);
     }
     return result;
+  }
+
+  public Assessment findById(Integer id){
+    return assessmentRepository.findById(id).orElseThrow();
   }
 
 }

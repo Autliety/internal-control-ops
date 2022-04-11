@@ -1,96 +1,94 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Modal, Radio, Space, Table } from 'antd';
-import { ColumnsType } from "antd/lib/table/interface";
-import { Link } from "react-router-dom";
-import {FileTextOutlined} from '@ant-design/icons';
+import { Alert, Button, Modal, Select, Table } from 'antd';
+import { ColumnsType } from 'antd/lib/table/interface';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ContainerOutlined } from '@ant-design/icons';
+import { LightFilter, ProFormSelect } from '@ant-design/pro-form';
+import { useDebounceFn } from 'ahooks'
 
-type Props = {
-  isSelected?: boolean,
-}
+import { useHttp } from '../../utils/request';
 
-export default function WorkPlan({ isSelected }: Props) {
-  const [radioValue, setRadioValue] = React.useState<string>('0');
+const { Option } = Select;
 
-  // 完成标准详细信息
-  function showInfo(text) {
-    Modal.info({
-      title: '完成标准详情',
-      content: <p>{text}</p>,
-      icon: undefined
+export default function WorkPlan() {
+
+  const [search, setSearch] = useSearchParams();
+
+  const { state, loading, http } = useHttp('/plan', { initState: [], isManual: true, params: search });
+  const { state: deptState } = useHttp('/department?view=LIST', { initState: [] });
+  const { state: asmtState } = useHttp('/assessment?view=LIST', { initState: [] });
+
+  // 筛选条件
+  const { run } = useDebounceFn(() => http(), { wait: 100 })
+  const setQuery = nextInit => {
+    //@ts-ignore
+    setSearch(Object.fromEntries(Object.entries({
+      ...nextInit,
+      create: search.get('create'),
+    })
+        .filter(([_, v]) => v)));
+    run();
+  };
+  React.useEffect(() => {
+    setQuery(Object.fromEntries(search.entries()));
+  }, []);
+
+  // 获取
+  function getValueEnum(v) {
+    let valueEnum = {};
+    v.forEach((item: any) => {
+      valueEnum = { ...valueEnum, [item.id]: item.name }
     });
+    return valueEnum;
   }
 
-  const dataSource = [
-    {
-      id: '1',
-      name: '计划A',
-      assessmentStandard: 'convention',
-      completionStandard: '西湖南、西、北三面环山，湖中白堤、苏堤、杨公堤、赵公堤将湖面分割成若干水面。西湖的湖体轮廓呈近椭圆形，湖底部' +
-          '较为平坦，湖泊平均水深为2.27米，最深约5米，最浅不到1米。湖泊天然地表水源是金沙涧、龙泓涧、赤山涧（慧因涧）、长桥溪四条溪流。',
-      completionTime: '2022-03-17',
-      workAssignment: '暂未指派',
-      remark: '测试数据',
-    },
-    {
-      id: '2',
-      name: '计划B',
-      assessmentStandard: 'temporary',
-      completionStandard: '西湖南、西、北三面环山，湖中白堤、苏堤、杨公堤、赵公堤将湖面分割成若干水面。西湖的湖体轮廓呈近椭圆形，湖底部' +
-          '较为平坦，湖泊平均水深为2.27米，最深约5米，最浅不到1米。湖泊天然地表水源是金沙涧、龙泓涧、赤山涧（慧因涧）、长桥溪四条溪流。',
-      completionTime: '2022-03-17',
-      workAssignment: '川建国',
-      remark: '测试数据',
-    },
-  ];
+  // 未建计划的指标
+  const unUsedAssessments = [
+    { id: '1', name: '指标A' },
+    { id: '2', name: '指标B' },
+    { id: '3', name: '指标C' },
+  ]
 
-  const assessmentType = {
-    convention: '考核指标0001',
-    temporary: '考核指标0002',
-  }
+  // modal:挑选未计划的指标
+  const [isVisible, setIsVisible] = React.useState(false);
 
   const columns: ColumnsType = [
     { title: '编号', dataIndex: 'id', width: 150 },
     { title: '计划名称', dataIndex: 'name' },
+    { title: '创建时间', dataIndex: 'createTime' },
+    { title: '最后更新时间', dataIndex: 'updateTime' },
     {
-      title: '关联考核指标',
-      dataIndex: 'assessmentStandard',
-      render: (_, record: any) => <Link to={`/assessment/${record.assessmentStandard}`}>
-        {assessmentType[record.assessmentStandard]}
-      </Link>,
-    },
-    {
-      title: '完成标准',
-      dataIndex: 'completionStandard',
-      render: text => <>
-        {text.substring(0, 30) + '···'}
-        <Button type={'link'} onClick={() => showInfo(text)}>[更多]</Button>
-      </>,
-      width: 600,
-    },
-    { title: '预计完成时间', dataIndex: 'completionTime' },
-    { title: '工作指派情况', dataIndex: 'workAssignment' },
-    { title: '备注', dataIndex: 'remark' },
-    { title: '详情', render: () => <Button type={'link'}><FileTextOutlined /></Button> },
+      title: '详情',
+      key: 'operation',
+      width: '5%',
+      align: 'center',
+      fixed: 'right',
+      render: (_, record: any) => <Link to={`/plan/${record.id}`}><ContainerOutlined/></Link>,
+    }
   ];
 
   return <PageContainer
-      extra={<Button type={'primary'}>新建</Button>}
+      extra={<Button type={'primary'} onClick={() => setIsVisible(true)}>新建计划</Button>}
   >
-    {
-        isSelected && <div className='content'>
-          <Radio.Group value={radioValue} buttonStyle='solid' onChange={e => setRadioValue(e.target.value)}>
-            <Space size={'large'}>
-              <Radio.Button value='0'>季度计划</Radio.Button>
-              <Radio.Button value='1'>月度计划</Radio.Button>
-            </Space>
-          </Radio.Group>
-        </div>
-    }
+    {/* 筛选视图 */}
+    <div className={'content'}>
+      <LightFilter
+          bordered
+          fields={Array.from(search.entries()).map(e => ({ name: e[0].split('.'), value: e[1] }))}
+          onFieldsChange={(_, fields) =>
+              setQuery(Object.fromEntries(fields.map(({ name, value }: any) => ([name.join('.'), value]))))}
+      >
+
+        <ProFormSelect name={'deptId'} label={'所属部门'} valueEnum={getValueEnum(deptState)}/>
+        <ProFormSelect name={'asmtId'} label={'相关指标'} valueEnum={getValueEnum(asmtState)}/>
+      </LightFilter>
+    </div>
     <br/>
 
     <Table
         bordered
+        loading={loading}
         size={'small'}
         scroll={{
           scrollToFirstRowOnChange: true,
@@ -100,9 +98,30 @@ export default function WorkPlan({ isSelected }: Props) {
         columns={columns}
         rowKey={'id'}
 
-        dataSource={dataSource}
+        dataSource={state}
     />
+    {/* modal */}
+    <Modal
+        title={'未作计划指标'}
+        closable
+        visible={isVisible}
+        onOk={() => setIsVisible(false)}
+        onCancel={() => setIsVisible(false)}
+    >
+      <Alert showIcon message={'请选择一项进行计划制定'} type={'warning'}/><br/>
+      <Select
+          showSearch
+          placeholder={'请选择'}
+          style={{ width: 200 }}
+          onChange={v => console.log(v)}
+      >
+        {
+          unUsedAssessments.map((item, index) => <Option key={index} value={item.name}>
+            {item.name}
+          </Option>)
+        }
+      </Select>
+    </Modal>
 
   </PageContainer>;
-
 }
