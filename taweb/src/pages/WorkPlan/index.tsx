@@ -2,8 +2,10 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Alert, Button, Modal, Select, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ContainerOutlined } from '@ant-design/icons';
+import { LightFilter, ProFormSelect } from '@ant-design/pro-form';
+import { useDebounceFn } from 'ahooks'
 
 import { useHttp } from '../../utils/request';
 
@@ -11,7 +13,35 @@ const { Option } = Select;
 
 export default function WorkPlan() {
 
-  const { state, loading } = useHttp('/plan', { initState: [] });
+  const [search, setSearch] = useSearchParams();
+
+  const { state, loading, http } = useHttp('/plan', { initState: [], isManual: true, params: search });
+  const { state: deptState } = useHttp('/department?view=LIST', { initState: [] });
+  const { state: asmtState } = useHttp('/assessment?view=LIST', { initState: [] });
+
+  // 筛选条件
+  const { run } = useDebounceFn(() => http(), { wait: 100 })
+  const setQuery = nextInit => {
+    //@ts-ignore
+    setSearch(Object.fromEntries(Object.entries({
+      ...nextInit,
+      create: search.get('create'),
+    })
+        .filter(([_, v]) => v)));
+    run();
+  };
+  React.useEffect(() => {
+    setQuery(Object.fromEntries(search.entries()));
+  }, []);
+
+  // 获取
+  function getValueEnum(v) {
+    let valueEnum = {};
+    v.forEach((item: any) => {
+      valueEnum = { ...valueEnum, [item.id]: item.name }
+    });
+    return valueEnum;
+  }
 
   // 未建计划的指标
   const unUsedAssessments = [
@@ -41,6 +71,21 @@ export default function WorkPlan() {
   return <PageContainer
       extra={<Button type={'primary'} onClick={() => setIsVisible(true)}>新建计划</Button>}
   >
+    {/* 筛选视图 */}
+    <div className={'content'}>
+      <LightFilter
+          bordered
+          fields={Array.from(search.entries()).map(e => ({ name: e[0].split('.'), value: e[1] }))}
+          onFieldsChange={(_, fields) =>
+              setQuery(Object.fromEntries(fields.map(({ name, value }: any) => ([name.join('.'), value]))))}
+      >
+
+        <ProFormSelect name={'deptId'} label={'所属部门'} valueEnum={getValueEnum(deptState)}/>
+        <ProFormSelect name={'asmtId'} label={'相关指标'} valueEnum={getValueEnum(asmtState)}/>
+      </LightFilter>
+    </div>
+    <br/>
+
     <Table
         bordered
         loading={loading}
@@ -79,5 +124,4 @@ export default function WorkPlan() {
     </Modal>
 
   </PageContainer>;
-
 }

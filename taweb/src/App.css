@@ -1,5 +1,6 @@
 @import '~antd/dist/antd.css';
 @import '~@ant-design/pro-layout/dist/layout.css';
+@import '~@ant-design/pro-form/dist/form.css';
 
 .App {
   height: 100vh;

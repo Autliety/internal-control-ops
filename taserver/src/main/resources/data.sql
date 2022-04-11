@@ -347,7 +347,7 @@ VALUES (1, 2, 1, '计划A', NULL, NULL),
        (3, 3, 3, '计划C', NULL, NULL),
        (4, 4, 4, '计划D', NULL, NULL);
 
-INSERT INTO measure (id, name, value_type, value, plan_id, start_time, end_time, remark)
+INSERT INTO plan_measure (id, name, value_type, value, plan_id, start_time, end_time, remark)
 VALUES (1, '保持经济恢复发展', 'MONEY', '114.00', 1, NULL, NULL,
         '国内生产总值达到114万亿元，增长8.1%。全国财政收入突破20万亿元，增长10.7%。城镇新增就业1269万人，城镇调查失业率平均为5.1%。居民消费价格上涨0.9%。国际收支基本平衡。'),
        (2, '创新能力进一步增强', 'PERCENT', '15.5', 1, NULL, NULL, '企业研发经费增长15.5%。数字技术与实体经济加速融合。'),
