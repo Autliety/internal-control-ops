@@ -1,10 +1,7 @@
 package com.hcit.taserver.measure;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,10 +13,10 @@ public class PlanController {
 
   /*具体计划CRUD*/
   @GetMapping
-  public List<Plan> fetchAll(@RequestParam(required = false) Integer deptId,
-                            @RequestParam(required = false) Integer asmtId) {
-    return planService.findAll();
+  public List<Plan> fetchAll(Plan plan) {
+    return planService.findAllByCondition(plan);
   }
+
   /*具体查询一条计划by计划id*/
   @GetMapping("/{id}")
   public Plan fetch(@PathVariable Integer id) {

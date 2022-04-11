@@ -18,7 +18,8 @@ public class AssessmentController {
   private final AssessmentService assessmentService;
 
   /*
-  * 查询所有指标和没有计划的指标
+  * 查询所有指标
+  * 和没有计划的指标
   * */
   @GetMapping
   public List<Assessment> fetchAssessments(@RequestParam(required = false) Integer deptId,
