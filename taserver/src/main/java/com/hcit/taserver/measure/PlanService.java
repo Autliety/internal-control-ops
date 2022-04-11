@@ -21,7 +21,7 @@ public class PlanService {
 
   public Plan findById(Integer id) {
     Plan plan = planRepository.findById(id).orElseThrow();
-    Assessment assessment = assessmentService.findById(id);
+    Assessment assessment = assessmentService.findById(plan.getAsmtId());
     List<Measure> measures = measureService.findAllByPlanId(id);
     plan.setMeasures(measures);
     plan.setAssessment(assessment);

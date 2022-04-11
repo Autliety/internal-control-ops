@@ -27,7 +27,7 @@ public class Measure {
   private String name;
 
   @Enumerated(EnumType.STRING)
-  private ValueType type;
+  private ValueType valueType;
 
   private String value;
 

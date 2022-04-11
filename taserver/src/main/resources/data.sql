@@ -341,9 +341,14 @@ VALUES (1, '实际利用外资', NULL, 1, NULL, NULL, NULL),
        (3, '实际利用外资', 1, 1, 2.0, 'MONEY', '10500'),
        (4, '高技术实际利用外资占比', 1, 1, 0.5, 'PERCENT', '40');
 
-INSERT INTO measure (id, name, remark, type, value)
-VALUES (1, '措施one', '人民币', 'MONEY', '5000.00'),
-       (2, '措施two', 'remark', '', 'value')
-;
+INSERT INTO plan (id, asmt_id, dept_id, name, create_time, update_time)
+VALUES (1, 2, 1, '计划A', NULL, NULL),
+       (2, 2, 2, '计划B', NULL, NULL),
+       (3, 3, 3, '计划C', NULL, NULL),
+       (4, 4, 4, '计划D', NULL, NULL);
 
-
+INSERT INTO measure (id, name, value_type, value, plan_id, start_time, end_time, remark)
+VALUES (1, '保持经济恢复发展', 'MONEY', '114.00', 1, NULL, NULL,
+        '国内生产总值达到114万亿元，增长8.1%。全国财政收入突破20万亿元，增长10.7%。城镇新增就业1269万人，城镇调查失业率平均为5.1%。居民消费价格上涨0.9%。国际收支基本平衡。'),
+       (2, '创新能力进一步增强', 'PERCENT', '15.5', 1, NULL, NULL, '企业研发经费增长15.5%。数字技术与实体经济加速融合。'),
+       (3, '人民生活水平稳步提高', 'AMOUNT', '56000', 2, NULL, NULL, '教育改革发展迈出新步伐。新开工改造城镇老旧小区5.6万个，惠及近千万家庭。');
