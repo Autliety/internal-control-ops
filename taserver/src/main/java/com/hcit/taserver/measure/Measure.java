@@ -5,11 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-/*
-*计划措施
-*具体实现步骤
-* 比如某措施的实现方法
-* */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 
 @Entity
+@Table(name = "plan_measure")
 public class Measure {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

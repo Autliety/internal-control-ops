@@ -1,8 +1,8 @@
 package com.hcit.taserver.assessment;
 
+import com.hcit.taserver.common.ValueType;
 import com.hcit.taserver.department.Department;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Assessment {
   private BigDecimal point;
 
   @Enumerated(EnumType.STRING)
-  private PointType valueType;
+  private ValueType valueType;
 
   private String value;
 

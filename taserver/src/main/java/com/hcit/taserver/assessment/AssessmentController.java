@@ -1,14 +1,12 @@
 package com.hcit.taserver.assessment;
 
+import com.hcit.taserver.common.View;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.UtilityClass;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.naming.OperationNotSupportedException;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,7 +21,11 @@ public class AssessmentController {
   * */
   @GetMapping
   public List<Assessment> fetchAssessments(@RequestParam(required = false) Integer deptId,
+                                           @RequestParam(required = false) View view,
                                            @RequestParam(required = false) Boolean nonPlanned) {
+    if (view == View.LIST) {
+      return assessmentService.findAll();
+    }
     if (nonPlanned == null || nonPlanned.equals(Boolean.FALSE)) {
       return assessmentService.getTree();
     } else {
