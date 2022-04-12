@@ -1,8 +1,11 @@
 package com.hcit.taserver.task;
 
+import com.hcit.taserver.measure.PlanDetail;
 import com.hcit.taserver.measure.PlanService;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +23,18 @@ public class TaskService {
   }
 
   public List<Task> findAll() {
-    return (List<Task>)bindData(taskRepository.findAll());
+    return (List<Task>) bindData(taskRepository.findAll());
   }
 
   private Task bindData(Task input) {
-    input.setPlan(planService.findById(input.getPlanId()));
-    input.setDetails(taskDetailRepository.findAllByTaskId(input.getId()));
+    var plan = planService.findById(input.getPlanId());
+    var planDetailsMap = plan.getDetails().stream().collect(Collectors.toMap(
+        PlanDetail::getId, Function.identity()));
+    var details = taskDetailRepository.findAllByTaskId(input.getId());
+    details.forEach(d -> d.setPlanDetail(planDetailsMap.get(d.getPlanDetailId())));
+
+    input.setPlan(plan);
+    input.setDetails(details);
     return input;
   }
 

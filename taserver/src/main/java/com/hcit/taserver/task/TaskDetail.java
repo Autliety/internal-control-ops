@@ -1,10 +1,12 @@
 package com.hcit.taserver.task;
 
+import com.hcit.taserver.measure.PlanDetail;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +25,9 @@ public class TaskDetail {
   private Integer taskId;
 
   private Integer planDetailId;
+
+  @Transient
+  private PlanDetail planDetail;
 
   private String value;
 
