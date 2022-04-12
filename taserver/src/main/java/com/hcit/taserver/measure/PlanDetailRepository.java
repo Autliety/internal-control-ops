@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MeasureRepository extends JpaRepository<Measure,Integer> {
-  List<Measure> findAllByPlanId(Integer id);
+public interface PlanDetailRepository extends JpaRepository<PlanDetail,Integer> {
+  List<PlanDetail> findAllByPlanId(Integer id);
 }
