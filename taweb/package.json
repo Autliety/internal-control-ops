@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/pro-form": "^1.62.1",
     "@ant-design/pro-layout": "^6.33.0",
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^4.2.4",
@@ -13,6 +14,7 @@
     "@types/react": "^16.14.23",
     "@types/react-dom": "^16.9.14",
     "@types/react-redux": "^7.1.22",
+    "ahooks": "^3.3.0",
     "antd": "^4.18.8",
     "axios": "^0.26.0",
     "cross-env": "^7.0.3",
