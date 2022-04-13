@@ -368,7 +368,7 @@ VALUES
   (3, '人民生活水平稳步提高', 'AMOUNT', '56000', 2, NULL, NULL, '教育改革发展迈出新步伐。新开工改造城镇老旧小区5.6万个，惠及近千万家庭。');
 
 INSERT INTO
-  task (id, plan_id, created_time, updated_time)
+  task (id, plan_id, create_time, update_time)
 VALUES
   (1, 1, NULL, NULL),
   (2, 2, NULL, NULL);

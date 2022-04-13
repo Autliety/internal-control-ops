@@ -1,6 +1,5 @@
 package com.hcit.taserver.task;
 
-import com.hcit.taserver.assessment.Assessment;
 import com.hcit.taserver.measure.Plan;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,9 +30,9 @@ public class Task {
   private Plan plan;
 
   @CreationTimestamp
-  private LocalDateTime createdTime;
+  private LocalDateTime createTime;
   @UpdateTimestamp
-  private LocalDateTime updatedTime;
+  private LocalDateTime updateTime;
 
   @Transient
   private List<TaskDetail> details;
