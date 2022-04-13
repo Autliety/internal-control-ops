@@ -11,18 +11,17 @@ import {
 
 import Home from '../pages/Home';
 import Assessment from '../pages/Assessment';
-
 import NotFound from '../pages/NotFound';
 import Settings from '../pages/Settings';
-import WorkPlan from "../pages/WorkPlan";
-import WorkProcess from "../pages/WorkProcess";
+import Plan from "../pages/Plan";
+import Task from "../pages/Task";
 import EchoWall from "../pages/EchoWall";
 import WorkReply from "../pages/EchoWall/WorkReply";
 import Appraisal from "../pages/Appraisal";
 import Department from "../pages/Department";
 import Users from "../pages/Department/Users";
-import PlanInfo from "../pages/WorkPlan/PlanInfo";
-
+import PlanInfo from "../pages/Plan/PlanInfo";
+import TaskInfo from "../pages/Task/TaskInfo";
 
 export const router = {
   routes: [
@@ -54,22 +53,22 @@ export const router = {
       name: '工作计划',
       icon: <BarsOutlined/>,
       path: '/plan',
-      element: <WorkPlan/>,
+      element: <Plan/>,
       routes: [
         {
           name: '年度工作计划',
           path: '/plan/annual',
-          element: <WorkPlan/>,
+          element: <Plan/>,
         },
         {
           name: '时限工作计划',
           path: '/plan/limitTime',
-          element: <WorkPlan/>,
+          element: <Plan/>,
         },
         {
           name: '无时限工作计划',
           path: '/plan/infinite',
-          element: <WorkPlan/>,
+          element: <Plan/>,
         }
       ]
     },
@@ -77,17 +76,17 @@ export const router = {
       name: '工作进度',
       icon: <FundProjectionScreenOutlined/>,
       path: '/process',
-      element: <WorkProcess/>,
+      element: <Task/>,
       routes: [
         {
           name: '时限工作进度',
           path: '/process/limitTime',
-          element: <WorkProcess/>
+          element: <Task/>
         },
         {
           name: '无时限工作进度',
           path: '/process/infinite',
-          element: <WorkProcess/>
+          element: <Task/>
         }
       ]
     },
@@ -152,6 +151,10 @@ const extRoutes = [
   {
     path: '/plan/:id',
     element: <PlanInfo/>,
+  },
+  {
+    path: '/task/:id',
+    element: <TaskInfo/>,
   },
   {
     path: '/admin/settings',
