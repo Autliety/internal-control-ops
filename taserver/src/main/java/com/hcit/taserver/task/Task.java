@@ -1,7 +1,7 @@
-package com.hcit.taserver.measure;
+package com.hcit.taserver.task;
 
 import com.hcit.taserver.assessment.Assessment;
-import com.hcit.taserver.department.Department;
+import com.hcit.taserver.measure.Plan;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
@@ -17,37 +17,24 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-/*
- * 措施
- * 只用于关联外键，进行查询
- * 比如查询某措施是否存在计划
- * */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class Plan {
+public class Task {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
-
-  private Integer asmtId;
-  @Transient private Assessment assessment;
-
-  private Integer deptId;
-  @Transient private Department department;
+  private Integer planId;
+  @Transient
+  private Plan plan;
 
   @CreationTimestamp
-  private LocalDateTime createTime;
+  private LocalDateTime createdTime;
   @UpdateTimestamp
-  private LocalDateTime updateTime;
+  private LocalDateTime updatedTime;
 
   @Transient
-  private List<PlanDetail> details;
+  private List<TaskDetail> details;
 }

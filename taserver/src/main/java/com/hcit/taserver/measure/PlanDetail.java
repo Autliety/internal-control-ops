@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 
 @Entity
-@Table(name = "plan_measure")
-public class Measure {
+public class PlanDetail {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;

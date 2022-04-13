@@ -6,10 +6,10 @@ import { Button, Divider, message, Modal, Space, Statistic, Table } from 'antd';
 import { ArrowLeftOutlined, FileWordOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/lib/table/interface';
 
-import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
 import { useHttp } from '../../utils/request';
 import { assessmentValueType } from '../../utils/nameMap';
 import AssessmentTable from '../../components/AssessmentTable';
+import PlanDetailInfo from "../../components/PlanDetailInfo";
 
 export default function PlanInfo() {
 
@@ -26,16 +26,8 @@ export default function PlanInfo() {
     });
   }
 
-  // 计划详细信息
-  const planColumns: ColumnDef[] = [
-    { title: '编号', dataIndex: 'id' },
-    { title: '计划名称', dataIndex: 'name' },
-    { title: '创建时间', dataIndex: 'createTime' },
-    { title: '最后更新时间', dataIndex: 'updateTime' },
-  ];
-
   // 措施
-  const measureColumns: ColumnsType = [
+  const detailColumns: ColumnsType = [
     { title: '措施名称', dataIndex: 'name' },
     {
       title: '数值',
@@ -71,11 +63,7 @@ export default function PlanInfo() {
       </Space>}
   >
     <Divider orientation={'left'}>{'计划详细信息'}</Divider>
-    <EditableDescriptions
-        columns={planColumns}
-        data={state}
-        isEdit={false}
-    />
+    <PlanDetailInfo data={state}/>
 
     <Divider orientation={'left'}>{'关联指标详细信息'}</Divider>
     <AssessmentTable dataSource={state.assessment}/>
@@ -84,8 +72,8 @@ export default function PlanInfo() {
     <Table
         rowKey={'id'}
         pagination={false}
-        columns={measureColumns}
-        dataSource={state.measures}
+        columns={detailColumns}
+        dataSource={state.details}
         scroll={{
           scrollToFirstRowOnChange: true,
           x: 1700,

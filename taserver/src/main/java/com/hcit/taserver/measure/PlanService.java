@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Predicate;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,14 +16,13 @@ public class PlanService {
 
   private final AssessmentService assessmentService;
   private final PlanRepository planRepository;
-
-  private final MeasureService measureService;
+  private final PlanDetailRepository planDetailRepository;
 
   public Plan findById(Integer id) {
-    Plan plan = planRepository.findById(id).orElseThrow();
-    return bindData(plan);
+    return planRepository.findById(id)
+        .map(this::bindData)
+        .orElse(null);
   }
-
 
   public List<Plan> findAllByCondition(Plan plan) {
     Specification<Plan> spec = (root, query, cb) -> {
@@ -39,8 +37,8 @@ public class PlanService {
 
   private Plan bindData(Plan input) {
     Assessment assessment = assessmentService.findById(input.getAsmtId());
-    List<Measure> measures = measureService.findAllByPlanId(input.getId());
-    input.setMeasures(measures);
+    List<PlanDetail> measures = planDetailRepository.findAllByPlanId(input.getId());
+    input.setDetails(measures);
     input.setAssessment(assessment);
     return input;
   }

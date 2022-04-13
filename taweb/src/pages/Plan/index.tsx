@@ -11,13 +11,15 @@ import { useHttp } from '../../utils/request';
 
 const { Option } = Select;
 
-export default function WorkPlan() {
+export default function Plan() {
 
   const [search, setSearch] = useSearchParams();
 
   const { state, loading, http } = useHttp('/plan', { initState: [], isManual: true, params: search });
   const { state: deptState } = useHttp('/department?view=LIST', { initState: [] });
   const { state: asmtState } = useHttp('/assessment?view=LIST', { initState: [] });
+  const { state: assessments } = useHttp('/assessment', { initState: [] });
+
 
   // 筛选条件
   const { run } = useDebounceFn(() => http(), { wait: 100 })
@@ -42,13 +44,6 @@ export default function WorkPlan() {
     });
     return valueEnum;
   }
-
-  // 未建计划的指标
-  const unUsedAssessments = [
-    { id: '1', name: '指标A' },
-    { id: '2', name: '指标B' },
-    { id: '3', name: '指标C' },
-  ]
 
   // modal:挑选未计划的指标
   const [isVisible, setIsVisible] = React.useState(false);
@@ -108,7 +103,7 @@ export default function WorkPlan() {
         onOk={() => setIsVisible(false)}
         onCancel={() => setIsVisible(false)}
     >
-      <Alert showIcon message={'请选择一项进行计划制定'} type={'warning'}/><br/>
+      <Alert showIcon message={'请选择一项指标进行计划制定'} type={'warning'}/><br/>
       <Select
           showSearch
           placeholder={'请选择'}
@@ -116,7 +111,8 @@ export default function WorkPlan() {
           onChange={v => console.log(v)}
       >
         {
-          unUsedAssessments.map((item, index) => <Option key={index} value={item.name}>
+          assessments.filter(v => v.children === null || v.children.length === 0).map((item, index) => <Option
+              key={index} value={item.name}>
             {item.name}
           </Option>)
         }

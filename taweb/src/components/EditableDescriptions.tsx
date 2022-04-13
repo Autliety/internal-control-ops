@@ -48,7 +48,7 @@ export default function EditableDescriptions(props: Props) {
                 <Form.Item style={{ height: 8 }}>
                   {
                     props.isEdit
-                        ? col.renderFormItem?.() || <Input disabled={!col.type} type={col.type} value={render} />
+                        ? col.renderFormItem?.() || <Input disabled={!col.type} type={col.type} value={render}/>
                         : render
                   }
                 </Form.Item>

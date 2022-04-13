@@ -44,7 +44,6 @@ export default function AssessmentTable({ dataSource }) {
   return <>
     <Table
         bordered
-        size={'small'}
         scroll={{
           scrollToFirstRowOnChange: true,
           x: 1700,
