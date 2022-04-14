@@ -4,12 +4,13 @@ import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
-import { router, routesConfig } from '../utils/router';
+import { router, routerV2, routesConfig } from '../utils/router';
 
 function Pages() {
 
   const { auth, Provider } = useAuthProvider();
   const { pathname } = useLocation();
+  const [isMain, setIsMain] = React.useState(true);
 
   return <>
     <Provider value={auth}>
@@ -22,10 +23,12 @@ function Pages() {
           menu={{ defaultOpenAll: true, autoClose: false }}
           // logo={logo}
 
-          rightContentRender={HeaderRight}
+          rightContentRender={() => <HeaderRight isMain={isMain} onChange={() => {
+            setIsMain(!isMain);
+          }}/>}
 
           title="百步镇政府督考系统"
-          route={router}
+          route={isMain ? router : routerV2}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
           // loading={!auth.user}

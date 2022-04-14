@@ -22,6 +22,9 @@ import Department from "../pages/Department";
 import Users from "../pages/Department/Users";
 import PlanInfo from "../pages/Plan/PlanInfo";
 import TaskInfo from "../pages/Task/TaskInfo";
+import Test from "../pages/Test";
+import Copy from "../pages/Test/Copy";
+import Motion from "../pages/Test/Motion";
 
 export const router = {
   routes: [
@@ -147,6 +150,40 @@ export const router = {
   ],
 };
 
+export const routerV2 = {
+  routes: [
+    {
+      name: '首页',
+      icon: <HomeOutlined/>,
+      path: '/v2/',
+      element: <Test/>,
+    },
+    {
+      name: '明责',
+      icon: <ProjectOutlined/>,
+      path: '/v2/test',
+      element: <Test/>,
+      routes: [
+        {
+          name: '问题清单',
+          path: '/v2/test/a',
+          element: <Test/>,
+        },
+        {
+          name: '抄告单',
+          path: '/v2/test/b',
+          element: <Copy/>
+        },
+        {
+          name: '政府动议',
+          path: '/v2/test/c',
+          element: <Motion/>
+        }
+      ]
+    },
+  ]
+}
+
 const extRoutes = [
   {
     path: '/plan/:id',
@@ -174,4 +211,4 @@ function routerConcat(routes: any) {
   return result;
 }
 
-export const routesConfig = routerConcat(router.routes).concat(routerConcat(extRoutes));
+export const routesConfig = routerConcat([...router.routes, ...routerV2.routes]).concat(routerConcat(extRoutes));

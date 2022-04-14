@@ -17,6 +17,7 @@ type Props = {
   columns: ColumnDef[],
   data?: any,
   edit?: boolean,
+  column?: number,
 }
 
 export default function EditableDescriptions(props: Props) {
@@ -33,9 +34,8 @@ export default function EditableDescriptions(props: Props) {
       <Descriptions
           bordered
           style={{ background: '#fff' }}
-          column={{ sm: 2, xs: 1 }}
+          column={props.column}
           labelStyle={{ width: '10%' }}
-          contentStyle={{ width: '40%' }}
       >
         {props.columns.map((col, index) => {
               let key = col.key || (Array.isArray(col.dataIndex) ? col.dataIndex.join('_') : col.dataIndex);
