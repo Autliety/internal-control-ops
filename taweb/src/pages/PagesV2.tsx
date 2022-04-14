@@ -4,9 +4,9 @@ import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
-import { router, routesConfig } from '../utils/router';
+import { routerV2, routesConfig2 } from '../utils/router';
 
-function Pages() {
+function PagesV2() {
 
   const { auth, Provider } = useAuthProvider();
   const { pathname } = useLocation();
@@ -24,20 +24,20 @@ function Pages() {
 
           rightContentRender={() => <HeaderRight />}
 
-          title="百步镇政府督考系统"
-          route={router}
+          title="百步镇政府四责协同管理平台"
+          route={routerV2}
           location={{ pathname }}
-          menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
+          menuItemRender={(item, dom) => <Link to={'/v2' + item.path}> {dom} </Link>}
           // loading={!auth.user}
 
-          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022"/>}
+          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022" />}
       >
         <Routes>
-          {routesConfig.map((route, i) => <Route key={i} {...route} />)}
+          {routesConfig2.map((route, i) => <Route key={i} {...route} />)}
         </Routes>
       </ProLayout>
     </Provider>
   </>;
 }
 
-export default Pages;
+export default PagesV2;

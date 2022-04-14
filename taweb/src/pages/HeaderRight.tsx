@@ -1,9 +1,9 @@
 import React from 'react';
-import { Dropdown, Menu, Space, Switch } from 'antd';
+import { Dropdown, Menu, Space } from 'antd';
 import { LoginOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
-export default function HeaderRight({ isMain,onChange }) {
+export default function HeaderRight() {
   const user = { name: '管理员' };
 
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ export default function HeaderRight({ isMain,onChange }) {
 
   return <div style={{ color: 'white' }}>
     <Space>
-      <Switch defaultChecked={isMain} onChange={onChange}/>
       {/* 个人中心 */}
       <Dropdown
           placement='bottomCenter'

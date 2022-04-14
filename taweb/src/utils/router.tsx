@@ -23,9 +23,9 @@ import Users from '../pages/Department/Users';
 import Plan from '../pages/Plan';
 import Task from '../pages/Task';
 import Assessment from '../pages/Assessment';
-import Test from "../pages/Test";
-import Copy from "../pages/Test/Copy";
-import Motion from "../pages/Test/Motion";
+import Test from '../pages/Test';
+import Copy from '../pages/Test/Copy';
+import Motion from '../pages/Test/Motion';
 
 export const router = {
   routes: [
@@ -137,34 +137,44 @@ export const routerV2 = {
     {
       name: '首页',
       icon: <HomeOutlined/>,
-      path: '/v2/',
-      element: <Test/>,
+      path: '/',
+      element: <Home/>,
     },
     {
       name: '明责',
-      icon: <ProjectOutlined/>,
-      path: '/v2/test',
-      element: <Test/>,
+      icon: <ProjectOutlined />,
       routes: [
         {
           name: '问题清单',
-          path: '/v2/test/a',
-          element: <Test/>,
+          path: '/a',
+          element: <Test />,
         },
+      ],
+    },
+    {
+      name: '履责',
+      icon: <FundProjectionScreenOutlined />,
+      routes: [
         {
           name: '抄告单',
-          path: '/v2/test/b',
-          element: <Copy/>
+          path: '/b',
+          element: <Copy />,
         },
+      ],
+    },
+    {
+      name: '督责',
+      icon: <ReconciliationOutlined />,
+      routes: [
         {
           name: '政府动议',
-          path: '/v2/test/c',
-          element: <Motion/>
-        }
-      ]
+          path: '/c',
+          element: <Motion />,
+        },
+      ],
     },
-  ]
-}
+  ],
+};
 
 const extRoutes = [
   {
@@ -197,4 +207,5 @@ function routerConcat(routes: any) {
   return result;
 }
 
-export const routesConfig = routerConcat([...router.routes, ...routerV2.routes]).concat(routerConcat(extRoutes));
+export const routesConfig = routerConcat([...router.routes]).concat(routerConcat(extRoutes));
+export const routesConfig2 = routerConcat([...routerV2.routes]);
