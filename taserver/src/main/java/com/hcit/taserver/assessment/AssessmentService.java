@@ -42,7 +42,18 @@ public class AssessmentService {
   }
 
   public Assessment findById(Integer id){
-    return assessmentRepository.findById(id).orElseThrow();
+    return binddata(assessmentRepository.findById(id).orElseThrow());
+  }
+
+  private Assessment binddata(Assessment asmt){
+    var parentId = asmt.getParentId();
+    if (parentId != null) {
+      asmt.setParent(assessmentRepository.findById(parentId).orElse(null));
+    } else {
+      var children = assessmentRepository.findAllByParentId(asmt.getId());
+      asmt.setChildren(children);
+    }
+    return asmt;
   }
 
 }

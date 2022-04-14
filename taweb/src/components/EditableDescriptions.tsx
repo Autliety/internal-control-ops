@@ -34,8 +34,8 @@ export default function EditableDescriptions(props: Props) {
           bordered
           style={{ background: '#fff' }}
           column={{ sm: 2, xs: 1 }}
-          labelStyle={{ width: '10%' }}
-          contentStyle={{ width: '40%' }}
+          labelStyle={{ width: '20%' }}
+          contentStyle={{ width: '30%' }}
       >
         {props.columns.map((col, index) => {
               let key = col.key || (Array.isArray(col.dataIndex) ? col.dataIndex.join('_') : col.dataIndex);

@@ -3,6 +3,7 @@ package com.hcit.taserver.measure;
 
 import com.hcit.taserver.assessment.Assessment;
 import com.hcit.taserver.assessment.AssessmentService;
+import com.hcit.taserver.department.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlanService {
 
-  private final AssessmentService assessmentService;
   private final PlanRepository planRepository;
   private final PlanDetailRepository planDetailRepository;
+  private final AssessmentService assessmentService;
+  private final DepartmentService departmentService;
 
   public Plan findById(Integer id) {
     return planRepository.findById(id)
@@ -37,9 +39,11 @@ public class PlanService {
 
   private Plan bindData(Plan input) {
     Assessment assessment = assessmentService.findById(input.getAsmtId());
+    input.setAssessment(assessment);
     List<PlanDetail> measures = planDetailRepository.findAllByPlanId(input.getId());
     input.setDetails(measures);
-    input.setAssessment(assessment);
+    var department = departmentService.getOne(input.getDeptId());
+    input.setDepartment(department);
     return input;
   }
 
