@@ -29,6 +29,8 @@ public class Assessment {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  private String code;
+
   private String name;
 
   private BigDecimal point;
@@ -41,11 +43,6 @@ public class Assessment {
   private String standard;
 
   private String upperDepartment;
-
-  private Integer deptId;
-
-  @Transient
-  private Department department;
 
   private Integer parentId;
 

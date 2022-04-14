@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { message } from 'antd';
 
 // noinspection HttpUrlsUsage
-export const host = 'http://localhost:8080/api';
+export const host = 'http://localhost:8080';
 
 interface Config extends AxiosRequestConfig {
   initState?: any,
