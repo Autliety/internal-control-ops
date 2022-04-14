@@ -35,7 +35,7 @@ public class Plan {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private String code;
 
   private Integer asmtId;
   @Transient private Assessment assessment;

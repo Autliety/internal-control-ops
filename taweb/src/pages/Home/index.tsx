@@ -2,7 +2,6 @@ import React from 'react';
 import { Avatar, Col, List, message, Row, Statistic } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 
-import { rentStatusEnumOrigin, statusEnum } from '../../utils/nameMap';
 import PieChart from './PieChart';
 
 export default function Home() {
@@ -48,7 +47,7 @@ export default function Home() {
             <List.Item
                 key={index}
                 style={{ cursor: 'pointer' }}
-                onClick={() => message.info('跳转不了哦，再等等吧！！！')}
+                onClick={() => message.info('')}
             >
               <List.Item.Meta
                   avatar={<Avatar src='https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png'/>}
@@ -62,12 +61,12 @@ export default function Home() {
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <div className="content">
-            <PieChart title={'年度考核考评情况'} value={pieData} options={statusEnum}/>
+            <PieChart title={'年度考核考评情况'} value={pieData} options={{}} />
           </div>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <div className="content">
-            <PieChart title={'本月考核指标与计划'} value={pieData} options={rentStatusEnumOrigin}/>
+            <PieChart title={'本月考核指标与计划'} value={pieData} options={{}} />
           </div>
         </Col>
       </Row>

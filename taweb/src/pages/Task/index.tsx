@@ -1,55 +1,44 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Table } from 'antd';
-import { ColumnsType } from 'antd/lib/table/interface';
-import { ContainerOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Divider, Space, Statistic } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import PlanInfo from '../Plan/PlanInfo';
 import { useHttp } from '../../utils/request';
+import AssessmentTable from '../AssessmentList/AssessmentTable';
+import TaskInfo from './TaskInfo';
+import TaskProgress from './TaskProgress';
+import DemoUpperResponse from '../../components/DemoUpperResponse';
 
 export default function Task() {
 
-  const { state, loading } = useHttp('/task', { initState: [] });
   const navigate = useNavigate();
-
-  const columns: ColumnsType = [
-    { title: '编号', dataIndex: 'id', width: 60 },
-    {
-      title: '关联计划名称',
-      dataIndex: ['plan', 'name'],
-      render: (text, record: any) => <Button
-          type={'link'}
-          onClick={() => navigate(`/plan/${record.id}`)}
-      >{text}</Button>
-    },
-    { title: '创建时间', dataIndex: 'createdTime' },
-    { title: '最后更新时间', dataIndex: 'updatedTime' },
-    {
-      title: '详情',
-      key: 'operation',
-      width: '5%',
-      align: 'center',
-      fixed: 'right',
-      render: (_, record: any) => <Link to={`/task/${record.id}`}><ContainerOutlined/></Link>,
-    }
-  ];
+  const { id } = useParams();
+  const { state } = useHttp(`/task/${id}`);
 
   return <PageContainer
-      extra={<Button type={'primary'}>新建</Button>}
+      title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 工作进度详情</>}
+      content={<Space size={'large'}>
+        <Statistic title={'计划编号'} value={state.plan?.code} />
+        <Statistic title={'总体进度'} value={'40%'} />
+      </Space>}
   >
-    <Table
-        bordered
-        size={'small'}
-        scroll={{
-          scrollToFirstRowOnChange: true,
-          x: 1700,
-        }}
 
-        columns={columns}
-        rowKey={'id'}
+    <Divider orientation={'left'}>{'基本信息'}</Divider>
+    <TaskInfo data={state} />
 
-        dataSource={state}
-        loading={loading}
-    />
+    <Divider orientation={'left'}>{'相关计划详情'}</Divider>
+    <PlanInfo data={state.plan} />
+
+    <Divider orientation={'left'}>{'关联指标详情'}</Divider>
+    <AssessmentTable dataSource={state.plan?.assessment} />
+
+    <Divider orientation={'left'}>{'措施及进度'}</Divider>
+    <TaskProgress dataSource={state.details} />
+
+    <Divider orientation="left">审核意见</Divider>
+    <DemoUpperResponse />
+
   </PageContainer>;
 }

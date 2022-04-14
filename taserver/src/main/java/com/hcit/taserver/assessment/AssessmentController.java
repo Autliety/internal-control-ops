@@ -4,6 +4,7 @@ import com.hcit.taserver.common.View;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,7 @@ public class AssessmentController {
   * 和没有计划的指标
   * */
   @GetMapping
-  public List<Assessment> fetchAssessments(@RequestParam(required = false) Integer deptId,
-                                           @RequestParam(required = false) View view,
+  public List<Assessment> fetchAssessments(@RequestParam(required = false) View view,
                                            @RequestParam(required = false) Boolean nonPlanned) {
     if (view == View.LIST) {
       return assessmentService.findAll();
@@ -31,7 +31,11 @@ public class AssessmentController {
     } else {
       throw new UnsupportedOperationException();
     }
+  }
 
+  @GetMapping("/{id}")
+  public Assessment fetch(@PathVariable Integer id) {
+    return assessmentService.findById(id);
   }
 
 }
