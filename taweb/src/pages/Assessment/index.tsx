@@ -3,25 +3,24 @@ import { PageContainer } from '@ant-design/pro-layout';
 import AssessmentTable from '../AssessmentList/AssessmentTable';
 import { Divider, Space, Statistic } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import AssessmentInfo from './AssessmentInfo';
 import DemoDeptResponse from '../../components/DemoDeptResponse';
 import DemoUpperResponse from '../../components/DemoUpperResponse';
-import { useParams } from 'react-router-dom';
 
 export default function Assessment() {
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const { state } = useHttp(`/assessment/${id}`)
+  const { state } = useHttp(`/assessment/${id}`);
 
   return <>
     <PageContainer
-        title={<><ArrowLeftOutlined onClick={() => navigate(-1)}/> 考核指标详情</>}
+        title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 考核指标详情</>}
         content={<Space size={'large'}>
-          <Statistic title={'编号'} value={state.code || state.id}/>
-          <Statistic title={'名称'} value={state.name}/>
+          <Statistic title={'编号'} value={state.code || state.id} />
+          <Statistic title={'名称'} value={state.name} />
         </Space>}
     >
       <Divider orientation="left">基本信息</Divider>

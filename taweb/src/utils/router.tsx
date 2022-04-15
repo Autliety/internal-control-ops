@@ -41,7 +41,7 @@ export const router = {
       routes: [
         {
           name: '常规考核指标',
-          path: '/assessment',
+          path: '/assessment/basic',
           element: <AssessmentList />,
         },
         {
@@ -56,12 +56,13 @@ export const router = {
       routes: [
         {
           name: '年度工作计划',
-          path: '/plan',
+          path: '/plan/annual',
           element: <PlanList />,
         },
         {
           name: '时限工作计划',
-          path: '/plan/limitTime',
+          path: '/plan/limited',
+          element: <PlanList />,
         },
         {
           name: '无时限工作计划',

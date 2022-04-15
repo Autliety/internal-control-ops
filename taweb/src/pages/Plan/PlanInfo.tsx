@@ -8,6 +8,8 @@ export default function PlanInfo({ data }) {
     { title: '编号', dataIndex: 'code' },
     { title: '责任部门', dataIndex: ['department', 'name'] },
     { title: '措施数', dataIndex: 'details', render: value => value?.length },
+    { title: '状态', dataIndex: 'status', render: () => '已审核' },
+    { title: '总指标分值', dataIndex: ['assessment', 'point'] },
     {
       title: '计划完整度',
       dataIndex: 'progress',
