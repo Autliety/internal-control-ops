@@ -1,7 +1,7 @@
 package com.hcit.taserver.task;
 
-import com.hcit.taserver.measure.PlanDetail;
-import com.hcit.taserver.measure.PlanService;
+import com.hcit.taserver.plan.PlanDetail;
+import com.hcit.taserver.plan.PlanService;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;

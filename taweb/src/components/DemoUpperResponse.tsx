@@ -14,7 +14,7 @@ export default function DemoUpperResponse() {
 
   const data = [
     {title: '分管领导', name: '叶峰', fix: '无', response: '同意'},
-    {title: '责任领导', name: '王哲', fix: '将xxx修改为xxxx', response: '同意'},
+    {title: '责任领导', name: '王哲', fix: '将xxx修改为xxx', response: '同意'},
   ]
 
   return <>

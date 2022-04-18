@@ -1,6 +1,6 @@
 package com.hcit.taserver.task;
 
-import com.hcit.taserver.measure.Plan;
+import com.hcit.taserver.plan.Plan;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;

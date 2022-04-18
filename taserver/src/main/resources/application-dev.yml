@@ -18,5 +18,6 @@ spring:
 #      use_sql_comments: false
     defer-datasource-initialization: on
   sql.init.mode: always
+
 springfox:
   documentation.enabled: true

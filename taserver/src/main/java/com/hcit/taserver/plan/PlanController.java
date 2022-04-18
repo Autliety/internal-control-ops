@@ -1,4 +1,4 @@
-package com.hcit.taserver.measure;
+package com.hcit.taserver.plan;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

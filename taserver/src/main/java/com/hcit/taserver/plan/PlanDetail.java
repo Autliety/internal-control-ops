@@ -1,4 +1,4 @@
-package com.hcit.taserver.measure;
+package com.hcit.taserver.plan;
 
 import com.hcit.taserver.common.ValueType;
 import lombok.*;
@@ -6,17 +6,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
 public class PlanDetail {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   private Integer planId;
