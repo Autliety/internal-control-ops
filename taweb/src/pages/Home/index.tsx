@@ -1,9 +1,13 @@
 import React from 'react';
-import { Avatar, Col, List, message, Row, Statistic } from 'antd';
-import { PageContainer } from '@ant-design/pro-layout';
+import {Avatar, Col, List, message, Row, Statistic, Upload, Button} from 'antd';
+import {PageContainer} from '@ant-design/pro-layout';
 
-import { rentStatusEnumOrigin, statusEnum } from '../../utils/nameMap';
+import {rentStatusEnumOrigin, statusEnum} from '../../utils/nameMap';
 import PieChart from './PieChart';
+
+import {UploadOutlined} from '@ant-design/icons';
+import {host} from "../../utils/request";
+
 
 export default function Home() {
 
@@ -22,13 +26,27 @@ export default function Home() {
 
   // 饼状图测试数据
   const pieData = [
-    { value: 1048, name: 'PENDING' },
-    { value: 735, name: 'UNUSED' },
-    { value: 580, name: 'IN_USING' },
-    { value: 484, name: 'SCRAPPED' },
-    { value: 300, name: 'CLEANED' }
+    {value: 1048, name: 'PENDING'},
+    {value: 735, name: 'UNUSED'},
+    {value: 580, name: 'IN_USING'},
+    {value: 484, name: 'SCRAPPED'},
+    {value: 300, name: 'CLEANED'}
   ]
 
+  const props = {
+    name: 'file',
+    action: 'http://localhost:8082/file/upload',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+    },
+  };
+
+  const filename = 'testfile.png';
 
   return <div>
     <PageContainer
@@ -38,7 +56,6 @@ export default function Home() {
           <Statistic title='欢迎您' value={'管理员'}/>
         }
     >
-
       <List
           className='content'
           header='消息通知'
@@ -47,7 +64,7 @@ export default function Home() {
         {approveData.map((item, index) =>
             <List.Item
                 key={index}
-                style={{ cursor: 'pointer' }}
+                style={{cursor: 'pointer'}}
                 onClick={() => message.info('跳转不了哦，再等等吧！！！')}
             >
               <List.Item.Meta
@@ -72,7 +89,18 @@ export default function Home() {
         </Col>
       </Row>
 
+      <Upload {...props}>
+        <Button icon={<UploadOutlined/>}>Click to Upload</Button>
+      </Upload>
+
+      <Button onClick={() => {
+        window.location.href = host + `/file/download/${filename}`
+      }}>
+        click to download
+      </Button>
     </PageContainer>
+
+
   </div>;
 }
 
