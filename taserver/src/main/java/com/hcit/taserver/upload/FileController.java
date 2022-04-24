@@ -15,12 +15,12 @@ public class FileController {
   public final FileService fileService;
 
   @PostMapping("/upload") /*上传文件*/
-  public File UpLoad(@RequestParam("file")MultipartFile file,ServerProperties servlet) {
-    return fileService.upload(file,servlet);
+  public File UpLoad(@RequestParam("file") MultipartFile file, ServerProperties servlet) {
+    return fileService.upload(file, servlet);
   }
 
   @GetMapping("/download/{filename}") /*下载文件*/
-  public Resource Download(@PathVariable("filename") String filename){
+  public Resource Download(@PathVariable("filename") String filename) {
     return fileService.download(filename);
   }
 

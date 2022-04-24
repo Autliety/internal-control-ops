@@ -30,7 +30,7 @@ function Pages() {
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
           // loading={!auth.user}
 
-          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022"/>}
+          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022" />}
       >
         <Routes>
           {routesConfig.map((route, i) => <Route key={i} {...route} />)}

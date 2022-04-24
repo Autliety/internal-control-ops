@@ -41,7 +41,7 @@ public class FileService {
   }
 
   @SneakyThrows
-  public Resource download(String filename){
+  public Resource download(String filename) {
     Path file = this.paths.resolve(filename);
     UrlResource urlResource = new UrlResource(file.toUri());
     return urlResource;
