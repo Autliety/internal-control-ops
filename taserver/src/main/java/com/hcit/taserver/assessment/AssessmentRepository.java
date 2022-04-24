@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AssessmentRepository extends JpaRepository<Assessment, Integer> {
 
-  List<Assessment> findAllByDeptId(Integer deptId);
+  List<Assessment> findAllByParentId(Integer id);
 }

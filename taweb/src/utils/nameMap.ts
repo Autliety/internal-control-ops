@@ -174,35 +174,9 @@ export const purchaseStep = {
   DONE: '4',
 };
 
-export const purchaseTypesLabel = {
-  CURRENT: '单位自行采购',
-  OFFICE: '办公室统一采购',
-  TENDER: '招投标采购',
-};
-export const roleType = {
-  0: '系统管理员',
-  1: '总经理',
-  2: '单位负责人',
-  3: '资产管理员',
-  4: '用户',
-  5: '分管领导',
-  6: '出租管理员',
-  7: '采购管理员',
-  8: '财务人员',
-};
-
 // 盘点
 export const countingStatus = {
   WAITING: { label: '进行中', tag: 'processing' },
   DONE: { label: '已完成', tag: 'success' },
   CANCEL: { label: '已取消', tag: 'error' },
-}
-
-// 指标值类型
-export const assessmentValueType = {
-  MONEY: '￥',
-  PERCENT: '%',
-  AMOUNT: '件',
-  FILE: '',
-  RESULT: '',
 }

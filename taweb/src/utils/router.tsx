@@ -10,21 +10,130 @@ import {
 } from '@ant-design/icons';
 
 import Home from '../pages/Home';
-import Assessment from '../pages/Assessment';
-
+import AssessmentList from '../pages/AssessmentList';
 import NotFound from '../pages/NotFound';
 import Settings from '../pages/Settings';
-import WorkPlan from "../pages/WorkPlan";
-import WorkProcess from "../pages/WorkProcess";
-import EchoWall from "../pages/EchoWall";
-import WorkReply from "../pages/EchoWall/WorkReply";
-import Appraisal from "../pages/Appraisal";
-import Department from "../pages/Department";
-import Users from "../pages/Department/Users";
-import PlanInfo from "../pages/WorkPlan/PlanInfo";
-
+import PlanList from '../pages/PlanList';
+import TaskList from '../pages/TaskList';
+import EchoWall from '../pages/EchoWall';
+import WorkReply from '../pages/EchoWall/WorkReply';
+import Appraisal from '../pages/Appraisal';
+import Department from '../pages/Department';
+import Users from '../pages/Department/Users';
+import Plan from '../pages/Plan';
+import Task from '../pages/Task';
+import Assessment from '../pages/Assessment';
+import Test from '../pages/Test';
+import Copy from '../pages/Test/Copy';
+import Motion from '../pages/Test/Motion';
 
 export const router = {
+  routes: [
+    {
+      name: '首页',
+      icon: <HomeOutlined />,
+      path: '/',
+      element: <Home />,
+    },
+    {
+      name: '考核指标',
+      icon: <ProjectOutlined />,
+      routes: [
+        {
+          name: '常规考核指标',
+          path: '/assessment/basic',
+          element: <AssessmentList />,
+        },
+        {
+          name: '临时考核指标',
+          path: '/temporary',
+        },
+      ],
+    },
+    {
+      name: '工作计划',
+      icon: <BarsOutlined />,
+      routes: [
+        {
+          name: '年度工作计划',
+          path: '/plan/annual',
+          element: <PlanList />,
+        },
+        {
+          name: '时限工作计划',
+          path: '/plan/limited',
+          element: <PlanList />,
+        },
+        {
+          name: '无时限工作计划',
+          path: '/plan/infinite',
+        },
+      ],
+    },
+    {
+      name: '工作进度',
+      icon: <FundProjectionScreenOutlined />,
+      routes: [
+        {
+          name: '时限工作进度',
+          path: '/task',
+          element: <TaskList />,
+        },
+        {
+          name: '无时限工作进度',
+          path: '/process/infinite',
+        },
+      ],
+    },
+    {
+      name: '考评情况',
+      icon: <ReconciliationOutlined />,
+      routes: [
+        {
+          name: '计划制定考评',
+          path: '/appraisal/plan',
+        },
+        {
+          name: '实际工作考评',
+          path: '/appraisal/actual',
+        },
+      ],
+    },
+    {
+      name: '组织管理',
+      icon: <ClusterOutlined />,
+      element: <Department />,
+      routes: [
+        {
+          name: '组织架构',
+          path: '/dept/depts',
+          element: <Department />,
+        },
+        {
+          name: '员工档案',
+          path: '/dept/users',
+          element: <Users />,
+        },
+      ],
+    },
+    {
+      name: '回音壁',
+      icon: <WhatsAppOutlined />,
+      routes: [
+        {
+          name: '投诉建议',
+          path: '/wall/complaint',
+        },
+        {
+          name: '工作回复',
+          path: '/wall/reply',
+        },
+      ],
+    },
+  ],
+};
+
+export const routerV2 = {
   routes: [
     {
       name: '首页',
@@ -33,133 +142,61 @@ export const router = {
       element: <Home/>,
     },
     {
-      name: '考核指标',
-      icon: <ProjectOutlined/>,
-      path: '/assessment',
-      element: <Assessment/>,
+      name: '明责',
+      icon: <ProjectOutlined />,
       routes: [
         {
-          name: '常规考核指标',
-          path: '/assessment/convention',
-          element: <Assessment/>,
+          name: '问题清单',
+          path: '/a',
+          element: <Test />,
         },
-        {
-          name: '临时考核指标',
-          path: '/assessment/temporary',
-          element: <Assessment/>
-        }
-      ]
+      ],
     },
     {
-      name: '工作计划',
-      icon: <BarsOutlined/>,
-      path: '/plan',
-      element: <WorkPlan/>,
+      name: '履责',
+      icon: <FundProjectionScreenOutlined />,
       routes: [
         {
-          name: '年度工作计划',
-          path: '/plan/annual',
-          element: <WorkPlan/>,
+          name: '抄告单',
+          path: '/b',
+          element: <Copy />,
         },
-        {
-          name: '时限工作计划',
-          path: '/plan/limitTime',
-          element: <WorkPlan/>,
-        },
-        {
-          name: '无时限工作计划',
-          path: '/plan/infinite',
-          element: <WorkPlan/>,
-        }
-      ]
+      ],
     },
     {
-      name: '工作进度',
-      icon: <FundProjectionScreenOutlined/>,
-      path: '/process',
-      element: <WorkProcess/>,
+      name: '督责',
+      icon: <ReconciliationOutlined />,
       routes: [
         {
-          name: '时限工作进度',
-          path: '/process/limitTime',
-          element: <WorkProcess/>
+          name: '政府动议',
+          path: '/c',
+          element: <Motion />,
         },
-        {
-          name: '无时限工作进度',
-          path: '/process/infinite',
-          element: <WorkProcess/>
-        }
-      ]
-    },
-    {
-      name: '考评情况',
-      icon: <ReconciliationOutlined/>,
-      path: '/appraisal',
-      element: <Appraisal/>,
-      routes: [
-        {
-          name: '计划制定考评',
-          path: '/appraisal/plan',
-          element: <Appraisal/>,
-        },
-        {
-          name: '实际工作考评',
-          path: '/appraisal/actual',
-          element: <Appraisal/>,
-        }
-      ]
-    },
-    {
-      name: '组织管理',
-      icon: <ClusterOutlined/>,
-      path: '/dept',
-      element: <Department/>,
-      routes: [
-        {
-          name: '组织架构',
-          path: '/dept/depts',
-          element: <Department/>,
-        },
-        {
-          name: '员工档案',
-          path: '/dept/users',
-          element: <Users/>,
-        },
-      ]
-    },
-    {
-      name: '回音壁',
-      icon: <WhatsAppOutlined/>,
-      path: '/wall',
-      element: <EchoWall/>,
-      routes: [
-        {
-          name: '投诉建议',
-          path: '/wall/complaint',
-          element: <EchoWall/>
-        },
-        {
-          name: '工作回复',
-          path: '/wall/reply',
-          element: <WorkReply/>
-        }
-      ]
+      ],
     },
   ],
 };
 
 const extRoutes = [
   {
+    path: '/assessment/:id',
+    element: <Assessment />,
+  },
+  {
     path: '/plan/:id',
-    element: <PlanInfo/>,
+    element: <Plan />,
+  },
+  {
+    path: '/task/:id',
+    element: <Task />,
   },
   {
     path: '/admin/settings',
-    element: <Settings/>,
+    element: <Settings />,
   },
   {
     path: '*',
-    element: <NotFound/>,
+    element: <NotFound />,
   },
 ];
 
@@ -171,4 +208,5 @@ function routerConcat(routes: any) {
   return result;
 }
 
-export const routesConfig = routerConcat(router.routes).concat(routerConcat(extRoutes));
+export const routesConfig = routerConcat([...router.routes]).concat(routerConcat(extRoutes));
+export const routesConfig2 = routerConcat([...routerV2.routes]);

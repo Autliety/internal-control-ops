@@ -20,6 +20,10 @@ public class DepartmentService {
     return departmentRepository.findAll().stream().collect(Collectors.toMap(Department::getId, Function.identity()));
   }
 
+  public List<Department> findAll() {
+    return departmentRepository.findAll();
+  }
+
   public List<Department> getTree() {
     var map = getMap();
 

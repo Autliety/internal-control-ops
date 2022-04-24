@@ -22,6 +22,5 @@ public class UserStation {
 
   private Integer userId;
 
-
   private Integer stationId;
 }

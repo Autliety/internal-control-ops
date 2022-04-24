@@ -25,22 +25,18 @@ public class UserService {
     var users = userRepository.findAll();  //用户表
     var stations = stationRepository.findAll().stream().collect(Collectors.toMap(Station::getId, Function.identity()));  //岗位表
     var relationship = userStationRepository.findAll();   //用户岗位表
-    users.forEach(user -> {
-      user.setStations(relationship.stream()
-          .filter(r -> user.getId().equals(r.getUserId()))
-          .map(UserStation::getStationId)
-          .map(stations::get)
-          .collect(Collectors.toList()));
-    });
+    users.forEach(user -> user.setStations(relationship.stream()
+        .filter(r -> user.getId().equals(r.getUserId()))
+        .map(UserStation::getStationId)
+        .map(stations::get)
+        .collect(Collectors.toList())));
     return users;
   }
 
   public Collection<User> findAllByDeptId(Integer deptId) {
     Collection<User> users = userRepository.findAllByDeptId(deptId);
     Department department = departmentService.getOne(deptId);
-    users.forEach(user -> {
-      user.setDepartment(department);
-    });
+    users.forEach(user -> user.setDepartment(department));
     return users;
   }
 }
