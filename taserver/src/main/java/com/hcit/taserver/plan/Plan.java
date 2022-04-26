@@ -1,10 +1,13 @@
 package com.hcit.taserver.plan;
 
 import com.hcit.taserver.assessment.Assessment;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,12 +24,9 @@ import org.hibernate.annotations.UpdateTimestamp;
  * 措施
  * 只用于关联外键，进行查询
  * 比如查询某措施是否存在计划
- * */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+ */
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
 public class Plan {
@@ -36,6 +36,9 @@ public class Plan {
   private Integer id;
 
   private String code;
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
   private Integer asmtId;
   @Transient private Assessment assessment;
@@ -50,4 +53,5 @@ public class Plan {
 
   @Transient
   private List<PlanDetail> details;
+
 }

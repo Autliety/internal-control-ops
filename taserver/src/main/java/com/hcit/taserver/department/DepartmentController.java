@@ -24,5 +24,4 @@ public class DepartmentController {
       return departmentService.getTree();
     }
   }
-
 }

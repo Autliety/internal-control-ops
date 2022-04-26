@@ -39,7 +39,7 @@ export default function TopicInfo({ isEdit, data, onChange }: Props) {
       </Select>,
     },
     {
-      title: '参会人员',
+      title: '议题编写人',
       dataIndex: 'meetingUser',
       renderFormItem: () => <Select
           placeholder={'请选择'}

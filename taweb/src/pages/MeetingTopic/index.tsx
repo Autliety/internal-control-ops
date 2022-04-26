@@ -6,14 +6,15 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import TopicInfo from './TopicInfo';
 import MeetingContent from './TopicContent';
 import TopicTask from './TopicTask';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
-export default function Topic() {
+export default function MeetingTopic() {
 
   //测试数据
   const data: any = {
     id: 1,
-    principal: '妇联',
-    meetingUser: '王哲',
+    principal: '纪委',
+    meetingUser: '李勤根',
     startTime: '2021-12-21',
     placement: '会议室202',
     content: [
@@ -46,16 +47,16 @@ export default function Topic() {
   const [contentData, setContentData] = React.useState(isCreate ? [] : data.content);
 
   return <PageContainer
-      title={'议题信息'}
+      title={<><ArrowLeftOutlined onClick={() => navigate(-1)}/> 议题编写</>}
   >
-    <Divider orientation={'left'}>会议信息</Divider>
+    <Divider orientation={'left'}>基本信息</Divider>
     <TopicInfo
         isEdit={isEdit || isCreate}
         data={infoData}
         onChange={setInfoData}
     />
 
-    <Divider orientation={'left'}>议题内容概述</Divider>
+    <Divider orientation={'left'}>议题内容</Divider>
     <MeetingContent
         isEdit={isEdit || isCreate}
         data={contentData}

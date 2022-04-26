@@ -15,7 +15,7 @@ export default function TopicContent({ isEdit, data, onChange }: Props) {
 
   const columns: ProColumns[] = [
     {
-      title: '职责任务概述',
+      title: '议题内容',
       dataIndex: 'content',
       renderFormItem: () => <Input placeholder={'任务内容'}/>
     },
@@ -54,7 +54,6 @@ export default function TopicContent({ isEdit, data, onChange }: Props) {
         })}
         scroll={{
           scrollToFirstRowOnChange: true,
-          x: 1700,
         }}
         value={data}
         onChange={onChange}

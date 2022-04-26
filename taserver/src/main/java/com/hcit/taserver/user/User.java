@@ -25,10 +25,12 @@ public class User {
 
   private String name;
 
-  private Integer deptId;
+  private String phone;
 
-  @Transient
-  private Department department;
+  private String tel;
+
+  private Integer deptId;
+  @Transient private Department department;
 
   @Transient
   private List<Station> stations;
