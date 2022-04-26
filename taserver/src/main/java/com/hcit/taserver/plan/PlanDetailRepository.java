@@ -7,5 +7,7 @@ import java.util.List;
 
 @Repository
 public interface PlanDetailRepository extends JpaRepository<PlanDetail,Integer> {
+
   List<PlanDetail> findAllByPlanId(Integer id);
+
 }

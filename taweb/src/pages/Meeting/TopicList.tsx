@@ -8,8 +8,11 @@ export default function TopicList() {
   const navigate = useNavigate();
 
   const columns: ColumnsType = [
-    { title: '议题填写人员', dataIndex: 'name' },
-    { title: '完成时间', dataIndex: 'time' },
+    { title: '责任主体', dataIndex: 'department' },
+    { title: '议题编写人', dataIndex: 'name' },
+    { title: '审核状态', dataIndex: 'status' },
+    { title: '议题数量', dataIndex: 'count' },
+    { title: '最后更新时间', dataIndex: 'time' },
     {
       title: '详情',
       dataIndex: 'operation',
@@ -17,7 +20,7 @@ export default function TopicList() {
           type={'primary'}
           icon={<ContainerOutlined/>}
           size={'small'}
-          onClick={() => navigate(`/v2/topic/${record.id}`)}
+          onClick={() => navigate(`/v2/meeting/${record.id}/topic`)}
       />,
       fixed: 'right',
       width: 80,
@@ -26,8 +29,8 @@ export default function TopicList() {
   ];
 
   const data = [
-    { id: 1, name: '王哲', time: '2022-02-23' },
-    { id: 2, name: '赵小龙', time: '2022-02-22' },
+    { id: 1, department: '纪委', name: '李勤根', status: '已完成', count: 2, time: '2022-02-23' },
+    { id: 2, department: '领导干部', name: '赵小龙', status: '待审', time: '2022-02-22' },
   ];
 
   return <>

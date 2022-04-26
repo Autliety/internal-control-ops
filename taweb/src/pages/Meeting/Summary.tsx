@@ -1,27 +1,29 @@
 import React from 'react';
 import { Divider, List, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
+import MeetingInfo from './MeetingInfo';
 
-import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
-
-export default function TopicSummaryInfo() {
+export default function Summary() {
 
   const data = {
     info: {
-      principal: '党委',
-      startTime: '2022-04-21',
+      code: 'HY001',
+      name: '百步镇党委全面从严治党2021年度 “1” 专题会议',
+      type: '"1"专题会议',
+      department: '党委',
+      startTime: '2022-04-21 12:00:00',
       placement: '行政楼会议室405',
     },
     user: [
-      { dept: '领导班子', name: '吴胜杰', station: '经办人' },
-      { dept: '领导班子', name: '赵小龙', station: '经办人' },
-      { dept: '领导班子', name: '吴玉明', station: '经办人' },
-      { dept: '领导班子', name: '李勤根', station: '经办人' },
-      { dept: '领导班子', name: '任凯波', station: '经办人' },
-      { dept: '领导班子', name: '王哲', station: '经办人' },
-      { dept: '领导班子', name: '王玲敏', station: '镇长' },
-      { dept: '领导班子', name: '沈伟华', station: '党委书记' },
-      { dept: '党建工作办公室', name: '刘晓东', station: '部门负责人' },
+      {  name: '吴胜杰'},
+      {  name: '赵小龙'},
+      {  name: '吴玉明'},
+      {  name: '李勤根'},
+      {  name: '任凯波'},
+      {  name: '王哲'},
+      {  name: '王玲敏'},
+      {  name: '沈伟华'},
+      {  name: '刘晓东'},
     ],
     topic: [
       { id: 1, topic: '讨论研究百步镇‘十四五”农村生活污水治理工作实施方案', attribution: '党政综合办公室' },
@@ -55,11 +57,6 @@ export default function TopicSummaryInfo() {
     ]
   }
 
-  const InfoColumns: ColumnDef[] = [
-    { title: '责任主体', dataIndex: 'principal' },
-    { title: '会议时间', dataIndex: 'startTime' },
-    { title: '会议地点', dataIndex: 'placement' },
-  ];
 
   const topicColumns: ColumnsType = [
     { title: '序号', dataIndex: 'id', width: 80 },
@@ -69,21 +66,17 @@ export default function TopicSummaryInfo() {
 
   return <>
     <Divider orientation={'left'}>会议信息</Divider>
-    <EditableDescriptions isEdit={false} columns={InfoColumns} data={data.info}/>
+    <MeetingInfo data={data.info} />
 
     <Divider orientation={'left'}>参会人员</Divider>
     <List
-        grid={{ gutter: 16, column: 5 }}
+        grid={{ gutter: 16, column: 10 }}
         dataSource={data.user}
         renderItem={item => (
             <List.Item>
               <List.Item>
                 <div className={'content'}>
                   {item.name}
-                  <Divider type={'vertical'}/>
-                  {item.dept}
-                  <Divider type={'vertical'}/>
-                  {item.station}
                 </div>
               </List.Item>
             </List.Item>
