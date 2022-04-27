@@ -11,7 +11,7 @@ import {
 import { ColumnsType } from 'antd/lib/table/interface';
 import { useNavigate } from 'react-router-dom';
 
-export default function ResponsibilityList() {
+export default function MatterList() {
 
   const navigate = useNavigate();
 
