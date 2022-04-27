@@ -7,7 +7,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
-export default function Responsibility() {
+export default function Matter() {
 
   const navigate = useNavigate();
   const [editableKeys, setEditableRowKeys] = React.useState([]);

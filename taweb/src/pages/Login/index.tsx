@@ -4,17 +4,26 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Divider, Row } from 'antd';
 
 import logo from '../../image/logo.png';
+import bg from '../../image/bg.png';
 
 export default function Login() {
 
-  return <div>
-    <Row style={{ paddingTop: 130 }} align={'middle'}>
+  return <div
+      style={{
+        height: '100%',
+        backgroundImage: `url(${bg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: 'center'
+      }}>
+    <Row style={{ paddingTop: 150 }} align={'middle'}>
 
-      <Col span={6}/>
-      <Col span={6}>
-
-      </Col>
-      <Col span={6} className={'content'}>
+      <Col span={14}/>
+      <Col
+          span={6}
+          className={'loginStyle'}
+          style={{}}
+      >
         <LoginForm
             logo={logo}
             title='百步区政府'
@@ -26,8 +35,9 @@ export default function Login() {
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={'prefixIcon'}/>,
+                bordered: false,
               }}
-              placeholder={'用户名'}
+              placeholder={' 用户名'}
               rules={[
                 {
                   required: true,
@@ -35,13 +45,16 @@ export default function Login() {
                 },
               ]}
           />
+          <Divider/>
+
           <ProFormText.Password
               name='password'
               fieldProps={{
                 size: 'large',
                 prefix: <LockOutlined className={'prefixIcon'}/>,
+                bordered: false,
               }}
-              placeholder={'密码'}
+              placeholder={' 密码'}
               rules={[
                 {
                   required: true,
@@ -49,14 +62,16 @@ export default function Login() {
                 },
               ]}
           />
+          <Divider/>
 
           <ProFormText
               name='username'
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={'prefixIcon'}/>,
+                bordered: false,
               }}
-              placeholder={'验证码'}
+              placeholder={' 验证码'}
               rules={[
                 {
                   required: true,
@@ -64,16 +79,16 @@ export default function Login() {
                 },
               ]}
           />
+          <Divider/>
 
           <div>
             <a style={{ float: 'right', }}>
               忘记密码
             </a>
           </div>
-          <Divider/>
         </LoginForm>
       </Col>
-      <Col span={6}/>
+      <Col span={4}/>
     </Row>
 
   </div>;
