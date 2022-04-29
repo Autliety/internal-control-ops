@@ -82,13 +82,13 @@ export default function MeasureInfo() {
 
       <Radio.Group onChange={e => setRadioValue(e.target.value)} value={radioValue}>
         <Radio value={'1'}>新建措施</Radio>
-        <Radio value={'2'}>选择已有措施</Radio>
+        <Radio value={'2'}>引用已有措施</Radio>
       </Radio.Group>
       <Divider/>
 
       <ProForm.Group>
         <ProFormText width='md' name='principal' label='责任主体' initialValue={'领导班子'} disabled/>
-        <ProFormText width='md' name='detail' label='问题内容' initialValue={'请销假制度监管不严格'} disabled/>
+        <ProFormText width='md' name='matter' label='问题内容' initialValue={'请销假制度监管不严格'} disabled/>
       </ProForm.Group>
 
       {
@@ -125,10 +125,10 @@ export default function MeasureInfo() {
             : <ProFormSelect
                 width='xl'
                 options={[
-                  { value: '1', label: '已有措施001' },
-                  { value: '2', label: '已有措施002' },
+                  { value: '已有措施001', label: '已有措施001' },
+                  { value: '已有措施002', label: '已有措施002' },
                 ]}
-                name='tempId'
+                name='measure'
                 label='请选择'
             />
       }
