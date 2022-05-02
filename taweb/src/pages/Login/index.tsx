@@ -4,18 +4,10 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Divider, Row } from 'antd';
 
 import logo from '../../image/logo.png';
-import bg from '../../image/bg.png';
 
 export default function Login() {
 
-  return <div
-      style={{
-        height: '100%',
-        backgroundImage: `url(${bg})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: 'center'
-      }}>
+  return <div className={'bgStyle'}>
     <Row style={{ paddingTop: 150 }} align={'middle'}>
 
       <Col span={14}/>

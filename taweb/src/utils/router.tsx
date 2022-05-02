@@ -27,6 +27,8 @@ import MeetingList from '../pages/MeetingList';
 import Meeting from '../pages/Meeting';
 import MeetingTopic from "../pages/MeetingTopic";
 import Measure from "../pages/Measure";
+import TemporaryMatter from "../pages/Matter/TemporaryMatter";
+import Copy from "../pages/MatterList/Copy";
 
 export const router = {
   routes: [
@@ -151,7 +153,7 @@ export const routerV2 = {
     {
       name: '问题清单',
       icon: <ProjectOutlined/>,
-      path: '/responsibility',
+      path: '/matter',
       element: <MatterList/>,
     },
     {
@@ -163,6 +165,8 @@ export const routerV2 = {
     {
       name: '履责情况',
       icon: <ReconciliationOutlined/>,
+      path: '/copy',
+      element: <Copy/>
     }
   ],
 };
@@ -189,8 +193,12 @@ const extRoutes = [
     element: <MeetingTopic/>,
   },
   {
-    path: '/responsibility/:id',
+    path: '/matter/:id',
     element: <Matter/>,
+  },
+  {
+    path: '/matter/temporary',
+    element: <TemporaryMatter/>,
   },
   {
     path: '/admin/settings',

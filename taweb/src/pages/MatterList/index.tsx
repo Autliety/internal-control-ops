@@ -29,14 +29,14 @@ export default function MatterList() {
         <Tooltip title={'查看详情'}>
           <Button
               type={'primary'}
-              icon={<ContainerOutlined />}
+              icon={<ContainerOutlined/>}
               size={'small'}
-              onClick={() => navigate(`/v2/responsibility/${record.id}`)}
+              onClick={() => navigate(`/v2/matter/${record.id}`)}
           />
         </Tooltip>
         <Tooltip title={'查看会议议题'}>
           <Button
-              icon={<TeamOutlined />}
+              icon={<TeamOutlined/>}
               size={'small'}
               onClick={() => navigate(`/v2/meeting/${record.id}`)}
           />
@@ -52,29 +52,30 @@ export default function MatterList() {
     { code: 'WT001', year: '2021', type: '日常监督检查', count: 3, status: '未指派' },
     { code: 'WT002', year: '2021', type: '审计', count: 2, status: '未指派' },
     { code: 'WT003', year: '2021', type: '信访调查', count: 4, status: '已完成' },
-  ]
+  ];
 
   return <PageContainer
       title={'问题清单'}
       extra={
         <Space size={'middle'}>
-          <Button type={'primary'}><PlusSquareOutlined />创建清单</Button>
-          <Button type={'primary'}><ImportOutlined />导入模板</Button>
+          <Button type={'primary'} onClick={() => navigate('/v2/matter/temporary')}>临时问题清单</Button>
+          <Button type={'primary'}><PlusSquareOutlined/>创建清单</Button>
+          <Button type={'primary'}><ImportOutlined/>导入模板</Button>
         </Space>
       }
   >
     <Space>
-      <Select defaultValue={0} dropdownMatchSelectWidth={150} >
+      <Select defaultValue={0} dropdownMatchSelectWidth={150}>
         <Select.Option value={0}>全部</Select.Option>
         <Select.Option value={1}>按问题类型分类</Select.Option>
         <Select.Option value={2}>按责任主体分类</Select.Option>
         <Select.Option value={3}>个人</Select.Option>
       </Select>
-      <Input.Search placeholder={'搜索'} enterButton />
-      <Button><FileSearchOutlined />精确查找</Button>
+      <Input.Search placeholder={'搜索'} enterButton/>
+      <Button><FileSearchOutlined/>精确查找</Button>
     </Space>
 
-    <Divider />
+    <Divider/>
     <Table
         rowKey={'id'}
         bordered
