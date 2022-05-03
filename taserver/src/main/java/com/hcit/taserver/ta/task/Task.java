@@ -1,7 +1,7 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.ta.task;
 
-import com.hcit.taserver.department.Department;
-import com.hcit.taserver.ta.station.Station;
+import com.hcit.taserver.ta.plan.Plan;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,26 +13,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class User {
+public class Task {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private Integer planId;
+  @Transient
+  private Plan plan;
 
-  private String phone;
-
-  private String tel;
-
-  private Integer deptId;
-  @Transient private Department department;
+  @CreationTimestamp
+  private LocalDateTime createTime;
+  @UpdateTimestamp
+  private LocalDateTime updateTime;
 
   @Transient
-  private List<Station> stations;
-
+  private List<TaskDetail> details;
 }

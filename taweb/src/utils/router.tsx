@@ -26,7 +26,7 @@ import Matter from "../pages/Matter";
 import MeetingList from '../pages/MeetingList';
 import Meeting from '../pages/Meeting';
 import MeetingTopic from "../pages/MeetingTopic";
-import Measure from "../pages/Measure";
+import MeasureList from "../pages/MeasureList";
 import TemporaryMatter from "../pages/Matter/TemporaryMatter";
 import Copy from "../pages/MatterList/Copy";
 
@@ -160,7 +160,7 @@ export const routerV2 = {
       name: '措施清单',
       icon: <BarsOutlined/>,
       path: '/measure',
-      element: <Measure/>
+      element: <MeasureList/>
     },
     {
       name: '履责情况',

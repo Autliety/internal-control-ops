@@ -1,8 +1,7 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.ta.task;
 
-import com.hcit.taserver.department.Department;
-import com.hcit.taserver.ta.station.Station;
-import java.util.List;
+import com.hcit.taserver.ta.plan.PlanDetail;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,21 +17,24 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class User {
+public class TaskDetail {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private Integer taskId;
 
-  private String phone;
-
-  private String tel;
-
-  private Integer deptId;
-  @Transient private Department department;
+  private Integer planDetailId;
 
   @Transient
-  private List<Station> stations;
+  private PlanDetail planDetail;
 
+  private String value;
+
+  private String remark;
+
+  private LocalDateTime startTime;
+
+  private LocalDateTime endTime;
 }
+

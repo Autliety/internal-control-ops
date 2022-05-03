@@ -2,8 +2,8 @@ package com.hcit.taserver.user;
 
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.DepartmentService;
-import com.hcit.taserver.station.Station;
-import com.hcit.taserver.station.StationRepository;
+import com.hcit.taserver.ta.station.Station;
+import com.hcit.taserver.ta.station.StationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

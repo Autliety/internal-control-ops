@@ -1,27 +1,24 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Divider, Input, Select, Space, Table, Tooltip } from 'antd';
-import {
-  ContainerOutlined,
-  FileSearchOutlined,
-  ImportOutlined,
-  PlusSquareOutlined,
-  TeamOutlined,
-} from '@ant-design/icons';
+import { Button, Divider, Input, Select, Space, Tooltip } from 'antd';
+import { ContainerOutlined, FileSearchOutlined, PlusSquareOutlined, PrinterOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/lib/table/interface';
 import { useNavigate } from 'react-router-dom';
+import BaseTable from '../../components/BaseTable';
+import { useHttp } from '../../utils/request';
 
 export default function MatterList() {
 
   const navigate = useNavigate();
 
+  const { state, loading } = useHttp('/matter', {initState: []});
+
   const columns: ColumnsType = [
     { title: '编号', dataIndex: 'code' },
-    { title: '责任主体', dataIndex: 'department', render: () => '党委' },
-    { title: '责任年度', dataIndex: 'year' },
+    { title: '问题概述', dataIndex: 'name' },
     { title: '问题类型', dataIndex: 'type' },
-    { title: '问题数量', dataIndex: 'count' },
-    { title: '指派状态', dataIndex: 'status' },
+    { title: '问题来源', dataIndex: 'origin' },
+    { title: '责任主体', dataIndex: ['department', 'name'] },
     {
       title: '操作',
       dataIndex: 'operation',
@@ -29,58 +26,43 @@ export default function MatterList() {
         <Tooltip title={'查看详情'}>
           <Button
               type={'primary'}
-              icon={<ContainerOutlined/>}
+              icon={<ContainerOutlined />}
               size={'small'}
-              onClick={() => navigate(`/v2/matter/${record.id}`)}
-          />
-        </Tooltip>
-        <Tooltip title={'查看会议议题'}>
-          <Button
-              icon={<TeamOutlined/>}
-              size={'small'}
-              onClick={() => navigate(`/v2/meeting/${record.id}`)}
+              onClick={() => navigate(`${record.id}`)}
           />
         </Tooltip>
       </Space>,
       fixed: 'right',
-      width: 80,
+      width: 40,
       align: 'center',
     },
-  ];
-
-  const data = [
-    { code: 'WT001', year: '2021', type: '日常监督检查', count: 3, status: '未指派' },
-    { code: 'WT002', year: '2021', type: '审计', count: 2, status: '未指派' },
-    { code: 'WT003', year: '2021', type: '信访调查', count: 4, status: '已完成' },
   ];
 
   return <PageContainer
       title={'问题清单'}
       extra={
         <Space size={'middle'}>
-          <Button type={'primary'} onClick={() => navigate('/v2/matter/temporary')}>临时问题清单</Button>
-          <Button type={'primary'}><PlusSquareOutlined/>创建清单</Button>
-          <Button type={'primary'}><ImportOutlined/>导入模板</Button>
+          <Button ><PrinterOutlined />打印清单</Button>
+          <Button type={'primary'}><PlusSquareOutlined />添加问题</Button>
         </Space>
       }
   >
     <Space>
-      <Select defaultValue={0} dropdownMatchSelectWidth={150}>
+      <Select defaultValue={0} dropdownMatchSelectWidth={200}>
         <Select.Option value={0}>全部</Select.Option>
-        <Select.Option value={1}>按问题类型分类</Select.Option>
-        <Select.Option value={2}>按责任主体分类</Select.Option>
+        <Select.Option value={1}>党委</Select.Option>
+        <Select.Option value={2}>xx站办</Select.Option>
         <Select.Option value={3}>个人</Select.Option>
       </Select>
-      <Input.Search placeholder={'搜索'} enterButton/>
-      <Button><FileSearchOutlined/>精确查找</Button>
+      <Input.Search placeholder={'搜索'} enterButton />
+      <Button><FileSearchOutlined />精确查找</Button>
     </Space>
 
-    <Divider/>
-    <Table
-        rowKey={'id'}
-        bordered
+    <Divider />
+    <BaseTable
+        loading={loading}
         columns={columns}
-        dataSource={data}
+        dataSource={state}
     />
 
   </PageContainer>;

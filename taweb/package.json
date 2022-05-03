@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-card": "^1.19.5",
-    "@ant-design/pro-descriptions": "^1.10.64",
+    "@ant-design/pro-descriptions": "^1.10.69",
     "@ant-design/pro-form": "^1.62.1",
     "@ant-design/pro-layout": "^6.33.0",
     "@ant-design/pro-table": "^2.71.4",
