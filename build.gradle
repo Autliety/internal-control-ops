@@ -8,7 +8,8 @@ task cleanup(type: Delete) {
 }
 
 task copyWeb(type: Copy) {
-  dependsOn(':taweb:npm_run_build')
+  dependsOn(':taweb:npm_run_build', ':frweb:npm_run_build')
+  // todo product build
   from 'amweb/build'
   into 'taserver/src/main/resources/public'
 }

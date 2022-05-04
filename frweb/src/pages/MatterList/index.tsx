@@ -20,7 +20,6 @@ export default function MatterList() {
     { title: '问题来源', dataIndex: 'origin' },
     { title: '责任主体', dataIndex: ['department', 'name'] },
     {
-      title: '操作',
       dataIndex: 'operation',
       render: (_, record: any) => <Space>
         <Tooltip title={'查看详情'}>
@@ -28,12 +27,12 @@ export default function MatterList() {
               type={'primary'}
               icon={<ContainerOutlined />}
               size={'small'}
-              onClick={() => navigate(`${record.id}`)}
+              onClick={() => navigate(`/matter/${record.id}`)}
           />
         </Tooltip>
       </Space>,
       fixed: 'right',
-      width: 40,
+      width: 50,
       align: 'center',
     },
   ];

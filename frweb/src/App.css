@@ -1,0 +1,46 @@
+@import '~antd/dist/antd.css';
+@import '~@ant-design/pro-layout/dist/layout.css';
+@import '~@ant-design/pro-form/dist/form.css';
+@import '~@ant-design/pro-descriptions/dist/descriptions.css';
+@import '~@ant-design/pro-table/dist/table.css';
+@import '~@ant-design/pro-card/dist/card.css';
+
+.App {
+  height: 100vh;
+}
+
+.content {
+  background-color: white;
+  padding: 10px;
+}
+
+.bgStyle {
+  height: 100%;
+  background: linear-gradient(#b1e0fa, #ebeef2);
+}
+
+.loginStyle {
+  background: rgba(255, 255, 255, .3);
+}
+
+.content-area {
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+}
+
+.light-row {
+  background-color: rgb(227, 243, 242);
+}
+
+.dark-row {
+  background-color: white;
+}
+
+.ant-upload-list-picture-card-container {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  margin: 0 8px 8px 0;
+  vertical-align: top;
+}
