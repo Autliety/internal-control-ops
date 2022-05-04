@@ -1,11 +1,12 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Input, Select, Space, Tooltip } from 'antd';
-import { ContainerOutlined, FileSearchOutlined, PlusSquareOutlined, PrinterOutlined } from '@ant-design/icons';
+import { ContainerOutlined, FileSearchOutlined, PrinterOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/lib/table/interface';
 import { useNavigate } from 'react-router-dom';
 import BaseTable from '../../components/BaseTable';
 import { useHttp } from '../../utils/request';
+import MatterPartingModal from './MatterPartingModal';
 
 export default function MatterList() {
 
@@ -42,7 +43,7 @@ export default function MatterList() {
       extra={
         <Space size={'middle'}>
           <Button ><PrinterOutlined />打印清单</Button>
-          <Button type={'primary'}><PlusSquareOutlined />添加问题</Button>
+          <MatterPartingModal dataSource={state} />
         </Space>
       }
   >

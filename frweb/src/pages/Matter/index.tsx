@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import MeasureTable from '../MeasureList/MeasureTable';
-import BaseDescriptions from '../../components/BaseDescriptions';
+import MatterInfo from './MatterInfo';
 
 export default function Matter() {
 
@@ -14,16 +14,6 @@ export default function Matter() {
   const { id } = useParams();
 
   const { state, loading } = useHttp(`/matter/${id}`);
-
-  const matterColumns = [
-    { title: '编号', dataIndex: 'code' },
-    { title: '问题概述', dataIndex: 'name' },
-    { title: '问题内容', dataIndex: 'content', span: 2 },
-    { title: '问题类型', dataIndex: 'type' },
-    { title: '问题来源', dataIndex: 'origin' },
-    { title: '责任主体', dataIndex: ['department', 'name'] },
-    { title: '更新时间', dataIndex: 'updateTime' },
-  ];
 
   return <PageContainer
       title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 问题清单</>}
@@ -35,10 +25,7 @@ export default function Matter() {
   >
 
     <Divider orientation={'left'}>问题详情</Divider>
-    <BaseDescriptions
-        columns={matterColumns}
-        dataSource={state}
-    />
+    <MatterInfo dataSource={state} />
     <DemoFileDownload />
 
     <Divider orientation={'left'}>措施清单</Divider>

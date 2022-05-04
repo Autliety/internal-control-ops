@@ -1,10 +1,10 @@
 import React from 'react';
-import { ColumnsType } from 'antd/lib/table/interface';
 import { useHttp } from '../../utils/request';
 import BaseTable from '../../components/BaseTable';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { measureColumns } from '../Measure/MeasureInfo';
 
 type Props = {
   dataSource?: object[],
@@ -15,18 +15,14 @@ type Props = {
 
 export default function MeasureTable({ dataSource }: Props) {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { state } = useHttp('/measure', { initState: [], isManual: !!dataSource });
 
-  const columns: ColumnsType = [
-    { title: '编号', dataIndex: 'code' },
-    { title: '工作措施', dataIndex: 'content' },
-    { title: '责任人', dataIndex: ['user', 'name'] },
-    { title: '开始时间', dataIndex: 'startTime' },
-    { title: '结束时间', dataIndex: 'endTime' },
+  const columns = measureColumns
+  .concat([
     {
-      dataIndex: 'operation',
+      key: 'operation',
       render: (_, record: any) => <Space>
         <Tooltip title={'查看详情'}>
           <Button
@@ -40,8 +36,8 @@ export default function MeasureTable({ dataSource }: Props) {
       fixed: 'right',
       width: 50,
       align: 'center',
-    }
-  ];
+    },
+  ]);
 
   return <>
     <BaseTable

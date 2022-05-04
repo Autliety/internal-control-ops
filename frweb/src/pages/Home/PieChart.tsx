@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 
-export default function AssetPieChart({ title }) {
+export default function PieChart({ title }) {
 
   const option = {
     title: {

@@ -1,52 +1,20 @@
 import React from 'react';
-import { Button, Descriptions, Divider, List, message } from 'antd';
+import BaseDescriptions from '../../components/BaseDescriptions';
 
-export default function MeasureInfo() {
+export const measureColumns: object[] = [
+  { title: '编号', dataIndex: 'code' },
+  { title: '责任人', dataIndex: ['user', 'name'] },
+  { title: '工作措施', dataIndex: 'content', span: 2 },
+  { title: '开始时间', dataIndex: 'startTime' },
+  { title: '结束时间', dataIndex: 'endTime' },
+];
 
-  const data = [
-    {
-      id: 1,
-      isExist: false,
-      measure: '利用政务公开栏，向社会公开全办的政务情况。',
-      principalOrg: '领导班子',
-      principalUser: '吴胜杰',
-      startTime: '2022-04-21',
-      endTime: '2022-06-21',
-    },
-    {
-      id: 2,
-      isExist: false,
-      measure: '深入基层开展普法活动。',
-      principalOrg: '领导班子',
-      principalUser: '赵小龙',
-      startTime: '2022-04-21',
-      endTime: '2022-06-21',
-    },
-  ];
+export default function MeasureInfo({ dataSource }) {
 
-  return <
-  >
-    <List
-        className={'content'}
-        itemLayout={'vertical'}
-        header={'措施列表'}
-        dataSource={data}
-        renderItem={item => (
-            <List.Item extra={<Button type={'link'} onClick={() => message.warning('先不要编辑！')}>编辑</Button>}>
-              <Descriptions layout='vertical' column={5} colon={false}>
-                <Descriptions.Item span={3} label={<span style={{ color: '#918d8c' }}>措施内容</span>}>
-                  {item.measure}
-                </Descriptions.Item>
-                <Descriptions.Item label={<span style={{ color: '#918d8c' }}>责任人 | 部门</span>}>
-                  {item.principalUser}<Divider type={'vertical'}/>{item.principalOrg}
-                </Descriptions.Item>
-                <Descriptions.Item label={<span style={{ color: '#918d8c' }}>起止时间</span>}>
-                  {item.startTime}<Divider type={'vertical'}/>{item.endTime}
-                </Descriptions.Item>
-              </Descriptions>
-            </List.Item>
-        )}
+  return <>
+    <BaseDescriptions
+        columns={measureColumns}
+        dataSource={dataSource}
     />
-
   </>;
 }

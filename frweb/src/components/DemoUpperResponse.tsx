@@ -1,6 +1,7 @@
 import React from 'react';
 import { ColumnsType } from 'antd/lib/table/interface';
-import { Table, Tag } from 'antd';
+import { Tag } from 'antd';
+import BaseTable from './BaseTable';
 
 export default function DemoUpperResponse() {
 
@@ -18,14 +19,8 @@ export default function DemoUpperResponse() {
   ]
 
   return <>
-    <Table
-        bordered
-        scroll={{ x: 'max-content' }}
-        pagination={false}
-
+    <BaseTable
         columns={columns}
-        rowKey={'id'}
-
         dataSource={data}
     />
   </>;

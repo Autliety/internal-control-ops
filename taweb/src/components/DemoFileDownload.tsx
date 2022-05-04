@@ -12,7 +12,7 @@ export default function DemoFileDownload() {
     { title: '更新时间', dataIndex: 'updatedTime' },
     {
       title: '操作',
-      dataIndex: 'operate',
+      dataIndex: 'operation',
       render: (_, record: any) => record.type === 'file'
           ? <Button type={'primary'} icon={<DownloadOutlined />}>下载</Button>
           : <Button type={'link'}>{record.name}</Button>,
