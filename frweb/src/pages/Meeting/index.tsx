@@ -20,7 +20,7 @@ export default function Meeting() {
       extra={
         <Button
             type={'primary'}
-            onClick={() => navigate('/v2/meeting/0/topic?create=true')}
+            onClick={() => navigate('/meeting/0/topic?create=true')}
         >
           <FileAddOutlined/>
           添加议题

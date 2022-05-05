@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 public class DepartmentController {
 
   private final DepartmentService departmentService;
