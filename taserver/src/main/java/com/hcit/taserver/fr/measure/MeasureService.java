@@ -26,6 +26,10 @@ public class MeasureService implements BasicPersistableService<Measure> {
     return bindData(measureRepository.findById(id).orElseThrow());
   }
 
+  public Measure save(Measure measure) {
+    return bindData(measureRepository.save(measure));
+  }
+
   @Override
   public Measure bindData(Measure measure) {
     measure.setMatter(matterRepository.findById(measure.getMatterId()).orElseThrow());

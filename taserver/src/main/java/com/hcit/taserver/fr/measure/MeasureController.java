@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,11 @@ public class MeasureController {
   @GetMapping("/{id}")
   public Measure findById(@PathVariable Long id) {
     return measureService.findById(id);
+  }
+
+  @PostMapping
+  public Measure save(Measure measure) {
+    return measureService.save(measure);
   }
 
 }

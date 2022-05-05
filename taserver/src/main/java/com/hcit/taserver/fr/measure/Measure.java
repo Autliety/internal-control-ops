@@ -4,6 +4,7 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.Optional;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ public class Measure implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @ApiModelProperty("问题id")
   private Long matterId;
   @Transient
   private Matter matter;
@@ -40,8 +42,10 @@ public class Measure implements BasicPersistable {
     return Optional.ofNullable(matter).map(Matter::getCode).orElse("") + "-" + code;
   }
 
+  @ApiModelProperty("工作措施")
   private String content;
 
+  @ApiModelProperty("责任人id")
   private Long userId;
   @Transient
   private User user;
