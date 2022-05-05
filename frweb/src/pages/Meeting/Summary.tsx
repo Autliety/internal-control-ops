@@ -66,7 +66,7 @@ export default function Summary() {
 
   return <>
     <Divider orientation={'left'}>会议信息</Divider>
-    <MeetingInfo data={data.info} />
+    <MeetingInfo />
 
     <Divider orientation={'left'}>参会人员</Divider>
     <List

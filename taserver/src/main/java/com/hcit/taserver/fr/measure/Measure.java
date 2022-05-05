@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
+@Table(name = "fr_measure")
 public class Measure implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
