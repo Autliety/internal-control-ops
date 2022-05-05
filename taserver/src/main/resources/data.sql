@@ -344,7 +344,7 @@ VALUES
   (93, 106);
 
 INSERT INTO
-  matter (id, code, content, dept_id, name, type, origin)
+  fr_matter (id, code, content, dept_id, name, type, origin)
 VALUES
   (1, 'WT001', '问题清单测试数据', 1, '测试', '日常监督检查', '本单位自我排查')
 , (2, 'WT002', '问题清单测试数据', 1, '测试', '日常监督检查', '本单位自我排查')
@@ -354,7 +354,7 @@ VALUES
 ;
 
 INSERT INTO
-  measure (id, code, content, matter_id, start_date, end_date)
+  fr_measure (id, code, content, matter_id, start_date, end_date)
 VALUES
   (1, '01', '测试措施A', 1, null, null)
 , (2, '02', '测试措施B', 1, null, null)
