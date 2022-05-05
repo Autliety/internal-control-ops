@@ -12,7 +12,7 @@ export default function DemoFileDownload() {
     { title: '更新时间', dataIndex: 'updatedTime' },
     {
       dataIndex: 'operation',
-      render: () => <Button type={'primary'} size={'small'} icon={<DownloadOutlined />}>下载</Button>
+      render: () => <Button type={'primary'} size={'small'} icon={<DownloadOutlined/>}>下载</Button>
     },
   ];
 
@@ -22,6 +22,7 @@ export default function DemoFileDownload() {
   ];
 
   return <>
+    <br/>
     <BaseTable
         columns={attachmentColumns}
         dataSource={attachmentData}

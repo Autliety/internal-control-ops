@@ -20,7 +20,7 @@ export default function TopicList() {
           type={'primary'}
           icon={<ContainerOutlined/>}
           size={'small'}
-          onClick={() => navigate(`/v2/meeting/${record.id}/topic`)}
+          onClick={() => navigate(`/meeting/${record.id}/topic`)}
       />,
       fixed: 'right',
       width: 80,

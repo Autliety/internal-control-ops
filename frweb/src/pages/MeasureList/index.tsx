@@ -9,18 +9,20 @@ export default function MeasureList() {
 
   return <PageContainer
       title={'措施清单'}
-      extra={<Space size={'middle'}>
-        <Button><PrinterOutlined />打印清单</Button>
-        <MeasureCreateModal />
-      </Space>}
+      extra={
+        <Space size={'middle'}>
+          <Button><PrinterOutlined/>打印清单</Button>
+          {/*<MeasureCreateModal/>*/}
+        </Space>
+      }
   >
     <Space>
-      <Input.Search placeholder={'搜索'} enterButton />
-      <Button><FileSearchOutlined />精确查找</Button>
+      <Input.Search placeholder={'搜索'} enterButton/>
+      <Button><FileSearchOutlined/>精确查找</Button>
     </Space>
 
-    <Divider />
-    <MeasureTable />
+    <Divider/>
+    <MeasureTable/>
 
     <FooterToolbar>
       <Button
