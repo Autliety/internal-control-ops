@@ -2,6 +2,7 @@ package com.hcit.taserver.common;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface BasicPersistableService<E extends BasicPersistable> {
@@ -10,8 +11,8 @@ public interface BasicPersistableService<E extends BasicPersistable> {
     return collection.stream().collect(Collectors.toMap(BasicPersistable::getId, t -> t));
   }
 
-  static <T extends BasicPersistable> Map<Long, T> ToMap(T[] array) {
-    return ToMap(java.util.Arrays.asList(array));
+  static <T extends BasicPersistable> Map<Long, T> ToMap(Collection<T> collection, Function<T, Long> getKey) {
+    return collection.stream().collect(Collectors.toMap(getKey, t -> t));
   }
 
   default E bindData(E entity) {

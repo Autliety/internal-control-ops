@@ -344,31 +344,39 @@ VALUES
   (93, 106);
 
 INSERT INTO
-  fr_matter (id, code, content, dept_id, type, origin)
+  fr_matter (id, code, content, dept_id, type, origin, source, source_id)
 VALUES
-  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查')
-, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查')
-, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查')
-, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查')
-, (5, 'WT005', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查')
+  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
+, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
+, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING', 1)
+, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING', 2)
 ;
 
 INSERT INTO
   fr_measure (id, code, content, matter_id, start_date, end_date)
 VALUES
-  (1, '01', '测试措施A', 1, null, null)
-, (2, '02', '测试措施B', 1, null, null)
-, (3, '01', '测试措施C', 2, null, null)
-, (4, '02', '测试措施D', 3, null, null)
-, (5, '03', '测试措施E', 4, null, null)
+  (1, '01', '测试措施A', 1, NULL, NULL)
+, (2, '02', '测试措施B', 1, NULL, NULL)
+, (3, '01', '测试措施C', 2, NULL, NULL)
+, (4, '02', '测试措施D', 3, NULL, NULL)
+, (5, '03', '测试措施E', 4, NULL, NULL)
 ;
 
 INSERT INTO
   fr_meeting (id, code, dept_id, placement, start_time, type)
 VALUES
-  (1, 'HX001', 1, '1', null, null)
-, (2, 'HX002', 1, '1', null, null)
-, (3, 'HX003', 1, '1', null, null)
-, (4, 'HX004', 1, '1', null, null)
-, (5, 'HX005', 1, '1', null, null)
+  (1, 'HX001', 1, '1', NULL, NULL)
+, (2, 'HX002', 1, '1', NULL, NULL)
+, (3, 'HX003', 1, '1', NULL, NULL)
+, (4, 'HX004', 1, '1', NULL, NULL)
+, (5, 'HX005', 1, '1', NULL, NULL)
+;
+
+INSERT INTO
+  fr_inform (id, code, create_time, dest_dept_id, dest_user_id, from_dept_id, from_user_id, type)
+VALUES
+  (1, 'DS001', null, 1, 1, 1, 1, 'COPY')
+, (2, 'DS002', null, 1, 1, 1, 1, 'COPY')
+, (3, 'DS003', null, 1, 1, 1, 1, 'COPY')
+, (4, 'DS004', null, 1, 1, 1, 1, 'COPY')
 ;

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +38,7 @@ public class Inform implements BasicPersistable {
 
   private LocalDateTime createTime;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private InformType type;
 
   private Long fromDeptId;
