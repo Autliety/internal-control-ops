@@ -1,12 +1,13 @@
 package com.hcit.taserver.fr.meeting;
 
+import com.hcit.taserver.common.BasicPersistableService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MeetingService {
+public class MeetingService implements BasicPersistableService<Meeting> {
 
   private final MeetingRepository meetingRepository;
 
@@ -18,4 +19,10 @@ public class MeetingService {
     return meetingRepository.findById(id).orElse(null);
   }
 
+  public Meeting save(Meeting meeting) {
+    // todo generate code
+    return meetingRepository.save(meeting);
+  }
+
+  // todo bindData
 }

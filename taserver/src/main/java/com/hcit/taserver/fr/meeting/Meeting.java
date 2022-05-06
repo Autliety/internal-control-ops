@@ -12,6 +12,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,14 +55,21 @@ public class Meeting implements BasicPersistable {
   @ApiModelProperty("责任主体")
   private Department department;
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "fr_meeting_users")
   @ApiModelProperty("参会人员")
   private List<Long> userId;
   @Transient
-  private List<User> users;
+  private List<User> user;
 
   public int getUserCount() {
     return userId.size();
   }
+
+  @ApiModelProperty("独立会议议题")
+  @Transient
+  private List<Topic> topic;
+  @ApiModelProperty("合计会议议题")
+  @Transient
+  private Topic totalTopic;
 }

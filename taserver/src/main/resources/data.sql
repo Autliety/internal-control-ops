@@ -362,3 +362,13 @@ VALUES
 , (4, '02', '测试措施D', 3, null, null)
 , (5, '03', '测试措施E', 4, null, null)
 ;
+
+INSERT INTO
+  fr_meeting (id, code, dept_id, placement, start_time, type)
+VALUES
+  (1, 'HX001', 1, '1', null, null)
+, (2, 'HX002', 1, '1', null, null)
+, (3, 'HX003', 1, '1', null, null)
+, (4, 'HX004', 1, '1', null, null)
+, (5, 'HX005', 1, '1', null, null)
+;

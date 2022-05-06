@@ -5,9 +5,12 @@ import com.hcit.taserver.department.Department;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,4 +58,11 @@ public class Matter implements BasicPersistable {
   @Transient
   private List<Measure> measures;
 
+  @ApiModelProperty("截止日期")
+  private LocalDate endDate;
+
+  @Enumerated(EnumType.STRING)
+  private MatterSource source;
+
+  private Long sourceId;
 }
