@@ -1,6 +1,8 @@
 import React from 'react';
-import { Table, Tag } from 'antd';
+import { Button, Modal, Table, Tag, Upload } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
+import { UploadOutlined } from '@ant-design/icons';
+import { host } from '../utils/request';
 
 export default function DemoDeptResponse() {
 
@@ -12,9 +14,24 @@ export default function DemoDeptResponse() {
   ];
 
   const data = [
-    {name: '招商和项目推进科', distribute: 'CZ001-01', response: '同意'},
-  ]
+    { name: '招商和项目推进科', distribute: 'CZ001-01', response: '同意' },
+  ];
 
+
+  const props = {
+    name: 'file',
+    action: 'http://localhost:8082/file/upload',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+    },
+  };
+
+  const filename = 'testfile.png';
   return <>
     <Table
         bordered
@@ -26,5 +43,18 @@ export default function DemoDeptResponse() {
 
         dataSource={data}
     />
+
+    <Modal visible={false}>
+      <Upload {...props}>
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
+
+      <Button onClick={() => {
+        window.location.href = host + `/file/download/${filename}`;
+      }}
+      >
+        click to download
+      </Button>
+    </Modal>
   </>;
 }

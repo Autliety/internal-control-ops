@@ -1,5 +1,6 @@
 package com.hcit.taserver.fr.meeting;
 
+import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
@@ -8,6 +9,8 @@ import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +30,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "meeting_topic")
-public class Topic {
+public class Topic implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -39,6 +42,7 @@ public class Topic {
   @Transient
   private User user;
 
+  @Enumerated(EnumType.STRING)
   private TopicStatus status;
 
   @ElementCollection(fetch = FetchType.EAGER)

@@ -1,11 +1,8 @@
 import React from 'react';
-import { Avatar, Button, Col, List, Row, Statistic, Upload } from 'antd';
+import { Avatar, Col, List, Row, Statistic } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 
 import PieChart from './PieChart';
-
-import { UploadOutlined } from '@ant-design/icons';
-import { host } from '../../utils/request';
 
 
 export default function Home() {
@@ -13,30 +10,15 @@ export default function Home() {
   const announceData = [
     {
       id: 1,
-      title: '计划未制定',
-      content: '【考核指标0001】尚未制定相关的工作计划',
+      title: '需要制订措施',
+      content: '问题【WT001】尚未制定相关的措施清单',
     },
     {
       id: 2,
-      title: '工作进度汇报已逾期',
-      content: '【工作计划A】已逾期，但尚未汇报进度',
+      title: '第一种形态告知书',
+      content: '收到新的第一张形态告知书【DS001】',
     },
   ];
-
-  const props = {
-    name: 'file',
-    action: 'http://localhost:8082/file/upload',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-    },
-  };
-
-  const filename = 'testfile.png';
 
   return <div>
     <PageContainer
@@ -68,26 +50,16 @@ export default function Home() {
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <div className="content">
-            <PieChart title={'年度考核考评情况'} />
+            <PieChart title={'问题清单总体完成情况'} />
           </div>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <div className="content">
-            <PieChart title={'本月考核指标与计划'} />
+            <PieChart title={'各部门问题清单数量'} />
           </div>
         </Col>
       </Row>
 
-      <Upload {...props}>
-        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-      </Upload>
-
-      <Button onClick={() => {
-        window.location.href = host + `/file/download/${filename}`;
-      }}
-      >
-        click to download
-      </Button>
     </PageContainer>
 
 

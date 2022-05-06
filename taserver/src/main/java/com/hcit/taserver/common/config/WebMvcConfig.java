@@ -1,4 +1,4 @@
-package com.hcit.taserver.common;
+package com.hcit.taserver.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -365,7 +365,7 @@ VALUES
 INSERT INTO
   fr_meeting (id, code, dept_id, placement, start_time, type)
 VALUES
-  (1, 'HX001', 1, '1', NULL, NULL)
+  (1, 'HY001', 1, '1', NULL, NULL)
 , (2, 'HX002', 1, '1', NULL, NULL)
 , (3, 'HX003', 1, '1', NULL, NULL)
 , (4, 'HX004', 1, '1', NULL, NULL)

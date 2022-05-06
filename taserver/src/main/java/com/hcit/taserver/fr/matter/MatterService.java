@@ -23,6 +23,7 @@ public class MatterService implements BasicPersistableService<Matter> {
   }
 
   public List<Matter> save(Collection<Matter> matters) {
+    // todo generate code
     return bindData(matterRepository.saveAll(matters));
   }
 
@@ -36,6 +37,6 @@ public class MatterService implements BasicPersistableService<Matter> {
     return entity;
   }
 
-  // todo bindData bulk optimize
+  // todo optimize: bulk bind
 
 }
