@@ -43,6 +43,10 @@ public class Inform implements BasicPersistable {
   @Transient
   private Department fromDepartment;
 
+  private Long fromUserId;
+  @Transient
+  private User fromUser;
+
   private Long destDeptId;
   @Transient
   private Department destDepartment;
