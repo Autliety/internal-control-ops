@@ -3,10 +3,12 @@ package com.hcit.taserver.fr.inform;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.fr.matter.Matter;
+import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +36,9 @@ public class Inform implements BasicPersistable {
 
   private LocalDateTime createTime;
 
+  @Enumerated
+  private InformType type;
+
   private Long fromDeptId;
   @Transient
   private Department fromDepartment;
@@ -41,6 +46,10 @@ public class Inform implements BasicPersistable {
   private Long destDeptId;
   @Transient
   private Department destDepartment;
+
+  private Long destUserId;
+  @Transient
+  private User destUser;
 
   @Transient
   private List<Matter> matter;
