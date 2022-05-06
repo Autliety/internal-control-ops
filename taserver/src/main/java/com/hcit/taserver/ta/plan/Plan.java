@@ -3,6 +3,7 @@ package com.hcit.taserver.ta.plan;
 import com.hcit.taserver.ta.assessment.Assessment;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
@@ -41,9 +42,11 @@ public class Plan {
   private Status status;
 
   private Integer asmtId;
+  @ApiModelProperty(hidden = true)
   @Transient private Assessment assessment;
 
   private Integer deptId;
+  @ApiModelProperty(hidden = true)
   @Transient private Department department;
 
   @CreationTimestamp
@@ -51,6 +54,7 @@ public class Plan {
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<PlanDetail> details;
 

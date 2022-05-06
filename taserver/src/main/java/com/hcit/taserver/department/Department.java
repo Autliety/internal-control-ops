@@ -1,5 +1,6 @@
 package com.hcit.taserver.department;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +26,11 @@ public class Department {
 
   private Integer parentId;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private Department parent;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private Collection<Department> children;
 }

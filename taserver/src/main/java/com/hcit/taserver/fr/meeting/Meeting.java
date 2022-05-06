@@ -6,7 +6,6 @@ import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -50,15 +49,17 @@ public class Meeting implements BasicPersistable {
   @ApiModelProperty("会议地点")
   private String placement;
 
-  private Long deptId;
-  @Transient
   @ApiModelProperty("责任主体")
+  private Long deptId;
+  @ApiModelProperty(hidden = true)
+  @Transient
   private Department department;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "fr_meeting_users")
   @ApiModelProperty("参会人员")
   private List<Long> userId;
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<User> user;
 
@@ -66,10 +67,10 @@ public class Meeting implements BasicPersistable {
     return userId.size();
   }
 
-  @ApiModelProperty("独立会议议题")
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<Topic> topic;
-  @ApiModelProperty("合计会议议题")
+  @ApiModelProperty(hidden = true)
   @Transient
   private Topic totalTopic;
 }

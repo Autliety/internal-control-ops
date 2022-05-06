@@ -1,6 +1,7 @@
 package com.hcit.taserver.ta.assessment;
 
 import com.hcit.taserver.common.ValueType;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,9 +46,11 @@ public class Assessment {
 
   private Integer parentId;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private Assessment parent;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<Assessment> children;
 

@@ -2,6 +2,7 @@ package com.hcit.taserver.user;
 
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.ta.station.Station;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +31,10 @@ public class User {
   private String tel;
 
   private Integer deptId;
+  @ApiModelProperty(hidden = true)
   @Transient private Department department;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<Station> stations;
 

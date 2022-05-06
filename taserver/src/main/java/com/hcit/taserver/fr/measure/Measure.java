@@ -33,6 +33,7 @@ public class Measure implements BasicPersistable {
 
   @ApiModelProperty("问题id")
   private Long matterId;
+  @ApiModelProperty(hidden = true)
   @Transient
   private Matter matter;
 
@@ -47,6 +48,7 @@ public class Measure implements BasicPersistable {
 
   @ApiModelProperty("责任人id")
   private Long userId;
+  @ApiModelProperty(hidden = true)
   @Transient
   private User user;
 

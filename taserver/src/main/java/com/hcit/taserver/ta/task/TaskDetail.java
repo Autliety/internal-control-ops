@@ -1,6 +1,7 @@
 package com.hcit.taserver.ta.task;
 
 import com.hcit.taserver.ta.plan.PlanDetail;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class TaskDetail {
 
   private Integer planDetailId;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private PlanDetail planDetail;
 

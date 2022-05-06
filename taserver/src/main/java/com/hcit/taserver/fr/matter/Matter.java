@@ -38,9 +38,6 @@ public class Matter implements BasicPersistable {
   @Column(unique = true)
   private String code;
 
-  @ApiModelProperty("问题概述")
-  private String name;
-
   @ApiModelProperty("问题内容")
   private String content;
 
@@ -50,16 +47,21 @@ public class Matter implements BasicPersistable {
   @ApiModelProperty("问题来源")
   private String origin;
 
-  private Long deptId;
-  @Transient
   @ApiModelProperty("责任主体")
+  private Long deptId;
+  @ApiModelProperty(hidden = true)
+  @Transient
   private Department department;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<Measure> measures;
 
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
+
+  @Enumerated(EnumType.STRING)
+  private MatterStatus status;
 
   @Enumerated(EnumType.STRING)
   private MatterSource source;

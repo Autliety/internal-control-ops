@@ -5,6 +5,7 @@ import com.hcit.taserver.department.Department;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
@@ -40,20 +41,18 @@ public class Inform implements BasicPersistable {
   private InformType type;
 
   private Long fromDeptId;
-  @Transient
-  private Department fromDepartment;
-
+  @ApiModelProperty(hidden = true)
+  @Transient private Department fromDepartment;
   private Long fromUserId;
-  @Transient
-  private User fromUser;
+  @ApiModelProperty(hidden = true)
+  @Transient private User fromUser;
 
   private Long destDeptId;
-  @Transient
-  private Department destDepartment;
-
+  @ApiModelProperty(hidden = true)
+  @Transient private Department destDepartment;
   private Long destUserId;
-  @Transient
-  private User destUser;
+  @ApiModelProperty(hidden = true)
+  @Transient private User destUser;
 
   @Transient
   private List<Matter> matter;

@@ -3,6 +3,7 @@ package com.hcit.taserver.fr.meeting;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.user.User;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -34,6 +35,7 @@ public class Topic {
   private Long meetingId;
 
   private Long userId;
+  @ApiModelProperty(hidden = true)
   @Transient
   private User user;
 
@@ -43,6 +45,7 @@ public class Topic {
   @CollectionTable(name = "fr_meeting_topic_content")
   private List<String> content;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private List<Matter> matter;
 

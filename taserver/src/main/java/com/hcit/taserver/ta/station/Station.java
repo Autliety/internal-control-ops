@@ -1,6 +1,7 @@
 package com.hcit.taserver.ta.station;
 
 import com.hcit.taserver.department.Department;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Station {
 
   private Integer deptId;
 
+  @ApiModelProperty(hidden = true)
   @Transient
   private Department department;
 }
