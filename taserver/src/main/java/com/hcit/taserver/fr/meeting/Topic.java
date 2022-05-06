@@ -1,8 +1,9 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistable;
-import com.hcit.taserver.fr.matter.Matter;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.User;
+import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.CollectionUtils;
 
 @ApiModel("会议议题")
@@ -32,13 +33,15 @@ import org.springframework.util.CollectionUtils;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-@Table(name = "meeting_topic")
+@Table(name = "fr_meeting_topic")
 public class Topic implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private Long meetingId;
+  @Transient
+  private Meeting meeting;
 
   private Long userId;
   @ApiModelProperty(hidden = true)
@@ -46,7 +49,7 @@ public class Topic implements BasicPersistable {
   private User user;
 
   @Enumerated(EnumType.STRING)
-  private TopicStatus status;
+  private Status status;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "fr_meeting_topic_content")
@@ -64,7 +67,6 @@ public class Topic implements BasicPersistable {
     return content.size();
   }
 
-  @UpdateTimestamp
-  private LocalDateTime updateTime;
-
+  @CreationTimestamp
+  private LocalDateTime createTime;
 }

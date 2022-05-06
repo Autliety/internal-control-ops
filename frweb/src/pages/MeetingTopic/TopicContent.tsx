@@ -17,27 +17,17 @@ export default function TopicContent({ isEdit, data, onChange }: Props) {
     {
       title: '议题内容',
       dataIndex: 'content',
-      renderFormItem: () => <Input placeholder={'任务内容'}/>
+      renderFormItem: () => <Input placeholder={'任务内容'} />,
     },
     isEdit && {
       title: '操作',
       valueType: 'option',
       width: 200,
       render: (text, record, _, action) => [
-        <a
-            key='editable'
-            onClick={() => {
-              action?.startEditable?.(record.id);
-            }}
-        >
+        <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
           编辑
         </a>,
-        <a
-            key='delete'
-            onClick={() => {
-              onChange(data.filter((item) => item.id !== record.id));
-            }}
-        >
+        <a key="delete" onClick={() => onChange(data.filter(i => i.id !== record.id))}>
           删除
         </a>,
       ],
@@ -47,24 +37,20 @@ export default function TopicContent({ isEdit, data, onChange }: Props) {
   return <>
     <EditableProTable
         rowKey={'id'}
-        columns={columns}
-        request={async () => ({
-          data: data,
-          success: true,
-        })}
         scroll={{
           scrollToFirstRowOnChange: true,
         }}
+
+        columns={columns}
         value={data}
         onChange={onChange}
+
         editable={{
           type: 'multiple',
           editableKeys,
           onChange: setEditableRowKeys,
         }}
-        recordCreatorProps={
-            isEdit && { record: () => ({ id: `${moment().format('X')}` }) }
-        }
+        recordCreatorProps={{ record: () => ({ id: moment().valueOf() }) }}
     />
   </>;
 }

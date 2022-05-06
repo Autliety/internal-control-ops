@@ -344,15 +344,6 @@ VALUES
   (93, 106);
 
 INSERT INTO
-  fr_matter (id, code, content, dept_id, type, origin, source, source_id)
-VALUES
-  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
-, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
-, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING', 1)
-, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING', 2)
-;
-
-INSERT INTO
   fr_measure (id, code, content, matter_id, start_date, end_date)
 VALUES
   (1, '01', '测试措施A', 1, NULL, NULL)
@@ -381,6 +372,12 @@ VALUES
 , (2, 9)
 ;
 
+INSERT INTO
+  fr_meeting_topic (id, meeting_id, status, update_time, user_id)
+VALUES
+  (1, 1, 'AWAITING_REVIEW', NULL, 3)
+, (2, 1, 'AWAITING_REVIEW', NULL, 4)
+;
 
 INSERT INTO
   fr_inform (id, code, create_time, dest_dept_id, dest_user_id, from_dept_id, from_user_id, type)
@@ -389,4 +386,13 @@ VALUES
 , (2, 'DS002', NULL, 1, 1, 1, 1, 'COPY')
 , (3, 'DS003', NULL, 1, 1, 1, 1, 'COPY')
 , (4, 'DS004', NULL, 1, 1, 1, 1, 'COPY')
+;
+
+INSERT INTO
+  fr_matter (id, code, content, dept_id, type, origin, source, source_id)
+VALUES
+  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
+, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
+, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 1)
+, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 2)
 ;

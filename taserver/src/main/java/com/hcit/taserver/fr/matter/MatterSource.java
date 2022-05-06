@@ -1,6 +1,6 @@
 package com.hcit.taserver.fr.matter;
 
 public enum MatterSource {
-  MEETING,
+  MEETING_TOPIC,
   INFORM
 }

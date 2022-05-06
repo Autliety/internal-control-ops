@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.inform;
 
 import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.MatterService;
 import com.hcit.taserver.fr.matter.MatterSource;
 import java.util.List;
@@ -14,6 +15,7 @@ public class InformService implements BasicPersistableService<Inform> {
 
   private final InformRepository informRepository;
   private final MatterService matterService;
+  private final MatterRepository matterRepository;
 
   public List<Inform> findAll() {
     return informRepository.findAll();
@@ -41,7 +43,7 @@ public class InformService implements BasicPersistableService<Inform> {
   @Override
   public Inform bindData(Inform entity) {
     // todo bind dept & user
-    entity.setMatter(matterService.findAllBySourceAndSourceId(MatterSource.INFORM, entity.getId()));
+    entity.setMatter(matterRepository.findAllBySourceAndSourceId(MatterSource.INFORM, entity.getId()));
     return entity;
   }
 }

@@ -20,7 +20,7 @@ export default function Meeting() {
       extra={<Space>
         <Button
             type={'primary'}
-            onClick={() => navigate('/meeting/0/topic?create=true')}
+            onClick={() => navigate(`/meeting/${state.id}/topic/0?create=true`)}
         >
           <FileAddOutlined />添加议题
         </Button>
@@ -37,7 +37,7 @@ export default function Meeting() {
     <MeetingInfo dataSource={state} />
     <DemoFileDownload />
 
-    <Divider orientation={'left'}>参会人员各议题</Divider>
+    <Divider orientation={'left'}>参会人员及议题</Divider>
     <TopicList
         topic={state.topic || []}
         user={state.user}

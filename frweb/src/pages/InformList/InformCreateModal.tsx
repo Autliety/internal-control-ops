@@ -46,7 +46,7 @@ export default function InformCreateModal() {
           </Form.Item>
 
           <Form.Item name='fromDeptId' label='下达部门'>
-            <SelectUser isSelectUser={false}/>
+            <SelectUser withUser={false}/>
           </Form.Item>
 
           <Form.Item name='endDate' label='下达时间'>
@@ -54,11 +54,11 @@ export default function InformCreateModal() {
           </Form.Item>
 
           <Form.Item name='fromUserId' label='签发人'>
-            <SelectUser isSelectUser/>
+            <SelectUser withUser />
           </Form.Item>
 
           <Form.Item name='destDeptId' label='接收对象'>
-            <SelectUser isSelectUser/>
+            <SelectUser withUser />
           </Form.Item>
         </Space>
 
@@ -72,7 +72,7 @@ export default function InformCreateModal() {
                           label={'涉及部门'}
                           name={[name, 'deptId']}
                       >
-                        <SelectUser isSelectUser={false}/>
+                        <SelectUser withUser={false}/>
                       </Form.Item>
                       <Form.Item
                           {...restField}

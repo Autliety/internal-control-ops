@@ -9,7 +9,7 @@ type Props = {
   onChange?: any,
 };
 
-export default function TopicTask({ isEdit, data, onChange }: Props) {
+export default function TopicMatter({ isEdit, data, onChange }: Props) {
 
   const [editableKeys, setEditableRowKeys] = React.useState([]);
 
