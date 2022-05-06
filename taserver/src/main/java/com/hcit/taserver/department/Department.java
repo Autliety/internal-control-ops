@@ -1,5 +1,6 @@
 package com.hcit.taserver.department;
 
+import com.hcit.taserver.common.BasicPersistable;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Collection;
 import javax.persistence.Entity;
@@ -17,14 +18,14 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class Department {
+public class Department implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   private String name;
 
-  private Integer parentId;
+  private Long parentId;
 
   @ApiModelProperty(hidden = true)
   @Transient

@@ -1,32 +1,31 @@
-package com.hcit.taserver.ta.station;
+package com.hcit.taserver.department;
 
-import com.hcit.taserver.department.Department;
-import com.hcit.taserver.department.DepartmentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import static com.hcit.taserver.common.BasicPersistableService.ToMap;
 
 import java.util.Collection;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class StationService {
 
   private final StationRepository stationRepository;
-  private final DepartmentService departmentService;
+  private final DepartmentRepository departmentRepository;
 
   Collection<Station> findAll() {
     Collection<Station> stations = stationRepository.findAll();
-    Map<Integer, Department> map = departmentService.getMap();
+    Map<Long, Department> map = ToMap(departmentRepository.findAll());
     stations.forEach(station ->
       station.setDepartment(map.get(station.getDeptId()))
     );
     return stations;
   }
 
-  Collection<Station> findAllByDeptId(Integer deptId) {
+  Collection<Station> findAllByDeptId(Long deptId) {
     Collection<Station> stations = stationRepository.findAllByDeptId(deptId);
-    Department department = departmentService.getOne(deptId);
+    Department department = departmentRepository.findById(deptId).orElseThrow();
     stations.forEach(station ->
       station.setDepartment(department)
     );

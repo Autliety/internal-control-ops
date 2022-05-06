@@ -42,8 +42,8 @@ public class PlanService {
     input.setAssessment(assessment);
     List<PlanDetail> measures = planDetailRepository.findAllByPlanId(input.getId());
     input.setDetails(measures);
-    var department = departmentService.getOne(input.getDeptId());
-    input.setDepartment(department);
+//    var department = departmentService.getOne(input.getDeptId());
+//    input.setDepartment(department);
     return input;
   }
 

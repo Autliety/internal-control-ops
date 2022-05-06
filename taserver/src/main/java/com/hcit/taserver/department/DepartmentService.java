@@ -1,35 +1,29 @@
 package com.hcit.taserver.department;
 
+import com.hcit.taserver.common.BasicPersistableService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 
 @Service
-public class DepartmentService {
+public class DepartmentService implements BasicPersistableService<Department> {
 
   private final DepartmentRepository departmentRepository;
-
-  public Map<Integer, Department> getMap() {
-    return departmentRepository.findAll().stream().collect(Collectors.toMap(Department::getId, Function.identity()));
-  }
 
   public List<Department> findAll() {
     return departmentRepository.findAll();
   }
 
   public List<Department> getTree() {
-    var map = getMap();
+    var map = BasicPersistableService.ToMap(findAll());
 
     List<Department> result = new ArrayList<>();
     for (Department dept : map.values()) {
-      Integer parentId = dept.getParentId();
+      Long parentId = dept.getParentId();
       if (parentId == null) {
         result.add(dept);
         continue;
@@ -45,7 +39,4 @@ public class DepartmentService {
     return result;
   }
 
-  public Department getOne(Integer id) {
-    return departmentRepository.findById(id).orElseThrow();
-  }
 }

@@ -1,7 +1,6 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
-import com.hcit.taserver.department.Department;
-import com.hcit.taserver.ta.station.Station;
+import com.hcit.taserver.common.BasicPersistable;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import javax.persistence.Entity;
@@ -19,10 +18,10 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class User {
+public class User implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   private String name;
 
@@ -30,7 +29,7 @@ public class User {
 
   private String tel;
 
-  private Integer deptId;
+  private Long deptId;
   @ApiModelProperty(hidden = true)
   @Transient private Department department;
 
