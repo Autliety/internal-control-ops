@@ -8,7 +8,7 @@ import ProForm, {
 } from '@ant-design/pro-form';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { Button, Divider, Radio } from 'antd';
-import { useHttp } from "../../utils/request";
+import { useHttp } from '../../utils/request';
 
 export default function MeasureCreateModal({ measures, matterId }) {
 
@@ -26,7 +26,7 @@ export default function MeasureCreateModal({ measures, matterId }) {
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined/>添加措施</Button>
     <ModalForm
-        title="添加措施"
+        title='添加措施'
         visible={isVisible}
         onFinish={async (v) => {
           http(null, null, [{ ...v, matterId: matterId }]).then(() => window.location.reload());
@@ -47,36 +47,36 @@ export default function MeasureCreateModal({ measures, matterId }) {
 
       {
         radioValue === '1'
-            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容:06"/>
+            ? <ProFormTextArea width='xl' name='content' label='工作措施' placeholder='措施内容:06'/>
             : <ProFormSelect
-                width="xl"
+                width='xl'
                 options={getExistMeasure(measures, 'content', 'content')}
-                name="content"
-                label="请选择"
+                name='content'
+                label='请选择'
                 tooltip={'引用已存在措施'}
             />
       }
-      <ProFormText width="xl" name='code' label='措施编号' placeholder='措施编号'/>
+      <ProFormText width='xl' name='code' label='措施编号' placeholder='措施编号'/>
       <ProForm.Group>
         <ProFormSelect
-            width="sm"
+            width='sm'
             initialValue={{ value: '1', label: '领导班子' }}
             options={[]}
-            name="deptId"
+            name='deptId'
             disabled
-            label="责任单位"
+            label='责任单位'
         />
         <ProFormSelect
-            width="sm"
+            width='sm'
             options={getExistMeasure(state, 'id', 'name')}
-            name="userId"
-            label="责任人"
+            name='userId'
+            label='责任人'
         />
       </ProForm.Group>
 
       <ProForm.Group>
-        <ProFormDatePicker width="sm" name="startDate" label="开始时间"/>
-        <ProFormDatePicker width="sm" name="endDate" label="结束时间"/>
+        <ProFormDatePicker width='sm' name='startDate' label='开始时间'/>
+        <ProFormDatePicker width='sm' name='endDate' label='结束时间'/>
       </ProForm.Group>
     </ModalForm>
   </>;

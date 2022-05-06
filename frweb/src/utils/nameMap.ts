@@ -1,4 +1,3 @@
-
 // 审批
 export const approveProcessStatus = {
   WAITING: { label: '进行中', tag: 'processing' },
@@ -14,3 +13,11 @@ export const approveProcessNodeStatus = {
   DENIED: { label: '已拒绝', tag: 'error' },
   CANCEL: { label: '已取消', tag: 'default' },
 };
+
+// 一单三书
+export const informType = {
+  COPY: { name: '抄告单', title: '问题内容', label: '整改措施' },
+  OPINION: { name: '意见书', title: '意见内容', label: '整改措施' },
+  ADVICE: { name: '建议书', title: '建议内容', label: '防范措施' },
+  ANNOUNCE: { name: '第一种形态告知书', title: '具体问题', label: '整改措施' },
+}

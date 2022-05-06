@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarsOutlined, HomeOutlined, ProjectOutlined, ReconciliationOutlined, TeamOutlined } from '@ant-design/icons';
+import { BarsOutlined, HomeOutlined, ProfileOutlined, ProjectOutlined, TeamOutlined, } from '@ant-design/icons';
 
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
@@ -10,40 +10,41 @@ import MeetingList from '../pages/MeetingList';
 import Meeting from '../pages/Meeting';
 import MeetingTopic from '../pages/MeetingTopic';
 import MeasureList from '../pages/MeasureList';
-import Copy from '../pages/MatterList/Copy';
 import Measure from '../pages/Measure';
+import InformList from '../pages/InformList';
+import Inform from '../pages/Inform/Inform';
 
 export const router = {
   routes: [
     {
       name: '首页',
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined/>,
       path: '/',
-      element: <Home />,
+      element: <Home/>,
     },
     {
       name: '“1+X” 四方会议',
-      icon: <TeamOutlined />,
+      icon: <TeamOutlined/>,
       path: '/meeting',
-      element: <MeetingList />,
+      element: <MeetingList/>,
     },
     {
       name: '问题清单',
-      icon: <ProjectOutlined />,
+      icon: <ProjectOutlined/>,
       path: '/matter',
-      element: <MatterList />,
+      element: <MatterList/>,
     },
     {
       name: '措施清单',
-      icon: <BarsOutlined />,
+      icon: <BarsOutlined/>,
       path: '/measure',
-      element: <MeasureList />,
+      element: <MeasureList/>,
     },
     {
-      name: '履责情况',
-      icon: <ReconciliationOutlined />,
-      path: '/copy',
-      element: <Copy />,
+      name: '一单三书',
+      icon: <ProfileOutlined/>,
+      path: '/inform',
+      element: <InformList/>,
     },
   ],
 };
@@ -51,27 +52,31 @@ export const router = {
 const extRoutes = [
   {
     path: '/meeting/:id',
-    element: <Meeting />,
+    element: <Meeting/>,
   },
   {
     path: '/meeting/:id/topic',
-    element: <MeetingTopic />,
+    element: <MeetingTopic/>,
   },
   {
     path: '/matter/:id',
-    element: <Matter />,
+    element: <Matter/>,
   },
   {
     path: '/measure/:id',
-    element: <Measure />,
+    element: <Measure/>,
+  },
+  {
+    path: '/inform/:id',
+    element: <Inform/>
   },
   {
     path: '/admin/settings',
-    element: <Settings />,
+    element: <Settings/>,
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: <NotFound/>,
   },
 ];
 

@@ -11,12 +11,11 @@ import MatterPartingModal from './MatterPartingModal';
 export default function MatterList() {
 
   const navigate = useNavigate();
-
-  const { state, loading } = useHttp('/matter', {initState: []});
+  const { state, loading } = useHttp('/matter', { initState: [] });
 
   const columns: ColumnsType = [
     { title: '编号', dataIndex: 'code' },
-    { title: '问题概述', dataIndex: 'name' },
+    { title: '问题内容', dataIndex: 'content' },
     { title: '问题类型', dataIndex: 'type' },
     { title: '问题来源', dataIndex: 'origin' },
     { title: '责任主体', dataIndex: ['department', 'name'] },
@@ -26,7 +25,7 @@ export default function MatterList() {
         <Tooltip title={'查看详情'}>
           <Button
               type={'primary'}
-              icon={<ContainerOutlined />}
+              icon={<ContainerOutlined/>}
               size={'small'}
               onClick={() => navigate(`/matter/${record.id}`)}
           />
@@ -35,15 +34,14 @@ export default function MatterList() {
       fixed: 'right',
       width: 50,
       align: 'center',
-    },
-  ];
+    }];
 
   return <PageContainer
       title={'问题清单'}
       extra={
         <Space size={'middle'}>
-          <Button ><PrinterOutlined />打印清单</Button>
-          <MatterPartingModal dataSource={state} />
+          <Button><PrinterOutlined/>打印清单</Button>
+          <MatterPartingModal dataSource={state}/>
         </Space>
       }
   >
@@ -54,11 +52,11 @@ export default function MatterList() {
         <Select.Option value={2}>xx站办</Select.Option>
         <Select.Option value={3}>个人</Select.Option>
       </Select>
-      <Input.Search placeholder={'搜索'} enterButton />
-      <Button><FileSearchOutlined />精确查找</Button>
+      <Input.Search placeholder={'搜索'} enterButton/>
+      <Button><FileSearchOutlined/>精确查找</Button>
     </Space>
 
-    <Divider />
+    <Divider/>
     <BaseTable
         loading={loading}
         columns={columns}
