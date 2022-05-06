@@ -1,7 +1,6 @@
 import React from 'react';
 import { Divider, List, Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
-import MeetingInfo from './MeetingInfo';
 
 export default function Summary() {
 
@@ -65,10 +64,7 @@ export default function Summary() {
   ];
 
   return <>
-    <Divider orientation={'left'}>会议信息</Divider>
-    <MeetingInfo />
 
-    <Divider orientation={'left'}>参会人员</Divider>
     <List
         grid={{ gutter: 16, column: 10 }}
         dataSource={data.user}

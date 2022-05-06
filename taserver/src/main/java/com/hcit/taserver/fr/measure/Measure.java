@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.measure;
 
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.user.User;
+import com.hcit.taserver.department.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;

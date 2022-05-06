@@ -1,7 +1,5 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { useHttp } from '../../utils/request';
-import { useParams } from 'react-router-dom';
 import moment from 'moment';
 
 export const meetingColumns: object[] = [
@@ -13,17 +11,12 @@ export const meetingColumns: object[] = [
   { title: '参会人数', dataIndex: 'userCount' },
 ];
 
-export default function MeetingInfo() {
-
-  const { id } = useParams();
-
-  const { state, loading } = useHttp(`/meeting/${id}`);
+export default function MeetingInfo({ dataSource }) {
 
   return <>
     <BaseDescriptions
         columns={meetingColumns}
-        dataSource={state}
-        loading={loading}
+        dataSource={dataSource}
     />
   </>;
 }

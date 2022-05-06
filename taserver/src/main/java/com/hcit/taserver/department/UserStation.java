@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import lombok.*;
 
@@ -18,9 +18,9 @@ public class UserStation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
-  private Integer userId;
+  private Long userId;
 
-  private Integer stationId;
+  private Long stationId;
 }

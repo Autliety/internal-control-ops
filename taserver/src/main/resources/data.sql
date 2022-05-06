@@ -365,18 +365,28 @@ VALUES
 INSERT INTO
   fr_meeting (id, code, dept_id, placement, start_time, type)
 VALUES
-  (1, 'HY001', 1, '1', NULL, NULL)
-, (2, 'HX002', 1, '1', NULL, NULL)
-, (3, 'HX003', 1, '1', NULL, NULL)
-, (4, 'HX004', 1, '1', NULL, NULL)
-, (5, 'HX005', 1, '1', NULL, NULL)
+  (1, 'HY001', 1, '1', NULL, '1111')
+, (2, 'HX002', 1, '1', NULL, '2222')
 ;
+
+INSERT INTO
+  fr_meeting_user (meeting_id, user_id)
+VALUES
+  (1, 3)
+, (1, 4)
+, (1, 5)
+, (2, 6)
+, (2, 7)
+, (2, 8)
+, (2, 9)
+;
+
 
 INSERT INTO
   fr_inform (id, code, create_time, dest_dept_id, dest_user_id, from_dept_id, from_user_id, type)
 VALUES
-  (1, 'DS001', null, 1, 1, 1, 1, 'COPY')
-, (2, 'DS002', null, 1, 1, 1, 1, 'COPY')
-, (3, 'DS003', null, 1, 1, 1, 1, 'COPY')
-, (4, 'DS004', null, 1, 1, 1, 1, 'COPY')
+  (1, 'DS001', NULL, 1, 1, 1, 1, 'COPY')
+, (2, 'DS002', NULL, 1, 1, 1, 1, 'COPY')
+, (3, 'DS003', NULL, 1, 1, 1, 1, 'COPY')
+, (4, 'DS004', NULL, 1, 1, 1, 1, 'COPY')
 ;

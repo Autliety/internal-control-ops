@@ -68,16 +68,13 @@ export default function MeetingCreateModal() {
             label="与会人员"
             rules={[{ required: true, message: '请选择' }]}
         >
-          <CheckCard.Group
-              multiple
-              size={'small'}
-          >
+          <CheckCard.Group multiple size={'small'}>
             {
-              users.map(item => <CheckCard
-                  key={item.id}
-                  title={item.name}
-                  value={item.id}
-                  size={'small'}
+              users.map(u => <CheckCard
+                  value={u.id}
+                  key={u.id}
+                  title={u.name}
+                  description={u.department?.name}
               />)
             }
           </CheckCard.Group>

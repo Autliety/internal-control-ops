@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-  Collection<User> findAllByDeptId(Integer deptId);
+  Collection<User> findAllByDeptId(Long deptId);
 
 }

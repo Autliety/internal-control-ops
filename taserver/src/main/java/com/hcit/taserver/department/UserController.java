@@ -1,4 +1,4 @@
-package com.hcit.taserver.user;
+package com.hcit.taserver.department;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class UserController {
   private final UserService userService;
 
   @GetMapping
-  public Collection<User> getUsers(@RequestParam(required = false) Integer deptId) {
+  public Collection<User> getUsers(@RequestParam(required = false) Long deptId) {
     if (deptId == null) {
       return userService.findAll();
     } else {

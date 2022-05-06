@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
-import com.hcit.taserver.user.User;
+import com.hcit.taserver.department.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -56,7 +55,7 @@ public class Meeting implements BasicPersistable {
   private Department department;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "fr_meeting_users")
+  @CollectionTable(name = "fr_meeting_user")
   @ApiModelProperty("参会人员")
   private List<Long> userId;
   @ApiModelProperty(hidden = true)
@@ -70,7 +69,4 @@ public class Meeting implements BasicPersistable {
   @ApiModelProperty(hidden = true)
   @Transient
   private List<Topic> topic;
-  @ApiModelProperty(hidden = true)
-  @Transient
-  private Topic totalTopic;
 }

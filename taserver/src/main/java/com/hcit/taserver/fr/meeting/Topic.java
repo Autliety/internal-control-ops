@@ -2,9 +2,10 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.user.User;
+import com.hcit.taserver.department.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -22,6 +23,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.CollectionUtils;
 
 @ApiModel("会议议题")
 
@@ -52,5 +55,16 @@ public class Topic implements BasicPersistable {
   @ApiModelProperty(hidden = true)
   @Transient
   private List<Matter> matter;
+
+  @Transient
+  public int getCount() {
+    if (CollectionUtils.isEmpty(content)) {
+      return 0;
+    }
+    return content.size();
+  }
+
+  @UpdateTimestamp
+  private LocalDateTime updateTime;
 
 }
