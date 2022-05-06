@@ -55,7 +55,7 @@ const extRoutes = [
     element: <Meeting/>,
   },
   {
-    path: '/meeting/:id/topic',
+    path: '/topic/:id',
     element: <MeetingTopic/>,
   },
   {
