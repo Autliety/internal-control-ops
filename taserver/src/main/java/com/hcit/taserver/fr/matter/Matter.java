@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
@@ -60,11 +61,13 @@ public class Matter implements BasicPersistable {
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
 
+  @ApiModelProperty("问题中的措施清单审批状态")
   @Enumerated(EnumType.STRING)
-  private MatterStatus status;
+  private Status status;
 
   @Enumerated(EnumType.STRING)
   private MatterSource source;
 
   private Long sourceId;
+
 }

@@ -7,7 +7,7 @@ export default function BaseDescriptions({ columns, dataSource, ...restProps}) {
         bordered
         size={'middle'}
         style={ { backgroundColor: 'white' } }
-        labelStyle={{ width: '12%' }}
+        labelStyle={{ width: '14%' }}
         column={2}
 
         columns={columns}

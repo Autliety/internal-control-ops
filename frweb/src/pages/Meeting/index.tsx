@@ -7,6 +7,8 @@ import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import TopicList from './TopicList';
+import TopicContent from '../MeetingTopic/TopicContent';
+import TopicMatter from '../MeetingTopic/TopicMatter';
 
 export default function Meeting() {
 
@@ -43,7 +45,18 @@ export default function Meeting() {
         user={state.user}
     />
 
-    <Divider orientation={'left'}>议题合计</Divider>
+    <Divider orientation={'left'}>已确认议题统计</Divider>
+    <TopicContent
+        isEdit={false}
+        data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content).map(c => ({ content: c }))}
+        onChange={() => {}}
+    />
+    <br />
+    <TopicMatter
+        isEdit={false}
+        data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.matter)}
+        onChange={() => {}}
+    />
 
   </PageContainer>;
 }

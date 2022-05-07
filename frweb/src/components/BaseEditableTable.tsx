@@ -2,27 +2,9 @@ import React from 'react';
 import { EditableProTable } from '@ant-design/pro-table';
 import moment from 'moment';
 
-export default function BaseTable({ columns, isInEdit, value, onChange, ...restProps }) {
+export default function BaseEditableTable({ columns, isInEdit, value, onChange, ...restProps }) {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
-
-  if (isInEdit) {
-    columns.push({
-      title: '操作',
-      valueType: 'option',
-      width: 200,
-      render: (text, record, _, action) => [
-        <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
-          编辑
-        </a>,
-        <a key="delete" onClick={() => onChange(value.filter(i => i.id !== record.id))}>
-          删除
-        </a>,
-      ],
-    })
-  } else {
-    setEditableKeys([]);
-  }
 
   return <EditableProTable
       rowKey={'id'}
@@ -30,7 +12,20 @@ export default function BaseTable({ columns, isInEdit, value, onChange, ...restP
         scrollToFirstRowOnChange: true,
       }}
 
-      columns={columns}
+      columns={isInEdit ? columns.concat({
+            title: '操作',
+            valueType: 'option',
+            render: (text, record, _, action) => [
+              <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
+                编辑
+              </a>,
+              <a key="delete" onClick={() => onChange(value.filter(i => i.id !== record.id))}>
+                删除
+              </a>,
+            ],
+          })
+          : columns
+      }
       value={value}
       onChange={onChange}
 
@@ -39,8 +34,8 @@ export default function BaseTable({ columns, isInEdit, value, onChange, ...restP
         editableKeys,
         onChange: setEditableKeys,
       }}
-      recordCreatorProps={{ record: () => ({ id: moment().valueOf() }) }}
+      recordCreatorProps={isInEdit && { record: () => ({ id: moment().valueOf() }) }}
 
       {...restProps}
-  />
+  />;
 }

@@ -1,13 +1,17 @@
 import React from 'react';
-import { Button, Modal, Select } from 'antd';
+import { Button, Modal } from 'antd';
 import { PartitionOutlined } from '@ant-design/icons';
 import { useBoolean } from 'ahooks';
 import BaseTable from '../../components/BaseTable';
 import { matterColumns } from '../Matter/MatterInfo';
+import SelectUser from '../../components/SelectUser';
+import { useHttp } from '../../utils/request';
 
 export default function MatterPartingModal({ dataSource }) {
 
   const [isModalOpen, { setTrue: openModal, setFalse: closeModal }] = useBoolean(false);
+  const [upd, setUpd] = React.useState({});
+  const { http } = useHttp('/matter/t/upd', { isManual: true });
 
   return <>
     <Button type={'primary'} onClick={openModal}><PartitionOutlined />问题分派</Button>
@@ -17,6 +21,7 @@ export default function MatterPartingModal({ dataSource }) {
         destroyOnClose
         visible={isModalOpen}
         onCancel={closeModal}
+        onOk={() => http(upd).then(closeModal)}
         width={1600}
     >
       <BaseTable
@@ -26,9 +31,7 @@ export default function MatterPartingModal({ dataSource }) {
               dataIndex: 'department',
               width: 160,
               render: () => <>
-                <Select
-                    dropdownMatchSelectWidth={100}
-                    options={[{ label: '纪委', value: '1' }, { label: 'xx站办', value: '2' }]} />
+                <SelectUser onChange={setUpd} />
               </>,
             },
           ])}

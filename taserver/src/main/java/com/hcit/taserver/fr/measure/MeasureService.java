@@ -4,6 +4,7 @@ package com.hcit.taserver.fr.measure;
 import static com.hcit.taserver.common.BasicPersistableService.ToMap;
 
 import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +29,15 @@ public class MeasureService implements BasicPersistableService<Measure> {
 
   public List<Measure> save(List<Measure> measures) {
     measures.forEach(m -> m.setId(null));
-    return bindData(measureRepository.saveAll(measures));
+    var m = measureRepository.saveAll(measures);
+
+    // todo fix this
+    var mid = m.get(0).getMatterId();
+    var matter = matterRepository.findById(mid).orElseThrow();
+    matter.setStatus(Status.AWAITING_REVIEW);
+    matterRepository.save(matter);
+
+    return bindData(m);
   }
 
   @Override

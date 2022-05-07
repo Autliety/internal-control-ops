@@ -1,9 +1,11 @@
 package com.hcit.taserver.fr.matter;
 
+import com.hcit.taserver.fr.meeting.Topic;
 import io.swagger.annotations.Api;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MatterController {
 
   private final MatterService matterService;
+  private final MatterRepository matterRepository;
 
   @GetMapping
   public List<Matter> filter() {
@@ -27,4 +30,17 @@ public class MatterController {
     return matterService.findById(id);
   }
 
+  @Deprecated
+  @GetMapping("/t/upd/{id}")
+  public List<Matter> upd(@PathVariable Long id) {
+    var m = matterRepository.findAll();
+    m.forEach(matter -> matter.setDeptId(id));
+    return matterRepository.saveAll(m);
+  }
+
+  @Deprecated
+  @PatchMapping("/{id}")
+  public Matter update(@PathVariable Long id) {
+    return matterService.update(id);
+  }
 }

@@ -1,70 +1,22 @@
 import React from 'react';
-import { EditableProTable, ProColumns } from '@ant-design/pro-table';
-import { Input } from 'antd';
-import moment from 'moment';
+import { ProColumns } from '@ant-design/pro-table';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
-type Props = {
-  isEdit?: boolean,
-  data?: any,
-  onChange?: any,
-};
-
-export default function TopicMatter({ isEdit, data, onChange }: Props) {
-
-  const [editableKeys, setEditableRowKeys] = React.useState([]);
+export default function TopicMatter({ isEdit, data, onChange }) {
 
   const columns: ProColumns[] = [
-    {
-      title: '职责任务概述',
-      dataIndex: 'task',
-      renderFormItem: () => <Input placeholder={'议题内容'}/>
-    },
-    isEdit && {
-      title: '操作',
-      valueType: 'option',
-      width: 200,
-      render: (text, record, _, action) => [
-        <a
-            key='editable'
-            onClick={() => {
-              action?.startEditable?.(record.id);
-            }}
-        >
-          编辑
-        </a>,
-        <a
-            key='delete'
-            onClick={() => {
-              onChange(data.filter((item) => item.id !== record.id));
-            }}
-        >
-          删除
-        </a>,
-      ],
-    },
+    { title: '编号', dataIndex: 'code', editable: false },
+    { title: '问题内容', dataIndex: 'content' },
+    { title: '问题类型', dataIndex: 'type' },
+    { title: '截止日期', dataIndex: 'endDate', valueType: 'date' },
   ];
 
   return <>
-    <EditableProTable
-        rowKey={'id'}
-        columns={columns}
-        request={async () => ({
-          data: data,
-          success: true,
-        })}
-        scroll={{
-          scrollToFirstRowOnChange: true,
-        }}
+    <BaseEditableTable
+        isInEdit={isEdit}
         value={data}
+        columns={columns}
         onChange={onChange}
-        editable={{
-          type: 'multiple',
-          editableKeys,
-          onChange: setEditableRowKeys,
-        }}
-        recordCreatorProps={
-            isEdit && { record: () => ({ id: `${moment().format('X')}` }) }
-        }
     />
   </>;
 }

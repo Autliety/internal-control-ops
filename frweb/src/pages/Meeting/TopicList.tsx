@@ -3,6 +3,7 @@ import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import BaseTable from '../../components/BaseTable';
+import moment from 'moment';
 
 export default function TopicList({ topic, user }) {
 
@@ -14,7 +15,7 @@ export default function TopicList({ topic, user }) {
     { title: '参会人', dataIndex: 'name' },
     { title: '议题审核状态', dataIndex: ['topic', 'status'] },
     { title: '议题数量', dataIndex: ['topic', 'count'] },
-    { title: '编写时间', dataIndex: ['topic', 'createTime'] },
+    { title: '编写时间', dataIndex: ['topic', 'createTime'], render: v => !v || moment(v).format('YYYY-MM-DD HH:mm:ss') },
     {
       dataIndex: 'operation',
       render: (_, record: any) => <Space>

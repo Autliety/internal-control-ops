@@ -8,6 +8,7 @@ import TopicContent from './TopicContent';
 import TopicMatter from './TopicMatter';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
+import DemoProcess from '../../components/DemoProcess';
 
 export default function MeetingTopic() {
 
@@ -22,6 +23,17 @@ export default function MeetingTopic() {
   const [info, setInfo] = React.useState(isCreate ? {} : state);
   const [content, setContent] = React.useState(isCreate ? [] : state.content);
   const [matter, setMatter] = React.useState(isCreate ? [] : state.matter);
+  React.useEffect(() => {
+    if (!isCreate) {
+      setInfo(state);
+      setContent(state.content?.map((c, i) => ({ id: i, content: c })));
+      setMatter(state.matter);
+    }
+  }, [isCreate, state]);
+
+  const { http } = useHttp('/topic', { method: 'POST', isManual: true });
+  // todo deprecated
+  const { http: updateHttp } = useHttp('/topic', { method: 'PATCH', isManual: true });
 
   return <PageContainer
       title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 会议议题</>}
@@ -52,18 +64,24 @@ export default function MeetingTopic() {
         onChange={setMatter}
     />
 
+    <Divider orientation={'left'}>审核流程</Divider>
+    <DemoProcess status={info.status} />
+
     <FooterToolbar>
+      {info.status === 'AWAITING_REVIEW' && <Button
+          type={'primary'}
+          onClick={() => updateHttp(info.id).then(() => window.location.reload())}>审核通过
+      </Button>}
       {
         isCreate && <Button
             type={'primary'}
-            onClick={() => {
-              console.log('data', {
-                meetingId,
-                ...info,
-                content: content.map(c => c.content),
-                matter: matter.map(m => m.content),
-              });
-            }}
+            onClick={() => http(null, null, {
+              meetingId,
+              ...info,
+              content: content.map(c => c.content),
+              matter: matter.map(m => ({ ...m, id: null, endDate: m.endDate?.valueOf() })),
+            })
+            .then(() => navigate('/meeting/' + meetingId))}
         >
           保存
         </Button>

@@ -7,10 +7,10 @@ export default function TopicInfo({ isEdit, data, onChange }) {
   const columns: ColumnDef[] = [
     {
       title: '责任主体',
-      dataIndex: 'user',
+      dataIndex: ['user', 'name'],
       renderFormItem: () => <SelectUser withUser onChange={v => onChange({userId: v})} />,
     },
-    { title: '议题审核状态', dataIndex: 'status' },
+    { title: '审核状态', dataIndex: 'status' },
     { title: '议题数量', dataIndex: 'count' },
     { title: '编写时间', dataIndex: 'createTime' },
   ];
