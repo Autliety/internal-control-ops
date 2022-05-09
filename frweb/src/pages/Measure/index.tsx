@@ -8,7 +8,6 @@ import MeasureInfo from './MeasureInfo';
 import MatterInfo from '../Matter/MatterInfo';
 import BaseDivider from '../../components/BaseDivider';
 import DemoFileDownload from '../../components/DemoFileDownload';
-import DemoUpperResponse from '../../components/DemoUpperResponse';
 
 export default function Measure() {
 
@@ -27,11 +26,10 @@ export default function Measure() {
     >
       <Divider orientation={'left'}>措施详情</Divider>
       <MeasureInfo dataSource={state} />
-      <DemoFileDownload />
-      <DemoUpperResponse />
 
       <BaseDivider title={'相关问题'} onLink={() => navigate(`/matter/${state.matterId}`)}/>
       <MatterInfo dataSource={state.matter} />
+      <DemoFileDownload />
 
       <Divider orientation={'left'}>履责情况</Divider>
 
