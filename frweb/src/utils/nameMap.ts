@@ -20,4 +20,11 @@ export const informType = {
   OPINION: { name: '意见书', title: '意见内容', label: '整改措施' },
   ADVICE: { name: '建议书', title: '建议内容', label: '防范措施' },
   ANNOUNCE: { name: '第一种形态告知书', title: '具体问题', label: '整改措施' },
-}
+};
+
+// 会议
+export const meetingStatus = {
+  AWAITING_REVIEW: { label: '待审核', tag: 'warning' },
+  REVIEWED: { label: '审核完成', tag: 'success' },
+  FINISHED: { label: '已完成', tag: 'default' },
+};
