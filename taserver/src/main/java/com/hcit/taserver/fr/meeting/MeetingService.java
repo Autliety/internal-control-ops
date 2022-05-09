@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class MeetingService implements BasicPersistableService<Meeting> {
 
   public Meeting save(Meeting meeting) {
     // todo generate code
+    meeting.setStatus(Status.AWAITING_REVIEW);
     return meetingRepository.save(meeting);
   }
 
