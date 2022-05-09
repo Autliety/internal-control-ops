@@ -1,22 +1,21 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-
-import { useHttp } from '../../utils/request';
+import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+
+import { useAppDispatch } from '../../store/hook';
+import { logout } from '../../store/slice/loginSlice';
 
 export default function Logout() {
 
+  const dispatch = useAppDispatch()
   const navigate = useNavigate();
-  let location = useLocation();
-  const { http } = useHttp('/logout', { isManual: true });
 
   React.useEffect(() => {
-    http()
-      .then(() => {
-        location.state ? message.success('密码修改成功！请重新登录!') : message.success('已登出');
-        navigate('/login', { replace: true });
-      });
+    message.success('已退出');
+    dispatch(logout());
+    navigate('/login', { replace: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return <></>;
 }
