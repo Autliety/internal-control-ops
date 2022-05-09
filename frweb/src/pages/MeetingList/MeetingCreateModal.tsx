@@ -4,6 +4,7 @@ import { CheckCard } from '@ant-design/pro-card';
 import { useHttp } from '../../utils/request';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import MeetingAttendee from "../Meeting/MeetingAttendee";
 
 export default function MeetingCreateModal() {
 
@@ -17,7 +18,7 @@ export default function MeetingCreateModal() {
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}>
-      <PlusSquareOutlined /> 会议召开通知
+      <PlusSquareOutlined/> 会议召开通知
     </Button>
 
     <Modal
@@ -28,12 +29,12 @@ export default function MeetingCreateModal() {
         visible={isVisible}
         onCancel={() => setIsVisible(false)}
         onOk={() => form.validateFields()
-        .then(values => {
-          values.startTime = values.startTime.valueOf();
-          http(null, null, values)
-          .then(data => navigate(`/meeting/${data.id}`));
-        })
-        .catch(info => console.log(info))}
+            .then(values => {
+              values.startTime = values.startTime.valueOf();
+              http(null, null, values)
+                  .then(data => navigate(`/meeting/${data.id}`));
+            })
+            .catch(info => console.log(info))}
     >
       <Form
           form={form}
@@ -45,7 +46,7 @@ export default function MeetingCreateModal() {
             name={'startTime'}
             rules={[{ required: true, message: '请输入' }]}
         >
-          <DatePicker showTime />
+          <DatePicker showTime/>
         </Form.Item>
 
         <Form.Item
@@ -53,7 +54,7 @@ export default function MeetingCreateModal() {
             label="会议地点"
             rules={[{ required: true, message: '请输入' }]}
         >
-          <Input placeholder={'会议地点'} />
+          <Input placeholder={'会议地点'}/>
         </Form.Item>
 
         <Form.Item name="type" label="会议类型" rules={[{ required: true, message: '请选择' }]}>
@@ -68,16 +69,7 @@ export default function MeetingCreateModal() {
             label="与会人员"
             rules={[{ required: true, message: '请选择' }]}
         >
-          <CheckCard.Group multiple size={'small'}>
-            {
-              users.map(u => <CheckCard
-                  value={u.id}
-                  key={u.id}
-                  title={u.name}
-                  description={u.department?.name}
-              />)
-            }
-          </CheckCard.Group>
+          <MeetingAttendee isOptional data={users}/>
 
         </Form.Item>
       </Form>
