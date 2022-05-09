@@ -27,8 +27,10 @@ export default function Measure() {
       <Divider orientation={'left'}>措施详情</Divider>
       <MeasureInfo dataSource={state} />
 
-      <BaseDivider title={'相关问题'} onLink={() => navigate(`/matter/${state.matterId}`)}/>
+      <BaseDivider title={'所属问题'} onLink={() => navigate(`/matter/${state.matterId}`)}/>
       <MatterInfo dataSource={state.matter} />
+
+      <BaseDivider title={'相关附件'} />
       <DemoFileDownload />
 
       <Divider orientation={'left'}>履责情况</Divider>

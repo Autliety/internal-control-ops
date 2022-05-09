@@ -2,7 +2,7 @@ INSERT INTO
   department (id, name, parent_id)
 VALUES
   (999, '系统管理员', NULL)
-, (1, '领导干部', NULL)
+, (1, '党委(领导干部)', NULL)
 , (2, '党政综合办公室', 1)
 , (3, '党建工作办公室', 1)
 , (4, '社会治理办公室', 1)

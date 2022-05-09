@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Divider, Space, Statistic } from 'antd';
-import { ArrowLeftOutlined, DiffOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
@@ -28,7 +28,6 @@ export default function Matter() {
               measures={state.measures}
               matterId={id}
           />
-          <Button type={'primary'} onClick={() => setIsVisible(true)}><DiffOutlined />添加附件</Button>
         </Space>
       }
       content={<Space size={'large'}>
@@ -40,6 +39,8 @@ export default function Matter() {
 
     <Divider orientation={'left'}>问题详情</Divider>
     <MatterInfo dataSource={state} />
+
+    <Divider orientation={'left'}>相关附件</Divider>
     <DemoFileDownload />
 
     <Divider orientation={'left'}>措施清单</Divider>

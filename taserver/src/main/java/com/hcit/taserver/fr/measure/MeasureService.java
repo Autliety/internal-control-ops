@@ -6,6 +6,7 @@ import static com.hcit.taserver.common.BasicPersistableService.ToMap;
 import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.MatterRepository;
+import com.hcit.taserver.fr.matter.MatterService;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class MeasureService implements BasicPersistableService<Measure> {
 
   private final MeasureRepository measureRepository;
   private final MatterRepository matterRepository;
+  private final MatterService matterService;
 
   public List<Measure> findAll() {
     return bindData(measureRepository.findAll());
@@ -42,7 +44,7 @@ public class MeasureService implements BasicPersistableService<Measure> {
 
   @Override
   public Measure bindData(Measure measure) {
-    measure.setMatter(matterRepository.findById(measure.getMatterId()).orElseThrow());
+    measure.setMatter(matterService.findById(measure.getMatterId()));
     return measure;
   }
 
