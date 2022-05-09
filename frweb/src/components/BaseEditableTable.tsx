@@ -14,6 +14,7 @@ export default function BaseEditableTable({ columns, isInEdit, value, onChange, 
 
       columns={isInEdit ? columns.concat({
             title: '操作',
+            width: 150,
             valueType: 'option',
             render: (text, record, _, action) => [
               <a key="editable" onClick={() => action?.startEditable?.(record.id)}>

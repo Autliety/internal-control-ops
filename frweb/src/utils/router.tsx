@@ -20,6 +20,7 @@ import MeasureList from '../pages/MeasureList';
 import Measure from '../pages/Measure';
 import InformList from '../pages/InformList';
 import Inform from '../pages/Inform/Inform';
+import MeetingNotice from "../pages/Meeting/MeetingNotice";
 import Department from '../pages/Department';
 
 export const router = {
@@ -31,7 +32,7 @@ export const router = {
       element: <Home />,
     },
     {
-      name: '“1+X” 会议',
+      name: '“1+X”会议',
       icon: <TeamOutlined />,
       path: '/meeting',
       element: <MeetingList />,
@@ -77,6 +78,10 @@ const extRoutes = [
   {
     path: '/meeting/:id',
     element: <Meeting />,
+  },
+  {
+    path: '/meeting/:id/notice',
+    element: <MeetingNotice/>,
   },
   {
     path: '/meeting/:meetingId/topic/:id',
