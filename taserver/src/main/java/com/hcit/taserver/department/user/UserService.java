@@ -1,8 +1,9 @@
-package com.hcit.taserver.department;
+package com.hcit.taserver.department.user;
 
 import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.department.Station;
+import com.hcit.taserver.department.StationRepository;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class UserService implements BasicPersistableService<User> {
   private final StationRepository stationRepository;
 
   public Collection<User> findAll() {
-    return bindData(userRepository.findAll());
+    return bindData(userRepository.findAllByIdNot(999L));
   }
 
   public Collection<User> findAllByDeptId(Long deptId) {
@@ -25,14 +26,9 @@ public class UserService implements BasicPersistableService<User> {
         userRepository.findAllByStationIdIn(stations.stream().map(Station::getId).collect(Collectors.toList())));
   }
 
-  public List<User> findAllById(Collection<Long> ids) {
-    return bindData(userRepository.findAllById(ids));
-  }
-
   @Override
   public User bindData(User entity) {
     entity.setStation(stationRepository.findById(entity.getStationId()).orElseThrow());
     return entity;
   }
-   // todo optimize bulk bind
 }

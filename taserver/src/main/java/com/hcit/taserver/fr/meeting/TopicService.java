@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.UserRepository;
+import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.MatterSource;
 import java.util.List;

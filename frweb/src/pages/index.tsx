@@ -1,16 +1,25 @@
 import React from 'react';
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
 import { router, routesConfig } from '../utils/router';
 import logo from '../image/logo.png';
+import { useHttp } from '../utils/request';
 
 function Pages() {
 
-  const { auth, Provider } = useAuthProvider();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const { auth, setAuth, Provider } = useAuthProvider();
+  const { http } = useHttp('/user?current=true', { isManual: true });
+  React.useEffect(() => {
+    http()
+    .then(setAuth)
+    .catch(() => navigate('/login'));
+  }, [pathname]);
 
   return <>
     <Provider value={auth}>
@@ -23,7 +32,7 @@ function Pages() {
           menu={{ defaultOpenAll: true, autoClose: false }}
           logo={logo}
 
-          rightContentRender={() => <HeaderRight/>}
+          rightContentRender={() => <HeaderRight />}
 
           title="百步镇政府四责协同管理平台"
           route={router}
@@ -31,7 +40,7 @@ function Pages() {
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
           // loading={!auth.user}
 
-          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022"/>}
+          footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022" />}
       >
         <Routes>
           {routesConfig.map((route, i) => <Route key={i} {...route} />)}

@@ -1,6 +1,7 @@
 package com.hcit.taserver.department;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

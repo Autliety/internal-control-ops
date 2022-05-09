@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.UserRepository;
+import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

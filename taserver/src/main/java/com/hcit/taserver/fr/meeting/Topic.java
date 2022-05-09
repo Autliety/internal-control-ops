@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.User;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

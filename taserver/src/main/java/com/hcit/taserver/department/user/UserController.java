@@ -1,4 +1,4 @@
-package com.hcit.taserver.department;
+package com.hcit.taserver.department.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ import java.util.Collection;
 public class UserController {
 
   private final UserService userService;
+  private final AuthService authService;
 
   @GetMapping
   public Collection<User> getUsers(@RequestParam(required = false) Long deptId) {
@@ -22,5 +23,10 @@ public class UserController {
     } else {
       return userService.findAllByDeptId(deptId);
     }
+  }
+
+  @GetMapping(params = "current=true")
+  public Auth currentUser() {
+    return new Auth(authService.getCurrentUser());
   }
 }
