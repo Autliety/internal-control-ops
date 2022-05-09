@@ -1,5 +1,12 @@
 import React from 'react';
-import { BarsOutlined, HomeOutlined, ProfileOutlined, ProjectOutlined, TeamOutlined, } from '@ant-design/icons';
+import {
+  BarsOutlined,
+  HomeOutlined,
+  ProfileOutlined,
+  ProjectOutlined,
+  SettingOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
@@ -13,38 +20,55 @@ import MeasureList from '../pages/MeasureList';
 import Measure from '../pages/Measure';
 import InformList from '../pages/InformList';
 import Inform from '../pages/Inform/Inform';
+import Department from '../pages/Department';
 
 export const router = {
   routes: [
     {
       name: '首页',
-      icon: <HomeOutlined/>,
+      icon: <HomeOutlined />,
       path: '/',
-      element: <Home/>,
+      element: <Home />,
     },
     {
-      name: '“1+X” 四方会议',
-      icon: <TeamOutlined/>,
+      name: '“1+X” 会议',
+      icon: <TeamOutlined />,
       path: '/meeting',
-      element: <MeetingList/>,
+      element: <MeetingList />,
     },
     {
       name: '问题清单',
-      icon: <ProjectOutlined/>,
+      icon: <ProjectOutlined />,
       path: '/matter',
-      element: <MatterList/>,
+      element: <MatterList />,
     },
     {
       name: '措施清单',
-      icon: <BarsOutlined/>,
+      icon: <BarsOutlined />,
       path: '/measure',
-      element: <MeasureList/>,
+      element: <MeasureList />,
     },
     {
       name: '一单三书',
-      icon: <ProfileOutlined/>,
+      icon: <ProfileOutlined />,
       path: '/inform',
-      element: <InformList/>,
+      element: <InformList />,
+    },
+    {
+      name: '系统设置',
+      icon: <SettingOutlined />,
+      path: '/setting',
+      routes: [
+        {
+          name: '组织架构',
+          path: '/setting/department',
+          element: <Department />,
+        },
+        {
+          name: '权限管理',
+          path: '/setting/permission',
+        },
+      ],
     },
   ],
 };
@@ -52,31 +76,31 @@ export const router = {
 const extRoutes = [
   {
     path: '/meeting/:id',
-    element: <Meeting/>,
+    element: <Meeting />,
   },
   {
     path: '/meeting/:meetingId/topic/:id',
-    element: <MeetingTopic/>,
+    element: <MeetingTopic />,
   },
   {
     path: '/matter/:id',
-    element: <Matter/>,
+    element: <Matter />,
   },
   {
     path: '/measure/:id',
-    element: <Measure/>,
+    element: <Measure />,
   },
   {
     path: '/inform/:id',
-    element: <Inform/>
+    element: <Inform />,
   },
   {
     path: '/admin/settings',
-    element: <Settings/>,
+    element: <Settings />,
   },
   {
     path: '*',
-    element: <NotFound/>,
+    element: <NotFound />,
   },
 ];
 

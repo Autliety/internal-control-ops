@@ -14,15 +14,15 @@ public class UserService implements BasicPersistableService<User> {
 
   private final UserRepository userRepository;
   private final StationRepository stationRepository;
-  private final UserStationRepository userStationRepository;
-  private final DepartmentRepository departmentRepository;
 
   public Collection<User> findAll() {
     return bindData(userRepository.findAll());
   }
 
   public Collection<User> findAllByDeptId(Long deptId) {
-    return bindData(userRepository.findAllByDeptId(deptId));
+    var stations = stationRepository.findAllByDeptId(deptId);
+    return bindData(
+        userRepository.findAllByStationIdIn(stations.stream().map(Station::getId).collect(Collectors.toList())));
   }
 
   public List<User> findAllById(Collection<Long> ids) {
@@ -31,12 +31,7 @@ public class UserService implements BasicPersistableService<User> {
 
   @Override
   public User bindData(User entity) {
-    entity.setDepartment(departmentRepository.findById(entity.getDeptId()).orElseThrow());
-    entity.setStations(stationRepository.findAllById(
-        userStationRepository.findAllByUserId(entity.getId())
-            .stream()
-            .map(UserStation::getStationId)
-            .collect(Collectors.toSet())));
+    entity.setStation(stationRepository.findById(entity.getStationId()).orElseThrow());
     return entity;
   }
    // todo optimize bulk bind
