@@ -18,7 +18,7 @@ public class MatterService implements BasicPersistableService<Matter> {
   private final DepartmentRepository departmentRepository;
 
   public List<Matter> findAll() {
-    return matterRepository.findAll();
+    return bindData(matterRepository.findAll());
   }
 
   public Matter findById(Long id) {

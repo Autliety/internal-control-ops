@@ -21,7 +21,7 @@ export default function MatterPartingModal({ dataSource }) {
         destroyOnClose
         visible={isModalOpen}
         onCancel={closeModal}
-        onOk={() => http(upd).then(closeModal)}
+        onOk={() => http(upd).then(window.location.reload)}
         width={1600}
     >
       <BaseTable

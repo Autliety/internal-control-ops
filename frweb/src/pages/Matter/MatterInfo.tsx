@@ -8,8 +8,8 @@ export const matterColumns: object[] = [
   { title: '问题内容', dataIndex: 'content', span: 2 },
   { title: '问题类型', dataIndex: 'type' },
   { title: '问题来源', dataIndex: 'origin' },
-  { title: '截止日期', dataIndex: 'endDate', render: v => moment(v).format("yyyy-MM-DD") },
-  { title: '更新时间', dataIndex: 'updateTime' },
+  { title: '截止日期', dataIndex: 'endDate', render: v => moment(v).format("YYYY-MM-DD") },
+  { title: '更新时间', dataIndex: 'updateTime', render: v => !v || moment(v).format('YYYY-MM-DD HH:mm:ss') },
 ];
 
 export default function MatterInfo({ dataSource }) {

@@ -9,6 +9,7 @@ import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
 import BaseModal from '../../components/BaseModal';
 import MeasureCreateModal from '../MeasureList/MeasureCreateModal';
+import DemoProcess from '../../components/DemoProcess';
 
 export default function Matter() {
 
@@ -17,6 +18,7 @@ export default function Matter() {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const { state, loading } = useHttp(`/matter/${id}`);
+  const { http } = useHttp('/matter', { method: 'PATCH', isManual: true });
 
   return <PageContainer
       title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 问题清单</>}
@@ -45,6 +47,14 @@ export default function Matter() {
         dataSource={state.measures || []}
     />
 
+
+    {state.status &&
+    <>
+      <Divider orientation={'left'}>审核流程</Divider>
+      <DemoProcess status={state.status} />
+    </>
+    }
+
     <BaseModal
         title={'附件上传'}
         isVisible={isVisible}
@@ -55,7 +65,7 @@ export default function Matter() {
     <FooterToolbar>
       <Button
           type={'primary'}
-          onClick={() => console.log(state.id)}
+          onClick={() => http(state.id).then(() => window.location.reload())}
       >审核通过
       </Button>
     </FooterToolbar>}
