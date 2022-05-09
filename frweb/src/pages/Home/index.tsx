@@ -3,9 +3,12 @@ import { Avatar, Col, List, Row, Statistic } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 
 import PieChart from './PieChart';
-
+import { useAppSelector } from '../../store/hook';
 
 export default function Home() {
+
+  const { username } = useAppSelector((state) => state.login);
+  const user = { name: username };
 
   const announceData = [
     {
@@ -22,16 +25,16 @@ export default function Home() {
 
   return <div>
     <PageContainer
-        title="百步镇政府四责协同管理平台"
+        title='百步镇政府四责协同管理平台'
         subTitle={'首页'}
         content={
-          <Statistic title="欢迎您" value={'管理员'} />
+          <Statistic title='欢迎您' value={user.name}/>
         }
     >
       <List
-          className="content"
-          header="消息通知"
-          itemLayout="horizontal"
+          className='content'
+          header='消息通知'
+          itemLayout='horizontal'
       >
         {announceData.map((item, index) =>
             <List.Item
@@ -39,23 +42,23 @@ export default function Home() {
                 style={{ cursor: 'pointer' }}
             >
               <List.Item.Meta
-                  avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png" />}
+                  avatar={<Avatar src='https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png'/>}
                   title={item['title']}
                   description={item['content']}
               />
             </List.Item>)
         }
       </List>
-      <br />
+      <br/>
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <div className="content">
-            <PieChart title={'问题清单总体完成情况'} />
+          <div className='content'>
+            <PieChart title={'问题清单总体完成情况'}/>
           </div>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <div className="content">
-            <PieChart title={'各部门问题清单数量'} />
+          <div className='content'>
+            <PieChart title={'各部门问题清单数量'}/>
           </div>
         </Col>
       </Row>
