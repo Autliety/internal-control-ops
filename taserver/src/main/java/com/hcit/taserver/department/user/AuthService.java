@@ -12,16 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements UserDetailsService {
 
-  private final UserRepository userRepository;
+  private final UserService userService;
 
   @Value("${server.ssl.enabled}")
   private Boolean sslEnabled;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return userRepository.findByName(username)
-        .map(Auth::new)
-        .orElseThrow(() -> new UsernameNotFoundException("用户 " + username + " 不存在"));
+    try {
+      return new Auth(userService.findByName(username));
+    } catch (Exception e) {
+      throw new UsernameNotFoundException("用户 " + username + " 不存在");
+    }
   }
 
   public User getCurrentUser() {
@@ -30,7 +32,7 @@ public class AuthService implements UserDetailsService {
       return ((Auth) principal).getUser();
 
     } else if (!sslEnabled) {
-      return userRepository.findById(999L).orElseThrow();
+      return userService.findById(999L);
 
     } else {
       throw new UsernameNotFoundException("admin not admitted");

@@ -35,4 +35,10 @@ public class MeetingService implements BasicPersistableService<Meeting> {
     entity.setTopic(topicService.findAllByMeetingId(entity.getId()));
     return entity;
   }
+
+  public Meeting update(Long id) {
+    var m = meetingRepository.findById(id).orElseThrow();
+    m.setStatus(Status.REVIEWED);
+    return bindData(meetingRepository.save(m));
+  }
 }

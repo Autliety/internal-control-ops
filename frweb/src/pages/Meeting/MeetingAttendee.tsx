@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCard } from "@ant-design/pro-card";
+import { CheckCard } from '@ant-design/pro-card';
 
 type Props = {
   data: any,
@@ -20,7 +20,7 @@ function MeetingAttendee(props: Props) {
         props.data?.map((u: any, index) => <CheckCard
             value={u.id}
             key={index}
-            title={u.name}
+            title={<div style={{ color: '#000' }}>{u.name}</div>}
             description={u.department?.name}
         />)
       }

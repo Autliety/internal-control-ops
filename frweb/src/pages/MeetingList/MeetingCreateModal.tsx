@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, DatePicker, Form, Input, Modal, Radio } from 'antd';
-import { CheckCard } from '@ant-design/pro-card';
 import { useHttp } from '../../utils/request';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import MeetingAttendee from "../Meeting/MeetingAttendee";
+import MeetingAttendee from '../Meeting/MeetingAttendee';
 
 export default function MeetingCreateModal() {
 
@@ -32,7 +31,7 @@ export default function MeetingCreateModal() {
             .then(values => {
               values.startTime = values.startTime.valueOf();
               http(null, null, values)
-                  .then(data => navigate(`/meeting/${data.id}`));
+                  .then(data => navigate(`/meeting/${data.id}/notice`));
             })
             .catch(info => console.log(info))}
     >

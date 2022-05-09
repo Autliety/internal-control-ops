@@ -1,7 +1,7 @@
 INSERT INTO
   department (id, name, parent_id)
 VALUES
-  (999, '开发运维团队', NULL)
+  (999, '系统管理员', NULL)
 , (1, '领导干部', NULL)
 , (2, '党政综合办公室', 1)
 , (3, '党建工作办公室', 1)
@@ -23,7 +23,7 @@ VALUES
 INSERT INTO
   station (id, name, dept_id)
 VALUES
-  (999, '系统管理员', 0)
+  (999, '系统管理员', 999)
 , (1, '党委书记、管委会主任', 1)
 , (2, '党委副书记、镇长、管委会副主任', 1)
 , (3, '人大主席', 1)
@@ -237,7 +237,7 @@ VALUES
 INSERT INTO
   user (id, name, gender, station_id)
 VALUES
-  (999, 'admin', NULL, 0)
+  (999, 'admin', NULL, 999)
 , (1, '赵小龙', NULL, 1)
 , (2, '吴胜杰', NULL, 2)
 , (3, '蔡耀明', NULL, 3)

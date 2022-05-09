@@ -2,6 +2,7 @@ package com.hcit.taserver.department;
 
 import static com.hcit.taserver.common.BasicPersistableService.ToMap;
 
+import com.hcit.taserver.common.BasicPersistableService;
 import java.util.Collection;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class StationService {
+public class StationService implements BasicPersistableService<Station> {
 
   private final StationRepository stationRepository;
   private final DepartmentRepository departmentRepository;
@@ -30,5 +31,15 @@ public class StationService {
       station.setDepartment(department)
     );
     return stations;
+  }
+
+  public Station findById(Long id) {
+    return bindData(stationRepository.findById(id).orElseThrow());
+  }
+
+  @Override
+  public Station bindData(Station entity) {
+    entity.setDepartment(departmentRepository.findById(entity.getDeptId()).orElseThrow());
+    return entity;
   }
 }

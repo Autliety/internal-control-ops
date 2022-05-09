@@ -10,8 +10,8 @@ export default function DemoProcess({ status, list }: any) {
     {
       title: '审核情况', dataIndex: 'response',
       render: () => status === 'REVIEWED'
-          ? <Tag color={'green'}>已通过</Tag>
-          : <Tag color={'grey'}>待审</Tag>,
+          ? <Tag color={'processing'}>已审核</Tag>
+          : <Tag color={'warning'}>待审</Tag>,
     },
     { title: '修改意见', dataIndex: 'fix' },
     { title: '更新时间', dataIndex: 'updateTime' },

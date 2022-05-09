@@ -13,38 +13,36 @@ export default function MeetingList() {
   const navigate = useNavigate();
   const { state, loading } = useHttp('/meeting', { initState: [] });
 
-  const columns = meetingColumns.concat([
-    {
-      dataIndex: 'operation',
-      render: (_, record: any) => <Space>
-        <Tooltip title={'会议通知'}>
-          <Button
-              type={'primary'}
-              icon={<MailOutlined/>}
-              size={'small'}
-              onClick={()=>navigate(`/meeting/${record.id}/notice`)}
-          />
-        </Tooltip>
-        <Tooltip title={'会议详情'}>
-          <Button
-              type={'primary'}
-              disabled={record.status === 'AWAITING_REVIEW'}
-              icon={<ContainerOutlined/>}
-              size={'small'}
-              onClick={() => navigate(`/meeting/${record.id}`)}
-          />
-        </Tooltip>
-      </Space>,
-      fixed: 'right',
-      width: 60,
-      align: 'center',
-    },
-  ]);
+  const columns = meetingColumns.concat({
+    dataIndex: 'operation',
+    render: (_, record: any) => <Space>
+      <Tooltip title={'会议通知'}>
+        <Button
+            type={'primary'}
+            icon={<MailOutlined />}
+            size={'small'}
+            onClick={() => navigate(`/meeting/${record.id}/notice`)}
+        />
+      </Tooltip>
+      <Tooltip title={'会议详情'}>
+        <Button
+            type={'primary'}
+            disabled={record.status === 'AWAITING_REVIEW'}
+            icon={<ContainerOutlined />}
+            size={'small'}
+            onClick={() => navigate(`/meeting/${record.id}`)}
+        />
+      </Tooltip>
+    </Space>,
+    fixed: 'right',
+    width: 60,
+    align: 'center',
+  });
 
   return <PageContainer
       title={'"1+X"四方会议'}
       extra={<Space size={'middle'}>
-        <MeetingCreateModal/>
+        <MeetingCreateModal />
       </Space>}
   >
     <Space>
@@ -53,10 +51,10 @@ export default function MeetingList() {
         <Select.Option value={1}>"1"专题会议</Select.Option>
         <Select.Option value={2}>"X"专题会议</Select.Option>
       </Select>
-      <Input.Search placeholder={'搜索'} enterButton/>
+      <Input.Search placeholder={'搜索'} enterButton />
     </Space>
 
-    <Divider/>
+    <Divider />
     <BaseTable
         loading={loading}
         columns={columns}

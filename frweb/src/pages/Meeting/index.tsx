@@ -15,8 +15,6 @@ export default function Meeting() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isVisible, setIsVisible] = React.useState(false);
-  // 确认参会人员
-  const [attendeeId, setAttendeeId] = React.useState([]);
 
   const { state, loading } = useHttp(`/meeting/${id}`);
 
@@ -45,12 +43,11 @@ export default function Meeting() {
 
     <Divider orientation={'left'}>会议信息</Divider>
     <MeetingInfo dataSource={state}/>
-    <DemoFileDownload/>
 
-    <Divider orientation={'left'}>参会人员</Divider>
-    <MeetingAttendee data={state.user} isOptional onChange={v => setAttendeeId(v)}/>
+    <Divider orientation={'left'}>计划参会人员</Divider>
+    <MeetingAttendee data={state.user} isOptional />
 
-    <Divider orientation={'left'}>已确认议题统计</Divider>
+    <Divider orientation={'left'}>会议议题</Divider>
     <TopicContent
         isEdit={false}
         data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content).map(c => ({ content: c }))}
@@ -66,8 +63,11 @@ export default function Meeting() {
         }}
     />
 
+    <Divider orientation={'left'}>相关附件</Divider>
+    <DemoFileDownload/>
+
     <Modal
-        title={'已确认议题'}
+        title={'请确认会议结果问题清单'}
         closable
         visible={isVisible}
         width={1000}
