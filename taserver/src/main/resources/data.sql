@@ -117,10 +117,10 @@ VALUES
 ;
 
 INSERT INTO
-  fr_meeting (id, code, dept_id, placement, start_time, type)
+  fr_meeting (id, code, dept_id, placement, start_time, type, status)
 VALUES
-  (1, 'HY001', 1, '1', NULL, '1111')
-, (2, 'HX002', 1, '1', NULL, '2222')
+  (1, 'HY001', 1, '1', NULL, '1专题会议', 'AWAITING_REVIEW')
+, (2, 'HX002', 1, '1', NULL, 'x专题会议', 'REVIEWED')
 ;
 
 INSERT INTO

@@ -6,4 +6,7 @@ public enum Status {
 
   // 审核完成
   REVIEWED,
+
+  // 已完成
+  FINISHED,
 }

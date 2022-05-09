@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.User;
 import io.swagger.annotations.ApiModel;
@@ -11,6 +12,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,6 +41,9 @@ public class Meeting implements BasicPersistable {
   @ApiModelProperty("编号")
   @Column(unique = true)
   private String code;
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
   @ApiModelProperty("会议类型")
   private String type;
