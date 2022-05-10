@@ -2,16 +2,26 @@ import React from 'react';
 import { EditableProTable } from '@ant-design/pro-table';
 import moment from 'moment';
 
-export default function BaseEditableTable({ columns, isInEdit, value, onChange, ...restProps }) {
+export default ({
+                  columns,
+                  isInEdit = false,
+                  value = [],
+                  onChange = ([]) => {},
+                  ...restProps
+                }) => {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
 
   return <EditableProTable
-      rowKey={'id'}
+      bordered
+      size={'middle'}
       scroll={{
+        x: 'max-content',
         scrollToFirstRowOnChange: true,
       }}
 
+      pagination={{ hideOnSinglePage: true, ...restProps.pagination }}
+      rowKey={'id'}
       columns={isInEdit ? columns.concat({
             title: '操作',
             width: 150,

@@ -5,11 +5,12 @@ import { Space, Switch } from 'antd';
 
 export const matterColumns: object[] = [
   { title: '编号', dataIndex: 'code'},
-  { title: '责任主体', dataIndex: ['department', 'name'] },
   { title: '问题内容', dataIndex: 'content', span: 2 },
   { title: '问题类型', dataIndex: 'type' },
   { title: '问题来源', dataIndex: 'origin' },
   { title: '截止日期', dataIndex: 'endDate', render: v => moment(v).format("YYYY-MM-DD") },
+  { title: '责任主体', dataIndex: ['department', 'name'] },
+  { title: '负责人', dataIndex: ['user', 'name'] },
 ];
 
 export default function MatterInfo({ dataSource }) {

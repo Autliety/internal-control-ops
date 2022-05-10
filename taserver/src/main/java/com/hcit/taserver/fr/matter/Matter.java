@@ -3,12 +3,14 @@ package com.hcit.taserver.fr.matter;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,11 +52,15 @@ public class Matter implements BasicPersistable {
   @ApiModelProperty("问题来源")
   private String origin;
 
-  @ApiModelProperty("责任主体")
-  private Long deptId;
+  @ApiModelProperty("负责人")
+  private Long userId;
   @ApiModelProperty(hidden = true)
   @Transient
-  private Department department;
+  private User user;
+
+  public Department getDepartment() {
+    return Optional.ofNullable(user).map(User::getDepartment).orElse(null);
+  }
 
   @ApiModelProperty(hidden = true)
   @Transient

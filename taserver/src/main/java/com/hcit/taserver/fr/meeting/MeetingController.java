@@ -32,7 +32,7 @@ public class MeetingController {
 
   @PostMapping
   public Meeting createMeeting(@RequestBody Meeting meeting) {
-    return meetingService.save(meeting);
+    return meetingService.create(meeting);
   }
 
   @Deprecated

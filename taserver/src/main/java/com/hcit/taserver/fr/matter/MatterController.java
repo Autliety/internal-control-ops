@@ -33,7 +33,7 @@ public class MatterController {
   @GetMapping("/t/upd/{id}")
   public List<Matter> upd(@PathVariable Long id) {
     var m = matterRepository.findAll();
-    m.forEach(matter -> matter.setDeptId(id));
+    m.forEach(matter -> matter.setUserId(id));
     return matterRepository.saveAll(m);
   }
 

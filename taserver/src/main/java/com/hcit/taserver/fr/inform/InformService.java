@@ -35,11 +35,12 @@ public class InformService implements BasicPersistableService<Inform> {
       m.setId(null);
       m.setSource(MatterSource.INFORM);
       m.setSourceId(informId);
-      m.setDeptId(inform.getDestDeptId());
+      m.setUserId(inform.getDestUserId());
       m.setStatus(Status.REVIEWED);
+      m.setOrigin("'1+X'会议");
       // todo m.status m.setType() m.setOrigin()
     });
-    inform.setMatter(matterService.save(inform.getMatter()));
+    inform.setMatter(matterService.create(inform.getMatter()));
     return inform;
   }
 

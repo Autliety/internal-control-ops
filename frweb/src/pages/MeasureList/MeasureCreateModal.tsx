@@ -1,32 +1,23 @@
 import React from 'react';
-import ProForm, {
-  ModalForm,
-  ProFormDatePicker,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from '@ant-design/pro-form';
+import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormTextArea } from '@ant-design/pro-form';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { Button, Divider, Radio } from 'antd';
 import { useHttp } from '../../utils/request';
+import { useAuth } from '../../utils/auth';
 
-export default function MeasureCreateModal({ measures, matterId }) {
+export default function MeasureCreateModal({ measures = [], matterId }) {
 
-  const { state } = useHttp(`/user?deptId=1`, { initState: [] });
   const { http } = useHttp(`/measure`, { method: 'POST', isManual: true });
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [radioValue, setRadioValue] = React.useState('1');
 
-  function getExistMeasure(data, value, label) {
-    const newData = [];
-    data.forEach((item: any) => newData.push({ value: item[value], label: item[label] }));
-    return newData;
-  }
+  const { user } = useAuth();
+  const { state } = useHttp(`/user?deptId=${user?.station?.deptId}`, { initState: [] });
 
   return <>
-    <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined/>添加措施</Button>
+    <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined />添加措施</Button>
     <ModalForm
-        title='添加措施'
+        title="添加措施"
         visible={isVisible}
         onFinish={async (v) => {
           http(null, null, [{ ...v, matterId: matterId }]).then(() => window.location.reload());
@@ -43,39 +34,39 @@ export default function MeasureCreateModal({ measures, matterId }) {
         <Radio value={'1'}>新建措施</Radio>
         <Radio value={'2'}>引用已有措施</Radio>
       </Radio.Group>
-      <Divider/>
+      <Divider />
 
       {
         radioValue === '1'
-            ? <ProFormTextArea width='xl' name='content' label='工作措施' placeholder='措施内容:06'/>
+            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容:06" />
             : <ProFormSelect
-                width='xl'
-                options={getExistMeasure(measures, 'content', 'content')}
-                name='content'
-                label='请选择'
+                width="xl"
+                options={measures.map(m => ({ label: m.content, value: m.content }))}
+                name="content"
+                label="请选择"
                 tooltip={'引用已存在措施'}
             />
       }
       <ProForm.Group>
         <ProFormSelect
-            width='sm'
-            initialValue={{ value: '1', label: '领导班子' }}
-            options={[]}
-            name='deptId'
+            width="sm"
+            initialValue={1}
+            options={[{ value: 1, label: user.department.name }]}
+            name="deptId"
             disabled
-            label='责任单位'
+            label="责任单位"
         />
         <ProFormSelect
-            width='sm'
-            options={getExistMeasure(state, 'id', 'name')}
-            name='userId'
-            label='责任人'
+            width="sm"
+            options={state.map((item: any) => ({ value: item.id, label: item.name }))}
+            name="userId"
+            label="负责人"
         />
       </ProForm.Group>
 
       <ProForm.Group>
-        <ProFormDatePicker width='sm' name='startDate' label='开始时间'/>
-        <ProFormDatePicker width='sm' name='endDate' label='结束时间'/>
+        <ProFormDatePicker width="sm" name="startDate" label="开始时间" />
+        <ProFormDatePicker width="sm" name="endDate" label="结束时间" />
       </ProForm.Group>
     </ModalForm>
   </>;
