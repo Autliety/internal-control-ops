@@ -1,8 +1,9 @@
 package com.hcit.taserver.fr.measure;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.department.User;
+import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
@@ -54,5 +55,10 @@ public class Measure implements BasicPersistable {
 
   private LocalDate startDate;
   private LocalDate endDate;
+
+  @Transient
+  public Status getStatus() {
+    return Optional.ofNullable(matter).map(Matter::getMeasureStatus).orElse(null);
+  }
 
 }

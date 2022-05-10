@@ -1,8 +1,10 @@
-package com.hcit.taserver.department;
+package com.hcit.taserver.department.user;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.department.Department;
+import com.hcit.taserver.department.Station;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
+import java.util.Optional;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,16 +27,18 @@ public class User implements BasicPersistable {
 
   private String name;
 
+  private String gender;
+
   private String phone;
 
-  private String tel;
-
-  private Long deptId;
-  @ApiModelProperty(hidden = true)
-  @Transient private Department department;
-
+  private Long stationId;
   @ApiModelProperty(hidden = true)
   @Transient
-  private List<Station> stations;
+  private Station station;
+
+  @Transient
+  public Department getDepartment() {
+    return Optional.ofNullable(station).map(Station::getDepartment).orElse(null);
+  }
 
 }

@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.inform;
 
 import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.MatterService;
 import com.hcit.taserver.fr.matter.MatterSource;
@@ -35,6 +36,7 @@ public class InformService implements BasicPersistableService<Inform> {
       m.setSource(MatterSource.INFORM);
       m.setSourceId(informId);
       m.setDeptId(inform.getDestDeptId());
+      m.setStatus(Status.REVIEWED);
       // todo m.status m.setType() m.setOrigin()
     });
     inform.setMatter(matterService.save(inform.getMatter()));

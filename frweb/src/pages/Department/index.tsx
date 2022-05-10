@@ -1,35 +1,45 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { LaptopOutlined } from '@ant-design/icons';
+import { BuildOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Col, List, Row } from 'antd';
 
 import { useHttp } from '../../utils/request';
 import DepartmentList from './DepartmentList';
 
-export default function Department() {
+export default function Department({ withUser = false }) {
   // 存放部门id和名称
-  const [deptId, setDeptId] = React.useState('');
-  const [deptName, setDeptName] = React.useState('');
-  const { state: stationState } = useHttp(`/station?deptId=${deptId}`, { initState: [], isManual: deptId === '' });
+  const [dept, setDept] = React.useState<any>({});
+  const { state, http } = useHttp((withUser ? '/user' : '/station') + `?deptId=${dept.id}`, {
+    initState: [],
+    isManual: true,
+  });
+  React.useEffect(() => {
+    if (dept.id) http();
+  }, [dept, http]);
 
   return <PageContainer>
     <Row>
-      <Col span={10}>
-        <DepartmentList isEdit onChange={setDeptId} onNameChange={setDeptName}/>
+      <Col span={8}>
+        <DepartmentList onChange={setDept}
+        />
       </Col>
 
-      <Col span={1}/>
+      <Col span={1} />
 
-      <Col span={13} className='content'>
+      <Col span={15} className="content">
         <List
-            header={<p>{deptName} 岗位信息</p>}
-            dataSource={stationState}
-            locale={{ emptyText: '暂无数据，点击左侧部门名称查看岗位信息' }}
+            header={<p>{dept.name}</p>}
+            dataSource={state}
+            locale={{ emptyText: '请选择部门' }}
             renderItem={(item: any) => (
                 <List.Item>
                   <List.Item.Meta
-                      avatar={<Avatar style={{ backgroundColor: '#1890ff' }} icon={<LaptopOutlined/>}/>}
+                      avatar={<Avatar
+                          style={{ backgroundColor: '#1890ff' }}
+                          icon={withUser ? <UserOutlined /> : <BuildOutlined />}
+                      />}
                       title={item.name}
+                      description={withUser && item.station?.name}
                   />
                 </List.Item>
             )}

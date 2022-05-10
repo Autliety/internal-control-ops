@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Divider, Space, Statistic } from 'antd';
-import { ArrowLeftOutlined, DiffOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
 import BaseModal from '../../components/BaseModal';
@@ -28,7 +27,6 @@ export default function Matter() {
               measures={state.measures}
               matterId={id}
           />
-          <Button type={'primary'} onClick={() => setIsVisible(true)}><DiffOutlined />添加附件</Button>
         </Space>
       }
       content={<Space size={'large'}>
@@ -40,7 +38,6 @@ export default function Matter() {
 
     <Divider orientation={'left'}>问题详情</Divider>
     <MatterInfo dataSource={state} />
-    <DemoFileDownload />
 
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
@@ -48,10 +45,10 @@ export default function Matter() {
     />
 
 
-    {state.status &&
+    {!state.measures || state.measures.length === 0 ||
     <>
-      <Divider orientation={'left'}>审核流程</Divider>
-      <DemoProcess status={state.status} />
+      <Divider orientation={'left'}>措施清单审核流程</Divider>
+      <DemoProcess status={state.measureStatus} list={[{title: '党政综合办公室', name: '李均敬'}]}/>
     </>
     }
 

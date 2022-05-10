@@ -24,7 +24,7 @@ export const informType = {
 
 // 会议
 export const meetingStatus = {
-  AWAITING_REVIEW: { label: '待审核', tag: 'warning' },
-  REVIEWED: { label: '审核完成', tag: 'success' },
-  FINISHED: { label: '已完成', tag: 'default' },
+  AWAITING_REVIEW: { label: '待审', tag: 'warning' },
+  REVIEWED: { label: '已审核', tag: 'processing' },
+  FINISHED: { label: '已完成', tag: 'success' },
 };

@@ -2,19 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
-import { useAppDispatch } from '../../store/hook';
-import { logout } from '../../store/slice/loginSlice';
+import { useHttp } from '../../utils/request';
 
 export default function Logout() {
 
-  const dispatch = useAppDispatch()
   const navigate = useNavigate();
+  const { http } = useHttp('/logout', { isManual: true });
 
   React.useEffect(() => {
-    message.success('已退出');
-    dispatch(logout());
-    navigate('/login', { replace: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    http()
+    .then(() => {
+      message.success('已退出');
+      navigate('/login', { replace: false });
+    });
   }, []);
 
   return <></>;

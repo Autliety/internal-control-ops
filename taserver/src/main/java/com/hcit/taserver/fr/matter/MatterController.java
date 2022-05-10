@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.matter;
 
-import com.hcit.taserver.fr.meeting.Topic;
 import io.swagger.annotations.Api;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +41,11 @@ public class MatterController {
   @PatchMapping("/{id}")
   public Matter update(@PathVariable Long id) {
     return matterService.update(id);
+  }
+
+  @Deprecated
+  @PatchMapping("/batch/{ids}")
+  public List<Matter> update(@PathVariable String ids) {
+    return matterService.update(ids);
   }
 }
