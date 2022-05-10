@@ -1,31 +1,29 @@
 import React from 'react';
-import { ColumnDef } from '../../components/EditableDescriptions';
-import SelectUser from '../../components/SelectUser';
-import { Tag } from 'antd';
-import { meetingStatus } from '../../utils/nameMap';
+import { statusEnum } from '../../utils/nameMap';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import moment from 'moment';
+import { ProColumns } from '@ant-design/pro-table';
 
-export default function TopicInfo({ isEdit, data, onChange }) {
+export default function TopicInfo({ data}) {
 
-  const columns: ColumnDef[] = [
+  const columns: ProColumns[] = [
     {
-      title: '责任主体',
+      title: '议题责任主体',
+      dataIndex: ['user', 'department', 'name'],
+    },
+    {
+      title: '议题负责人',
       dataIndex: ['user', 'name'],
-      renderFormItem: () => <SelectUser withUser onChange={v => onChange({ userId: v })} />,
     },
     {
       title: '议题状态',
       dataIndex: 'status',
-      render: v => <Tag color={meetingStatus[v]?.tag}>{meetingStatus[v]?.label}</Tag>,
+      valueEnum: statusEnum,
     },
-    { title: '议题数量', dataIndex: 'count' },
-    { title: '编写时间', dataIndex: 'createTime', render: v => moment(v).format('yyyy-MM-DD HH:mm:ss') },
+    { title: '编写时间', dataIndex: 'createTime', valueType: 'dateTime' },
   ];
 
   return <>
     <BaseDescriptions
-        isEdit={isEdit}
         columns={columns}
         dataSource={data}
     />

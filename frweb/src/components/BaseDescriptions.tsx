@@ -8,6 +8,7 @@ export default function BaseDescriptions({ columns, dataSource, ...restProps}) {
         size={'middle'}
         style={ { backgroundColor: 'white' } }
         labelStyle={{ width: '14%' }}
+        contentStyle={{ width: '36%' }}
         column={2}
 
         columns={columns}

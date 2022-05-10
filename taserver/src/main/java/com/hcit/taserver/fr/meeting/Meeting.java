@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,7 +38,6 @@ public class Meeting implements BasicPersistable {
   private Long id;
 
   @ApiModelProperty("编号")
-  @Column(unique = true)
   private String code;
 
   @Enumerated(EnumType.STRING)
@@ -60,16 +58,22 @@ public class Meeting implements BasicPersistable {
   @Transient
   private Department department;
 
+  @ApiModelProperty("经办人")
+  private Long userId;
+  @ApiModelProperty(hidden = true)
+  @Transient
+  private User user;
+
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "fr_meeting_user")
   @ApiModelProperty("参会人员")
-  private List<Long> userId;
+  private List<Long> meetingUserId;
   @ApiModelProperty(hidden = true)
   @Transient
-  private List<User> user;
+  private List<User> meetingUser;
 
   public int getUserCount() {
-    return userId.size();
+    return meetingUserId.size();
   }
 
   @ApiModelProperty(hidden = true)

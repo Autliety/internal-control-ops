@@ -58,7 +58,7 @@ export default function Matter() {
         onCancel={() => setIsVisible(false)}
     />
 
-    {state.status === 'AWAITING_REVIEW' &&
+    {state.measureStatus === 'AWAITING_REVIEW' &&
     <FooterToolbar>
       <Button
           type={'primary'}

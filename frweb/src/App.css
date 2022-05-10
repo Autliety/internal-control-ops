@@ -42,3 +42,6 @@
   cursor: not-allowed;
 }
 
+.ant-pro-card-body {
+  padding: 0;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Space, Statistic } from 'antd';
+import { Button, Divider, Form, Space, Statistic } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
@@ -10,18 +10,22 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
 import DemoProcess from '../../components/DemoProcess';
 import MeetingInfo from '../Meeting/MeetingInfo';
+import { useAuth } from '../../utils/auth';
+import SelectUser from '../../components/SelectUser';
 
 export default function MeetingTopic() {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [search] = useSearchParams();
   let isCreate = search.get('create') === 'true';
 
   const { id, meetingId } = useParams();
+  const { state:meetingState } = useHttp('/meeting/' + meetingId );
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
 
-  const [info, setInfo] = React.useState(isCreate ? {} : state);
+  const [info, setInfo] = React.useState(isCreate ? { user } : state);
   const [content, setContent] = React.useState(isCreate ? [] : state.content);
   const [matter, setMatter] = React.useState(isCreate ? [] : state.matter);
   React.useEffect(() => {
@@ -46,12 +50,8 @@ export default function MeetingTopic() {
 
 
     <Divider orientation={'left'}>基本信息</Divider>
-    <MeetingInfo dataSource={info.meeting} />
-    <TopicInfo
-        isEdit={isCreate}
-        data={info}
-        onChange={setInfo}
-    />
+    <MeetingInfo dataSource={meetingState} />
+    <TopicInfo data={info} />
 
     <Divider orientation={'left'}>议题内容</Divider>
     <TopicContent
@@ -68,12 +68,22 @@ export default function MeetingTopic() {
     />
 
     <Divider orientation={'left'}>审核流程</Divider>
-    <DemoProcess status={info.status} />
+    {isCreate ?
+        <Form.Item label="选择审核人"
+            name="approve"
+            rules={[{ required: true, message: '请选择' }]}
+        >
+          <SelectUser withUser />
+        </Form.Item>
+        :
+        <DemoProcess status={info.status} />
+    }
 
     <FooterToolbar>
       {info.status === 'AWAITING_REVIEW' && <Button
           type={'primary'}
-          onClick={() => updateHttp(info.id).then(() => window.location.reload())}>审核通过
+          onClick={() => updateHttp(info.id).then(() => window.location.reload())}
+      >审核通过
       </Button>}
       {
         isCreate && <Button

@@ -5,10 +5,10 @@ import { ContainerOutlined, MailOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { meetingColumns } from '../Meeting/MeetingInfo';
 import { useHttp } from '../../utils/request';
-import BaseTable from '../../components/BaseTable';
 import MeetingCreateModal from './MeetingCreateModal';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default function MeetingList() {
+export default () => {
 
   const navigate = useNavigate();
   const { state, loading } = useHttp('/meeting', { initState: [] });
@@ -55,10 +55,10 @@ export default function MeetingList() {
     </Space>
 
     <Divider />
-    <BaseTable
+    <BaseEditableTable
         loading={loading}
         columns={columns}
-        dataSource={state}
+        value={state}
     />
 
   </PageContainer>;

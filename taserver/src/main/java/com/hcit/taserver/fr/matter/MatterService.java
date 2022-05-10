@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.DepartmentRepository;
+import com.hcit.taserver.department.user.UserService;
 import com.hcit.taserver.fr.measure.MeasureRepository;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,7 @@ public class MatterService implements BasicPersistableService<Matter> {
 
   private final MatterRepository matterRepository;
   private final MeasureRepository measureRepository;
-  private final DepartmentRepository departmentRepository;
+  private final UserService userService;
 
   public List<Matter> findAll() {
     return bindData(matterRepository.findAllByStatusNot(Status.AWAITING_REVIEW));
@@ -27,20 +27,18 @@ public class MatterService implements BasicPersistableService<Matter> {
     return bindData(matterRepository.findById(id).orElseThrow());
   }
 
-  public List<Matter> save(Collection<Matter> matters) {
+  public List<Matter> create(Collection<Matter> matters) {
     // todo generate code
-    matters.forEach(m -> m.setMeasureStatus(Status.AWAITING_REVIEW));
+    matters.forEach(m -> m.setMeasureStatus(Status.AWAITING_REVIEW)); // todo temporary
     return bindData(matterRepository.saveAll(matters));
-  }
-
-  public List<Matter> findAllBySourceAndSourceId(MatterSource source, Long id) {
-    return bindData(matterRepository.findAllBySourceAndSourceId(source, id));
   }
 
   @Override
   public Matter bindData(Matter entity) {
     entity.setMeasures(measureRepository.findAllByMatterId(entity.getId()));
-    entity.setDepartment(departmentRepository.findById(entity.getDeptId()).orElseThrow());
+    if (entity.getUserId() != null) {
+      entity.setUser(userService.findById(entity.getUserId()));
+    }
     return entity;
   }
 

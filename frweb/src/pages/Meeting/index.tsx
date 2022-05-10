@@ -46,8 +46,11 @@ export default function Meeting() {
     <Divider orientation={'left'}>会议信息</Divider>
     <MeetingInfo dataSource={state} />
 
-    <Divider orientation={'left'}>计划参会人员</Divider>
-    <MeetingAttendee data={state.user} isOptional />
+    <Divider orientation={'left'}>参会人员</Divider>
+    <MeetingAttendee data={state.meetingUser} isOptional />
+
+    <Divider orientation={'left'}>列席人员</Divider>
+    <MeetingAttendee data={[]} isOptional />
 
     <Divider orientation={'left'}>会议议题</Divider>
     <TopicContent

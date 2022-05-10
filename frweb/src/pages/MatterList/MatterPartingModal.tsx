@@ -21,20 +21,20 @@ export default function MatterPartingModal({ dataSource }) {
         destroyOnClose
         visible={isModalOpen}
         onCancel={closeModal}
-        onOk={() => http(upd).then(window.location.reload)}
+        onOk={() => http(upd).then(() => window.location.reload())}
         width={1600}
     >
       <BaseTable
-          columns={matterColumns.concat([
+          columns={matterColumns.slice(0, -2).concat(
             {
-              title: '分派',
-              dataIndex: 'department',
+              title: '问题分派',
+              dataIndex: 'user',
               width: 160,
-              render: () => <>
-                <SelectUser onChange={setUpd} />
+              render: (_, option) => <>
+                <SelectUser withUser filtered={option.userId === 30 ? 1 : 2} onChange={setUpd} />
               </>,
-            },
-          ])}
+            }
+          )}
           dataSource={dataSource}
       />
     </Modal>

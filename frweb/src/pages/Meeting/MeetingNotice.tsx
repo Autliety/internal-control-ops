@@ -1,6 +1,6 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import MeetingInfo from './MeetingInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
@@ -9,6 +9,7 @@ import DemoFileDownload from '../../components/DemoFileDownload';
 import MeetingAttendee from './MeetingAttendee';
 import DemoProcess from '../../components/DemoProcess';
 import BaseDivider from '../../components/BaseDivider';
+import BaseApproveButton from '../../components/BaseApproveButton';
 
 export default function MeetingNotice() {
 
@@ -25,8 +26,11 @@ export default function MeetingNotice() {
     <BaseDivider title={'基本信息'} />
     <MeetingInfo dataSource={state} />
 
-    <BaseDivider title={'计划参会人员'} />
-    <MeetingAttendee data={state.user} isOptional={false} />
+    <BaseDivider title={'参会人员'} />
+    <MeetingAttendee data={state.meetingUser} isOptional={false} />
+
+    <BaseDivider title={'列席人员'} />
+    <MeetingAttendee data={[]} isOptional={false} />
 
     {/* 暂用 */}
     <BaseDivider title={'相关附件'} />
@@ -38,12 +42,18 @@ export default function MeetingNotice() {
     <FooterToolbar>
       {state.status === 'AWAITING_REVIEW'
           ?
+          <BaseApproveButton
+              onOk={() => http().then(() => navigate(`/meeting`))}
+          />
+          :
           <Button
               type={'primary'}
-              onClick={() => http().then(() => navigate('/meeting/3'))}
-          >审核通过</Button>
-          :
-          <Button type={'primary'}>发送通知</Button>
+              onClick={() => Modal.confirm({
+                title: '发送会议通知',
+                content: '发送会议通知所有参会人员',
+                onOk: () => navigate(`/meeting/${id}`),
+              })}
+          >发送通知</Button>
       }
     </FooterToolbar>
 

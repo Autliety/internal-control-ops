@@ -2,6 +2,7 @@ package com.hcit.taserver.fr.meeting;
 
 import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class MeetingService implements BasicPersistableService<Meeting> {
   private final MeetingRepository meetingRepository;
   private final TopicService topicService;
   private final UserRepository userRepository;
+  private final AuthService authService;
 
   public List<Meeting> findAll() {
     return meetingRepository.findAll();
@@ -24,15 +26,18 @@ public class MeetingService implements BasicPersistableService<Meeting> {
     return bindData(meetingRepository.findById(id).orElseThrow());
   }
 
-  public Meeting save(Meeting meeting) {
+  public Meeting create(Meeting meeting) {
     // todo generate code
+    meeting.setCode("HY001");
     meeting.setStatus(Status.AWAITING_REVIEW);
+    meeting.setUserId(authService.getCurrentUser().getId());
     return meetingRepository.save(meeting);
   }
 
   @Override
   public Meeting bindData(Meeting entity) {
-    entity.setUser(userRepository.findAllById(entity.getUserId()));
+    entity.setUser(userRepository.findById(entity.getUserId()).orElseThrow());
+    entity.setMeetingUser(userRepository.findAllById(entity.getMeetingUserId()));
     entity.setTopic(topicService.findAllByMeetingId(entity.getId()));
     return entity;
   }

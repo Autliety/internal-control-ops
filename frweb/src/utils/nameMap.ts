@@ -28,3 +28,9 @@ export const meetingStatus = {
   REVIEWED: { label: '已审核', tag: 'processing' },
   FINISHED: { label: '已完成', tag: 'success' },
 };
+
+export const statusEnum = {
+  AWAITING_REVIEW: { text: '待审', status: 'warning' },
+  REVIEWED: { text: '已审核', status: 'processing' },
+  FINISHED: { text: '已完成', status: 'success' },
+};
