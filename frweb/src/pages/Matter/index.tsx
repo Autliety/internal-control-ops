@@ -4,7 +4,6 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
 import BaseModal from '../../components/BaseModal';
@@ -40,9 +39,6 @@ export default function Matter() {
     <Divider orientation={'left'}>问题详情</Divider>
     <MatterInfo dataSource={state} />
 
-    <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload />
-
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
         dataSource={state.measures || []}
@@ -52,7 +48,7 @@ export default function Matter() {
     {!state.measures || state.measures.length === 0 ||
     <>
       <Divider orientation={'left'}>措施清单审核流程</Divider>
-      <DemoProcess status={state.status} list={[{title: '党政综合办公室', name: '李均敬'}]}/>
+      <DemoProcess status={state.measureStatus} list={[{title: '党政综合办公室', name: '李均敬'}]}/>
     </>
     }
 

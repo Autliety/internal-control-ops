@@ -17,7 +17,7 @@ export default function TopicInfo({ isEdit, data, onChange }) {
     {
       title: '议题状态',
       dataIndex: 'status',
-      render: v => <Tag color={meetingStatus[v].tag}>{meetingStatus[v].label}</Tag>,
+      render: v => <Tag color={meetingStatus[v]?.tag}>{meetingStatus[v]?.label}</Tag>,
     },
     { title: '议题数量', dataIndex: 'count' },
     { title: '编写时间', dataIndex: 'createTime', render: v => moment(v).format('yyyy-MM-DD HH:mm:ss') },

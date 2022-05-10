@@ -93,9 +93,14 @@ export const router = {
       path: '/setting',
       routes: [
         {
-          name: '组织架构',
+          name: '部门及岗位',
           path: '/setting/department',
           element: <Department />,
+        },
+        {
+          name: '人员组成',
+          path: '/setting/user',
+          element: <Department withUser />,
         },
         {
           name: '权限管理',

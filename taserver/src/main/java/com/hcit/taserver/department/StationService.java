@@ -27,9 +27,7 @@ public class StationService implements BasicPersistableService<Station> {
   Collection<Station> findAllByDeptId(Long deptId) {
     Collection<Station> stations = stationRepository.findAllByDeptId(deptId);
     Department department = departmentRepository.findById(deptId).orElseThrow();
-    stations.forEach(station ->
-      station.setDepartment(department)
-    );
+    stations.forEach(station -> station.setDepartment(department));
     return stations;
   }
 

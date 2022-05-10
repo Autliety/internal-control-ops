@@ -1,29 +1,32 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { UserOutlined } from '@ant-design/icons';
+import { BuildOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Col, List, Row } from 'antd';
 
 import { useHttp } from '../../utils/request';
 import DepartmentList from './DepartmentList';
 
-export default function Department() {
+export default function Department({ withUser = false }) {
   // 存放部门id和名称
   const [dept, setDept] = React.useState<any>({});
-  const { state, http } = useHttp(`/user?deptId=${dept.id}`, { initState: [], isManual: true });
+  const { state, http } = useHttp((withUser ? '/user' : '/station') + `?deptId=${dept.id}`, {
+    initState: [],
+    isManual: true,
+  });
   React.useEffect(() => {
     if (dept.id) http();
   }, [dept, http]);
 
   return <PageContainer>
     <Row>
-      <Col span={10}>
+      <Col span={8}>
         <DepartmentList onChange={setDept}
         />
       </Col>
 
       <Col span={1} />
 
-      <Col span={13} className="content">
+      <Col span={15} className="content">
         <List
             header={<p>{dept.name}</p>}
             dataSource={state}
@@ -31,9 +34,12 @@ export default function Department() {
             renderItem={(item: any) => (
                 <List.Item>
                   <List.Item.Meta
-                      avatar={<Avatar style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />}
+                      avatar={<Avatar
+                          style={{ backgroundColor: '#1890ff' }}
+                          icon={withUser ? <UserOutlined /> : <BuildOutlined />}
+                      />}
                       title={item.name}
-                      description={item.station?.name}
+                      description={withUser && item.station?.name}
                   />
                 </List.Item>
             )}

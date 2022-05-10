@@ -11,9 +11,15 @@ export default function StatisticNotes() {
   const announceData = [
     {
       id: 1,
-      title: '会议通知审核',
+      title: '待审会议通知',
       content: '会议【HY003】正在等待您审核',
       link: '/meeting/3/notice',
+    },
+    {
+      id: 7,
+      title: '已审会议通知',
+      content: '会议通知【HY003】已审核完成，需发送',
+      link: '/meeting/3/notice'
     },
     {
       id: 2,
@@ -35,9 +41,9 @@ export default function StatisticNotes() {
     },
     {
       id: 5,
-      title: '问题清单填写措施',
-      content: '收到问题【WT005】，请尽快填写措施清单',
-      link: '/matter/5'
+      title: '填写/修改措施清单',
+      content: '收到一份问题清单，请尽快填写/修改措施清单',
+      link: '/list/matter'
     },
     {
       id: 6,
@@ -48,7 +54,7 @@ export default function StatisticNotes() {
   ];
 
   const toDoList = [
-    { key: '0', title: '待处理', value: 5, color: '#eb2f96' },
+    { key: '0', title: '待处理', value: 6, color: '#eb2f96' },
     { key: '1', title: '已处理', value: 25, color: '#52c41a' },
   ];
 
@@ -86,7 +92,7 @@ export default function StatisticNotes() {
 
     <StatisticCard.Group
         direction={'row'}
-        title={<b>动态跟踪</b>}
+        title={<b>重大事项动态跟踪</b>}
         split={'vertical'}
         headerBordered
         bordered
