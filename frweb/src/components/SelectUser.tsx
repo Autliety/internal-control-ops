@@ -4,7 +4,7 @@ import { useHttp } from '../utils/request';
 
 type Props = {
   value?: number,
-  onChange?: (value: number) => void,
+  onChange?: (value: number, option: any) => void,
   withUser?: boolean,
 }
 
@@ -19,7 +19,8 @@ function SelectUser(props: Props) {
       <Select
           placeholder={'选择部门'}
           style={{ width: 120 }}
-          onChange={v => props.withUser ? setDeptId(v) : props.onChange(v)}
+          dropdownMatchSelectWidth={200}
+          onChange={(v1, v2) => props.withUser ? setDeptId(v1) : props.onChange(v1, v2)}
       >
         {
           deptState.map((item, index) => <Select.Option key={index} value={item.id}>{item.name}</Select.Option>)
@@ -27,9 +28,16 @@ function SelectUser(props: Props) {
       </Select>
       {
           props.withUser &&
-          <Select placeholder={'选择人员'} style={{ width: 120 }} onChange={v => props.onChange(v)}>
+          <Select placeholder={'选择人员'} style={{ width: 120 }} onChange={(v1, v2) => props.onChange(v1, v2)}>
             {
-              userState.map((item, index) => <Select.Option key={index} value={item.id}>{item.name}</Select.Option>)
+              userState.map((item, index) =>
+                  <Select.Option
+                      key={index}
+                      value={item.id}
+                      data={item}
+                  >
+                    {item.name}
+                  </Select.Option>)
             }
           </Select>
       }
