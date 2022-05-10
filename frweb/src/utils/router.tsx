@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  BarsOutlined,
   HomeOutlined,
+  PlayCircleOutlined,
   ProfileOutlined,
   ProjectOutlined,
   SettingOutlined,
@@ -20,7 +20,7 @@ import MeasureList from '../pages/MeasureList';
 import Measure from '../pages/Measure';
 import InformList from '../pages/InformList';
 import Inform from '../pages/Inform/Inform';
-import MeetingNotice from "../pages/Meeting/MeetingNotice";
+import MeetingNotice from '../pages/Meeting/MeetingNotice';
 import Department from '../pages/Department';
 
 export const router = {
@@ -38,22 +38,54 @@ export const router = {
       element: <MeetingList />,
     },
     {
-      name: '问题清单',
+      name: '责任清单',
       icon: <ProjectOutlined />,
-      path: '/matter',
-      element: <MatterList />,
+      path: '/list',
+      routes:[
+        {
+          name: '问题清单',
+          path: '/list/matter',
+          element: <MatterList />,
+        },
+        {
+          name: '措施清单',
+          path: '/list/measure',
+          element: <MeasureList />,
+        },
+        {
+          name: '项目清单',
+          path: '/list/project',
+          disabled: true,
+        },
+        {
+          name: '整改清单',
+          path: '/list/reform',
+          disabled: true,
+        },
+      ]
     },
     {
-      name: '措施清单',
-      icon: <BarsOutlined />,
-      path: '/measure',
-      element: <MeasureList />,
-    },
-    {
-      name: '一单三书',
+      name: '特殊事项',
       icon: <ProfileOutlined />,
-      path: '/inform',
-      element: <InformList />,
+      path: '/special',
+      routes: [
+        {
+          name: '一单三书',
+          path: '/special/inform',
+          element: <InformList />,
+        },
+        {
+          name: '临时交办',
+          path: '/special/temp',
+          disabled: true,
+        },
+      ]
+    },
+    {
+      name: '履责跟踪',
+      icon: <PlayCircleOutlined />,
+      path: '/work',
+      disabled: true,
     },
     {
       name: '系统设置',
@@ -68,6 +100,7 @@ export const router = {
         {
           name: '权限管理',
           path: '/setting/permission',
+          disabled: true,
         },
       ],
     },

@@ -42,7 +42,7 @@ public class TopicService implements BasicPersistableService<Topic> {
       m.setSource(MatterSource.MEETING_TOPIC);
       m.setSourceId(topicId);
       m.setDeptId(1L);
-      // todo m.status
+      m.setStatus(Status.AWAITING_REVIEW);
     });
     topic.setMatter(matterRepository.saveAll(topic.getMatter()));
     return topic;

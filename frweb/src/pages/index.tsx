@@ -38,7 +38,7 @@ function Pages() {
           route={router}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
-          // loading={!auth.user}
+          loading={!auth.user}
 
           footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022" />}
       >

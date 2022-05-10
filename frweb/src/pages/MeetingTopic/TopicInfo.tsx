@@ -1,6 +1,10 @@
 import React from 'react';
-import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
+import { ColumnDef } from '../../components/EditableDescriptions';
 import SelectUser from '../../components/SelectUser';
+import { Tag } from 'antd';
+import { meetingStatus } from '../../utils/nameMap';
+import BaseDescriptions from '../../components/BaseDescriptions';
+import moment from 'moment';
 
 export default function TopicInfo({ isEdit, data, onChange }) {
 
@@ -8,18 +12,22 @@ export default function TopicInfo({ isEdit, data, onChange }) {
     {
       title: '责任主体',
       dataIndex: ['user', 'name'],
-      renderFormItem: () => <SelectUser withUser onChange={v => onChange({userId: v})} />,
+      renderFormItem: () => <SelectUser withUser onChange={v => onChange({ userId: v })} />,
     },
-    { title: '审核状态', dataIndex: 'status' },
+    {
+      title: '议题状态',
+      dataIndex: 'status',
+      render: v => <Tag color={meetingStatus[v].tag}>{meetingStatus[v].label}</Tag>,
+    },
     { title: '议题数量', dataIndex: 'count' },
-    { title: '编写时间', dataIndex: 'createTime' },
+    { title: '编写时间', dataIndex: 'createTime', render: v => moment(v).format('yyyy-MM-DD HH:mm:ss') },
   ];
 
   return <>
-    <EditableDescriptions
+    <BaseDescriptions
         isEdit={isEdit}
         columns={columns}
-        data={data}
+        dataSource={data}
     />
   </>;
 }

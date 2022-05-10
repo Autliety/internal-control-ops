@@ -49,7 +49,7 @@ export default function Matter() {
     />
 
 
-    {state.status &&
+    {!state.measures || state.measures.length === 0 ||
     <>
       <Divider orientation={'left'}>措施清单审核流程</Divider>
       <DemoProcess status={state.status} list={[{title: '党政综合办公室', name: '李均敬'}]}/>

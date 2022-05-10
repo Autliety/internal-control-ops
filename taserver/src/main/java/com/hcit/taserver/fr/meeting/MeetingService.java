@@ -5,6 +5,7 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -36,9 +37,13 @@ public class MeetingService implements BasicPersistableService<Meeting> {
     return entity;
   }
 
-  public Meeting update(Long id) {
+  @Deprecated
+  public Meeting update(Long id, Boolean done) {
     var m = meetingRepository.findById(id).orElseThrow();
     m.setStatus(Status.REVIEWED);
+    if (BooleanUtils.isTrue(done)) {
+      m.setStatus(Status.FINISHED);
+    }
     return bindData(meetingRepository.save(m));
   }
 }

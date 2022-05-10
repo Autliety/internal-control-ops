@@ -478,16 +478,6 @@ VALUES
 ;
 
 INSERT INTO
-  fr_measure (id, code, content, matter_id, start_date, end_date)
-VALUES
-  (1, '01', '测试措施A', 1, NULL, NULL)
-, (2, '02', '测试措施B', 1, NULL, NULL)
-, (3, '01', '测试措施C', 2, NULL, NULL)
-, (4, '02', '测试措施D', 3, NULL, NULL)
-, (5, '03', '测试措施E', 4, NULL, NULL)
-;
-
-INSERT INTO
   fr_meeting (id, code, dept_id, placement, start_time, type, status)
 VALUES
   (1, 'HY001', 1, '1', NULL, '1专题会议', 'AWAITING_REVIEW')
@@ -532,10 +522,20 @@ VALUES
 ;
 
 INSERT INTO
-  fr_matter (id, code, content, dept_id, type, origin, source, source_id)
+  fr_matter (id, code, content, dept_id, type, origin, source, source_id, status, measure_status)
 VALUES
-  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
-, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1)
-, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 1)
-, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 2)
+  (1, 'WT001', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1, 'REVIEWED', 'REVIEWED')
+, (2, 'WT002', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'INFORM', 1, 'REVIEWED', 'REVIEWED')
+, (3, 'WT003', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 1, 'REVIEWED', 'REVIEWED')
+, (4, 'WT004', '问题清单测试数据', 1, '日常监督检查', '本单位自我排查', 'MEETING_TOPIC', 2, 'REVIEWED', 'REVIEWED')
+;
+
+INSERT INTO
+  fr_measure (id, code, content, matter_id, start_date, end_date, user_id)
+VALUES
+  (1, '01', '测试措施A', 1, NULL, NULL, 100)
+, (2, '02', '测试措施B', 1, NULL, NULL, 101)
+, (3, '01', '测试措施C', 2, NULL, NULL, 102)
+, (4, '02', '测试措施D', 3, NULL, NULL, 103)
+, (5, '03', '测试措施E', 4, NULL, NULL, 104)
 ;

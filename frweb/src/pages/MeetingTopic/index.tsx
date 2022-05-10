@@ -9,6 +9,7 @@ import TopicMatter from './TopicMatter';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
 import DemoProcess from '../../components/DemoProcess';
+import MeetingInfo from '../Meeting/MeetingInfo';
 
 export default function MeetingTopic() {
 
@@ -43,7 +44,9 @@ export default function MeetingTopic() {
       </Space>}
   >
 
+
     <Divider orientation={'left'}>基本信息</Divider>
+    <MeetingInfo dataSource={info.meeting} />
     <TopicInfo
         isEdit={isCreate}
         data={info}
@@ -53,7 +56,7 @@ export default function MeetingTopic() {
     <Divider orientation={'left'}>议题内容</Divider>
     <TopicContent
         isEdit={isCreate}
-        data={content}
+        data={content || []}
         onChange={setContent}
     />
 
@@ -81,9 +84,9 @@ export default function MeetingTopic() {
               content: content.map(c => c.content),
               matter: matter.map(m => ({ ...m, id: null, endDate: m.endDate?.valueOf() })),
             })
-            .then(() => navigate('/meeting/' + meetingId))}
+            .then(res => navigate(`/meeting/${meetingId}/topic/${res.id}`))}
         >
-          保存
+          提交审核
         </Button>
       }
     </FooterToolbar>

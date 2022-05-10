@@ -40,7 +40,7 @@ export default function MeetingNotice() {
           ?
           <Button
               type={'primary'}
-              onClick={() => http().then(() => navigate(-1))}
+              onClick={() => http().then(() => navigate('/meeting/3'))}
           >审核通过</Button>
           :
           <Button type={'primary'}>发送通知</Button>

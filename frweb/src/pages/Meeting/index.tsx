@@ -17,6 +17,8 @@ export default function Meeting() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const { state, loading } = useHttp(`/meeting/${id}`);
+  const { http: meetingHttp } = useHttp(`/meeting/${id}?done=true`, { method: 'PATCH', isManual: true });
+  const { http } = useHttp(`/matter/batch`, { method: 'PATCH', isManual: true });
 
   const [matterData, setMatterData] = React.useState([]);
   React.useEffect(() => {
@@ -24,25 +26,25 @@ export default function Meeting() {
   }, [state]);
 
   return <PageContainer
-      title={<><ArrowLeftOutlined onClick={() => navigate(-1)}/> 会议详情</>}
+      title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 会议详情</>}
       extra={<Space>
         <Button
             type={'primary'}
             onClick={() => navigate(`/meeting/${state.id}/topic/0?create=true`)}
         >
-          <FileAddOutlined/>添加议题
+          <FileAddOutlined />添加议题
         </Button>
       </Space>
       }
       content={<Space size={'large'}>
-        <Statistic title={'会议编号'} value={state.code}/>
-        <Statistic title={'会议类型'} value={state.type}/>
+        <Statistic title={'会议编号'} value={state.code} />
+        <Statistic title={'会议类型'} value={state.type} />
       </Space>}
       loading={loading}
   >
 
     <Divider orientation={'left'}>会议信息</Divider>
-    <MeetingInfo dataSource={state}/>
+    <MeetingInfo dataSource={state} />
 
     <Divider orientation={'left'}>计划参会人员</Divider>
     <MeetingAttendee data={state.user} isOptional />
@@ -55,7 +57,7 @@ export default function Meeting() {
         }}
     />
 
-    <br/>
+    <br />
     <TopicMatter
         isEdit={false}
         data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.matter)}
@@ -64,7 +66,13 @@ export default function Meeting() {
     />
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload/>
+    <DemoFileDownload />
+
+    <FooterToolbar>
+      {state.status === 'REVIEWED' &&
+      <Button type={'primary'} onClick={() => setIsVisible(true)}>结束会议</Button>
+      }
+    </FooterToolbar>
 
     <Modal
         title={'请确认会议结果问题清单'}
@@ -72,8 +80,10 @@ export default function Meeting() {
         visible={isVisible}
         width={1000}
         onOk={() => {
-          // todo post请求
           setIsVisible(false);
+          http(matterData.map(m => m.id).join(','))
+          .then(() => meetingHttp()
+          .then(() => window.location.reload()));
         }}
         onCancel={() => setIsVisible(false)}
     >
@@ -83,10 +93,6 @@ export default function Meeting() {
           onChange={setMatterData}
       />
     </Modal>
-
-    <FooterToolbar>
-      <Button type={'primary'} onClick={() => setIsVisible(true)}>结束会议</Button>
-    </FooterToolbar>
 
   </PageContainer>;
 }

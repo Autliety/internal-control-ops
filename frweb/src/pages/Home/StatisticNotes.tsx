@@ -2,50 +2,69 @@ import React from 'react';
 import { StatisticCard } from '@ant-design/pro-card';
 import { CarryOutTwoTone, TagsTwoTone } from '@ant-design/icons';
 import { Avatar, List, Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export default function StatisticNotes() {
+
+  const navigate = useNavigate();
 
   const announceData = [
     {
       id: 1,
-      title: '需要制订措施',
-      content: '问题【WT001】尚未制定相关的措施清单',
+      title: '会议通知审核',
+      content: '会议【HY003】正在等待您审核',
+      link: '/meeting/3/notice',
     },
     {
       id: 2,
-      title: '第一种形态告知书',
-      content: '收到新的第一张形态告知书【DS001】,哈哈哈哈！收到新的第一张形态告知书【DS001】,收到新的第一张形态告知书【DS001】',
+      title: '会议通知',
+      content: '收到会议通知【HY003】，请尽快填写会议议题',
+      link: '/meeting/3'
     },
     {
-      id: 3,
-      title: '需要制订措施',
-      content: '问题【WT008】尚未制定相关的措施清单',
+      id: 2,
+      title: '会议议题审核',
+      content: '会议【HY003】有1份新的会议议题，正在等待您审核',
+      link: '/meeting/3/topic/3'
     },
     {
       id: 4,
-      title: '第一种形态告知书',
-      content: '收到新的第一张形态告知书【DS009】',
+      title: '会议议题审核',
+      content: '会议【HY003】有1份新的会议议题，正在等待您审核',
+      link: '/meeting/3/topic/4'
+    },
+    {
+      id: 5,
+      title: '问题清单填写措施',
+      content: '收到问题【WT005】，请尽快填写措施清单',
+      link: '/matter/5'
+    },
+    {
+      id: 6,
+      title: '措施清单审批',
+      content: '问题【WT005】更新了措施清单，正在等待您审核',
+      link: '/matter/5'
     },
   ];
 
   const toDoList = [
-    { key: '0', title: '待处理', value: 4, color: '#eb2f96' },
-    { key: '1', title: '已处理', value: 50, color: '#52c41a' },
+    { key: '0', title: '待处理', value: 5, color: '#eb2f96' },
+    { key: '1', title: '已处理', value: 25, color: '#52c41a' },
   ];
 
   const dynamicList = [
-    { key: '3', title: '执行中', value: 5, color: 'orange' },
-    { key: '4', title: '已完成', value: 84 },
+    { key: '3', title: '执行中', value: 3, color: 'orange' },
+    { key: '4', title: '已完成', value: 7 },
   ];
 
   const [isVisible, setIsVisible] = React.useState(false);
-  const imgStyle = { fontSize: '50px' };
+  const imgStyle = { fontSize: '60px' };
 
   return <>
 
     <StatisticCard.Group
         direction={'row'}
-        title={'待办事项'}
+        title={<b>待办事项</b>}
         split={'vertical'}
         style={{ cursor: 'pointer' }}
         headerBordered
@@ -67,7 +86,7 @@ export default function StatisticNotes() {
 
     <StatisticCard.Group
         direction={'row'}
-        title={'动态跟踪'}
+        title={<b>动态跟踪</b>}
         split={'vertical'}
         headerBordered
         bordered
@@ -95,13 +114,14 @@ export default function StatisticNotes() {
     >
       <List
           className="content"
-          header="消息通知"
+          header="待办事项"
           itemLayout="horizontal"
       >
         {announceData.map((item, index) =>
             <List.Item
                 key={index}
                 style={{ cursor: 'pointer' }}
+                onClick={() => navigate(item.link)}
             >
               <List.Item.Meta
                   avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png" />}

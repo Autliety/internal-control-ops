@@ -36,7 +36,7 @@ public class MeasureService implements BasicPersistableService<Measure> {
     // todo fix this
     var mid = m.get(0).getMatterId();
     var matter = matterRepository.findById(mid).orElseThrow();
-    matter.setStatus(Status.AWAITING_REVIEW);
+    matter.setMeasureStatus(Status.AWAITING_REVIEW);
     matterRepository.save(matter);
 
     return bindData(m);
