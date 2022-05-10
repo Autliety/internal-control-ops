@@ -56,7 +56,6 @@ export default function MeasureCreateModal({ measures, matterId }) {
                 tooltip={'引用已存在措施'}
             />
       }
-      <ProFormText width='xl' name='code' label='措施编号' placeholder='措施编号'/>
       <ProForm.Group>
         <ProFormSelect
             width='sm'

@@ -14,15 +14,6 @@
   padding: 10px;
 }
 
-.bgStyle {
-  height: 100%;
-  background: linear-gradient(#b1e0fa, #ebeef2);
-}
-
-.loginStyle {
-  background: rgba(255, 255, 255, .3);
-}
-
 .content-area {
   width: 100%;
   background-color: white;
@@ -45,7 +36,7 @@
   vertical-align: top;
 }
 
-.ant-pro-checkcard-disabled{
+.ant-pro-checkcard-disabled {
   background-color: #fff;
   border-color: #d9d9d9;
   cursor: not-allowed;
