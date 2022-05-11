@@ -65,7 +65,7 @@ export const router = {
       ]
     },
     {
-      name: '特殊事项',
+      name: '特办事项',
       icon: <ProfileOutlined />,
       path: '/special',
       routes: [
@@ -79,10 +79,56 @@ export const router = {
           path: '/special/temp',
           disabled: true,
         },
+        {
+          name: '学习记录',
+          path: '/work',
+          disabled: true,
+        },
+        {
+          name: '违法违纪上报',
+          path: '/work',
+          disabled: true,
+        },
       ]
     },
     {
       name: '履责跟踪',
+      icon: <PlayCircleOutlined />,
+      path: '/work',
+      disabled: true,
+      routes: [
+        {
+          name: '常规事项履责',
+          path: '/work',
+          disabled: true,
+        },
+        {
+          name: '重大事项动态跟踪',
+          path: '/work',
+          disabled: true,
+        },
+      ]
+    },
+    {
+      name: '绩效考评',
+      icon: <PlayCircleOutlined />,
+      path: '/work',
+      disabled: true,
+      routes: [
+        {
+          name: '班子成员考评',
+          path: '/work',
+          disabled: true,
+        },
+        {
+          name: '村社考评',
+          path: '/work',
+          disabled: true,
+        },
+      ]
+    },
+    {
+      name: '追责处理',
       icon: <PlayCircleOutlined />,
       path: '/work',
       disabled: true,

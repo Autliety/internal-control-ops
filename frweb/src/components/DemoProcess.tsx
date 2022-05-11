@@ -5,7 +5,7 @@ import BaseTable from './BaseTable';
 export default function DemoProcess({ status, list }: any) {
 
   const columns: any = [
-    { title: '审核岗位/审核部门', dataIndex: 'title' },
+    { title: '审核主体', dataIndex: 'title' },
     { title: '审核人', dataIndex: status ? 'name': 'testName' },
     {
       title: '审核情况', dataIndex: 'response',
@@ -20,7 +20,7 @@ export default function DemoProcess({ status, list }: any) {
   return <>
     <BaseTable
         columns={columns}
-        dataSource={list || [{title: '党委书记', name: '赵小龙'}]}
+        dataSource={list || [{title: '党委', name: '赵小龙(党委书记)'}]}
     />
   </>;
 }

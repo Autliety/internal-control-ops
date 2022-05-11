@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatisticCard } from '@ant-design/pro-card';
-import { CarryOutTwoTone, TagsTwoTone } from '@ant-design/icons';
+import { BellTwoTone, CarryOutTwoTone, TagsTwoTone } from '@ant-design/icons';
 import { Avatar, List, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,37 +19,37 @@ export default function StatisticNotes() {
       id: 2,
       title: '已审会议通知',
       content: '会议通知【HY001】已审核完成，需发送',
-      link: '/meeting/1/notice'
+      link: '/meeting/1/notice',
     },
     {
       id: 3,
       title: '会议通知',
       content: '收到会议通知【HY001】，请尽快填写会议议题',
-      link: '/meeting/1'
+      link: '/meeting/1',
     },
     {
       id: 4,
       title: '会议议题审核',
       content: '会议【HY001】有1份新的会议议题，正在等待您审核',
-      link: '/meeting/1/topic/1'
+      link: '/meeting/1/topic/1',
     },
     {
       id: 5,
       title: '会议议题审核',
       content: '会议【HY003】有1份新的会议议题，正在等待您审核',
-      link: '/meeting/1/topic/2'
+      link: '/meeting/1/topic/2',
     },
     {
       id: 6,
       title: '填写/修改措施清单',
       content: '收到一份问题清单，请尽快填写/修改措施清单',
-      link: '/list/matter'
+      link: '/list/matter',
     },
     {
       id: 7,
       title: '措施清单审批',
       content: '问题【WT001】更新了措施清单，正在等待您审核',
-      link: '/matter/1'
+      link: '/matter/1',
     },
   ];
 
@@ -78,6 +78,7 @@ export default function StatisticNotes() {
     >
       {
         toDoList.map((item, index) => <StatisticCard
+            style={{ padding: 24 }}
             key={index}
             statistic={{
               title: item.title,
@@ -92,6 +93,29 @@ export default function StatisticNotes() {
 
     <StatisticCard.Group
         direction={'row'}
+        title={<b>提醒事项</b>}
+        split={'vertical'}
+        headerBordered
+        bordered
+    >
+      {
+        <StatisticCard
+            style={{ padding: 24 }}
+            key={1}
+            statistic={{
+              title: '提醒事项',
+              value: 3,
+              icon: <BellTwoTone style={imgStyle} twoToneColor={'blue'} />,
+            }}
+            onClick={() => setIsVisible(true)}
+        />
+
+      }
+    </StatisticCard.Group>
+
+    <br />
+    <StatisticCard.Group
+        direction={'row'}
         title={<b>重大事项动态跟踪</b>}
         split={'vertical'}
         headerBordered
@@ -99,6 +123,7 @@ export default function StatisticNotes() {
     >
       {
         dynamicList.map((item, index) => <StatisticCard
+                style={{ padding: 24 }}
                 key={index}
                 statistic={{
                   title: item.title,

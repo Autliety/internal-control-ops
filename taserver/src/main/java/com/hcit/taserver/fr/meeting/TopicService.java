@@ -46,6 +46,7 @@ public class TopicService implements BasicPersistableService<Topic> {
       m.setSourceId(topicId);
       m.setStatus(Status.AWAITING_REVIEW);
       m.setUserId(30L);
+      m.setCode("WT001");
     });
     topic.setMatter(matterRepository.saveAll(topic.getMatter()));
     return topic;

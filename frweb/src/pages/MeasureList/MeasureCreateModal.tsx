@@ -1,9 +1,10 @@
 import React from 'react';
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormTextArea } from '@ant-design/pro-form';
 import { UnorderedListOutlined } from '@ant-design/icons';
-import { Button, Divider, Radio } from 'antd';
+import { Button, Divider, Form, Radio } from 'antd';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
+import SelectUser from '../../components/SelectUser';
 
 export default function MeasureCreateModal({ measures = [], matterId }) {
 
@@ -38,7 +39,7 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
 
       {
         radioValue === '1'
-            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容:06" />
+            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容" />
             : <ProFormSelect
                 width="xl"
                 options={measures.map(m => ({ label: m.content, value: m.content }))}
@@ -68,6 +69,14 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
         <ProFormDatePicker width="sm" name="startDate" label="开始时间" />
         <ProFormDatePicker width="sm" name="endDate" label="结束时间" />
       </ProForm.Group>
+
+      <Form.Item
+          label="选择审核人"
+          name="approve"
+          rules={[{ required: true, message: '请选择' }]}
+      >
+        <SelectUser withUser />
+      </Form.Item>
     </ModalForm>
   </>;
 }

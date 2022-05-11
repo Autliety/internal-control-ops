@@ -1,4 +1,6 @@
 // 审批
+import { Tag } from 'antd';
+
 export const approveProcessStatus = {
   WAITING: { label: '进行中', tag: 'processing' },
   FINISHED: { label: '已完成', tag: 'success' },
@@ -30,7 +32,7 @@ export const meetingStatus = {
 };
 
 export const statusEnum = {
-  AWAITING_REVIEW: { text: '待审', status: 'warning' },
-  REVIEWED: { text: '已审核', status: 'processing' },
-  FINISHED: { text: '已完成', status: 'success' },
+  AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
+  REVIEWED: <Tag color={'processing'}>已审核</Tag>,
+  FINISHED: <Tag color={'success'}>已完成</Tag>,
 };

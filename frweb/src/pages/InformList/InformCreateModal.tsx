@@ -100,6 +100,14 @@ export default function InformCreateModal() {
               </>
           )}
         </Form.List>
+
+        <Form.Item
+            label="选择审核人"
+            name="approve"
+            rules={[{ required: true, message: '请选择' }]}
+        >
+          <SelectUser withUser />
+        </Form.Item>
       </Form>
     </Modal>
   </>;
