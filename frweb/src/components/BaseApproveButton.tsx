@@ -15,7 +15,7 @@ export default ({ onOk }) => {
           type={'primary'}
           onClick={() => Modal.confirm({
             title: '确认审核通过',
-            content: '审核完成后会自动发回申请人',
+            content: '审核完成后将自动发回申请人',
             onOk,
           })}
       >审核通过</Button>

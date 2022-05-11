@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Space, Statistic } from 'antd';
+import { Divider, Space, Statistic } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import MatterInfo from './MatterInfo';
 import BaseModal from '../../components/BaseModal';
 import MeasureCreateModal from '../MeasureList/MeasureCreateModal';
 import DemoProcess from '../../components/DemoProcess';
+import BaseApproveButton from '../../components/BaseApproveButton';
 
 export default function Matter() {
 
@@ -48,7 +49,7 @@ export default function Matter() {
     {!state.measures || state.measures.length === 0 ||
     <>
       <Divider orientation={'left'}>措施清单审核流程</Divider>
-      <DemoProcess status={state.measureStatus} list={[{title: '党政综合办公室', name: '李均敬'}]}/>
+      <DemoProcess status={state.measureStatus} list={[{title: '党委', name: '王哲'}]}/>
     </>
     }
 
@@ -60,11 +61,9 @@ export default function Matter() {
 
     {state.measureStatus === 'AWAITING_REVIEW' &&
     <FooterToolbar>
-      <Button
-          type={'primary'}
-          onClick={() => http(state.id).then(() => window.location.reload())}
-      >审核通过
-      </Button>
+      <BaseApproveButton
+          onOk={() => http(state.id).then(() => window.location.reload())}
+      />
     </FooterToolbar>}
   </PageContainer>;
 

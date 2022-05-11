@@ -12,6 +12,7 @@ import DemoProcess from '../../components/DemoProcess';
 import MeetingInfo from '../Meeting/MeetingInfo';
 import { useAuth } from '../../utils/auth';
 import SelectUser from '../../components/SelectUser';
+import BaseApproveButton from '../../components/BaseApproveButton';
 
 export default function MeetingTopic() {
 
@@ -80,11 +81,9 @@ export default function MeetingTopic() {
     }
 
     <FooterToolbar>
-      {info.status === 'AWAITING_REVIEW' && <Button
-          type={'primary'}
-          onClick={() => updateHttp(info.id).then(() => window.location.reload())}
-      >审核通过
-      </Button>}
+      {info.status === 'AWAITING_REVIEW' &&
+          <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate('/meeting/' + meetingId))} />
+      }
       {
         isCreate && <Button
             type={'primary'}
