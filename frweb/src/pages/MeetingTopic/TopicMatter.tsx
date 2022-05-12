@@ -1,8 +1,8 @@
 import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
-import BaseEditableTable from '../../components/BaseEditableTable';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function TopicMatter({ isEdit, data, onChange }) {
 

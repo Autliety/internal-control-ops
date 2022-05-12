@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Divider, Form, Space, Statistic } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 import TopicInfo from './TopicInfo';
 import TopicContent from './TopicContent';
 import TopicMatter from './TopicMatter';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
 import DemoProcess from '../../components/DemoProcess';
 import MeetingInfo from '../Meeting/MeetingInfo';

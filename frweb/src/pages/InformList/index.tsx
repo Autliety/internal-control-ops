@@ -1,20 +1,20 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Divider, Input, Select, Space } from 'antd';
-import { ColumnsType } from 'antd/lib/table/interface';
 import { ContainerOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { ProColumns } from '@ant-design/pro-table';
 
-import BaseTable from '../../components/BaseTable';
 import { useHttp } from '../../utils/request';
 import { informType } from '../../utils/nameMap';
 import InformCreateModal from './InformCreateModal';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 function InformList() {
 
-  const columns: ColumnsType = [
+  const columns: ProColumns[] = [
     { title: '编号', dataIndex: 'code' },
-    { title: '类型', dataIndex: 'type', render: text => informType[text].name },
+    { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
     { title: '下达时间', dataIndex: 'createTime' },
     { title: '下达部门', dataIndex: 'destDepartment' },
     {
@@ -48,9 +48,9 @@ function InformList() {
     </Space>
     <Divider/>
 
-    <BaseTable
+    <BaseEditableTable
         columns={columns}
-        dataSource={state}
+        value={state}
         loading={loading}
     />
   </PageContainer>;

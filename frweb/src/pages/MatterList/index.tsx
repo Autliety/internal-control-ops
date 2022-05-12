@@ -3,10 +3,10 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Input, Select, Space, Tooltip } from 'antd';
 import { ContainerOutlined, FileSearchOutlined, PrinterOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import BaseTable from '../../components/BaseTable';
 import { useHttp } from '../../utils/request';
 import MatterPartingModal from './MatterPartingModal';
 import { matterColumns } from '../Matter/MatterInfo';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function MatterList() {
 
@@ -53,10 +53,10 @@ export default function MatterList() {
     </Space>
 
     <Divider />
-    <BaseTable
+    <BaseEditableTable
         loading={loading}
         columns={columns}
-        dataSource={state}
+        value={state}
     />
 
   </PageContainer>;

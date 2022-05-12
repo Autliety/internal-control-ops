@@ -2,13 +2,13 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ArrowLeftOutlined, ContainerOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ColumnsType } from 'antd/lib/table/interface';
-import { Button, Descriptions, Divider, Space, Statistic, Table, Tooltip } from 'antd';
+import { Button, Descriptions, Divider, Space, Statistic, Tooltip } from 'antd';
+import { ProColumns } from '@ant-design/pro-table';
 
 import { useHttp } from '../../utils/request';
 import { informType } from '../../utils/nameMap';
-import BaseTable from '../../components/BaseTable';
 import DemoFileDownload from '../../components/DemoFileDownload';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function Inform() {
 
@@ -17,14 +17,14 @@ export default function Inform() {
   const { state, loading } = useHttp(`/inform/${id}`, { initState: [] });
 
   // 整改措施
-  const measureColumns1: ColumnsType = [
+  const measureColumns1: ProColumns[] = [
     { title: '序号', dataIndex: 'id' },
     { title: informType[state.type]?.label, dataIndex: 'detail' },
     { title: '落实情况', dataIndex: 'measureCase' },
     { title: '报告主体', dataIndex: 'deptId' },
     { title: '报告时间', dataIndex: 'time' }
   ];
-  const measureColumns2: ColumnsType = [
+  const measureColumns2: ProColumns[] = [
     { title: '序号', dataIndex: 'id' },
     { title: '第一种形态处置方式', dataIndex: 'operationType' },
     { title: '运用处置的具体情况', dataIndex: 'detail' },
@@ -52,7 +52,7 @@ export default function Inform() {
   ];
 
 
-  const matterColumns: ColumnsType = [
+  const matterColumns: ProColumns[] = [
     { title: '编号', dataIndex: 'code' },
     { title: '涉及人员', dataIndex: 'deptId' },
     { title: informType[state.type]?.title, dataIndex: 'content' },
@@ -98,23 +98,16 @@ export default function Inform() {
       <Descriptions.Item label='接收对象'>{state.destDeptId}</Descriptions.Item>
     </Descriptions><br/>
 
-    <BaseTable
+    <BaseEditableTable
         loading={loading}
         columns={matterColumns}
-        dataSource={state.matter}
+        value={state.matter}
     />
 
     <Divider orientation={'left'}>整改（运用）落实情况报告</Divider>
-    <Table
-        rowKey={'id'}
-        bordered
+    <BaseEditableTable
         columns={state.type === 'ANNOUNCE' ? measureColumns2 : measureColumns1}
-        dataSource={measureData}
-        scroll={{
-          scrollToFirstRowOnChange: true,
-          x: 1700,
-        }}
-        pagination={false}
+        value={measureData}
     />
     <DemoFileDownload/>
 

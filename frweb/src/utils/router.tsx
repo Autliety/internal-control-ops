@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AuditOutlined,
   HomeOutlined,
   PlayCircleOutlined,
   ProfileOutlined,
@@ -22,35 +23,37 @@ import InformList from '../pages/InformList';
 import Inform from '../pages/Inform/Inform';
 import MeetingNotice from '../pages/Meeting/MeetingNotice';
 import Department from '../pages/Department';
+import StaffPerformanceList from '../pages/StaffPerformanceList';
+import StaffPerformance from '../pages/StaffPerformance/StaffPerformance';
 
 export const router = {
   routes: [
     {
       name: '首页',
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined/>,
       path: '/',
-      element: <Home />,
+      element: <Home/>,
     },
     {
       name: '“1+X”会议',
-      icon: <TeamOutlined />,
+      icon: <TeamOutlined/>,
       path: '/meeting',
-      element: <MeetingList />,
+      element: <MeetingList/>,
     },
     {
       name: '责任清单',
-      icon: <ProjectOutlined />,
+      icon: <ProjectOutlined/>,
       path: '/list',
-      routes:[
+      routes: [
         {
           name: '问题清单',
           path: '/list/matter',
-          element: <MatterList />,
+          element: <MatterList/>,
         },
         {
           name: '措施清单',
           path: '/list/measure',
-          element: <MeasureList />,
+          element: <MeasureList/>,
         },
         {
           name: '项目清单',
@@ -66,13 +69,13 @@ export const router = {
     },
     {
       name: '特办事项',
-      icon: <ProfileOutlined />,
+      icon: <ProfileOutlined/>,
       path: '/special',
       routes: [
         {
           name: '一单三书',
           path: '/special/inform',
-          element: <InformList />,
+          element: <InformList/>,
         },
         {
           name: '临时交办',
@@ -93,7 +96,7 @@ export const router = {
     },
     {
       name: '履责跟踪',
-      icon: <PlayCircleOutlined />,
+      icon: <PlayCircleOutlined/>,
       path: '/work',
       disabled: true,
       routes: [
@@ -111,42 +114,41 @@ export const router = {
     },
     {
       name: '绩效考评',
-      icon: <PlayCircleOutlined />,
-      path: '/work',
-      disabled: true,
+      icon: <AuditOutlined/>,
+      path: '/performance',
       routes: [
         {
           name: '班子成员考评',
-          path: '/work',
-          disabled: true,
+          path: '/performance/staff',
+          element: <StaffPerformanceList/>
         },
         {
           name: '村社考评',
-          path: '/work',
+          path: '/performance/village',
           disabled: true,
         },
       ]
     },
     {
       name: '追责处理',
-      icon: <PlayCircleOutlined />,
-      path: '/work',
+      icon: <PlayCircleOutlined/>,
+      path: '/responsibility',
       disabled: true,
     },
     {
       name: '系统设置',
-      icon: <SettingOutlined />,
+      icon: <SettingOutlined/>,
       path: '/setting',
       routes: [
         {
           name: '部门及岗位',
           path: '/setting/department',
-          element: <Department />,
+          element: <Department/>,
         },
         {
           name: '人员组成',
           path: '/setting/user',
-          element: <Department withUser />,
+          element: <Department withUser/>,
         },
         {
           name: '权限管理',
@@ -161,7 +163,7 @@ export const router = {
 const extRoutes = [
   {
     path: '/meeting/:id',
-    element: <Meeting />,
+    element: <Meeting/>,
   },
   {
     path: '/meeting/:id/notice',
@@ -169,27 +171,31 @@ const extRoutes = [
   },
   {
     path: '/meeting/:meetingId/topic/:id',
-    element: <MeetingTopic />,
+    element: <MeetingTopic/>,
   },
   {
     path: '/matter/:id',
-    element: <Matter />,
+    element: <Matter/>,
   },
   {
     path: '/measure/:id',
-    element: <Measure />,
+    element: <Measure/>,
   },
   {
     path: '/inform/:id',
-    element: <Inform />,
+    element: <Inform/>,
+  },
+  {
+    path: '/performance/:id',
+    element: <StaffPerformance/>,
   },
   {
     path: '/admin/settings',
-    element: <Settings />,
+    element: <Settings/>,
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: <NotFound/>,
   },
 ];
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import moment from 'moment';
-import { statusEnum } from '../../utils/nameMap';
 import { ProColumns } from '@ant-design/pro-table';
+import { statusEnum } from '../../utils/nameMap';
 
 export const meetingColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code' },

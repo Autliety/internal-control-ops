@@ -1,6 +1,7 @@
 import React from 'react';
-import { Divider, List, Table } from 'antd';
-import { ColumnsType } from 'antd/lib/table/interface';
+import { Divider, List } from 'antd';
+import { ProColumns } from '@ant-design/pro-table';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function Summary() {
 
@@ -8,21 +9,21 @@ export default function Summary() {
     info: {
       code: 'HY001',
       name: '百步镇党委全面从严治党2021年度 “1” 专题会议',
-      type: '"1"专题会议',
+      type: '“1”专题会议',
       department: '党委',
       startTime: '2022-04-21 12:00:00',
       placement: '行政楼会议室405',
     },
     user: [
-      {  name: '吴胜杰'},
-      {  name: '赵小龙'},
-      {  name: '吴玉明'},
-      {  name: '李勤根'},
-      {  name: '任凯波'},
-      {  name: '王哲'},
-      {  name: '王玲敏'},
-      {  name: '沈伟华'},
-      {  name: '刘晓东'},
+      { name: '吴胜杰' },
+      { name: '赵小龙' },
+      { name: '吴玉明' },
+      { name: '李勤根' },
+      { name: '任凯波' },
+      { name: '王哲' },
+      { name: '王玲敏' },
+      { name: '沈伟华' },
+      { name: '刘晓东' },
     ],
     topic: [
       { id: 1, topic: '讨论研究百步镇‘十四五”农村生活污水治理工作实施方案', attribution: '党政综合办公室' },
@@ -57,7 +58,7 @@ export default function Summary() {
   }
 
 
-  const topicColumns: ColumnsType = [
+  const topicColumns: ProColumns[] = [
     { title: '序号', dataIndex: 'id', width: 80 },
     { title: '议题内容', dataIndex: 'topic' },
     { title: '议题归属', dataIndex: 'attribution' }
@@ -80,11 +81,9 @@ export default function Summary() {
     />
 
     <Divider orientation={'left'}>主要议题</Divider>
-    <Table
-        rowKey={'id'}
+    <BaseEditableTable
         columns={topicColumns}
-        dataSource={data.topic}
-        pagination={false}
+        value={data.topic}
     />
 
     <Divider orientation={'left'}>会议内容及研究确定事项概述</Divider>
