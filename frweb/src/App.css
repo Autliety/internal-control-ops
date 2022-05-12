@@ -20,6 +20,15 @@
   padding: 10px;
 }
 
+.loginStyle {
+  background-color:#8ED3F9   ;
+}
+
+.bgStyle {
+  background: rgba(255, 255, 255, 0.7);
+  margin-top: 150px;
+}
+
 .light-row {
   background-color: rgb(227, 243, 242);
 }
