@@ -1,6 +1,5 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import moment from 'moment';
 import { statusEnum } from '../../utils/nameMap';
 import { ProColumns } from '@ant-design/pro-table';
 
@@ -14,7 +13,7 @@ export const meetingColumns: ProColumns[] = [
     dataIndex: 'status',
     valueEnum: statusEnum,
   },
-  { title: '会议时间', dataIndex: 'startTime', renderText: v => moment(v).format('yyyy-MM-DD HH:mm:ss') },
+  { title: '会议时间', dataIndex: 'startTime', valueType: 'dateTime' },
   { title: '会议地点', dataIndex: 'placement' },
 ];
 

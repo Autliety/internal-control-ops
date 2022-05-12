@@ -55,7 +55,7 @@ export default function Meeting() {
     <Divider orientation={'left'}>会议议题</Divider>
     <TopicContent
         isEdit={false}
-        data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content).map(c => ({ content: c }))}
+        data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content.map(c => ({content: c, user: t.user})))}
         onChange={() => {
         }}
     />
