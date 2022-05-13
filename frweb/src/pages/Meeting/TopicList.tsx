@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import BaseTable from '../../components/BaseTable';
 import moment from 'moment';
+import { ProColumns } from '@ant-design/pro-table';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function TopicList({ topic, user }) {
 
@@ -11,11 +12,11 @@ export default function TopicList({ topic, user }) {
 
   user.forEach(u => u.topic = topic.filter(t => t.userId === u.id)?.[0]);
 
-  const columns: object[] = [
+  const columns: ProColumns[] = [
     { title: '参会人', dataIndex: 'name' },
     { title: '议题审核状态', dataIndex: ['topic', 'status'] },
     { title: '议题数量', dataIndex: ['topic', 'count'] },
-    { title: '编写时间', dataIndex: ['topic', 'createTime'], render: v => !v || moment(v).format('YYYY-MM-DD HH:mm:ss') },
+    { title: '编写时间', dataIndex: ['topic', 'createTime'], renderText: v => !v || moment(v).format('YYYY-MM-DD HH:mm:ss') },
     {
       dataIndex: 'operation',
       render: (_, record: any) => <Space>
@@ -23,7 +24,7 @@ export default function TopicList({ topic, user }) {
             <Tooltip title={'查看详情'}>
               <Button
                   type={'primary'}
-                  icon={<ContainerOutlined />}
+                  icon={<ContainerOutlined/>}
                   size={'small'}
                   onClick={() => navigate(`/meeting/${record.id}/topic/${record.topic.id}`)}
               />
@@ -37,9 +38,9 @@ export default function TopicList({ topic, user }) {
   ];
 
   return <>
-    <BaseTable
+    <BaseEditableTable
         columns={columns}
-        dataSource={user}
+        value={user}
     />
   </>;
 }

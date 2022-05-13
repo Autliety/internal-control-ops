@@ -1,7 +1,7 @@
 import React from 'react';
+import { ProColumns } from '@ant-design/pro-table';
 import { statusEnum } from '../../utils/nameMap';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { ProColumns } from '@ant-design/pro-table';
 
 export default function TopicInfo({ data}) {
 

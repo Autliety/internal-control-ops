@@ -2,10 +2,10 @@ import React from 'react';
 import { Button, Modal, Space } from 'antd';
 import { PartitionOutlined } from '@ant-design/icons';
 import { useBoolean } from 'ahooks';
-import BaseTable from '../../components/BaseTable';
 import { matterColumns } from '../Matter/MatterInfo';
 import SelectUser from '../../components/SelectUser';
 import { useHttp } from '../../utils/request';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function MatterPartingModal({ dataSource }) {
 
@@ -22,7 +22,7 @@ export default function MatterPartingModal({ dataSource }) {
   return <>
     <Button type={'primary'} onClick={openModal}><PartitionOutlined />问题分派</Button>
     <Modal
-        title="问题分派"
+        title='问题分派'
         closable
         destroyOnClose
         visible={isModalOpen}
@@ -30,7 +30,7 @@ export default function MatterPartingModal({ dataSource }) {
         onOk={() => http(upd).then(() => window.location.reload())}
         width={1600}
     >
-      <BaseTable
+      <BaseEditableTable
           columns={matterColumns.slice(0, -2).concat(
               {
                 title: '问题分派',
@@ -46,7 +46,7 @@ export default function MatterPartingModal({ dataSource }) {
                 </Space>,
               },
           )}
-          dataSource={dataSource}
+          value={dataSource}
       />
     </Modal>
   </>;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHttp } from '../../utils/request';
-import BaseTable from '../../components/BaseTable';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { measureColumns } from '../Measure/MeasureInfo';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 type Props = {
   dataSource?: object[],
@@ -40,9 +40,9 @@ export default function MeasureTable({ dataSource }: Props) {
   ]);
 
   return <>
-    <BaseTable
+    <BaseEditableTable
         columns={columns}
-        dataSource={dataSource || state}
+        value={dataSource || state}
     />
   </>;
 }
