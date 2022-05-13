@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginForm, ProFormText } from '@ant-design/pro-form';
+import { LoginForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Divider, message, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -12,15 +12,19 @@ export default function Login() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
+  const { state } = useHttp(
+
+      '/department', { initState: [] });
 
   return <div className={'loginStyle'} style={{ height: '100%', minWidth: 1500, overflow: 'scroll' }}>
     <Row>
-      <Col span={6}/>
+      <
+          Col span={6}/>
       <Col span={8} className={'bgStyle'}>
         <br/><br/>
-        <img src={bg} height={414} width={384} style={{marginLeft:100}}/>
+        <img src={bg} height={414} width={384} style={{ marginLeft: 100 }}/>
       </Col>
-      <Col span={6} className={'bgStyle'}>
+      <Col span={6} style={{ marginTop: 150, backgroundColor: '#fff' }}>
         <LoginForm
             logo={logo}
             title='百步开发区(百步镇)'
@@ -31,6 +35,18 @@ export default function Login() {
               navigate('/');
             }}
         >
+
+          <ProFormSelect
+              options={state.map((item, index) => ({ value: item.id, label: item.name, key: index }))}
+              name='dept'
+              placeholder=' 选择登录部门'
+              rules={[
+                {
+                  required: true,
+                  message: '此项必选!',
+                },
+              ]}
+          />
 
           <ProFormText
               name='username'
@@ -47,6 +63,7 @@ export default function Login() {
                   message: '请输入用户名!',
                 },
               ]}
+              validateTrigger={'onBlur'}
           />
           <Divider/>
 
