@@ -16,18 +16,6 @@ export default function StatisticNotes() {
       link: '/meeting/1/notice',
     },
     {
-      id: 2,
-      title: '已审会议通知',
-      content: '会议通知【HY001】已审核完成，需发送',
-      link: '/meeting/1/notice',
-    },
-    {
-      id: 3,
-      title: '会议通知',
-      content: '收到会议通知【HY001】，请尽快填写会议议题',
-      link: '/meeting/1',
-    },
-    {
       id: 4,
       title: '会议议题审核',
       content: '会议【HY001】有1份新的会议议题，正在等待您审核',
@@ -53,6 +41,21 @@ export default function StatisticNotes() {
     },
   ];
 
+  const infoData = [
+    {
+      id: 2,
+      title: '已审会议通知',
+      content: '会议通知【HY001】已审核完成，需发送',
+      link: '/meeting/1/notice',
+    },
+    {
+      id: 3,
+      title: '会议通知',
+      content: '收到会议通知【HY001】，请尽快填写会议议题',
+      link: '/meeting/1',
+    },
+  ]
+
   const toDoList = [
     { key: '0', title: '待处理', value: 6, color: '#eb2f96' },
     { key: '1', title: '已处理', value: 25, color: '#52c41a' },
@@ -64,6 +67,7 @@ export default function StatisticNotes() {
   ];
 
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isInfo, setIsInfo] = React.useState(false);
   const imgStyle = { fontSize: '60px' };
 
   return <>
@@ -107,7 +111,10 @@ export default function StatisticNotes() {
               value: 3,
               icon: <BellTwoTone style={imgStyle} twoToneColor={'blue'} />,
             }}
-            onClick={() => setIsVisible(true)}
+            onClick={() => {
+              setIsInfo(true);
+              setIsVisible(true);
+            }}
         />
 
       }
@@ -140,15 +147,21 @@ export default function StatisticNotes() {
         visible={isVisible}
         closable
         width={800}
-        onCancel={() => setIsVisible(false)}
-        onOk={() => setIsVisible(false)}
+        onCancel={() => {
+          setIsVisible(false);
+          setIsInfo(false);
+        }}
+        onOk={() => {
+          setIsVisible(false);
+          setIsInfo(false);
+        }}
     >
       <List
           className="content"
-          header="待办事项"
+          header={isInfo ? '提醒事项': '待办事项' }
           itemLayout="horizontal"
       >
-        {announceData.map((item, index) =>
+        {(isInfo ? infoData : announceData).map((item, index) =>
             <List.Item
                 key={index}
                 style={{ cursor: 'pointer' }}

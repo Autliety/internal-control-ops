@@ -15,6 +15,10 @@ export default function TopicContent({ isEdit, data, onChange }: Props) {
       title: '议题内容',
       dataIndex: 'content',
     },
+    {
+      title: '议题归属',
+      dataIndex: ['user', 'name'],
+    },
   ];
 
   return <>
