@@ -11,7 +11,7 @@ export default function StatisticNotes() {
   const announceData = [
     {
       id: 1,
-      title: '待审会议通知',
+      title: '会议通知审核',
       content: '会议【HY001】正在等待您审核',
       link: '/meeting/1/notice',
     },
@@ -22,12 +22,6 @@ export default function StatisticNotes() {
       link: '/meeting/1/topic/1',
     },
     {
-      id: 5,
-      title: '会议议题审核',
-      content: '会议【HY003】有1份新的会议议题，正在等待您审核',
-      link: '/meeting/1/topic/2',
-    },
-    {
       id: 6,
       title: '填写/修改措施清单',
       content: '收到一份问题清单，请尽快填写/修改措施清单',
@@ -35,7 +29,7 @@ export default function StatisticNotes() {
     },
     {
       id: 7,
-      title: '措施清单审批',
+      title: '措施清单审核',
       content: '问题【WT001】更新了措施清单，正在等待您审核',
       link: '/matter/1',
     },
@@ -57,7 +51,7 @@ export default function StatisticNotes() {
   ]
 
   const toDoList = [
-    { key: '0', title: '待处理', value: 6, color: '#eb2f96' },
+    { key: '0', title: '待处理', value: 4, color: '#eb2f96' },
     { key: '1', title: '已处理', value: 25, color: '#52c41a' },
   ];
 
@@ -108,7 +102,7 @@ export default function StatisticNotes() {
             key={1}
             statistic={{
               title: '提醒事项',
-              value: 3,
+              value: 2,
               icon: <BellTwoTone style={imgStyle} twoToneColor={'blue'} />,
             }}
             onClick={() => {

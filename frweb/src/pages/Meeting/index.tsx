@@ -53,14 +53,9 @@ export default function Meeting() {
     <MeetingAttendee data={[]} isOptional />
 
     <Divider orientation={'left'}>会议议题</Divider>
-    <TopicContent
-        isEdit={false}
-        data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content.map(c => ({content: c, user: t.user})))}
-        onChange={() => {
-        }}
-    />
+    <TopicContent />
 
-    <br />
+    <Divider orientation={'left'}>职责任务概述</Divider>
     <TopicMatter
         isEdit={false}
         data={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.matter)}

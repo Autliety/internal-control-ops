@@ -29,7 +29,7 @@ function Pages() {
           layout="mix"
           contentWidth="Fluid"
           navTheme="light"
-          menu={{ defaultOpenAll: true, autoClose: false }}
+          menu={{ defaultOpenAll: false, autoClose: false }}
           logo={logo}
 
           rightContentRender={() => <HeaderRight />}

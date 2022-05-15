@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  AuditOutlined,
-  HomeOutlined,
-  PlayCircleOutlined,
-  ProfileOutlined,
-  ProjectOutlined,
-  SettingOutlined,
-  TeamOutlined,
-} from '@ant-design/icons';
+import { AuditOutlined, HomeOutlined, PlayCircleOutlined, ProfileOutlined, SettingOutlined } from '@ant-design/icons';
 
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
@@ -35,105 +27,136 @@ export const router = {
       element: <Home/>,
     },
     {
-      name: '“1+X”会议',
-      icon: <TeamOutlined/>,
-      path: '/meeting',
-      element: <MeetingList/>,
-    },
-    {
-      name: '责任清单',
-      icon: <ProjectOutlined/>,
-      path: '/list',
+      name: '明责',
+      icon: <HomeOutlined/>,
+      path: '/mz',
       routes: [
         {
-          name: '问题清单',
-          path: '/list/matter',
-          element: <MatterList/>,
+          name: '“1+X”会议',
+          path: '/mz/meeting',
+          element: <MeetingList/>,
         },
         {
-          name: '措施清单',
-          path: '/list/measure',
-          element: <MeasureList/>,
+          name: '责任清单建立',
+          path: '/mz/list',
+          routes: [
+            {
+              name: '问题清单',
+              path: '/mz/list/matter',
+              element: <MatterList/>,
+            },
+            {
+              name: '措施清单',
+              path: '/mz/list/measure',
+              element: <MeasureList/>,
+            },
+          ]
         },
         {
-          name: '项目清单',
-          path: '/list/project',
-          disabled: true,
-        },
-        {
-          name: '整改清单',
-          path: '/list/reform',
+          name: '“第一议题”学规学纪',
+          path: '/mz/learning',
           disabled: true,
         },
       ]
     },
     {
-      name: '特办事项',
+      name: '履责',
       icon: <ProfileOutlined/>,
-      path: '/special',
+      path: '/lz',
       routes: [
         {
+          name: '责任清单落实',
+          path: '/lz/list',
+          routes: [
+            {
+              name: '项目清单',
+              path: '/lz/list/project',
+              disabled: true,
+            },
+            {
+              name: '整改清单',
+              path: '/lz/list/reform',
+              disabled: true,
+            },
+          ]
+        },
+        {
+          name: '监督检查',
+          path: '/lz/temporary',
+          disabled: true,
+        },
+        {
+          name: '第一种形态处置',
+          path: '/lz/disposal',
+          disabled: true,
+        },
+        {
           name: '一单三书',
-          path: '/special/inform',
+          path: '/lz/inform',
           element: <InformList/>,
         },
         {
-          name: '临时交办',
-          path: '/special/temp',
+          name: '纪委动议',
+          path: '/lz/motion',
           disabled: true,
         },
         {
-          name: '学习记录',
-          path: '/work',
+          name: '履责报告',
+          path: '/lz/report',
           disabled: true,
         },
         {
-          name: '违法违纪上报',
-          path: '/work',
+          name: '重大事项请示',
+          path: '/lz/important',
+          disabled: true,
+        },
+        {
+          name: '廉政风险防控',
+          path: '/lz/risk',
           disabled: true,
         },
       ]
     },
     {
-      name: '履责跟踪',
-      icon: <PlayCircleOutlined/>,
-      path: '/work',
-      disabled: true,
-      routes: [
-        {
-          name: '常规事项履责',
-          path: '/work',
-          disabled: true,
-        },
-        {
-          name: '重大事项动态跟踪',
-          path: '/work',
-          disabled: true,
-        },
-      ]
-    },
-    {
-      name: '绩效考评',
+      name: '评责',
       icon: <AuditOutlined/>,
-      path: '/performance',
+      path: '/pz',
       routes: [
         {
           name: '班子成员考评',
-          path: '/performance/staff',
+          path: '/pz/performance/staff',
           element: <StaffPerformanceList/>
         },
         {
           name: '村社考评',
-          path: '/performance/village',
+          path: '/pz/performance/village',
           disabled: true,
         },
       ]
     },
     {
-      name: '追责处理',
+      name: '督责',
       icon: <PlayCircleOutlined/>,
-      path: '/responsibility',
-      disabled: true,
+      path: '/dz',
+      routes: [
+        {
+          name: '督责约谈',
+          path: '/dz/todo',
+          disabled: true,
+        },
+      ]
+    },
+    {
+      name: '追责',
+      icon: <PlayCircleOutlined/>,
+      path: '/zz',
+      routes: [
+        {
+          name: '党员干部监督',
+          path: 'zz/todo',
+          disabled: true,
+        },
+      ]
     },
     {
       name: '系统设置',
