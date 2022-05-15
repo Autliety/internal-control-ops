@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor @AllArgsConstructor
 
 @Entity
+@Table(name = "ta_assessment")
 public class Assessment {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

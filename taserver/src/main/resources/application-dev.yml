@@ -17,7 +17,9 @@ spring:
 #      format_sql: true
 #      use_sql_comments: false
     defer-datasource-initialization: on
-  sql.init.mode: always
+  sql.init:
+    mode: always
+    data-locations: classpath:/data.sql,classpath:/data_ta.sql
 
 springfox:
   documentation.enabled: true

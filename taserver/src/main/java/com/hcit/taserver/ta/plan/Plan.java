@@ -1,8 +1,8 @@
 package com.hcit.taserver.ta.plan;
 
-import com.hcit.taserver.ta.assessment.Assessment;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
+import com.hcit.taserver.ta.assessment.Assessment;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
+@Table(name = "ta_plan")
 public class Plan {
 
   @Id
