@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
-import BaseModal from '../../components/BaseModal';
 import MeasureCreateModal from '../MeasureList/MeasureCreateModal';
 import DemoProcess from '../../components/DemoProcess';
 import BaseApproveButton from '../../components/BaseApproveButton';
@@ -16,7 +15,6 @@ export default function Matter() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [isVisible, setIsVisible] = React.useState(false);
   const { state, loading } = useHttp(`/matter/${id}`);
   const { http } = useHttp('/matter', { method: 'PATCH', isManual: true });
 
@@ -52,12 +50,6 @@ export default function Matter() {
       <DemoProcess status={state.measureStatus} list={[{title: '党委', name: '王哲'}]}/>
     </>
     }
-
-    <BaseModal
-        title={'附件上传'}
-        isVisible={isVisible}
-        onCancel={() => setIsVisible(false)}
-    />
 
     {state.measureStatus === 'AWAITING_REVIEW' &&
     <FooterToolbar>

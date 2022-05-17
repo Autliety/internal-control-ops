@@ -1,12 +1,13 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Space, Tooltip } from 'antd';
-import { ContainerOutlined, PrinterOutlined } from '@ant-design/icons';
+import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MatterPartingModal from './MatterPartingModal';
 import { matterColumns } from '../Matter/MatterInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import MatterCreateModal from './MatterCreateModal';
 
 export default function MatterList() {
 
@@ -37,7 +38,7 @@ export default function MatterList() {
       title={'问题清单'}
       extra={
         <Space size={'middle'}>
-          <Button><PrinterOutlined />打印清单</Button>
+          <MatterCreateModal />
           <MatterPartingModal dataSource={state} />
         </Space>
       }

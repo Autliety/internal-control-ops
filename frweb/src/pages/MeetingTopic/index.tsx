@@ -25,12 +25,12 @@ export default function MeetingTopic() {
   const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
 
-  const [info, setInfo] = React.useState(isCreate ? { user } : state);
-  const [content, setContent] = React.useState(isCreate ? [] : state.content);
+  const [info, setInfo] = React.useState<any>({ user });
+  const [content, setContent] = React.useState([]);
   React.useEffect(() => {
     if (!isCreate) {
       setInfo(state);
-      setContent(state.content);
+      setContent(state.content?.map(c => ({content: c})));
     }
   }, [isCreate, state]);
 
@@ -80,7 +80,7 @@ export default function MeetingTopic() {
             onClick={() => http(null, null, {
               meetingId,
               ...info,
-              content: content.map(m => ({ ...m, id: null, endDate: m.endDate?.valueOf() })),
+              content: content.map(o => o.content),
             })
             .then(res => navigate(`/meeting/${meetingId}/topic/${res.id}`))}
         >
