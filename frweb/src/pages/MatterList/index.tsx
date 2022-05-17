@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Divider, Input, Select, Space, Tooltip } from 'antd';
-import { ContainerOutlined, FileSearchOutlined, PrinterOutlined } from '@ant-design/icons';
+import { Button, Space, Tooltip } from 'antd';
+import { ContainerOutlined, PrinterOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MatterPartingModal from './MatterPartingModal';
@@ -15,6 +15,7 @@ export default function MatterList() {
 
   const columns = matterColumns.concat([
     {
+      hideInSearch:true,
       dataIndex: 'operation',
       render: (_, record: any) => <Space>
         <Tooltip title={'查看详情'}>
@@ -41,22 +42,12 @@ export default function MatterList() {
         </Space>
       }
   >
-    <Space>
-      <Select defaultValue={0} dropdownMatchSelectWidth={200}>
-        <Select.Option value={0}>全部</Select.Option>
-        <Select.Option value={1}>党委</Select.Option>
-        <Select.Option value={2}>xx站办</Select.Option>
-        <Select.Option value={3}>个人</Select.Option>
-      </Select>
-      <Input.Search placeholder={'搜索'} enterButton />
-      <Button><FileSearchOutlined />精确查找</Button>
-    </Space>
 
-    <Divider />
     <BaseEditableTable
         loading={loading}
         columns={columns}
         value={state}
+        isSearch
     />
 
   </PageContainer>;

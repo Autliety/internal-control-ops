@@ -9,12 +9,13 @@ export const measureColumns: ProColumns[] = [
   {
     title: '审核状态',
     dataIndex: 'status',
-    renderText: v => <Tag color={meetingStatus[v]?.tag}>{meetingStatus[v]?.label}</Tag>
+    renderText: v => <Tag color={meetingStatus[v]?.tag}>{meetingStatus[v]?.label}</Tag>,
+    // valueType:'select',
   },
   { title: '工作措施', dataIndex: 'content' },
   { title: '责任主体', dataIndex: ['matter', 'department', 'name'] },
   { title: '责任人', dataIndex: ['user', 'name'] },
-  { title: '开始时间', dataIndex: 'startDate' },
+  { title: '开始时间', dataIndex: 'startDate', valueType: 'date' },
 ];
 
 export default function MeasureInfo({ dataSource }) {

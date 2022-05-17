@@ -19,15 +19,15 @@ export default function MeasureTable({ dataSource }: Props) {
 
   const { state } = useHttp('/measure', { initState: [], isManual: !!dataSource });
 
-  const columns = measureColumns
-  .concat([
+  const columns = measureColumns.concat([
     {
       key: 'operation',
+      hideInSearch: true,
       render: (_, record: any) => <Space>
         <Tooltip title={'查看详情'}>
           <Button
               type={'primary'}
-              icon={<ContainerOutlined />}
+              icon={<ContainerOutlined/>}
               size={'small'}
               onClick={() => navigate(`/measure/${record.id}`)}
           />
@@ -43,6 +43,7 @@ export default function MeasureTable({ dataSource }: Props) {
     <BaseEditableTable
         columns={columns}
         value={dataSource || state}
+        isSearch
     />
   </>;
 }

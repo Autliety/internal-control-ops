@@ -5,12 +5,16 @@ import moment from 'moment';
 export default ({
                   columns,
                   isInEdit = false,
+                  isSearch = false,
                   value = [],
-                  onChange = ([]) => {},
+                  onChange = ([]) => {
+                  },
                   ...restProps
                 }) => {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
+
+  const [collapsed, setCollapsed] = React.useState(true);
 
   return <EditableProTable
       bordered
@@ -27,10 +31,10 @@ export default ({
             width: 150,
             valueType: 'option',
             render: (text, record, _, action) => [
-              <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
+              <a key='editable' onClick={() => action?.startEditable?.(record.id)}>
                 编辑
               </a>,
-              <a key="delete" onClick={() => onChange(value.filter(i => i.id !== record.id))}>
+              <a key='delete' onClick={() => onChange(value.filter(i => i.id !== record.id))}>
                 删除
               </a>,
             ],
@@ -39,6 +43,12 @@ export default ({
       }
       value={value}
       onChange={onChange}
+
+      search={isSearch && {
+        collapsed,
+        onCollapse: setCollapsed,
+      }}
+      onSubmit={v => console.log(v)}
 
       editable={{
         type: 'multiple',

@@ -1,9 +1,8 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { Button, Divider, Input, message, Space } from 'antd';
-import { FileSearchOutlined, PrinterOutlined } from '@ant-design/icons';
+import { Button, message, Space } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
 import MeasureTable from './MeasureTable';
-import MeasureCreateModal from './MeasureCreateModal';
 
 export default function MeasureList() {
 
@@ -16,12 +15,7 @@ export default function MeasureList() {
         </Space>
       }
   >
-    <Space>
-      <Input.Search placeholder={'搜索'} enterButton/>
-      <Button><FileSearchOutlined/>精确查找</Button>
-    </Space>
 
-    <Divider/>
     <MeasureTable/>
 
     <FooterToolbar>
