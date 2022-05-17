@@ -65,6 +65,10 @@ export default function MeetingCreateModal() {
           </Radio.Group>
         </Form.Item>
 
+        <Form.Item name="content" label="会议议题" >
+          <Input.TextArea />
+        </Form.Item>
+
         <Form.Item name="upload" label="附件上传">
           <Upload><Button icon={<UploadOutlined />}>点击上传</Button></Upload>
         </Form.Item>

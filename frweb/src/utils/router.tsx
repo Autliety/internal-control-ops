@@ -69,11 +69,6 @@ export const router = {
           path: '/lz/list',
           routes: [
             {
-              name: '项目清单',
-              path: '/lz/list/project',
-              disabled: true,
-            },
-            {
               name: '整改清单',
               path: '/lz/list/reform',
               disabled: true,

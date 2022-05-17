@@ -24,13 +24,6 @@ export const informType = {
   ANNOUNCE: { name: '第一种形态告知书', title: '具体问题', label: '整改措施' },
 };
 
-// 会议
-export const meetingStatus = {
-  AWAITING_REVIEW: { label: '待审', tag: 'warning' },
-  REVIEWED: { label: '已审核', tag: 'processing' },
-  FINISHED: { label: '已完成', tag: 'success' },
-};
-
 export const statusEnum = {
   AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
   REVIEWED: <Tag color={'processing'}>已审核</Tag>,

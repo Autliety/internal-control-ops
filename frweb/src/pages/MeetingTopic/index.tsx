@@ -6,7 +6,6 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 
 import TopicInfo from './TopicInfo';
 import TopicContent from './TopicContent';
-import TopicMatter from './TopicMatter';
 import { useHttp } from '../../utils/request';
 import DemoProcess from '../../components/DemoProcess';
 import MeetingInfo from '../Meeting/MeetingInfo';
@@ -23,15 +22,15 @@ export default function MeetingTopic() {
   let isCreate = search.get('create') === 'true';
 
   const { id, meetingId } = useParams();
-  const { state:meetingState } = useHttp('/meeting/' + meetingId );
+  const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
 
   const [info, setInfo] = React.useState(isCreate ? { user } : state);
-  const [matter, setMatter] = React.useState(isCreate ? [] : state.matter);
+  const [content, setContent] = React.useState(isCreate ? [] : state.content);
   React.useEffect(() => {
     if (!isCreate) {
       setInfo(state);
-      setMatter(state.matter);
+      setContent(state.content);
     }
   }, [isCreate, state]);
 
@@ -49,23 +48,21 @@ export default function MeetingTopic() {
 
     <Divider orientation={'left'}>基本信息</Divider>
     <MeetingInfo dataSource={meetingState} />
+    <br />
     <TopicInfo data={info} />
 
-    <Divider orientation={'left'}>议题内容</Divider>
-    <TopicContent />
-
-    <Divider orientation={'left'}>职责任务概述</Divider>
-    <TopicMatter
-        isEdit={isCreate}
-        data={matter}
-        onChange={setMatter}
+    <Divider orientation={'left'}>职责任务</Divider>
+    <TopicContent
+        value={content}
+        onChange={setContent}
+        isInEdit={isCreate}
     />
 
     <Divider orientation={'left'}>审核流程</Divider>
     {isCreate ?
         <Form.Item label="选择审核人"
-            name="approve"
-            rules={[{ required: true, message: '请选择' }]}
+                   name="approve"
+                   rules={[{ required: true, message: '请选择' }]}
         >
           <SelectUser withUser />
         </Form.Item>
@@ -75,7 +72,7 @@ export default function MeetingTopic() {
 
     <FooterToolbar>
       {info.status === 'AWAITING_REVIEW' &&
-          <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate('/meeting/' + meetingId))} />
+      <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate('/meeting/' + meetingId))} />
       }
       {
         isCreate && <Button
@@ -83,7 +80,7 @@ export default function MeetingTopic() {
             onClick={() => http(null, null, {
               meetingId,
               ...info,
-              matter: matter.map(m => ({ ...m, id: null, endDate: m.endDate?.valueOf() })),
+              content: content.map(m => ({ ...m, id: null, endDate: m.endDate?.valueOf() })),
             })
             .then(res => navigate(`/meeting/${meetingId}/topic/${res.id}`))}
         >

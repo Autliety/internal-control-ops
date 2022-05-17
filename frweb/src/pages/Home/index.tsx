@@ -14,7 +14,7 @@ export default function Home() {
 
   return <div>
     <PageContainer
-        title="浙江百步经济开发区(百步镇)四责协同管理平台"
+        title="百步镇区镇村社一体全面管党治党综合管理平台"
         subTitle={'首页'}
         content={
           <Space size={'large'}>

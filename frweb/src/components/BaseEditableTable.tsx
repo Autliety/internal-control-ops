@@ -2,15 +2,15 @@ import React from 'react';
 import { EditableProTable } from '@ant-design/pro-table';
 import moment from 'moment';
 
-export default ({
-                  columns,
-                  isInEdit = false,
-                  isSearch = false,
-                  value = [],
-                  onChange = ([]) => {
-                  },
-                  ...restProps
-                }) => {
+export default function BaseEditableTable(
+    {
+      columns,
+      isInEdit = false,
+      isSearch = false,
+      value = [],
+      onChange = (_: any[]) => {},
+      ...restProps
+    }) {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
 
@@ -31,10 +31,10 @@ export default ({
             width: 150,
             valueType: 'option',
             render: (text, record, _, action) => [
-              <a key='editable' onClick={() => action?.startEditable?.(record.id)}>
+              <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
                 编辑
               </a>,
-              <a key='delete' onClick={() => onChange(value.filter(i => i.id !== record.id))}>
+              <a key="delete" onClick={() => onChange(value.filter(i => i.id !== record.id))}>
                 删除
               </a>,
             ],

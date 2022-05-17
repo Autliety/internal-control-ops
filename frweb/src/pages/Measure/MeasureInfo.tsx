@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { Space, Switch, Tag } from 'antd';
-import { meetingStatus } from '../../utils/nameMap';
+import { Space, Switch } from 'antd';
+import { statusEnum } from '../../utils/nameMap';
 import { ProColumns } from '@ant-design/pro-table';
 
 export const measureColumns: ProColumns[] = [
@@ -9,8 +9,7 @@ export const measureColumns: ProColumns[] = [
   {
     title: '审核状态',
     dataIndex: 'status',
-    renderText: v => <Tag color={meetingStatus[v]?.tag}>{meetingStatus[v]?.label}</Tag>,
-    // valueType:'select',
+    valueEnum: statusEnum,
   },
   { title: '工作措施', dataIndex: 'content' },
   { title: '责任主体', dataIndex: ['matter', 'department', 'name'] },

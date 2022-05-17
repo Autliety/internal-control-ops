@@ -3,7 +3,6 @@ package com.hcit.taserver.fr.meeting;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
-import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -54,10 +53,6 @@ public class Topic implements BasicPersistable {
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "fr_meeting_topic_content")
   private List<String> content;
-
-  @ApiModelProperty(hidden = true)
-  @Transient
-  private List<Matter> matter;
 
   @Transient
   public int getCount() {

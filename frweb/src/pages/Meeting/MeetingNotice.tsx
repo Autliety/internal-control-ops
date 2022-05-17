@@ -4,7 +4,6 @@ import { Button, Modal } from 'antd';
 import MeetingInfo from './MeetingInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import MeetingAttendee from './MeetingAttendee';
 import DemoProcess from '../../components/DemoProcess';
@@ -20,7 +19,6 @@ export default function MeetingNotice() {
   const { http } = useHttp(`/meeting/${id}`, { method: 'PATCH', isManual: true });
 
   return <PageContainer
-      title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 会议通知</>}
       loading={loading}
   >
     <BaseDivider title={'基本信息'} />
@@ -43,7 +41,7 @@ export default function MeetingNotice() {
       {state.status === 'AWAITING_REVIEW'
           ?
           <BaseApproveButton
-              onOk={() => http().then(() => navigate(`/meeting`))}
+              onOk={() => http().then(() => navigate(`/meeting/${id}/notice`))}
           />
           :
           <Button

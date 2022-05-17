@@ -22,7 +22,7 @@ export default function Login() {
           Col span={6}/>
       <Col span={8} className={'bgStyle'}>
         <br/><br/>
-        <img src={bg} height={414} width={384} style={{ marginLeft: 100 }}/>
+        <img src={bg} alt="" height={414} width={384} style={{ marginLeft: 100 }}/>
       </Col>
       <Col span={6} style={{ marginTop: 150, backgroundColor: '#fff' }}>
         <LoginForm

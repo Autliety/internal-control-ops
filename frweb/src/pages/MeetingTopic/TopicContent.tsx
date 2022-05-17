@@ -2,30 +2,38 @@ import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default function TopicContent() {
+type Props = {
+  isInEdit?: boolean,
+  value?: any,
+  onChange?: any,
+};
+
+export default function TopicContent(
+    {
+      isInEdit = false,
+      value = [],
+      onChange = () => {},
+    }: Props,
+) {
 
   const columns: ProColumns[] = [
     {
-      title: '序号',
-      dataIndex: 'id',
+      title: '职责任务概述',
+      dataIndex: 'content',
     },
     {
-      title: '议题内容',
-      dataIndex: 'content',
+      title: '职责任务归属',
+      dataIndex: ['user', 'name'],
+      editable: false
     },
   ];
 
-  // todo demo data
-  const defaultData = [
-    {id: 1, content: '什么'},
-    {id: 2, content: '什么什么'},
-    {id: 3, content: '什么什么什么'},
-  ]
-
   return <>
     <BaseEditableTable
+        isInEdit={isInEdit}
         columns={columns}
-        value={defaultData}
+        value={value}
+        onChange={onChange}
     />
   </>;
 }

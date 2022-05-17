@@ -15,6 +15,7 @@ export const meetingColumns: ProColumns[] = [
   },
   { title: '会议时间', dataIndex: 'startTime', valueType: 'dateTime' },
   { title: '会议地点', dataIndex: 'placement' },
+  { title: '会议议题', dataIndex: 'content', valueType: 'textarea', hideInTable: true, hideInSearch: true },
 ];
 
 export default function MeetingInfo({ dataSource }) {

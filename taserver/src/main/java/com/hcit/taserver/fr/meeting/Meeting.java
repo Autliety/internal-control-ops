@@ -76,7 +76,10 @@ public class Meeting implements BasicPersistable {
     return meetingUserId.size();
   }
 
-  @ApiModelProperty(hidden = true)
+  @ApiModelProperty("会议议题")
+  private String content;
+
+  @ApiModelProperty("会议职责任务")
   @Transient
   private List<Topic> topic;
 }

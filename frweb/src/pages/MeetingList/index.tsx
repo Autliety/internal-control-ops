@@ -8,7 +8,7 @@ import { useHttp } from '../../utils/request';
 import MeetingCreateModal from './MeetingCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default () => {
+export default function MeetingList() {
 
   const navigate = useNavigate();
   const { state, loading } = useHttp('/meeting', { initState: [] });
@@ -41,7 +41,6 @@ export default () => {
   });
 
   return <PageContainer
-      title={'"1+X"四方会议'}
       extra={<Space size={'middle'}>
         <MeetingCreateModal />
       </Space>}
