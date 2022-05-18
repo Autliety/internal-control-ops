@@ -1,7 +1,7 @@
 import React from 'react';
-import { PageContainer } from "@ant-design/pro-layout";
-import { ColumnsType } from "antd/lib/table/interface";
-import { Table } from "antd";
+import { PageContainer } from '@ant-design/pro-layout';
+import { ColumnsType } from 'antd/lib/table/interface';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function EchoWall() {
 
@@ -23,18 +23,9 @@ export default function EchoWall() {
   ];
 
   return <PageContainer>
-    <Table
-        bordered
-        size={'small'}
-        scroll={{
-          scrollToFirstRowOnChange: true,
-          x: 1700,
-        }}
-
+    <BaseEditableTable
         columns={columns}
-        rowKey={'id'}
-
-        dataSource={dataSource}
+        value={dataSource}
     />
   </PageContainer>;
 }

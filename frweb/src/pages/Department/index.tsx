@@ -20,11 +20,10 @@ export default function Department({ withUser = false }) {
   return <PageContainer>
     <Row>
       <Col span={8}>
-        <DepartmentList onChange={setDept}
-        />
+        <DepartmentList onChange={setDept}/>
       </Col>
 
-      <Col span={1} />
+      <Col span={1}/>
 
       <Col span={15} className="content">
         <List
@@ -36,7 +35,7 @@ export default function Department({ withUser = false }) {
                   <List.Item.Meta
                       avatar={<Avatar
                           style={{ backgroundColor: '#1890ff' }}
-                          icon={withUser ? <UserOutlined /> : <BuildOutlined />}
+                          icon={withUser ? <UserOutlined/> : <BuildOutlined/>}
                       />}
                       title={item.name}
                       description={withUser && item.station?.name}

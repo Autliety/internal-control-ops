@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button, Collapse, List } from 'antd';
+import { Button, List } from 'antd';
 import { useHttp } from '../../utils/request';
-
-const { Panel } = Collapse;
 
 type Props = {
   isEdit?: boolean,
@@ -15,41 +13,27 @@ export default function DepartmentList({ isEdit, onChange, onNameChange }: Props
   const { state, loading } = useHttp('/department', { initState: [] });
 
   return <>
-    <Collapse bordered={false} accordion defaultActiveKey={0}>
-      {
-        state.map((item, index) => <Panel
-                key={index}
-                header={<div onClick={() => {
-                  onNameChange(item.name);
-                  onChange(item.id);
-                }
-                }>
-                  {item.name}
-                </div>}
-            >
-              <List
-                  dataSource={item.children}
-                  loading={loading}
-                  renderItem={(item: any) => (
-                      <List.Item>
-                        <div
-                            onClick={() => {
-                              onNameChange(item.name);
-                              onChange(item.id);
-                            }}
-                            style={{ cursor: 'pointer' }}
-                        >
-                          {item.name}
-                        </div>
-                        {
-                            isEdit && <Button type='link'>编辑</Button>
-                        }
-                      </List.Item>
-                  )}
-              />
-            </Panel>
-        )
-      }
-    </Collapse>
+    <List
+        header={<p>部门列表</p>}
+        className={'content'}
+        dataSource={state}
+        loading={loading}
+        renderItem={(item: any, index: number) => (
+            <List.Item key={index}>
+              <div
+                  onClick={() => {
+                    onNameChange(item.name);
+                    onChange(item.id);
+                  }}
+                  style={{ cursor: 'pointer' }}
+              >
+                {item.name}
+              </div>
+              {
+                  isEdit && <Button type='link'>编辑</Button>
+              }
+            </List.Item>
+        )}
+    />
   </>;
 }

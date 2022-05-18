@@ -12,7 +12,8 @@ export default function DemoDeptResponse() {
   ];
 
   const data = [
-    {name: '招商和项目推进科', distribute: 'CZ001-01', response: '同意'},
+    {name: '招商和项目推进科A', distribute: 'CZ001-01', response: '同意'},
+    {name: '招商和项目推进科B', distribute: 'CZ001-01', response: '同意'},
   ]
 
   return <>

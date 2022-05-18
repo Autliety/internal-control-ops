@@ -1,13 +1,11 @@
 import React from 'react';
 import { Avatar, Col, List, message, Row, Statistic, Upload, Button } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
+import { UploadOutlined } from '@ant-design/icons';
 
 import { rentStatusEnumOrigin, statusEnum } from '../../utils/nameMap';
 import PieChart from './PieChart';
-
-import { UploadOutlined } from '@ant-design/icons';
 import { host } from '../../utils/request';
-
 
 export default function Home() {
 

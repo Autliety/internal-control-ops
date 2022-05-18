@@ -3,10 +3,12 @@ import { Divider, Modal } from 'antd';
 
 export default function showInfo(text) {
   Modal.info({
+    title: '详细内容',
     content: <>
-      <Divider />
+      <Divider/>
       <p>{text}</p>
     </>,
     icon: undefined,
+    okText: '确定',
   });
 }

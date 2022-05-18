@@ -11,7 +11,7 @@ export default function DepartmentList({ onChange }) {
         className={'content'}
         dataSource={state}
         loading={loading}
-        renderItem={(item: any) => <List.Item>
+        renderItem={(item: any,index:number) => <List.Item key={index}>
           <div
               onClick={() => onChange(item)}
               style={{ cursor: 'pointer' }}
