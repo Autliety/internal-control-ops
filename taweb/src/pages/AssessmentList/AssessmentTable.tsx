@@ -22,48 +22,68 @@ export default function AssessmentTable({ isParent, dataSource, ...configs }: Pr
     {
       'id': 1,
       'code': 'CZ22001',
-      'name': '‘招大引强’提升行动',
+      'point': 3,
+      'name': '实际利用外资',
       'children': [
         {
           'id': 2,
+          'name': '合同利用外资',
           'code': 'CZ22001-01',
-          'name': '实际利用外资',
-          'point': 3,
-          'upperDepartment': '县商务局',
           'isParent': 1,
           'children': [
             {
               'id': 3,
               'code': 'CZ22001-01-01',
               'name': '合同利用外资',
+              'upperDepartment': '县商务局',
               'point': 0.5,
               'valueType': 'DOLLAR',
               'value': '105000000',
               'standard': '完成率达100%及以上的得该项赋分，未完成任务的按完成率计算得分。',
               'parentId': 2
             },
+          ]
+        },
+
+        {
+          'id': 4,
+          'name': '实际利用外资',
+          'code': 'CZ22001-02',
+          'isParent': 1,
+          'children': [
             {
-              'id': 4,
-              'code': 'CZ22001-01-02',
-              'name': '实际利用外资',
+              'id': 5,
+              'code': 'CZ22001-02-01',
               'point': 2,
+              'name': '实际利用外资',
+              'upperDepartment': '县商务局',
               'valueType': 'DOLLAR',
               'value': '34000000',
               'standard': '完成率达100%及以上的得该项赋分，完成率达80%（含）以上的按完成率计算得分，完成率不足80%的，不得分；规模贡献按（本值/最大值）*赋分计算得分。',
-              'parentId': 2
+              'parentId': 5
             },
+          ]
+        },
+
+        {
+          'id': 6,
+          'name': '高技术实际利用外资占比',
+          'code': 'CZ22001-03',
+          'isParent': 1,
+          'children': [
             {
-              'id': 5,
-              'code': 'CZ22001-01-03',
+              'id': 7,
+              'code': 'CZ22001-03-01',
               'name': '高技术实际利用外资占比',
+              'upperDepartment': '县商务局',
               'point': 0.5,
               'valueType': 'PERCENT',
               'value': '0.4',
               'standard': '完成率达100%及以上的得该项赋分，未完成任务的按完成率计算得分。',
-              'parentId': 2
+              'parentId': 6
             }
           ]
-        }
+        },
       ]
     },
 

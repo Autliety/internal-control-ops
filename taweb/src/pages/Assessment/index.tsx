@@ -30,9 +30,9 @@ export default function Assessment() {
       <ProCard gutter={[16, 16]} wrap>
         {
           [
-            { id: 1, name: '李逍遥', station: '部门A领导', dept: '部门A' },
-            { id: 2, name: '张三丰', station: '部门B领导', dept: '部门B' },
-            { id: 3, name: '王重阳', station: '部门C领导', dept: '部门C' },
+            { id: 1, name: '王哲', station: '部门A领导', dept: '部门A' },
+            { id: 2, name: '叶锋', station: '部门B领导', dept: '部门B' },
+            { id: 3, name: '吴肖峰', station: '部门C领导', dept: '部门C' },
           ].map((item, index) => <ProCard
               colSpan={{ xs: 24, sm: 12, md: 8, lg: 6, xl: 4 }}
               bordered
