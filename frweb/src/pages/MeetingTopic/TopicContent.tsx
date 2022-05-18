@@ -22,9 +22,14 @@ export default function TopicContent(
       dataIndex: 'content',
     },
     {
-      title: '职责任务归属',
+      title: '责任主体',
       dataIndex: ['user', 'name'],
       editable: false
+    },
+    {
+      title: '添加到问题清单',
+      dataIndex: 'boolean',
+      valueType: 'switch'
     },
   ];
 

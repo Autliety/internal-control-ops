@@ -73,6 +73,16 @@ export const router = {
               path: '/lz/list/reform',
               disabled: true,
             },
+            {
+              name: '履责情况',
+              path: '/lz/risk',
+              disabled: true,
+            },
+            {
+              name: '动态跟踪',
+              path: '/lz/risk',
+              disabled: true,
+            },
           ]
         },
         {
@@ -81,7 +91,7 @@ export const router = {
           disabled: true,
         },
         {
-          name: '第一种形态处置',
+          name: '第一种形态处置运用',
           path: '/lz/disposal',
           disabled: true,
         },
@@ -101,12 +111,17 @@ export const router = {
           disabled: true,
         },
         {
-          name: '重大事项请示',
+          name: '重大事项请示报告',
           path: '/lz/important',
           disabled: true,
         },
         {
-          name: '廉政风险防控',
+          name: '廉政风险排查防控',
+          path: '/lz/risk',
+          disabled: true,
+        },
+        {
+          name: '纪委监察工作联络站',
           path: '/lz/risk',
           disabled: true,
         },
@@ -135,7 +150,7 @@ export const router = {
       path: '/dz',
       routes: [
         {
-          name: '督责约谈',
+          name: '履责约谈',
           path: '/dz/todo',
           disabled: true,
         },

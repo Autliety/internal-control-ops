@@ -40,12 +40,6 @@ export default function Login() {
               options={state.map((item, index) => ({ value: item.id, label: item.name, key: index }))}
               name='dept'
               placeholder=' 选择登录部门'
-              rules={[
-                {
-                  required: true,
-                  message: '此项必选!',
-                },
-              ]}
           />
 
           <ProFormText

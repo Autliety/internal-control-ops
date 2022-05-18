@@ -7,7 +7,7 @@ export const matterColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code'},
   { title: '问题内容', dataIndex: 'content' },
   {
-    title: '问题类型',
+    title: '问题来源及类型',
     dataIndex: 'type',
     valueType: 'cascader',
     fieldProps: {

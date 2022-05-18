@@ -24,6 +24,12 @@ export const informType = {
   ANNOUNCE: { name: '第一种形态告知书', title: '具体问题', label: '整改措施' },
 };
 
+export const meetingStatusEnum = {
+  AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
+  REVIEWED: <Tag color={'processing'}>会前准备</Tag>,
+  FINISHED: <Tag color={'success'}>已结束</Tag>,
+};
+
 export const statusEnum = {
   AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
   REVIEWED: <Tag color={'processing'}>已审核</Tag>,

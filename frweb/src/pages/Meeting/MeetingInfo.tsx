@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { statusEnum } from '../../utils/nameMap';
+import { meetingStatusEnum } from '../../utils/nameMap';
 import { ProColumns } from '@ant-design/pro-table';
 
 export const meetingColumns: ProColumns[] = [
@@ -11,7 +11,7 @@ export const meetingColumns: ProColumns[] = [
   {
     title: '会议状态',
     dataIndex: 'status',
-    valueEnum: statusEnum,
+    valueEnum: meetingStatusEnum,
   },
   { title: '会议时间', dataIndex: 'startTime', valueType: 'dateTime' },
   { title: '会议地点', dataIndex: 'placement' },

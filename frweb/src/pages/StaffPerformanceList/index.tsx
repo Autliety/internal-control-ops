@@ -15,6 +15,11 @@ export default function StaffPerformanceList() {
     { title: '年份', dataIndex: 'year' },
     { title: '总分值', dataIndex: 'count' },
     { title: '考核指标总数（项）', dataIndex: 'amount' },
+    { title: '系统评价得分', dataIndex: 'mark' },
+    { title: '自评得分', dataIndex: 'mark' },
+    { title: '互评得分', dataIndex: 'mark' },
+    { title: '领导评价得分', dataIndex: 'mark' },
+    { title: '综合得分', dataIndex: 'mark' },
     {
       title: '详情',
       dataIndex: 'operation',

@@ -34,7 +34,7 @@ function Pages() {
 
           rightContentRender={() => <HeaderRight />}
 
-          title="百步镇区镇村社一体全面管党治党综合管理平台"
+          title="百步镇镇村一体全面管党治党综合管理平台"
           route={router}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}

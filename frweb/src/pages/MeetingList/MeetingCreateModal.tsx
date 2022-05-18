@@ -34,13 +34,13 @@ export default function MeetingCreateModal() {
           values.meetingUserId = values.meetingUser.map(u => u.id);
           http(null, null, values)
           .then(data => navigate(`/meeting/${data.id}/notice`));
-        })
-        .catch(info => console.log(info))}
+        })}
     >
       <Form
           form={form}
           layout="vertical"
           name="meetingCreate"
+          initialValues={{content: '1. 传达学习上级精神\n2. 明确各责任主体职责任务\n3. 排查各自领域问题风险及防范措施'}}
       >
         <Form.Item
             label={'会议时间'}
@@ -66,7 +66,7 @@ export default function MeetingCreateModal() {
         </Form.Item>
 
         <Form.Item name="content" label="会议议题" >
-          <Input.TextArea />
+          <Input.TextArea rows={6}/>
         </Form.Item>
 
         <Form.Item name="upload" label="附件上传">
