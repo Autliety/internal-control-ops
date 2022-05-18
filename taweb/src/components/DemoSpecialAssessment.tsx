@@ -1,19 +1,20 @@
 import React from 'react';
-import { ColumnsType } from 'antd/lib/table/interface';
-import { Button, Table } from 'antd';
+import { Button } from 'antd';
+import { ProColumns } from '@ant-design/pro-table';
+import BaseEditableTable from './BaseEditableTable';
 import showInfo from '../utils/showInfo';
 
-export default function DemoSpecialAssessment({ dataIndex } : any) {
+export default function DemoSpecialAssessment({ dataIndex }: any) {
 
-  const columns: ColumnsType = [
+  const columns: ProColumns[] = [
     { title: '编号', dataIndex: 'code' },
     { title: '指标分类', dataIndex: 'type' },
     {
       title: '指标细则', dataIndex: 'name',
-      render: text => text
+      renderText: text => text
           ? <>
-            {text.substring(0, 30)}
-            {text.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[更多]</Button>}
+            {text.substring(0, 30) + '...'}
+            {text.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>[更多]</Button>}
           </>
           : '无',
     },
@@ -42,15 +43,9 @@ export default function DemoSpecialAssessment({ dataIndex } : any) {
   ]
 
   return <>
-    <Table
-        bordered
-        scroll={{ x: 'max-content' }}
-        pagination={false}
-
+    <BaseEditableTable
         columns={columns}
-        rowKey={'id'}
-
-        dataSource={dataIndex === 2 ? data2 : data}
+        value={dataIndex === 2 ? data2 : data}
     />
   </>;
 }

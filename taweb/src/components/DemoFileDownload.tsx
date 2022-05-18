@@ -1,12 +1,12 @@
 import React from 'react';
-import { ColumnsType } from 'antd/lib/table/interface';
 import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import BaseTable from './BaseTable';
+import BaseEditableTable from './BaseEditableTable';
+import { ProColumns } from '@ant-design/pro-table';
 
 export default function DemoFileDownload() {
 
-  const attachmentColumns: ColumnsType = [
+  const attachmentColumns: ProColumns[] = [
     { title: '名称（类别）', dataIndex: 'name' },
     { title: '文件名', dataIndex: 'code' },
     { title: '更新时间', dataIndex: 'updatedTime' },
@@ -14,7 +14,7 @@ export default function DemoFileDownload() {
       title: '操作',
       dataIndex: 'operation',
       render: (_, record: any) => record.type === 'file'
-          ? <Button type={'primary'} icon={<DownloadOutlined />}>下载</Button>
+          ? <Button type={'primary'} icon={<DownloadOutlined/>}>下载</Button>
           : <Button type={'link'}>{record.name}</Button>,
     },
   ];
@@ -25,9 +25,9 @@ export default function DemoFileDownload() {
   ];
 
   return <>
-    <BaseTable
+    <BaseEditableTable
         columns={attachmentColumns}
-        dataSource={attachmentData}
+        value={attachmentData}
     />
   </>;
 }

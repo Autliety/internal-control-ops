@@ -8,7 +8,7 @@ export type ColumnDef = {
   title?: string,
   type?: string,
   dataIndex: string | string[],
-  render?: (string) => ReactNode,
+  render?: (text: string, record: any) => ReactNode,
   renderFormItem?: () => ReactNode,
 }
 
@@ -40,7 +40,7 @@ export default function EditableDescriptions(props: Props) {
         {props.columns.map((col, index) => {
               let key = col.key || (Array.isArray(col.dataIndex) ? col.dataIndex.join('_') : col.dataIndex);
               let text = deepValue(state, col.dataIndex);
-              let render = col.render?.(text) ?? text;
+              let render = col.render?.(text, state) ?? text;
               return <Descriptions.Item
                   key={index}
                   label={col.title || key}

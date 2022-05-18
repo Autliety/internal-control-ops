@@ -1,12 +1,13 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Divider, Input, Space, Table } from 'antd';
-import { ColumnsType } from 'antd/lib/table/interface';
+import { Button, Divider, Input, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ContainerOutlined, DownloadOutlined, FileSearchOutlined } from '@ant-design/icons';
 
 import { useHttp } from '../../utils/request';
 import CreateModal from './CreateModal';
+import BaseEditableTable from '../../components/BaseEditableTable';
+import { ProColumns } from '@ant-design/pro-table';
 
 export default function PlanList() {
 
@@ -14,12 +15,12 @@ export default function PlanList() {
   const { state, loading } = useHttp('/plan', { initState: [] });
 
 
-  const columns: ColumnsType = [
+  const columns: ProColumns[] = [
     { title: '指标编号', dataIndex: ['assessment', 'code'] },
     { title: '指标名称', dataIndex: ['assessment', 'name'] },
     { title: '计划编号', dataIndex: 'code' },
     { title: '责任单位', dataIndex: ['department', 'name'] },
-    { title: '措施数', dataIndex: 'details', render: value => value?.length },
+    { title: '措施数', dataIndex: 'details', renderText: value => value?.length },
     { title: '计划完整度', dataIndex: 'progress', render: () => '100%' },
     { title: '备注', dataIndex: 'remark' },
     { title: '创建时间', dataIndex: 'createTime' },
@@ -29,13 +30,13 @@ export default function PlanList() {
       render: (_, record: any) => <Space>
         <Button
             type={'primary'}
-            icon={<ContainerOutlined />}
+            icon={<ContainerOutlined/>}
             size={'small'}
             onClick={() => navigate(`/plan/${record.id}`)}
             disabled={record?.parentId}
         />
         <Button
-            icon={<DownloadOutlined />}
+            icon={<DownloadOutlined/>}
             size={'small'}
             disabled
         />
@@ -49,27 +50,21 @@ export default function PlanList() {
   return <PageContainer
       extra={
         <Space size={'middle'}>
-          <CreateModal />
+          <CreateModal/>
         </Space>
       }
   >
     <Space>
-      <Input.Search placeholder={'搜索'} enterButton />
-      <Button><FileSearchOutlined />精确查找</Button>
+      <Input.Search placeholder={'搜索'} enterButton/>
+      <Button><FileSearchOutlined/>精确查找</Button>
     </Space>
 
-    <Divider />
+    <Divider/>
 
-    <Table
-        bordered
+    <BaseEditableTable
         loading={loading}
-        size={'small'}
-        scroll={{ x: 'max-content' }}
-
         columns={columns}
-        rowKey={'id'}
-
-        dataSource={state}
+        value={state}
     />
 
   </PageContainer>;

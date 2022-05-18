@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageContainer } from "@ant-design/pro-layout";
-import { Alert } from "antd";
+import { PageContainer } from '@ant-design/pro-layout';
+import { Alert } from 'antd';
 
 export default function WorkReply() {
   return <PageContainer>
