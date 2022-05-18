@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Divider, Form, Space, Statistic } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 
 import TopicInfo from './TopicInfo';
 import TopicContent from './TopicContent';
@@ -21,7 +20,7 @@ export default function MeetingTopic() {
   const [search] = useSearchParams();
   let isCreate = search.get('create') === 'true';
 
-  const { id, meetingId } = useParams();
+  const { tid: id, id: meetingId } = useParams();
   const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
 
@@ -39,7 +38,6 @@ export default function MeetingTopic() {
   const { http: updateHttp } = useHttp('/topic', { method: 'PATCH', isManual: true });
 
   return <PageContainer
-      title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 会议议题</>}
       content={isCreate || <Space size={'large'}>
         <Statistic title={'会议编号'} value={state.meeting?.code} />
         <Statistic title={'责任主体'} value={state.user?.name} />
@@ -72,7 +70,7 @@ export default function MeetingTopic() {
 
     <FooterToolbar>
       {info.status === 'AWAITING_REVIEW' &&
-      <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate('/meeting/' + meetingId))} />
+      <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate(`/mz/meeting/${meetingId}`))} />
       }
       {
         isCreate && <Button
@@ -82,7 +80,7 @@ export default function MeetingTopic() {
               ...info,
               content: content.map(o => o.content),
             })
-            .then(res => navigate(`/meeting/${meetingId}/topic/${res.id}`))}
+            .then(res => navigate(`/mz/meeting/${meetingId}/topic/${res.id}`))}
         >
           提交审核
         </Button>

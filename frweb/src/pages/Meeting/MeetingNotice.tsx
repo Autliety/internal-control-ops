@@ -41,7 +41,7 @@ export default function MeetingNotice() {
       {state.status === 'AWAITING_REVIEW'
           ?
           <BaseApproveButton
-              onOk={() => http().then(() => navigate(`/meeting/${id}/notice`))}
+              onOk={() => http().then(() => window.location.reload())}
           />
           :
           <Button
@@ -49,7 +49,7 @@ export default function MeetingNotice() {
               onClick={() => Modal.confirm({
                 title: '发送会议通知',
                 content: '发送会议通知所有参会人员',
-                onOk: () => navigate(`/meeting/${id}`),
+                onOk: () => navigate(`/mz/meeting/${id}`),
               })}
           >发送通知</Button>
       }

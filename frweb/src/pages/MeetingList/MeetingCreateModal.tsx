@@ -33,7 +33,7 @@ export default function MeetingCreateModal() {
           values.startTime = values.startTime.valueOf();
           values.meetingUserId = values.meetingUser.map(u => u.id);
           http(null, null, values)
-          .then(data => navigate(`/meeting/${data.id}/notice`));
+          .then(data => navigate(`/mz/meeting/${data.id}/notice`));
         })}
     >
       <Form

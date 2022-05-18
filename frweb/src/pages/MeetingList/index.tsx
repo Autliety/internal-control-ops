@@ -22,7 +22,7 @@ export default function MeetingList() {
             type={'primary'}
             icon={<MailOutlined />}
             size={'small'}
-            onClick={() => navigate(`/meeting/${record.id}/notice`)}
+            onClick={() => navigate(`/mz/meeting/${record.id}/notice`)}
         />
       </Tooltip>
       <Tooltip title={'会议详情'}>
@@ -31,7 +31,7 @@ export default function MeetingList() {
             disabled={record.status === 'AWAITING_REVIEW'}
             icon={<ContainerOutlined />}
             size={'small'}
-            onClick={() => navigate(`/meeting/${record.id}`)}
+            onClick={() => navigate(`/mz/meeting/${record.id}`)}
         />
       </Tooltip>
     </Space>,

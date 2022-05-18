@@ -7,6 +7,7 @@ import { useAuthProvider } from '../utils/auth';
 import { router, routesConfig } from '../utils/router';
 import logo from '../image/logo.png';
 import { useHttp } from '../utils/request';
+import NotFound from './NotFound';
 
 function Pages() {
 
@@ -44,6 +45,7 @@ function Pages() {
       >
         <Routes>
           {routesConfig.map((route, i) => <Route key={i} {...route} />)}
+          <Route key="404" element={NotFound}/>
         </Routes>
       </ProLayout>
     </Provider>

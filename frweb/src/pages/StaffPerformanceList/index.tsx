@@ -30,7 +30,7 @@ export default function StaffPerformanceList() {
             type={'primary'}
             icon={<FileTextOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/performance/${record.id}`)}
+            onClick={() => navigate(`/pz/performance/${record.id}`)}
         />
       </Tooltip>
     }

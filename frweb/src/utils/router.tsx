@@ -2,8 +2,6 @@ import React from 'react';
 import { AuditOutlined, HomeOutlined, PlayCircleOutlined, ProfileOutlined, SettingOutlined } from '@ant-design/icons';
 
 import Home from '../pages/Home';
-import NotFound from '../pages/NotFound';
-import Settings from '../pages/Settings';
 import MatterList from '../pages/MatterList';
 import Matter from '../pages/Matter';
 import MeetingList from '../pages/MeetingList';
@@ -75,12 +73,12 @@ export const router = {
             },
             {
               name: '履责情况',
-              path: '/lz/risk',
+              path: '/lz/list/contribute',
               disabled: true,
             },
             {
               name: '动态跟踪',
-              path: '/lz/risk',
+              path: '/lz/list/dynamic',
               disabled: true,
             },
           ]
@@ -122,7 +120,7 @@ export const router = {
         },
         {
           name: '纪委监察工作联络站',
-          path: '/lz/risk',
+          path: '/lz/contact',
           disabled: true,
         },
       ]
@@ -134,7 +132,7 @@ export const router = {
       routes: [
         {
           name: '班子成员考评',
-          path: '/pz/performance/staff',
+          path: '/pz/performance',
           element: <StaffPerformanceList/>
         },
         {
@@ -163,7 +161,7 @@ export const router = {
       routes: [
         {
           name: '党员干部监督',
-          path: 'zz/todo',
+          path: '/zz/todo',
           disabled: true,
         },
       ]
@@ -190,48 +188,52 @@ export const router = {
         },
       ],
     },
+
+    // extRoutes
+    {
+      hideInMenu: true,
+      name: '会议详情',
+      path: '/mz/meeting/:id',
+      element: <Meeting/>,
+    },
+    {
+      hideInMenu: true,
+      name: '会议通知',
+      path: '/mz/meeting/:id/notice',
+      element: <MeetingNotice/>,
+    },
+    {
+      hideInMenu: true,
+      name: '会前准备',
+      path: '/mz/meeting/:id/topic/:tid',
+      element: <MeetingTopic/>,
+    },
+    {
+      hideInMenu: true,
+      name: '问题详情',
+      path: '/mz/matter/:id',
+      element: <Matter/>,
+    },
+    {
+      hideInMenu: true,
+      name: '措施详情',
+      path: '/mz/measure/:id',
+      element: <Measure/>,
+    },
+    {
+      hideInMenu: true,
+      name: '一单三书详情',
+      path: '/lz/inform/:id',
+      element: <Inform/>,
+    },
+    {
+      hideInMenu: true,
+      name: '绩效考评详情',
+      path: '/pz/performance/:id',
+      element: <StaffPerformance/>,
+    },
   ],
 };
-
-const extRoutes = [
-  {
-    path: '/meeting/:id',
-    element: <Meeting/>,
-  },
-  {
-    path: '/meeting/:id/notice',
-    element: <MeetingNotice/>,
-  },
-  {
-    path: '/meeting/:meetingId/topic/:id',
-    element: <MeetingTopic/>,
-  },
-  {
-    path: '/matter/:id',
-    element: <Matter/>,
-  },
-  {
-    path: '/measure/:id',
-    element: <Measure/>,
-  },
-  {
-    path: '/inform/:id',
-    element: <Inform/>,
-  },
-  {
-    path: '/performance/:id',
-    element: <StaffPerformance/>,
-  },
-  {
-    path: '/admin/settings',
-    element: <Settings/>,
-  },
-  {
-    path: '*',
-    element: <NotFound/>,
-  },
-];
-
 
 function routerConcat(routes: any) {
   let result = routes;
@@ -241,4 +243,4 @@ function routerConcat(routes: any) {
   return result;
 }
 
-export const routesConfig = routerConcat([...router.routes]).concat(routerConcat(extRoutes));
+export const routesConfig = routerConcat([...router.routes]);

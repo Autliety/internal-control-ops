@@ -78,7 +78,8 @@ export default function Meeting() {
         width={1000}
         onOk={() => {
           setIsVisible(false);
-        /*  http(topicContent.map(m => m.id).join(','))
+        /* todo api
+           http(topicContent.map(m => m.id).join(','))
           .then(() => meetingHttp()
           .then(() => window.location.reload()));*/
         }}
