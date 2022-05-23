@@ -59,7 +59,7 @@ export const router = {
         {
           name: '时限工作计划',
           path: '/plan/limited',
-          element: <PlanList />,
+          disabled: true,
         },
         {
           name: '无时限工作计划',
