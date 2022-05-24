@@ -16,6 +16,13 @@ export const approveProcessNodeStatus = {
   CANCEL: { label: '已取消', tag: 'default' },
 };
 
+// 会议
+export const meetingType = {
+  1: '’1‘专题会议',
+  2: '’X‘专门会议',
+  3: '纪委动议',
+};
+
 // 一单三书
 export const informType = {
   COPY: { name: '抄告单', title: '问题内容', label: '整改措施' },
