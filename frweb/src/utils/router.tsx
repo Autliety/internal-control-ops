@@ -15,6 +15,10 @@ import MeetingNotice from '../pages/Meeting/MeetingNotice';
 import Department from '../pages/Department';
 import EvaluationList from '../pages/EvaluationList';
 import Evaluation from '../pages/Evaluation';
+import LearnList from '../pages/LearnList';
+import Learn from "../pages/Learn";
+import Temporary from "../pages/Temporary";
+import Motion from "../pages/Motion";
 
 export const router = {
   routes: [
@@ -53,7 +57,7 @@ export const router = {
         {
           name: '“第一议题”学规学纪',
           path: '/mz/learning',
-          disabled: true,
+          element: <LearnList/>,
         },
       ]
     },
@@ -86,7 +90,7 @@ export const router = {
         {
           name: '监督检查',
           path: '/lz/temporary',
-          disabled: true,
+          element: <Temporary/>,
         },
         {
           name: '第一种形态处置运用',
@@ -101,7 +105,7 @@ export const router = {
         {
           name: '纪委动议',
           path: '/lz/motion',
-          disabled: true,
+          element: <Motion/>,
         },
         {
           name: '履责报告',
@@ -231,6 +235,12 @@ export const router = {
       name: '绩效考评详情',
       path: '/pz/evaluation/:type/:year',
       element: <Evaluation/>,
+    },
+    {
+      hideInMenu: true,
+      name: '学习记录',
+      path: '/mz/learning/edit',
+      element: <Learn/>
     },
   ],
 };

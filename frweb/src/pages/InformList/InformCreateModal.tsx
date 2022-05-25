@@ -1,13 +1,15 @@
 import React from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd';
+import { Alert, Button, DatePicker, Divider, Form, Input, Modal, Select, Space } from 'antd';
 import SelectUser from '../../components/SelectUser';
 import { useHttp } from '../../utils/request';
+import { informType } from '../../utils/nameMap';
 
 export default function InformCreateModal() {
 
   const [form] = Form.useForm();
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [type, setType] = React.useState<string>('');
   const { http } = useHttp('/inform', { method: 'POST', isManual: true })
 
   return <>
@@ -35,16 +37,18 @@ export default function InformCreateModal() {
           layout='vertical'
           name='inform'
       >
-        <Space size={'large'}>
-          <Form.Item name='type' label='类型'>
-            <Select placeholder={'请选择'}>
-              <Select.Option value={'COPY'}>抄告单</Select.Option>
-              <Select.Option value={'OPINION'}>意见书</Select.Option>
-              <Select.Option value={'ADVICE'}>建议书</Select.Option>
-              <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
-            </Select>
-          </Form.Item>
+        <Form.Item name='type' label='类型'>
+          <Select placeholder={'请选择'} onChange={v => setType(v)}>
+            <Select.Option value={'COPY'}>抄告单</Select.Option>
+            <Select.Option value={'OPINION'}>意见书</Select.Option>
+            <Select.Option value={'ADVICE'}>建议书</Select.Option>
+            <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
+          </Select>
+        </Form.Item>
+        <Divider/>
+        <Alert type={'warning'} message={'所选类型'} description={type ? informType[type].name : '请先选择类型'}/><br/>
 
+        <Space size={'large'}>
           <Form.Item name='fromDeptId' label='下达部门'>
             <SelectUser withUser={false}/>
           </Form.Item>
@@ -54,11 +58,11 @@ export default function InformCreateModal() {
           </Form.Item>
 
           <Form.Item name='fromUserId' label='签发人'>
-            <SelectUser withUser />
+            <SelectUser withUser/>
           </Form.Item>
 
           <Form.Item name='destDeptId' label='接收对象'>
-            <SelectUser withUser />
+            <SelectUser withUser/>
           </Form.Item>
         </Space>
 
@@ -102,11 +106,11 @@ export default function InformCreateModal() {
         </Form.List>
 
         <Form.Item
-            label="选择审核人"
-            name="approve"
+            label='选择审核人'
+            name='approve'
             rules={[{ required: true, message: '请选择' }]}
         >
-          <SelectUser withUser />
+          <SelectUser withUser/>
         </Form.Item>
       </Form>
     </Modal>
