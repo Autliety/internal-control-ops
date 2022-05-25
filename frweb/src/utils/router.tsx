@@ -1,5 +1,12 @@
 import React from 'react';
-import { AuditOutlined, HomeOutlined, PlayCircleOutlined, ProfileOutlined, SettingOutlined } from '@ant-design/icons';
+import {
+  AuditOutlined,
+  HomeOutlined,
+  ProfileOutlined,
+  SecurityScanOutlined,
+  SettingOutlined,
+  WarningOutlined
+} from '@ant-design/icons';
 
 import Home from '../pages/Home';
 import MatterList from '../pages/MatterList';
@@ -10,15 +17,20 @@ import MeetingTopic from '../pages/MeetingTopic';
 import MeasureList from '../pages/MeasureList';
 import Measure from '../pages/Measure';
 import InformList from '../pages/InformList';
-import Inform from '../pages/Inform/Inform';
+import Inform from '../pages/Inform';
 import MeetingNotice from '../pages/Meeting/MeetingNotice';
 import Department from '../pages/Department';
 import EvaluationList from '../pages/EvaluationList';
 import Evaluation from '../pages/Evaluation';
 import LearnList from '../pages/LearnList';
-import Learn from "../pages/Learn";
-import Temporary from "../pages/Temporary";
-import Motion from "../pages/Motion";
+import Learn from '../pages/Learn';
+import Temporary from '../pages/Temporary';
+import Motion from '../pages/Motion';
+import ContributeList from '../pages/ContributeList';
+import DisposalList from '../pages/DisposalList';
+import Report from '../pages/Report';
+import ReportList from '../pages/ReportList';
+import Disposal from '../pages/Disposal';
 
 export const router = {
   routes: [
@@ -78,7 +90,7 @@ export const router = {
             {
               name: '履责情况',
               path: '/lz/list/contribute',
-              disabled: true,
+              element: <ContributeList/>,
             },
             {
               name: '动态跟踪',
@@ -95,7 +107,7 @@ export const router = {
         {
           name: '第一种形态处置运用',
           path: '/lz/disposal',
-          disabled: true,
+          element: <DisposalList/>,
         },
         {
           name: '一单三书',
@@ -110,7 +122,7 @@ export const router = {
         {
           name: '履责报告',
           path: '/lz/report',
-          disabled: true,
+          element: <ReportList/>,
         },
         {
           name: '重大事项请示报告',
@@ -148,7 +160,7 @@ export const router = {
     },
     {
       name: '督责',
-      icon: <PlayCircleOutlined/>,
+      icon: <SecurityScanOutlined />,
       path: '/dz',
       routes: [
         {
@@ -160,7 +172,7 @@ export const router = {
     },
     {
       name: '追责',
-      icon: <PlayCircleOutlined/>,
+      icon: <WarningOutlined/>,
       path: '/zz',
       routes: [
         {
@@ -229,6 +241,18 @@ export const router = {
       name: '一单三书详情',
       path: '/lz/inform/:id',
       element: <Inform/>,
+    },
+    {
+      hideInMenu: true,
+      name: '履责报告详情',
+      path: '/lz/report/:id',
+      element: <Report/>,
+    },
+    {
+      hideInMenu: true,
+      name: '第一种形态告知书',
+      path: '/lz/disposal/:id',
+      element: <Disposal/>,
     },
     {
       hideInMenu: true,

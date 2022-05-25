@@ -10,11 +10,15 @@ import { informType } from '../../utils/nameMap';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default function Inform() {
+type Props = {
+  httpPath: string,
+};
+
+export default function BaseInform(props: Props) {
 
   const navigate = useNavigate();
   const { id } = useParams();
-  const { state, loading } = useHttp(`/inform/${id}`, { initState: [] });
+  const { state, loading } = useHttp(`/${props.httpPath}/${id}`, { initState: [] });
 
   // 整改措施
   const measureColumns1: ProColumns[] = [

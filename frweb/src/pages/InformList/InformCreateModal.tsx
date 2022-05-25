@@ -5,12 +5,17 @@ import SelectUser from '../../components/SelectUser';
 import { useHttp } from '../../utils/request';
 import { informType } from '../../utils/nameMap';
 
-export default function InformCreateModal() {
+type Props = {
+  isDisposal?: boolean,
+  httpPath: string,
+}
+
+export default function InformCreateModal({ isDisposal, httpPath }: Props) {
 
   const [form] = Form.useForm();
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [type, setType] = React.useState<string>('');
-  const { http } = useHttp('/inform', { method: 'POST', isManual: true })
+  const { http } = useHttp(`/${httpPath}`, { method: 'POST', isManual: true })
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>添加</Button>
@@ -39,9 +44,9 @@ export default function InformCreateModal() {
       >
         <Form.Item name='type' label='类型'>
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
-            <Select.Option value={'COPY'}>抄告单</Select.Option>
-            <Select.Option value={'OPINION'}>意见书</Select.Option>
-            <Select.Option value={'ADVICE'}>建议书</Select.Option>
+            <Select.Option value={'COPY'} disabled={isDisposal}>抄告单</Select.Option>
+            <Select.Option value={'OPINION'} disabled={isDisposal}>意见书</Select.Option>
+            <Select.Option value={'ADVICE'} disabled={isDisposal}>建议书</Select.Option>
             <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
           </Select>
         </Form.Item>

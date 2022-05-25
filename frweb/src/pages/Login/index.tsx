@@ -12,14 +12,11 @@ export default function Login() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
-  const { state } = useHttp(
-
-      '/department', { initState: [] });
+  const { state } = useHttp('/department', { initState: [] });
 
   return <div className={'loginStyle'} style={{ height: '100%', minWidth: 1500, overflow: 'scroll' }}>
     <Row>
-      <
-          Col span={6}/>
+      <Col span={6}/>
       <Col span={8} className={'bgStyle'}>
         <br/><br/>
         <img src={bg} alt="" height={414} width={384} style={{ marginLeft: 100 }}/>
