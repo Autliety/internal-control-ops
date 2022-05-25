@@ -13,8 +13,8 @@ import InformList from '../pages/InformList';
 import Inform from '../pages/Inform/Inform';
 import MeetingNotice from '../pages/Meeting/MeetingNotice';
 import Department from '../pages/Department';
-import StaffPerformanceList from '../pages/StaffPerformanceList';
-import StaffPerformance from '../pages/StaffPerformance/StaffPerformance';
+import EvaluationList from '../pages/EvaluationList';
+import Evaluation from '../pages/Evaluation';
 import LearnList from '../pages/LearnList';
 import Learn from "../pages/Learn";
 import Temporary from "../pages/Temporary";
@@ -136,8 +136,8 @@ export const router = {
       routes: [
         {
           name: '班子成员考评',
-          path: '/pz/performance',
-          element: <StaffPerformanceList/>
+          path: '/pz/evaluation/leader',
+          element: <EvaluationList/>
         },
         {
           name: '村社考评',
@@ -233,12 +233,12 @@ export const router = {
     {
       hideInMenu: true,
       name: '绩效考评详情',
-      path: '/pz/performance/:id',
-      element: <StaffPerformance/>,
+      path: '/pz/evaluation/:type/:year',
+      element: <Evaluation/>,
     },
     {
       hideInMenu: true,
-      name: '第一议题、学规学记记录',
+      name: '学习记录',
       path: '/mz/learning/edit',
       element: <Learn/>
     },

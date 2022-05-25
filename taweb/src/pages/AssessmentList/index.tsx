@@ -29,10 +29,9 @@ export default function AssessmentList() {
         <Select.Option value={2}>特色品牌创建工作考核</Select.Option>
       </Select>
       <Select style={{ width: 200 }} placeholder={'请选择'} onChange={v => console.log(v)}>
-        <Select.Option value={0}>镇政府</Select.Option>
-        <Select.Option value={1}>组织部门</Select.Option>
-
-        <Select.Option value={2}>交警大队</Select.Option>
+        <Select.Option value={0}>组织部门</Select.Option>
+        <Select.Option value={1}>财政办公室</Select.Option>
+        <Select.Option value={2}>生态环境办公室</Select.Option>
       </Select>
     </Space>
 

@@ -1,18 +1,17 @@
 import React from 'react';
-import { PageContainer } from "@ant-design/pro-layout";
-import { ProColumns } from "@ant-design/pro-table";
+import { useNavigate } from 'react-router-dom';
+import { ProColumns } from '@ant-design/pro-table';
+import { Button, Tooltip } from 'antd';
+import { FileTextOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-layout';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
-import BaseEditableTable from "../../components/BaseEditableTable";
-import { Button, Tooltip } from "antd";
-import { FileTextOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-
-export default function StaffPerformanceList() {
+export default function EvaluationList() {
 
   const navigate = useNavigate();
 
   const columns: ProColumns[] = [
-    { title: '年份', dataIndex: 'year' },
+    { title: '年度', dataIndex: 'year' },
     { title: '总分值', dataIndex: 'count' },
     { title: '考核指标总数（项）', dataIndex: 'amount' },
     { title: '系统评价得分', dataIndex: 'mark' },
@@ -30,10 +29,10 @@ export default function StaffPerformanceList() {
             type={'primary'}
             icon={<FileTextOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/pz/performance/${record.id}`)}
+            onClick={() => navigate(`/pz/evaluation/leader/${record.year}`)}
         />
-      </Tooltip>
-    }
+      </Tooltip>,
+    },
   ];
 
   const data = [
@@ -42,12 +41,10 @@ export default function StaffPerformanceList() {
       year: '2022',
       count: 100,
       amount: 14,
-    }
-  ]
+    },
+  ];
 
-  return <PageContainer
-      title={'班子成员绩效考评'}
-  >
+  return <PageContainer>
     <BaseEditableTable columns={columns} value={data}/>
   </PageContainer>;
 }
