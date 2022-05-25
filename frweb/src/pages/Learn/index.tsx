@@ -3,12 +3,9 @@ import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Button, DatePicker, Divider, Input, Select } from 'antd';
 import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
 import DemoFileDownload from '../../components/DemoFileDownload';
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 
 export default function Learn() {
 
-  const navigate = useNavigate();
   const [tmpData, setTmpData] = React.useState<any>({});
 
   function mergeTmpData(key, value) {
@@ -58,7 +55,6 @@ export default function Learn() {
   ];
 
   return <PageContainer
-      title={<><ArrowLeftOutlined onClick={() => navigate(-1)}/> 第一议题、学规学记记录</>}
   >
     <EditableDescriptions
         isEdit

@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import BaseTable from './BaseTable';
 
-export default function DemoFileDownload({ list }: any) {
+export default function DemoFileDownload({ list = [] }) {
 
   const attachmentColumns: ColumnsType = [
     { title: '名称（类别）', dataIndex: 'name' },
@@ -16,15 +16,10 @@ export default function DemoFileDownload({ list }: any) {
     },
   ];
 
-  const attachmentData = [
-    { name: '党风廉政建设抄告单', code: 'CG0001-02.doc', updatedTime: '2021-12-13' },
-    { name: '各项巡查、检查文件', code: 'XC0001-05.docx', updatedTime: '2021-12-15' },
-  ];
-
   return <>
     <BaseTable
         columns={attachmentColumns}
-        dataSource={list || attachmentData}
+        dataSource={list}
     />
   </>;
 }

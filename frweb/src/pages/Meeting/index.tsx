@@ -16,10 +16,6 @@ export default function Meeting() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const { state, loading } = useHttp(`/meeting/${id}`);
-/*
-  const { http: meetingHttp } = useHttp(`/meeting/${id}?done=true`, { method: 'PATCH', isManual: true });
-  const { http } = useHttp(`/matter/batch`, { method: 'PATCH', isManual: true });
-*/
 
   const [topicContent, setTopicContent] = React.useState([]);
   React.useEffect(() => {

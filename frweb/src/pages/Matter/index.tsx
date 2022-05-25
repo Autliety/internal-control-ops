@@ -1,8 +1,7 @@
 import React from 'react';
 import { Divider, Space, Statistic } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
@@ -12,14 +11,12 @@ import BaseApproveButton from '../../components/BaseApproveButton';
 
 export default function Matter() {
 
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const { state, loading } = useHttp(`/matter/${id}`);
   const { http } = useHttp('/matter', { method: 'PATCH', isManual: true });
 
   return <PageContainer
-      title={<><ArrowLeftOutlined onClick={() => navigate(-1)} /> 问题清单</>}
       extra={
         <Space>
           <MeasureCreateModal

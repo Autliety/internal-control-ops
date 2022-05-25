@@ -32,7 +32,7 @@ export default function MeetingNotice() {
 
     {/* 暂用 */}
     <BaseDivider title={'相关附件'} />
-    <DemoFileDownload list={[{ name: '会议通知', code: 'HY001.docx' }]} />
+    <DemoFileDownload />
 
     <BaseDivider title={'审批流程'} />
     <DemoProcess status={state.status} />
