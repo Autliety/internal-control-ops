@@ -10,22 +10,23 @@ import { informType } from '../../utils/nameMap';
 import InformCreateModal from './InformCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
+export const baseColumns: ProColumns[] = [
+  { title: '编号', dataIndex: 'code', width: 100 },
+  { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
+  { title: '下达时间', dataIndex: 'createTime' },
+  { title: '下达部门', dataIndex: 'destDepartment' },
+];
+
 function InformList() {
 
-  const columns: ProColumns[] = [
-    { title: '编号', dataIndex: 'code' },
-    { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
-    { title: '下达时间', dataIndex: 'createTime' },
-    { title: '下达部门', dataIndex: 'destDepartment' },
-    {
-      title: '详情',
-      key: 'operation',
-      width: '5%',
-      align: 'center',
-      fixed: 'right',
-      render: (_, record: any) => <Link to={`/inform/${record.id}`}><ContainerOutlined/></Link>,
-    }
-  ];
+  const columns: ProColumns[] = baseColumns.concat({
+    title: '详情',
+    key: 'operation',
+    width: '5%',
+    align: 'center',
+    fixed: 'right',
+    render: (_, record: any) => <Link to={`/lz/inform/${record.id}`}><ContainerOutlined/></Link>,
+  });
 
   const { state, loading } = useHttp('/inform', { initState: [] });
 
@@ -33,7 +34,7 @@ function InformList() {
       title={'一单三书'}
       extra={
         <Space>
-          <InformCreateModal/>
+          <InformCreateModal httpPath={'inform'}/>
         </Space>
       }
   >
