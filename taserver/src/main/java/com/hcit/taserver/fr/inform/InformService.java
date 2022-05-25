@@ -4,7 +4,7 @@ import com.hcit.taserver.common.BasicPersistableService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.MatterService;
-import com.hcit.taserver.fr.matter.MatterSource;
+import com.hcit.taserver.common.SourceType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class InformService implements BasicPersistableService<Inform> {
     Long informId = informRepository.save(inform).getId();
     inform.getMatter().forEach(m -> {
       m.setId(null);
-      m.setSource(MatterSource.INFORM);
+      m.setSource(SourceType.INFORM);
       m.setSourceId(informId);
       m.setUserId(inform.getDestUserId());
       m.setStatus(Status.REVIEWED);
@@ -47,7 +47,7 @@ public class InformService implements BasicPersistableService<Inform> {
   @Override
   public Inform bindData(Inform entity) {
     // todo bind dept & user
-    entity.setMatter(matterRepository.findAllBySourceAndSourceId(MatterSource.INFORM, entity.getId()));
+    entity.setMatter(matterRepository.findAllBySourceAndSourceId(SourceType.INFORM, entity.getId()));
     return entity;
   }
 }

@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.common.BasicPersistable;
+import com.hcit.taserver.common.SourceType;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
@@ -82,7 +83,7 @@ public class Matter implements BasicPersistable {
   private Status measureStatus;
 
   @Enumerated(EnumType.STRING)
-  private MatterSource source;
+  private SourceType source;
 
   private Long sourceId;
 
