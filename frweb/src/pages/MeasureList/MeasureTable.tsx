@@ -29,7 +29,7 @@ export default function MeasureTable({ dataSource }: Props) {
               type={'primary'}
               icon={<ContainerOutlined/>}
               size={'small'}
-              onClick={() => navigate(`/measure/${record.id}`)}
+              onClick={() => navigate(`/mz/list/measure/${record.id}`)}
           />
         </Tooltip>
       </Space>,

@@ -31,6 +31,9 @@ import DisposalList from '../pages/DisposalList';
 import Report from '../pages/Report';
 import ReportList from '../pages/ReportList';
 import Disposal from '../pages/Disposal';
+import Contribute from '../pages/Contribute';
+import DynamicList from '../pages/DynamicList';
+import Dynamic from '../pages/Dynamic';
 
 export const router = {
   routes: [
@@ -95,7 +98,7 @@ export const router = {
             {
               name: '动态跟踪',
               path: '/lz/list/dynamic',
-              disabled: true,
+              element: <DynamicList/>,
             },
           ]
         },
@@ -160,7 +163,7 @@ export const router = {
     },
     {
       name: '督责',
-      icon: <SecurityScanOutlined />,
+      icon: <SecurityScanOutlined/>,
       path: '/dz',
       routes: [
         {
@@ -233,7 +236,7 @@ export const router = {
     {
       hideInMenu: true,
       name: '措施详情',
-      path: '/mz/measure/:id',
+      path: '/mz/list/measure/:id',
       element: <Measure/>,
     },
     {
@@ -253,6 +256,18 @@ export const router = {
       name: '第一种形态告知书',
       path: '/lz/disposal/:id',
       element: <Disposal/>,
+    },
+    {
+      hideInMenu: true,
+      name: '履责情况详情',
+      path: '/lz/list/contribute/:id',
+      element: <Contribute/>,
+    },
+    {
+      hideInMenu: true,
+      name: '动态跟踪详情',
+      path: '/lz/list/dynamic/:id',
+      element: <Dynamic/>,
     },
     {
       hideInMenu: true,

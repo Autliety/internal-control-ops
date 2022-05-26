@@ -7,6 +7,8 @@ import MeasureInfo from './MeasureInfo';
 import MatterInfo from '../Matter/MatterInfo';
 import BaseDivider from '../../components/BaseDivider';
 import DemoFileDownload from '../../components/DemoFileDownload';
+import BaseEditableTable from '../../components/BaseEditableTable';
+import { baseColumns } from '../ContributeList';
 
 export default function Measure() {
 
@@ -18,20 +20,21 @@ export default function Measure() {
   return <>
     <PageContainer
         content={<Space size={'large'}>
-          <Statistic title={'编号'} value={state.code} />
-          <Statistic title={'责任人'} value={state.user?.name ?? ' '} />
+          <Statistic title={'编号'} value={state.code}/>
+          <Statistic title={'责任人'} value={state.user?.name ?? ' '}/>
         </Space>}
     >
       <Divider orientation={'left'}>措施详情</Divider>
-      <MeasureInfo dataSource={state} />
+      <MeasureInfo dataSource={state}/>
 
       <BaseDivider title={'所属问题'} onLink={() => navigate(`/matter/${state.matterId}`)}/>
-      <MatterInfo dataSource={state.matter} />
+      <MatterInfo dataSource={state.matter}/>
 
-      <BaseDivider title={'相关附件'} />
-      <DemoFileDownload />
+      <BaseDivider title={'相关附件'}/>
+      <DemoFileDownload/>
 
       <Divider orientation={'left'}>履责情况</Divider>
+      <BaseEditableTable columns={baseColumns} value={[]}/>
 
     </PageContainer>
   </>;

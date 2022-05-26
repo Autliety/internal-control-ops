@@ -20,24 +20,25 @@ import TaskList from '../pages/TaskList';
 import Task from '../pages/Task';
 import Department from '../pages/Department';
 import Users from '../pages/Department/Users';
+import Complaint from '../pages/Wall/Complaint';
 
 export const router = {
   routes: [
     {
       name: '首页',
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined/>,
       path: '/',
-      element: <Home />,
+      element: <Home/>,
     },
     {
       name: '考核指标',
-      icon: <ProjectOutlined />,
+      icon: <ProjectOutlined/>,
       path: '/assessment',
       routes: [
         {
           name: '常规考核指标',
           path: '/assessment/basic',
-          element: <AssessmentList />,
+          element: <AssessmentList/>,
         },
         {
           name: '临时考核指标',
@@ -48,13 +49,13 @@ export const router = {
     },
     {
       name: '工作计划',
-      icon: <BarsOutlined />,
+      icon: <BarsOutlined/>,
       path: '/plan',
       routes: [
         {
           name: '年度工作计划',
           path: '/plan/annual',
-          element: <PlanList />,
+          element: <PlanList/>,
         },
         {
           name: '时限工作计划',
@@ -70,13 +71,13 @@ export const router = {
     },
     {
       name: '工作进度',
-      icon: <FundProjectionScreenOutlined />,
+      icon: <FundProjectionScreenOutlined/>,
       path: '/task',
       routes: [
         {
           name: '时限工作进度',
           path: '/task/basic',
-          element: <TaskList />,
+          element: <TaskList/>,
         },
         {
           name: '无时限工作进度',
@@ -87,7 +88,7 @@ export const router = {
     },
     {
       name: '考评情况',
-      icon: <ReconciliationOutlined />,
+      icon: <ReconciliationOutlined/>,
       path: '/appraisal',
       routes: [
         {
@@ -104,30 +105,30 @@ export const router = {
     },
     {
       name: '系统设置',
-      icon: <ClusterOutlined />,
+      icon: <ClusterOutlined/>,
       path: '/dept',
       routes: [
         {
           name: '组织架构',
           path: '/dept/depts',
-          element: <Department />,
+          element: <Department/>,
         },
         {
           name: '员工档案',
           path: '/dept/users',
-          element: <Users />,
+          element: <Users/>,
         },
       ],
     },
     {
       name: '回音壁',
-      icon: <WhatsAppOutlined />,
+      icon: <WhatsAppOutlined/>,
       path: '/wall',
       routes: [
         {
           name: '投诉建议',
           path: '/wall/complaint',
-          disabled: true,
+          element: <Complaint/>,
         },
         {
           name: '工作回复',
@@ -142,23 +143,23 @@ export const router = {
 const extRoutes = [
   {
     path: '/assessment/:id',
-    element: <Assessment />,
+    element: <Assessment/>,
   },
   {
     path: '/plan/:id',
-    element: <Plan />,
+    element: <Plan/>,
   },
   {
     path: '/task/:id',
-    element: <Task />,
+    element: <Task/>,
   },
   {
     path: '/admin/settings',
-    element: <Settings />,
+    element: <Settings/>,
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: <NotFound/>,
   },
 ];
 
