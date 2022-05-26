@@ -10,6 +10,7 @@ export type ColumnDef = {
   dataIndex: string | string[],
   render?: (text: string, record: any) => ReactNode,
   renderFormItem?: () => ReactNode,
+  span?: number,
 }
 
 type Props = {
@@ -44,6 +45,7 @@ export default function EditableDescriptions(props: Props) {
               return <Descriptions.Item
                   key={index}
                   label={col.title || key}
+                  span={col.span}
               >
                 <Form.Item style={{ height: 8 }}>
                   {

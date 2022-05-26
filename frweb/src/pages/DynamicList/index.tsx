@@ -1,19 +1,13 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { ProColumns } from '@ant-design/pro-table';
-import { Button, Progress, Space, Tooltip } from 'antd';
-import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { ProColumns } from '@ant-design/pro-table';
+import { Button, Space, Tooltip } from 'antd';
+import { ContainerOutlined } from '@ant-design/icons';
+import { baseColumns } from '../ContributeList';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export const baseColumns: ProColumns[] = [
-  { title: '责任人', dataIndex: 'user' },
-  { title: '实施日期', dataIndex: 'date' },
-  { title: '实施地点', dataIndex: 'placement' },
-  { title: '目标达成情况', dataIndex: 'detail', renderText: text => <Progress percent={text} size='small'/> },
-]
-
-export default function ContributeList() {
+export default function DynamicList() {
 
   const navigate = useNavigate();
 
@@ -26,7 +20,7 @@ export default function ContributeList() {
             type={'primary'}
             icon={<ContainerOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/lz/list/contribute/${record.id}`)}
+            onClick={() => navigate(`/lz/list/dynamic/${record.id}`)}
         />
       </Tooltip>
     </Space>,
@@ -45,9 +39,7 @@ export default function ContributeList() {
     }
   ];
 
-  return <PageContainer
-      title={'履责情况'}
-  >
+  return <PageContainer title={'动态跟踪'}>
     <BaseEditableTable columns={columns} value={data}/>
 
   </PageContainer>;
