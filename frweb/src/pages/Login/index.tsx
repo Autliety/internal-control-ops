@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
+import { LoginForm, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Divider, message, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ export default function Login() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
-  const { state } = useHttp('/department', { initState: [] });
 
   return <div className={'loginStyle'} style={{ height: '100%', minWidth: 1500, overflow: 'scroll' }}>
     <Row>
@@ -32,12 +31,6 @@ export default function Login() {
               navigate('/');
             }}
         >
-
-          <ProFormSelect
-              options={state.map((item, index) => ({ value: item.id, label: item.name, key: index }))}
-              name='dept'
-              placeholder=' 选择登录部门'
-          />
 
           <ProFormText
               name='username'

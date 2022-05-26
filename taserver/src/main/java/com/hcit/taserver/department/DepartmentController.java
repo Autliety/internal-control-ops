@@ -16,6 +16,7 @@ public class DepartmentController {
   private final DepartmentService departmentService;
 
   @GetMapping
+  // todo fix the params temp
   public List<Department> getAll(@RequestParam(required = false, defaultValue = "0") Integer filtered) {
     if (filtered == 1) {
       return departmentService.findAll().subList(0, 4);

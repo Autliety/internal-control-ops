@@ -227,13 +227,13 @@ export const router = {
     {
       hideInMenu: true,
       name: '问题详情',
-      path: '/mz/matter/:id',
+      path: '/mz/list/matter/:id',
       element: <Matter/>,
     },
     {
       hideInMenu: true,
       name: '措施详情',
-      path: '/mz/measure/:id',
+      path: '/mz/list/measure/:id',
       element: <Measure/>,
     },
     {

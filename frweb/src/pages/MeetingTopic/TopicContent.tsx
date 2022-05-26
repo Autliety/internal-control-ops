@@ -6,11 +6,13 @@ type Props = {
   isInEdit?: boolean,
   value?: any,
   onChange?: any,
+  withMatter?: boolean,
 };
 
 export default function TopicContent(
     {
       isInEdit = false,
+      withMatter = false,
       value = [],
       onChange = () => {},
     }: Props,
@@ -24,19 +26,19 @@ export default function TopicContent(
     {
       title: '责任主体',
       dataIndex: ['user', 'name'],
-      editable: false
+      editable: false,
     },
     {
       title: '添加到问题清单',
       dataIndex: 'boolean',
-      valueType: 'switch'
+      valueType: 'switch',
     },
   ];
 
   return <>
     <BaseEditableTable
         isInEdit={isInEdit}
-        columns={columns}
+        columns={withMatter ? columns : columns.slice(0, 2)}
         value={value}
         onChange={onChange}
     />

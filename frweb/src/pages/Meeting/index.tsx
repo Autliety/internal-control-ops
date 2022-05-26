@@ -8,9 +8,11 @@ import MeetingInfo from './MeetingInfo';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import TopicContent from '../MeetingTopic/TopicContent';
 import MeetingAttendee from './MeetingAttendee';
+import { useAuth } from '../../utils/auth';
 
 export default function Meeting() {
 
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
   const [isVisible, setIsVisible] = React.useState(false);
@@ -27,6 +29,7 @@ export default function Meeting() {
         {state.status === 'REVIEWED' &&
         <Button
             type={'primary'}
+            disabled={!state.meetingUser.find(u => u.id === user.id)}
             onClick={() => navigate(`topic/0?create=true`)}
         >
           <FileAddOutlined />会前准备

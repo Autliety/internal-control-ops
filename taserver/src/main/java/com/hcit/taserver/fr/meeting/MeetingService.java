@@ -1,54 +1,47 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MeetingService implements BasicPersistableService<Meeting> {
+public class MeetingService {
 
   private final MeetingRepository meetingRepository;
-  private final TopicService topicService;
-  private final UserRepository userRepository;
   private final AuthService authService;
+  private final ApprovalService approvalService;
 
   public List<Meeting> findAll() {
     return meetingRepository.findAll();
   }
 
   public Meeting findById(Long id) {
-    return bindData(meetingRepository.findById(id).orElseThrow());
+    return meetingRepository.findById(id).orElseThrow();
   }
 
   public Meeting create(Meeting meeting) {
     // todo generate code
     meeting.setCode("HY001");
     meeting.setStatus(Status.AWAITING_REVIEW);
-    meeting.setUserId(authService.getCurrentUser().getId());
-    return meetingRepository.save(meeting);
+    meeting.setUser(authService.getCurrentUser());
+    var approval = meeting.getApproval();
+    meeting.setApproval(null);
+    meetingRepository.save(meeting);
+    Optional.ofNullable(approval).map(Approval::getApproveUserId).ifPresent(id ->
+        meeting.setApproval(approvalService.generate(id, meeting))
+    );
+    return meeting;
   }
 
-  @Override
-  public Meeting bindData(Meeting entity) {
-    entity.setUser(userRepository.findById(entity.getUserId()).orElseThrow());
-    entity.setMeetingUser(userRepository.findAllById(entity.getMeetingUserId()));
-    entity.setTopic(topicService.findAllByMeetingId(entity.getId()));
-    return entity;
+  public void onReviewed(Meeting meeting) {
+    meeting.setStatus(Status.REVIEWED);
+    meetingRepository.save(meeting);
   }
 
-  @Deprecated
-  public Meeting update(Long id, Boolean done) {
-    var m = meetingRepository.findById(id).orElseThrow();
-    m.setStatus(Status.REVIEWED);
-    if (BooleanUtils.isTrue(done)) {
-      m.setStatus(Status.FINISHED);
-    }
-    return bindData(meetingRepository.save(m));
-  }
 }

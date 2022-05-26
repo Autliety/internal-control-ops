@@ -8,6 +8,6 @@ import java.util.Collection;
 @Repository
 public interface StationRepository extends JpaRepository<Station, Long> {
 
-  Collection<Station> findAllByDeptId(Long deptId);
+  Collection<Station> findAllByDepartmentId(Long deptId);
 
 }

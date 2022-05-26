@@ -6,11 +6,10 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TopicInfo from './TopicInfo';
 import TopicContent from './TopicContent';
 import { useHttp } from '../../utils/request';
-import DemoProcess from '../../components/DemoProcess';
 import MeetingInfo from '../Meeting/MeetingInfo';
 import { useAuth } from '../../utils/auth';
 import SelectUser from '../../components/SelectUser';
-import BaseApproveButton from '../../components/BaseApproveButton';
+import ApprovalTable from '../../components/ApprovalTable';
 
 export default function MeetingTopic() {
 
@@ -26,28 +25,27 @@ export default function MeetingTopic() {
 
   const [info, setInfo] = React.useState<any>({ user });
   const [content, setContent] = React.useState([]);
+  const [approveUserId, setApproveUserId] = React.useState(1);
   React.useEffect(() => {
     if (!isCreate) {
       setInfo(state);
-      setContent(state.content?.map(c => ({content: c})));
+      setContent(state.content?.map(c => ({ content: c })));
     }
   }, [isCreate, state]);
 
   const { http } = useHttp('/topic', { method: 'POST', isManual: true });
-  // todo deprecated
-  const { http: updateHttp } = useHttp('/topic', { method: 'PATCH', isManual: true });
 
   return <PageContainer
       content={isCreate || <Space size={'large'}>
-        <Statistic title={'会议编号'} value={state.meeting?.code} />
-        <Statistic title={'责任主体'} value={state.user?.name} />
+        <Statistic title={'会议编号'} value={state.meeting?.code}/>
+        <Statistic title={'责任主体'} value={state.user?.name}/>
       </Space>}
   >
 
     <Divider orientation={'left'}>基本信息</Divider>
-    <MeetingInfo dataSource={meetingState} />
-    <br />
-    <TopicInfo data={info} />
+    <MeetingInfo dataSource={meetingState}/>
+    <br/>
+    <TopicInfo data={info}/>
 
     <Divider orientation={'left'}>职责任务</Divider>
     <TopicContent
@@ -59,26 +57,24 @@ export default function MeetingTopic() {
     <Divider orientation={'left'}>审核流程</Divider>
     {isCreate ?
         <Form.Item label="选择审核人"
-                   name="approve"
+                   name={['approval', 'approveUserId']}
                    rules={[{ required: true, message: '请选择' }]}
         >
-          <SelectUser withUser />
+          <SelectUser withUser onChange={setApproveUserId}/>
         </Form.Item>
         :
-        <DemoProcess status={info.status} />
+        <ApprovalTable value={info.approval}/>
     }
 
     <FooterToolbar>
-      {info.status === 'AWAITING_REVIEW' &&
-      <BaseApproveButton onOk={() => updateHttp(info.id).then(() => navigate(`/mz/meeting/${meetingId}`))} />
-      }
       {
         isCreate && <Button
             type={'primary'}
             onClick={() => http(null, null, {
-              meetingId,
               ...info,
+              meeting: { id: parseInt(meetingId) },
               content: content.map(o => o.content),
+              approval: { approveUserId },
             })
             .then(res => navigate(`/mz/meeting/${meetingId}/topic/${res.id}`))}
         >

@@ -1,47 +1,41 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.department.user.UserService;
-import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class TopicService implements BasicPersistableService<Topic> {
+public class TopicService {
 
   private final TopicRepository topicRepository;
-  private final MeetingRepository meetingRepository;
   private final AuthService authService;
-  private final UserService userService;
-
-  @Override
-  public Topic bindData(Topic entity) {
-    entity.setMeeting(meetingRepository.findById(entity.getMeetingId()).orElseThrow());
-    entity.setUser(userService.findById(entity.getUserId()));
-    return entity;
-  }
+  private final ApprovalService approvalService;
 
   public Topic findById(Long id) {
-    return bindData(topicRepository.findById(id).orElseThrow());
-  }
-
-  public List<Topic> findAllByMeetingId(Long id) {
-    return bindData(topicRepository.findAllByMeetingId(id));
+    return topicRepository.findById(id).orElseThrow();
   }
 
   public Topic create(Topic topic) {
+    topic.setUser(authService.getCurrentUser());
     topic.setStatus(Status.AWAITING_REVIEW);
-    topic.setUserId(authService.getCurrentUser().getId());
-    return topicRepository.save(topic);
+    var approval = topic.getApproval();
+    topic.setApproval(null);
+    topicRepository.save(topic);
+
+    Optional.ofNullable(approval).map(Approval::getApproveUserId).ifPresent(id ->
+        topic.setApproval(approvalService.generate(id, topic))
+    );
+    return topic;
   }
 
-  @Deprecated
-  public Topic update(Long id) {
-    var t = topicRepository.findById(id).orElseThrow();
-    t.setStatus(Status.REVIEWED);
-    return bindData(topicRepository.save(t));
+  public void onReviewed(Topic topic) {
+    topic.setStatus(Status.REVIEWED);
+    topicRepository.save(topic);
   }
+
 }

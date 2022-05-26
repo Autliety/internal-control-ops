@@ -36,7 +36,7 @@ VALUES
 ;
 
 INSERT INTO
-  station (id, name, dept_id)
+  station (id, name, department_id)
 VALUES
   (999, '系统管理员', 999)
 , (1, '党委', 1)

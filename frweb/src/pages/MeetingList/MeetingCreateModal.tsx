@@ -48,8 +48,8 @@ export default function MeetingCreateModal() {
           name="meetingCreate"
           onValuesChange={({ type }) => !type || form.setFieldsValue({ content: contentDefaultValue[type] })}
           onFinish={async values => {
+            values.type = typeOptions.find(o => o.value === values.type)?.label;
             values.startTime = values.startTime.valueOf();
-            values.meetingUserId = values.meetingUser.map(u => u.id);
             let data = await http(null, null, values);
             navigate(`/mz/meeting/${data.id}/notice`);
           }}
@@ -98,7 +98,7 @@ export default function MeetingCreateModal() {
 
         <Form.Item
             label="选择审核人"
-            name="approveUserId"
+            name={['approval', 'approveUserId']}
             rules={[{ required: true, message: '请选择' }]}
         >
           <SelectUser withUser/>

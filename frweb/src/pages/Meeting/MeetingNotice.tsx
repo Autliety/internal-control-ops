@@ -6,9 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import MeetingAttendee from './MeetingAttendee';
-import DemoProcess from '../../components/DemoProcess';
 import BaseDivider from '../../components/BaseDivider';
-import BaseApproveButton from '../../components/BaseApproveButton';
+import ApprovalTable from '../../components/ApprovalTable';
 
 export default function MeetingNotice() {
 
@@ -16,34 +15,27 @@ export default function MeetingNotice() {
   const { id } = useParams();
 
   const { state, loading } = useHttp(`/meeting/${id}`);
-  const { http } = useHttp(`/meeting/${id}`, { method: 'PATCH', isManual: true });
 
   return <PageContainer
       loading={loading}
   >
-    <BaseDivider title={'基本信息'} />
-    <MeetingInfo dataSource={state} />
+    <BaseDivider title={'基本信息'}/>
+    <MeetingInfo dataSource={state}/>
 
-    <BaseDivider title={'参会人员'} />
-    <MeetingAttendee data={state.meetingUser} isOptional={false} />
+    <BaseDivider title={'参会人员'}/>
+    <MeetingAttendee data={state.meetingUser} isOptional={false}/>
 
-    <BaseDivider title={'列席人员'} />
-    <MeetingAttendee data={[]} isOptional={false} />
+    <BaseDivider title={'列席人员'}/>
+    <MeetingAttendee data={[]} isOptional={false}/>
 
-    {/* 暂用 */}
-    <BaseDivider title={'相关附件'} />
-    <DemoFileDownload />
+    <BaseDivider title={'相关附件'}/>
+    <DemoFileDownload/>
 
-    <BaseDivider title={'审批流程'} />
-    <DemoProcess status={state.status} />
+    <BaseDivider title={'审批流程'}/>
+    <ApprovalTable value={state.approval}/>
 
     <FooterToolbar>
-      {state.status === 'AWAITING_REVIEW'
-          ?
-          <BaseApproveButton
-              onOk={() => http().then(() => window.location.reload())}
-          />
-          :
+      {state.status === 'REVIEWED' &&
           <Button
               type={'primary'}
               onClick={() => Modal.confirm({

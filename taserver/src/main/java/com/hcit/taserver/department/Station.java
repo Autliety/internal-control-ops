@@ -1,13 +1,16 @@
 package com.hcit.taserver.department;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.user.User;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,13 +32,11 @@ public class Station implements BasicPersistable {
 
   private String name;
 
-  private Long deptId;
-
-  @ApiModelProperty(hidden = true)
-  @Transient
+  @ManyToOne
   private Department department;
 
-  @ApiModelProperty(hidden = true)
-  @Transient
-  private User user;
+  @JsonIgnoreProperties("station")
+  @OneToMany(mappedBy = "station", fetch = FetchType.EAGER)
+  private Collection<User> users;
+
 }

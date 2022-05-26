@@ -1,5 +1,6 @@
 package com.hcit.taserver.department.user;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +38,10 @@ public class AuthService implements UserDetailsService {
     } else {
       throw new UsernameNotFoundException("admin not admitted");
     }
+  }
+
+  public boolean isCurrentUser(User user) {
+    return Optional.ofNullable(user).map(User::getId).orElse(-1L).equals(getCurrentUser().getId());
   }
 
 }
