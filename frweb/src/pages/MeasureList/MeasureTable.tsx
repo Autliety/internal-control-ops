@@ -7,13 +7,14 @@ import { measureColumns } from '../Measure/MeasureInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
 type Props = {
+  isSearch?: boolean,
   dataSource?: object[],
   params?: {
     ids?: number[],
   }
 };
 
-export default function MeasureTable({ dataSource }: Props) {
+export default function MeasureTable({ isSearch = false, dataSource }: Props) {
 
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export default function MeasureTable({ dataSource }: Props) {
     <BaseEditableTable
         columns={columns}
         value={dataSource || state}
-        isSearch
+        isSearch={isSearch}
     />
   </>;
 }

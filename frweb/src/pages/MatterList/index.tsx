@@ -4,7 +4,6 @@ import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import MatterPartingModal from './MatterPartingModal';
 import { matterColumns } from '../Matter/MatterInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import MatterCreateModal from './MatterCreateModal';
@@ -24,7 +23,7 @@ export default function MatterList() {
               type={'primary'}
               icon={<ContainerOutlined />}
               size={'small'}
-              onClick={() => navigate(`/matter/${record.id}`)}
+              onClick={() => navigate(`/mz/list/matter/${record.id}`)}
           />
         </Tooltip>
       </Space>,
@@ -39,7 +38,6 @@ export default function MatterList() {
       extra={
         <Space size={'middle'}>
           <MatterCreateModal />
-          <MatterPartingModal dataSource={state} />
         </Space>
       }
   >
@@ -50,6 +48,5 @@ export default function MatterList() {
         value={state}
         isSearch
     />
-
   </PageContainer>;
 }

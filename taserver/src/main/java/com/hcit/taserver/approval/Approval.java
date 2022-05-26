@@ -3,6 +3,7 @@ package com.hcit.taserver.approval;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import io.swagger.annotations.ApiModel;
@@ -25,6 +26,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @ApiModel("审批单")
 
@@ -49,6 +52,7 @@ public class Approval implements BasicPersistable {
 
   @JsonIgnoreProperties({"approval"})
   @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
   private List<ApprovalStep> step;
 
   @Transient
@@ -63,6 +67,10 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties({"approval"})
   @OneToOne(cascade = CascadeType.PERSIST)
   private Topic meetingTopic;
+
+  @JsonIgnoreProperties({"approval"})
+  @OneToOne(cascade = CascadeType.PERSIST)
+  private Matter matter;
 }
 
 

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
 export const baseColumns: ProColumns[] = [
+  { title: '措施编号', dataIndex: 'measureCode' },
   { title: '责任人', dataIndex: 'user' },
   { title: '实施日期', dataIndex: 'date' },
   { title: '实施地点', dataIndex: 'placement' },
@@ -39,8 +40,6 @@ export default function ContributeList() {
     {
       id: 1,
       user: '王哲',
-      date: '2022-03-12',
-      placement: '武警大队',
       detail: '50',
     }
   ];

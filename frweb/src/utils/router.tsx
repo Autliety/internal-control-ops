@@ -157,7 +157,7 @@ export const router = {
         {
           name: '村社考评',
           path: '/pz/performance/village',
-          disabled: true,
+          element: <EvaluationList/>
         },
       ]
     },

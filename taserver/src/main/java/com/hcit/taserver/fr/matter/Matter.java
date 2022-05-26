@@ -1,7 +1,8 @@
 package com.hcit.taserver.fr.matter;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.common.BasicPersistable;
-import com.hcit.taserver.common.SourceType;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
@@ -12,20 +13,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("问题")
@@ -41,31 +46,27 @@ public class Matter implements BasicPersistable {
   private Long id;
 
   @ApiModelProperty("问题编号")
-  @Column(unique = true)
   private String code;
 
   @ApiModelProperty("问题内容")
   private String content;
 
-  @ApiModelProperty("问题类型")
-  private String type;
-
-  @ApiModelProperty("问题来源")
+  @ApiModelProperty("类型和来源")
   private String origin;
 
   @ApiModelProperty("负责人")
-  private Long userId;
-  @ApiModelProperty(hidden = true)
-  @Transient
+  @ManyToOne
   private User user;
 
   public Department getDepartment() {
     return Optional.ofNullable(user).map(User::getDepartment).orElse(null);
   }
 
-  @ApiModelProperty(hidden = true)
-  @Transient
-  private List<Measure> measures;
+  @ApiModelProperty("措施")
+  @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
+  @OneToMany(mappedBy = "matter", fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<Measure> measure;
 
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
@@ -74,17 +75,11 @@ public class Matter implements BasicPersistable {
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
-  @ApiModelProperty("问题审批状态")
-  @Enumerated(EnumType.STRING)
-  private Status status;
-
-  @ApiModelProperty("问题中的措施清单审批状态")
+  @ApiModelProperty("问题的措施清单审批状态")
   @Enumerated(EnumType.STRING)
   private Status measureStatus;
 
-  @Enumerated(EnumType.STRING)
-  private SourceType source;
-
-  private Long sourceId;
-
+  @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
+  @OneToOne(mappedBy = "matter")
+  private Approval approval;
 }

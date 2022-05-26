@@ -3,6 +3,7 @@ package com.hcit.taserver.approval;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import java.util.List;
@@ -43,6 +44,13 @@ public class ApprovalService {
     return approvalRepository.save(approval);
   }
 
+  public Approval generate(Long id, Matter matter) {
+    var approval = generate(id);
+    approval.setMatter(matter);
+    matter.setApproval(approval);
+    return approvalRepository.save(approval);
+  }
+
   public Approval stepIn(Long id, String content) {
     var approval = approvalRepository.findById(id).orElseThrow();
     var step = approval.getStep().get(0);
@@ -55,6 +63,13 @@ public class ApprovalService {
     } else {
       // todo 审核退回修改
     }
+    return approval;
+  }
+
+  public Approval reset(Approval approval) {
+    var step = approval.getStep().get(0);
+    step.setStatus(Status.AWAITING_REVIEW);
+    approvalStepRepository.save(step);
     return approval;
   }
 

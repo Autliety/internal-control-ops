@@ -51,7 +51,7 @@ export default function InformCreateModal({ isDisposal, httpPath }: Props) {
           </Select>
         </Form.Item>
         <Divider/>
-        <Alert type={'warning'} message={'所选类型'} description={type ? informType[type].name : '请先选择类型'}/><br/>
+        <Alert type={'warning'} description={type ? informType[type].name : '请选择类型'}/><br/>
 
         <Space size={'large'}>
           <Form.Item name='fromDeptId' label='下达部门'>

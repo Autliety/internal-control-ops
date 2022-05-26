@@ -1,10 +1,9 @@
 import React from 'react';
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormTextArea } from '@ant-design/pro-form';
 import { UnorderedListOutlined } from '@ant-design/icons';
-import { Button, Divider, Form, Radio } from 'antd';
+import { Button, Divider, Radio } from 'antd';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
-import SelectUser from '../../components/SelectUser';
 
 export default function MeasureCreateModal({ measures = [], matterId }) {
 
@@ -13,15 +12,15 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
   const [radioValue, setRadioValue] = React.useState('1');
 
   const { user } = useAuth();
-  const { state } = useHttp(`/user?deptId=${user?.station?.deptId}`, { initState: [] });
+  const { state } = useHttp(`/user?deptId=${user?.department?.id}`, { initState: [] });
 
   return <>
-    <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined />添加措施</Button>
+    <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined/>添加措施</Button>
     <ModalForm
         title="添加措施"
         visible={isVisible}
         onFinish={async (v) => {
-          http(null, null, [{ ...v, matterId: matterId }]).then(() => window.location.reload());
+          http(null, null, [{ ...v, matter: { id: matterId } }]).then(() => window.location.reload());
           return true;
         }}
         modalProps={{
@@ -35,11 +34,11 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
         <Radio value={'1'}>新建措施</Radio>
         <Radio value={'2'}>引用已有措施</Radio>
       </Radio.Group>
-      <Divider />
+      <Divider/>
 
       {
         radioValue === '1'
-            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容" />
+            ? <ProFormTextArea width="xl" name="content" label="工作措施" placeholder="措施内容"/>
             : <ProFormSelect
                 width="xl"
                 options={measures.map(m => ({ label: m.content, value: m.content }))}
@@ -60,23 +59,16 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
         <ProFormSelect
             width="sm"
             options={state.map((item: any) => ({ value: item.id, label: item.name }))}
-            name="userId"
+            name={['user', 'id']}
             label="负责人"
         />
       </ProForm.Group>
 
       <ProForm.Group>
-        <ProFormDatePicker width="sm" name="startDate" label="开始时间" />
-        <ProFormDatePicker width="sm" name="endDate" label="结束时间" />
+        <ProFormDatePicker width="sm" name="startDate" label="开始时间"/>
+        <ProFormDatePicker width="sm" name="endDate" label="结束时间"/>
       </ProForm.Group>
 
-      <Form.Item
-          label="选择审核人"
-          name="approve"
-          rules={[{ required: true, message: '请选择' }]}
-      >
-        <SelectUser withUser />
-      </Form.Item>
     </ModalForm>
   </>;
 }

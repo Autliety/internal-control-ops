@@ -1,9 +1,10 @@
 package com.hcit.taserver.fr.measure;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
@@ -12,8 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,10 +33,9 @@ public class Measure implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ApiModelProperty("问题id")
-  private Long matterId;
-  @ApiModelProperty(hidden = true)
-  @Transient
+  @ApiModelProperty("问题")
+  @JsonIgnoreProperties(value = {"measure"}, allowSetters = true)
+  @ManyToOne
   private Matter matter;
 
   private String code;
@@ -44,21 +44,20 @@ public class Measure implements BasicPersistable {
     return Optional.ofNullable(matter).map(Matter::getCode).orElse("") + "-" + code;
   }
 
-  @ApiModelProperty("工作措施")
-  private String content;
-
-  @ApiModelProperty("责任人id")
-  private Long userId;
-  @ApiModelProperty(hidden = true)
-  @Transient
-  private User user;
-
-  private LocalDate startDate;
-  private LocalDate endDate;
-
-  @Transient
   public Status getStatus() {
     return Optional.ofNullable(matter).map(Matter::getMeasureStatus).orElse(null);
   }
+
+  @ApiModelProperty("工作措施")
+  private String content;
+
+  @ApiModelProperty("责任人")
+  @ManyToOne
+  private User user;
+
+  private LocalDate startDate;
+
+  private LocalDate endDate;
+
 
 }

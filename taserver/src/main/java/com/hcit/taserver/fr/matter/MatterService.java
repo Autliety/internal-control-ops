@@ -1,62 +1,54 @@
 package com.hcit.taserver.fr.matter;
 
-import com.hcit.taserver.common.BasicPersistableService;
+import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.user.UserService;
-import com.hcit.taserver.fr.measure.MeasureRepository;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MatterService implements BasicPersistableService<Matter> {
+public class MatterService {
 
   private final MatterRepository matterRepository;
-  private final MeasureRepository measureRepository;
-  private final UserService userService;
+  private final ApprovalService approvalService;
 
   public List<Matter> findAll() {
-    return bindData(matterRepository.findAllByStatusNot(Status.AWAITING_REVIEW));
+    return matterRepository.findAll();
   }
 
   public Matter findById(Long id) {
-    return bindData(matterRepository.findById(id).orElseThrow());
+    return matterRepository.findById(id).orElseThrow();
   }
 
   public List<Matter> create(Collection<Matter> matters) {
-    // todo generate code
-    matters.forEach(m -> m.setMeasureStatus(Status.AWAITING_REVIEW)); // todo temporary
-    return bindData(matterRepository.saveAll(matters));
+    matters.forEach(m -> {
+      // todo generate code
+      m.setMeasureStatus(Status.AWAITING_REVIEW);
+      m.setId(null);
+    });
+    return matterRepository.saveAllAndFlush(matters);
   }
 
-  @Override
-  public Matter bindData(Matter entity) {
-    entity.setMeasures(measureRepository.findAllByMatterId(entity.getId()));
-    if (entity.getUserId() != null) {
-      entity.setUser(userService.findById(entity.getUserId()));
-    }
-    return entity;
+  public List<Matter> updateMeasures(Collection<Long> ids) {
+    var matters = matterRepository.findAllById(ids);
+    matters.forEach(m -> {
+      m.setMeasureStatus(Status.AWAITING_REVIEW);
+      if (m.getApproval() == null) {
+        approvalService.generate(1L, m); // todo check the right id
+      } else {
+        approvalService.reset(m.getApproval());
+      }
+    });
+    return matterRepository.saveAll(matters);
   }
 
-  @Deprecated
-  public Matter update(Long id) {
-    var m = matterRepository.findById(id).orElseThrow();
-    m.setMeasureStatus(Status.REVIEWED);
-    return bindData(matterRepository.save(m));
+  public List<Matter> updateAll(List<Matter> matters) {
+    return matterRepository.saveAll(matters);
   }
 
-  @Deprecated
-  public List<Matter> update(String ids) {
-    var idArray = ids.split(",");
-    var matters = matterRepository.findAllById(Stream.of(idArray).map(Long::new).collect(Collectors.toList()));
-    matters.forEach(m -> m.setStatus(Status.REVIEWED));
-    return bindData(matterRepository.saveAll(matters));
+  public void onReviewed(Matter matter) {
+    matter.setMeasureStatus(Status.REVIEWED);
   }
-
-  // todo optimize: bulk bind
-
 }

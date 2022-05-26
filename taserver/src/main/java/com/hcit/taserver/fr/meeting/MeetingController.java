@@ -37,6 +37,7 @@ public class MeetingController {
   }
 
   @PatchMapping("/{id}")
+  @Transactional
   public Meeting updateMeeting(@PathVariable Long id, @RequestBody Meeting meeting) {
     return meetingService.patch(id, meeting.getStatus());
   }

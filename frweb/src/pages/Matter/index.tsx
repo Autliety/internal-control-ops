@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
-import MeasureCreateModal from '../MeasureList/MeasureCreateModal';
+import MeasureCreateModal from './MeasureCreateModal';
 import ApprovalTable from '../../components/ApprovalTable';
 
 export default function Matter() {
@@ -24,8 +24,8 @@ export default function Matter() {
         </Space>
       }
       content={<Space size={'large'}>
-        <Statistic title={'编号'} value={'WT001'} />
-        <Statistic title={'问题类型'} value={'日常监督检查'} />
+        <Statistic title={'编号'} value={state.code} />
+        <Statistic title={'责任主体'} value={state.department?.name} />
       </Space>}
       loading={loading}
   >
@@ -35,11 +35,10 @@ export default function Matter() {
 
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
-        dataSource={state.measures || []}
+        dataSource={state.measure || []}
     />
 
-
-    {!state.measures || state.measures.length === 0 ||
+    {!state.measure || state.measure.length === 0 ||
     <>
       <Divider orientation={'left'}>措施清单审核流程</Divider>
       <ApprovalTable value={state.approval} />

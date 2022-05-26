@@ -16,7 +16,7 @@ export default function MeasureList() {
       }
   >
 
-    <MeasureTable/>
+    <MeasureTable isSearch/>
 
     <FooterToolbar>
       <Button
