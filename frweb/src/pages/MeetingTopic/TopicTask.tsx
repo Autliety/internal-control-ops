@@ -9,7 +9,7 @@ type Props = {
   withMatter?: boolean,
 };
 
-export default function TopicContent(
+export default function TopicTask(
     {
       isInEdit = false,
       withMatter = false,
@@ -30,15 +30,16 @@ export default function TopicContent(
     },
     {
       title: '添加到问题清单',
-      dataIndex: 'boolean',
+      dataIndex: 'isMatter',
       valueType: 'switch',
     },
   ];
 
   return <>
     <BaseEditableTable
+        disableAdd={withMatter}
         isInEdit={isInEdit}
-        columns={withMatter ? columns : columns.slice(0, 2)}
+        columns={columns}
         value={value}
         onChange={onChange}
     />

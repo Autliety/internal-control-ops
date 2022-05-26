@@ -4,7 +4,7 @@ import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import TopicInfo from './TopicInfo';
-import TopicContent from './TopicContent';
+import TopicTask from './TopicTask';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from '../Meeting/MeetingInfo';
 import { useAuth } from '../../utils/auth';
@@ -24,12 +24,12 @@ export default function MeetingTopic() {
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
 
   const [info, setInfo] = React.useState<any>({ user });
-  const [content, setContent] = React.useState([]);
+  const [task, setTask] = React.useState([]);
   const [approveUserId, setApproveUserId] = React.useState(1);
   React.useEffect(() => {
     if (!isCreate) {
       setInfo(state);
-      setContent(state.content?.map(c => ({ content: c })));
+      setTask(state.task);
     }
   }, [isCreate, state]);
 
@@ -48,9 +48,9 @@ export default function MeetingTopic() {
     <TopicInfo data={info}/>
 
     <Divider orientation={'left'}>职责任务</Divider>
-    <TopicContent
-        value={content}
-        onChange={setContent}
+    <TopicTask
+        value={task}
+        onChange={setTask}
         isInEdit={isCreate}
     />
 
@@ -73,7 +73,7 @@ export default function MeetingTopic() {
             onClick={() => http(null, null, {
               ...info,
               meeting: { id: parseInt(meetingId) },
-              content: content.map(o => o.content),
+              task,
               approval: { approveUserId },
             })
             .then(res => navigate(`/mz/meeting/${meetingId}/topic/${res.id}`))}

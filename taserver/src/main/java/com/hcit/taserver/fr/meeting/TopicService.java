@@ -1,10 +1,8 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,8 @@ public class TopicService {
   public Topic create(Topic topic) {
     topic.setUser(authService.getCurrentUser());
     topic.setStatus(Status.AWAITING_REVIEW);
-    var approval = topic.getApproval();
-    topic.setApproval(null);
-    topicRepository.save(topic);
-
-    Optional.ofNullable(approval).map(Approval::getApproveUserId).ifPresent(id ->
-        topic.setApproval(approvalService.generate(id, topic))
-    );
+    topic.getTask().forEach(t -> t.setTopic(topic));
+    approvalService.generate(topic.getApproval().getApproveUserId(), topic);
     return topic;
   }
 

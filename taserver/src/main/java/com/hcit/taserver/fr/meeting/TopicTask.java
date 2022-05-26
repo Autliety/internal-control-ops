@@ -1,48 +1,43 @@
-package com.hcit.taserver.approval;
+package com.hcit.taserver.fr.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
-import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
 
-@ApiModel("审批步骤")
+@ApiModel("会议议题职责任务")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-public class ApprovalStep implements BasicPersistable {
+@Table(name = "fr_meeting_topic_task")
+public class TopicTask implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JsonIgnoreProperties("step")
+  @JsonIgnoreProperties(value = {"task"}, allowSetters = true)
   @ManyToOne
-  private Approval approval;
+  private Topic topic;
 
-  @ManyToOne
-  private User approveUser;
-
-  @Enumerated(EnumType.STRING)
-  private Status status;
+  public User getUser() {
+    return topic.getUser();
+  }
 
   private String content;
 
-  @UpdateTimestamp
-  private LocalDateTime updateTime;
+  private Boolean isMatter;
+
 }

@@ -23,12 +23,12 @@ export default function ApprovalTable({ value }) {
   return <>
     <BaseEditableTable
         columns={columns}
-        value={value?.steps ?? []}
+        value={value?.step ?? []}
     />
 
-    {value?.steps?.[0]?.status === 'AWAITING_REVIEW' &&
+    {value?.step?.[0]?.status === 'AWAITING_REVIEW' &&
     <FooterToolbar>
-      {value?.steps?.[0]?.approveUser?.id === user.id || user.id === 999 ?
+      {value?.step?.[0]?.approveUser?.id === user.id ?
           <Space>
             <Button
                 danger

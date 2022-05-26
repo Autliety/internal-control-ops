@@ -9,8 +9,7 @@ import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -53,14 +53,14 @@ public class Topic implements BasicPersistable {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "fr_meeting_topic_content")
+  @JsonIgnoreProperties(value = {"topic"}, allowSetters = true)
+  @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @Fetch(FetchMode.SUBSELECT)
-  private List<String> content;
+  private List<TopicTask> task;
 
   @Transient
   public int getCount() {
-    return Optional.ofNullable(content).map(List::size).orElse(0);
+    return Optional.ofNullable(task).map(List::size).orElse(0);
   }
 
   @CreationTimestamp

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
 import DemoFileDownload from '../../components/DemoFileDownload';
-import TopicContent from '../MeetingTopic/TopicContent';
+import TopicTask from '../MeetingTopic/TopicTask';
 import MeetingAttendee from './MeetingAttendee';
 import { useAuth } from '../../utils/auth';
 
@@ -19,10 +19,13 @@ export default function Meeting() {
 
   const { state, loading } = useHttp(`/meeting/${id}`);
 
-  const [topicContent, setTopicContent] = React.useState([]);
+  const [tasks, setTasks] = React.useState([]);
   React.useEffect(() => {
-    setTopicContent(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.content.map(c => ({content: c, user: t.user}))));
+    setTasks(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task.map(ta => ({ topic: t, ...ta }))));
   }, [state]);
+
+  const { http } = useHttp('/topic/task', { isManual: true, method: 'POST' });
+  const { http: meetingHttp } = useHttp(`/meeting/${id}`, { isManual: true, method: 'PATCH' });
 
   return <PageContainer
       extra={<Space>
@@ -32,37 +35,37 @@ export default function Meeting() {
             disabled={!state.meetingUser.find(u => u.id === user.id)}
             onClick={() => navigate(`topic/0?create=true`)}
         >
-          <FileAddOutlined />会前准备
+          <FileAddOutlined/>会前准备
         </Button>
         }
       </Space>
       }
       content={<Space size={'large'}>
-        <Statistic title={'会议编号'} value={state.code} />
-        <Statistic title={'会议类型'} value={state.type} />
+        <Statistic title={'会议编号'} value={state.code}/>
+        <Statistic title={'会议类型'} value={state.type}/>
       </Space>}
       loading={loading}
   >
 
     <Divider orientation={'left'}>会议信息</Divider>
-    <MeetingInfo dataSource={state} />
+    <MeetingInfo dataSource={state}/>
 
     <Divider orientation={'left'}>参会人员</Divider>
-    <MeetingAttendee data={state.meetingUser} isOptional />
+    <MeetingAttendee data={state.meetingUser} isOptional/>
 
     <Divider orientation={'left'}>列席人员</Divider>
-    <MeetingAttendee data={[]} isOptional />
+    <MeetingAttendee data={state.subUser} isOptional/>
 
     <Divider orientation={'left'}>职责任务</Divider>
-    <TopicContent
+    <TopicTask
         isInEdit={false}
-        value={topicContent}
+        value={tasks}
         onChange={() => {
         }}
     />
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload />
+    <DemoFileDownload/>
 
     <FooterToolbar>
       {state.status === 'REVIEWED' &&
@@ -77,17 +80,17 @@ export default function Meeting() {
         width={1000}
         onOk={() => {
           setIsVisible(false);
-        /* todo api
-           http(topicContent.map(m => m.id).join(','))
-          .then(() => meetingHttp()
-          .then(() => window.location.reload()));*/
+          http(null, null, tasks)
+          .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
+          .then(() => window.location.reload());
         }}
         onCancel={() => setIsVisible(false)}
     >
-      <TopicContent
+      <TopicTask
+          withMatter
           isInEdit
-          value={topicContent}
-          onChange={setTopicContent}
+          value={tasks}
+          onChange={setTasks}
       />
     </Modal>
 

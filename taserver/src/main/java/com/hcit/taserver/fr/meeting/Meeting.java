@@ -71,6 +71,11 @@ public class Meeting implements BasicPersistable {
   @Fetch(FetchMode.SUBSELECT)
   private List<User> meetingUser;
 
+  @ApiModelProperty("列席人员")
+  @ManyToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<User> subUser;
+
   public int getMeetingUserCount() {
     return Optional.ofNullable(meetingUser).map(List::size).orElse(0);
   }

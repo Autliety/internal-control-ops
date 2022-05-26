@@ -92,7 +92,7 @@ export default function MeetingCreateModal() {
           <AttendeeSelectCard/>
         </Form.Item>
 
-        <Form.Item name={'userSupport'} label={'列席人员'}>
+        <Form.Item name={'subUser'} label={'列席人员'}>
           <AttendeeSelectCard/>
         </Form.Item>
 

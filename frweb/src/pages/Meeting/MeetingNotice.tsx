@@ -8,9 +8,11 @@ import DemoFileDownload from '../../components/DemoFileDownload';
 import MeetingAttendee from './MeetingAttendee';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
+import { useAuth } from '../../utils/auth';
 
 export default function MeetingNotice() {
 
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -26,7 +28,7 @@ export default function MeetingNotice() {
     <MeetingAttendee data={state.meetingUser} isOptional={false}/>
 
     <BaseDivider title={'列席人员'}/>
-    <MeetingAttendee data={[]} isOptional={false}/>
+    <MeetingAttendee data={state.subUser} isOptional={false}/>
 
     <BaseDivider title={'相关附件'}/>
     <DemoFileDownload/>
@@ -38,6 +40,7 @@ export default function MeetingNotice() {
       {state.status === 'REVIEWED' &&
           <Button
               type={'primary'}
+              disabled={state.user?.id !== user.id}
               onClick={() => Modal.confirm({
                 title: '发送会议通知',
                 content: '发送会议通知所有参会人员',

@@ -49,19 +49,19 @@ public class Approval implements BasicPersistable {
 
   @JsonIgnoreProperties({"approval"})
   @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  private List<ApprovalStep> steps;
+  private List<ApprovalStep> step;
 
   @Transient
   public Status getStatus() {
-    return Optional.ofNullable(steps).map(l -> l.get(0)).map(ApprovalStep::getStatus).orElse(null);
+    return Optional.ofNullable(step).map(l -> l.get(0)).map(ApprovalStep::getStatus).orElse(null);
   }
 
   @JsonIgnoreProperties({"approval"})
-  @OneToOne
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Meeting meeting;
 
   @JsonIgnoreProperties({"approval"})
-  @OneToOne
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Topic meetingTopic;
 }
 

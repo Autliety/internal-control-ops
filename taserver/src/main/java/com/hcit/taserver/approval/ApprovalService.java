@@ -25,25 +25,27 @@ public class ApprovalService {
         .approveUser(User.builder().id(approveUserId).build())
         .status(Status.AWAITING_REVIEW)
         .build();
-    approval.setSteps(List.of(step));
+    approval.setStep(List.of(step));
     return approval;
   }
 
   public Approval generate(Long id, Meeting meeting) {
     var approval = generate(id);
     approval.setMeeting(meeting);
+    meeting.setApproval(approval);
     return approvalRepository.save(approval);
   }
 
   public Approval generate(Long id, Topic topic) {
     var approval = generate(id);
     approval.setMeetingTopic(topic);
+    topic.setApproval(approval);
     return approvalRepository.save(approval);
   }
 
   public Approval stepIn(Long id, String content) {
     var approval = approvalRepository.findById(id).orElseThrow();
-    var step = approval.getSteps().get(0);
+    var step = approval.getStep().get(0);
     if (!authService.isCurrentUser(step.getApproveUser())) {
       throw new IllegalStateException("非正确的审核人");
     }

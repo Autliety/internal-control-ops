@@ -7,6 +7,7 @@ export default function BaseEditableTable(
       columns,
       isInEdit = false,
       isSearch = false,
+      disableAdd = false,
       value = [],
       onChange = (_: any[]) => {},
       ...restProps
@@ -25,23 +26,26 @@ export default function BaseEditableTable(
       }}
 
       pagination={{ hideOnSinglePage: true, ...restProps.pagination }}
-      rowKey={'id'}
+      rowKey={'key'}
       columns={isInEdit ? columns.concat({
             title: '操作',
             width: 150,
             valueType: 'option',
             render: (text, record, _, action) => [
-              <a key="editable" onClick={() => action?.startEditable?.(record.id)}>
+              <a key="editable" onClick={() => action?.startEditable?.(record.key)}>
                 编辑
               </a>,
-              <a key="delete" onClick={() => onChange(value.filter(i => i.id !== record.id))}>
+              <a key="delete" onClick={() => onChange(value.filter(i => i.key !== record.key))}>
                 删除
               </a>,
             ],
           })
           : columns
       }
-      value={value}
+      value={value.map(v => {
+        v.key = v.key ? v.key : v.id;
+        return v;
+      })}
       onChange={onChange}
 
       search={isSearch && {
@@ -55,7 +59,7 @@ export default function BaseEditableTable(
         editableKeys,
         onChange: setEditableKeys,
       }}
-      recordCreatorProps={isInEdit && { record: () => ({ id: moment().valueOf() }) }}
+      recordCreatorProps={isInEdit && !disableAdd && { record: () => ({ key: moment().valueOf() }) }}
 
       {...restProps}
   />;

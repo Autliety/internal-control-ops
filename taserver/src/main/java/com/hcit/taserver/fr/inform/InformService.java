@@ -30,7 +30,7 @@ public class InformService implements BasicPersistableService<Inform> {
     if (CollectionUtils.isEmpty(inform.getMatter())) {
       throw new IllegalArgumentException("Matter is required");
     }
-    Long informId = informRepository.save(inform).getId();
+    Long informId = informRepository.saveAndFlush(inform).getId();
     inform.getMatter().forEach(m -> {
       m.setId(null);
       m.setSource(SourceType.INFORM);

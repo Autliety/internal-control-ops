@@ -14,7 +14,7 @@ function MeetingAttendee(props: Props) {
         multiple
         size={'small'}
         disabled={!props.isOptional}
-        onChange={v => props.onChange(v)}
+        onChange={v => props.onChange?.(v)}
     >
       {
         props.data?.map((u: any, index) => <CheckCard

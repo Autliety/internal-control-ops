@@ -1,11 +1,9 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +28,14 @@ public class MeetingService {
     meeting.setCode("HY001");
     meeting.setStatus(Status.AWAITING_REVIEW);
     meeting.setUser(authService.getCurrentUser());
-    var approval = meeting.getApproval();
-    meeting.setApproval(null);
-    meetingRepository.save(meeting);
-    Optional.ofNullable(approval).map(Approval::getApproveUserId).ifPresent(id ->
-        meeting.setApproval(approvalService.generate(id, meeting))
-    );
+    approvalService.generate(meeting.getApproval().getApproveUserId(), meeting);
     return meeting;
+  }
+
+  public Meeting patch(Long id, Status status) {
+    var meeting = meetingRepository.findById(id).orElseThrow();
+    meeting.setStatus(status);
+    return meetingRepository.save(meeting);
   }
 
   public void onReviewed(Meeting meeting) {
