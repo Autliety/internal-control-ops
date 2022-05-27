@@ -34,6 +34,7 @@ import Disposal from '../pages/Disposal';
 import Contribute from '../pages/Contribute';
 import DynamicList from '../pages/DynamicList';
 import Dynamic from '../pages/Dynamic';
+import Permission from '../pages/Permission';
 
 export const router = {
   routes: [
@@ -203,7 +204,7 @@ export const router = {
         {
           name: '权限管理',
           path: '/setting/permission',
-          disabled: true,
+          element: <Permission/>,
         },
       ],
     },
