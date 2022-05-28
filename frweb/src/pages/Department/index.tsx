@@ -75,7 +75,8 @@ export default function Department({ withUser = false }) {
         onOk={() => setIsVisible(false)}
         onCancel={() => setIsVisible(false)}
     >
-      <p>岗位名称：{initData.name}</p>
+      <p>部门：{initData.department?.name}</p>
+      <p>岗位：{initData.name}</p>
       <br/>
 
       <p>会议权限</p>
