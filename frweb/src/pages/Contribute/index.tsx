@@ -69,13 +69,13 @@ export function BaseContribute({ onChange, data }) {
     <BaseEditableTable columns={measureColumns} value={[]}/>
 
     <Modal
-        title={'审批人员选择'}
+        title={'审核人员选择'}
         visible={isVisible}
         closable
         onCancel={() => setIsVisible(false)}
         onOk={() => console.log(data)}
     >
-      <p>审批人</p>
+      <p>审核人</p>
       <SelectUser withUser/>
       <Divider/>
       <p>抄送人</p>
@@ -83,10 +83,10 @@ export function BaseContribute({ onChange, data }) {
     </Modal>
 
     <FooterToolbar>
+      <Button>更新履责进度</Button>
       <Button type={'primary'} onClick={() => setIsVisible(true)}>提交审批</Button>
     </FooterToolbar>
   </>
-
 }
 
 export default function Contribute() {
