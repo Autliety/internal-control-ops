@@ -25,7 +25,7 @@ function Pages() {
 
           rightContentRender={() => <HeaderRight/>}
 
-          title="百步镇政府督考系统"
+          title="百步经济开发区(百步镇)督考平台"
           route={router}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}

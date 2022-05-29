@@ -18,8 +18,8 @@ export default function Login() {
       >
         <LoginForm
             logo={logo}
-            title='百步区政府'
-            subTitle='督考 / 四责协同管理平台'
+            title={'百步经济开发区(百步镇)'}
+            subTitle={'督考平台'}
         >
 
           <ProFormText

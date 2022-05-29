@@ -48,8 +48,8 @@ export default function Home() {
 
   return <div>
     <PageContainer
-        title="百步镇政府"
-        subTitle="督考系统"
+        title={'百步经济开发区(百步镇)督考平台'}
+        subTitle={'首页'}
         content={
           <Statistic title="欢迎您" value={'管理员'} />
         }
