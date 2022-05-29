@@ -6,7 +6,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/plan")
+@RequestMapping("/plan")
 public class PlanController {
 
   private final PlanService planService;

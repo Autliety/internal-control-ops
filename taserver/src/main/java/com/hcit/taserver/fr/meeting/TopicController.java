@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "议题")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/topic")
+@RequestMapping("/topic")
 public class TopicController {
 
   private final TopicService topicService;

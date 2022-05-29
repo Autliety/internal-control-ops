@@ -7,6 +7,7 @@ import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,15 @@ public class ApprovalService {
   private final ApprovalRepository approvalRepository;
   private final ApprovalStepRepository approvalStepRepository;
   private final AuthService authService;
+
+  public List<Approval> getCurrentUserApproved() {
+    var user = authService.getCurrentUser();
+    return approvalStepRepository.findAllByApproveUser(user)
+        .stream()
+        .map(ApprovalStep::getApproval)
+        .distinct()
+        .collect(Collectors.toList());
+  }
 
   private Approval generate(Long approveUserId) {
     var approval = Approval.builder()
@@ -69,6 +79,7 @@ public class ApprovalService {
   public Approval reset(Approval approval) {
     var step = approval.getStep().get(0);
     step.setStatus(Status.AWAITING_REVIEW);
+    step.setContent(null);
     approvalStepRepository.save(step);
     return approval;
   }

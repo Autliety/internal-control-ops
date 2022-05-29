@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "会议")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/meeting")
+@RequestMapping("/meeting")
 public class MeetingController {
 
   private final MeetingService meetingService;

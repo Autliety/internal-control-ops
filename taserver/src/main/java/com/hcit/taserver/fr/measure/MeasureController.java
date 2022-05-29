@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "措施")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/measure")
+@RequestMapping("/measure")
 public class MeasureController {
 
   private final MeasureService measureService;

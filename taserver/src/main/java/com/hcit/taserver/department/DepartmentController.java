@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/api/department")
+@RequestMapping("/department")
 public class DepartmentController {
 
   private final DepartmentService departmentService;

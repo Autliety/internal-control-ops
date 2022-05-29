@@ -3,69 +3,26 @@ import { StatisticCard } from '@ant-design/pro-card';
 import { BellTwoTone, CarryOutTwoTone, TagsTwoTone } from '@ant-design/icons';
 import { Avatar, List, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useHttp } from '../../utils/request';
+import { getApprovalNotes } from './getNotes';
 
 export default function StatisticNotes() {
 
   const navigate = useNavigate();
+  const { state } = useHttp('/notification/uat', { initState: {} });
 
-  const announceData = [
-    {
-      id: 1,
-      title: '会议通知审核',
-      content: '会议【HY001】正在等待您审核',
-      link: '/meeting/1/notice',
-    },
-    {
-      id: 4,
-      title: '会议议题审核',
-      content: '会议【HY001】有1份新的会议议题，正在等待您审核',
-      link: '/meeting/1/topic/1',
-    },
-    {
-      id: 6,
-      title: '填写/修改措施清单',
-      content: '收到一份问题清单，请尽快填写/修改措施清单',
-      link: '/list/matter',
-    },
-    {
-      id: 7,
-      title: '措施清单审核',
-      content: '问题【WT001】更新了措施清单，正在等待您审核',
-      link: '/matter/1',
-    },
+  const [onPage, setOnPage] = React.useState(0);
+
+  const pageInfo = [
+    {},
+    { title: '待办事项', data: state['AWAITING_REVIEW'] || [] },
+    { title: '已处理待办事项', data: state['REVIEWED'] || [] },
+    { title: '提醒事项', data: [] },
+    { title: '动态跟踪', data: [] },
+    { title: '已完成动态跟踪', data: [] },
   ];
-
-  const infoData = [
-    {
-      id: 2,
-      title: '已审会议通知',
-      content: '会议通知【HY001】已审核完成，需发送',
-      link: '/meeting/1/notice',
-    },
-    {
-      id: 3,
-      title: '会议通知',
-      content: '收到会议通知【HY001】，请尽快填写会议议题',
-      link: '/meeting/1',
-    },
-  ]
-
-  const toDoList = [
-    { key: '0', title: '待处理', value: 4, color: '#eb2f96' },
-    { key: '1', title: '已处理', value: 25, color: '#52c41a' },
-  ];
-
-  const dynamicList = [
-    { key: '3', title: '执行中', value: 3, color: 'orange' },
-    { key: '4', title: '已完成', value: 7 },
-  ];
-
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [isInfo, setIsInfo] = React.useState(false);
-  const imgStyle = { fontSize: '60px' };
 
   return <>
-
     <StatisticCard.Group
         direction={'row'}
         title={<b>待办事项</b>}
@@ -74,20 +31,27 @@ export default function StatisticNotes() {
         headerBordered
         bordered
     >
-      {
-        toDoList.map((item, index) => <StatisticCard
-            style={{ padding: 24 }}
-            key={index}
-            statistic={{
-              title: item.title,
-              value: item.value,
-              icon: <CarryOutTwoTone style={imgStyle} twoToneColor={item.color} />,
-            }}
-            onClick={() => setIsVisible(true)}
-        />)
-      }
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '待处理',
+            value: pageInfo[1].data.length,
+            icon: <CarryOutTwoTone className={'homepage-icon'} twoToneColor={'#eb2f96'}/>,
+          }}
+          onClick={() => setOnPage(1)}
+      />
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '已处理',
+            value: pageInfo[2].data.length,
+            icon: <CarryOutTwoTone className={'homepage-icon'} twoToneColor={'#52c41a'}/>,
+          }}
+          onClick={() => setOnPage(2)}
+      />
+
     </StatisticCard.Group>
-    <br />
+    <br/>
 
     <StatisticCard.Group
         direction={'row'}
@@ -96,25 +60,19 @@ export default function StatisticNotes() {
         headerBordered
         bordered
     >
-      {
-        <StatisticCard
-            style={{ padding: 24 }}
-            key={1}
-            statistic={{
-              title: '提醒事项',
-              value: 2,
-              icon: <BellTwoTone style={imgStyle} twoToneColor={'blue'} />,
-            }}
-            onClick={() => {
-              setIsInfo(true);
-              setIsVisible(true);
-            }}
-        />
-
-      }
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '提醒事项',
+            value: pageInfo[3].data.length,
+            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'blue'}/>,
+          }}
+          onClick={() => setOnPage(3)
+          }
+      />
     </StatisticCard.Group>
 
-    <br />
+    <br/>
     <StatisticCard.Group
         direction={'row'}
         title={<b>重大事项动态跟踪</b>}
@@ -122,50 +80,53 @@ export default function StatisticNotes() {
         headerBordered
         bordered
     >
-      {
-        dynamicList.map((item, index) => <StatisticCard
-                style={{ padding: 24 }}
-                key={index}
-                statistic={{
-                  title: item.title,
-                  value: item.value,
-                  icon: <TagsTwoTone style={imgStyle} twoToneColor={item.color} />,
-                }}
-                onClick={() => setIsVisible(true)}
-            />,
-        )
-      }
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '执行中',
+            value: pageInfo[4].data.length,
+            icon: <TagsTwoTone className={'homepage-icon'} twoToneColor={'orange'}/>,
+          }}
+          onClick={() => setOnPage(4)}
+      />
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '已完成',
+            value: pageInfo[5].data.length,
+            icon: <TagsTwoTone className={'homepage-icon'}/>,
+          }}
+          onClick={() => setOnPage(5)}
+      />,
     </StatisticCard.Group>
+
     <Modal
         title={''}
-        visible={isVisible}
+        visible={onPage !== 0}
         closable
         width={800}
-        onCancel={() => {
-          setIsVisible(false);
-          setIsInfo(false);
-        }}
-        onOk={() => {
-          setIsVisible(false);
-          setIsInfo(false);
-        }}
+        onCancel={() => setOnPage(0)}
+        footer={null}
     >
       <List
           className="content"
-          header={isInfo ? '提醒事项': '待办事项' }
+          header={pageInfo[onPage].title}
           itemLayout="horizontal"
       >
-        {(isInfo ? infoData : announceData).map((item, index) =>
+        {pageInfo[onPage].data
+        ?.map(o => getApprovalNotes(o))
+        .map(item =>
             <List.Item
-                key={index}
+                key={item.key}
                 style={{ cursor: 'pointer' }}
                 onClick={() => navigate(item.link)}
             >
               <List.Item.Meta
-                  avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png" />}
-                  title={item['title']}
-                  description={item['content']}
+                  avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"/>}
+                  title={item.title}
+                  description={item.content}
               />
+              <div>{item.time}</div>
             </List.Item>)
         }
       </List>

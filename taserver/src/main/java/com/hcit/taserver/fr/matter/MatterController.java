@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "问题")
 @RestController
-@RequestMapping("/api/matter")
+@RequestMapping("/matter")
 public class MatterController {
 
   private final MatterService matterService;

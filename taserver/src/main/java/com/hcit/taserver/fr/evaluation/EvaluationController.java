@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "考评")
 @RestController
-@RequestMapping("/api/evaluation")
+@RequestMapping("/evaluation")
 public class EvaluationController {
 
   private final EvaluationService evaluationService;

@@ -8,7 +8,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/api/station")
+@RequestMapping("/station")
 public class StationController {
 
   private final StationService stationService;
