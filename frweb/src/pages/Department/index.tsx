@@ -1,10 +1,14 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { BuildOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Divider, List, Modal, Row, Checkbox } from 'antd';
+import { Avatar, Button, Col, Divider, List, Modal, Row, Checkbox, Tabs } from 'antd';
 
 import { useHttp } from '../../utils/request';
 import DepartmentList from './DepartmentList';
+import { getPermission, permission } from '../Permission';
+import { permissionType } from '../../utils/nameMap';
+
+const { TabPane } = Tabs;
 
 export default function Department({ withUser = false }) {
   // 存放部门id和名称
@@ -13,6 +17,7 @@ export default function Department({ withUser = false }) {
     initState: [],
     isManual: true,
   });
+  const { state: deptState } = useHttp('/department', { initState: [] });
   React.useEffect(() => {
     if (dept.id) http();
   }, [dept, http]);
@@ -20,17 +25,8 @@ export default function Department({ withUser = false }) {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [initData, setInitData] = React.useState<any>({});
 
-  // 测试数据
-  const permission = ['meetingCreate', 'meetingFinish', 'matterDispatch'];
-  const meetingPermission = [
-    { label: '新建会议', value: 'meetingCreate' },
-    { label: '更新会议', value: 'meetingUpdate' },
-    { label: '结束会议', value: 'meetingFinish' },
-  ];
-  const matterPermission = [
-    { label: '修改问题', value: 'matterUpdate' },
-    { label: '问题分派', value: 'matterDispatch' },
-  ];
+  // 该岗位已被赋予的权限
+  const existPermission = ['MEETING_CREATE', 'MEETING_FINISH', 'MATTER_DISPATCH', 'MOTION_CREATE'];
 
   return <PageContainer>
     <Row>
@@ -40,7 +36,7 @@ export default function Department({ withUser = false }) {
 
       <Col span={1}/>
 
-      <Col span={15} className="content">
+      <Col span={15} className='content'>
         <List
             header={<p>{dept.name}</p>}
             dataSource={state}
@@ -68,29 +64,43 @@ export default function Department({ withUser = false }) {
 
     {/* 权限编辑 */}
     <Modal
-        title={'权限编辑'}
         visible={isVisible}
         closable
         width={1200}
         onOk={() => setIsVisible(false)}
         onCancel={() => setIsVisible(false)}
     >
-      <p>部门：{initData.department?.name}</p>
-      <p>岗位：{initData.name}</p>
-      <br/>
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab='权限编辑' key='1'>
+          <p>部门：{initData.department?.name}</p>
+          <p>岗位：{initData.name}</p>
+          <Divider/>
+          <Row>
+            {
+              Object.keys(getPermission(permission)).map((item, index) => <Col key={item} span={12}>
+                <p>{index + 1 + '、' + permissionType[item]}</p>
+                <Checkbox.Group options={getPermission(permission)[item]} defaultValue={existPermission}/>
+                <Divider/>
+              </Col>)
+            }
+          </Row>
+        </TabPane>
+        <TabPane tab='分管站办和村社' key='2'>
+          <p>部门：{initData.department?.name}</p>
+          <p>岗位：{initData.name}</p>
+          <Divider/>
+          <Checkbox.Group>
+            <Row gutter={[16, 16]}>
+              {
+                deptState.slice(5).map((item, index) => < Col key={index} span={6}>
+                  <Checkbox value={item.id}>{item.name}</Checkbox>
+                </Col>)
 
-      <p>会议权限</p>
-      <Checkbox.Group
-          options={meetingPermission}
-          defaultValue={permission}
-      />
-      <Divider/>
-
-      <p>问题权限</p>
-      <Checkbox.Group
-          options={matterPermission}
-          defaultValue={permission}
-      />
+              }
+            </Row>
+          </Checkbox.Group>
+        </TabPane>
+      </Tabs>
     </Modal>
   </PageContainer>;
 }

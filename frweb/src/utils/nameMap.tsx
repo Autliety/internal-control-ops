@@ -42,3 +42,23 @@ export const statusEnum = {
   REVIEWED: <Tag color={'processing'}>已审核</Tag>,
   FINISHED: <Tag color={'success'}>已完成</Tag>,
 };
+
+// 权限类别
+export const permissionType = {
+  MEETING: '会议权限',
+  MATTER: '问题权限',
+  RESPONSIBILITY: '职责任务权限',
+  MEASURE: '措施权限',
+  DYNAMIC: '履责登记和动态跟踪权限',
+  LEARNING: '第一议题学规学记权限',
+  REFORM: '整改权限',
+  TEMPORARY: '监督检查权限',
+  DISPOSAL: '第一种形态处置运用权限',
+  INFORM: '一单三书权限',
+  MOTION: '纪委动议权限',
+  REPORT: '履责报告权限',
+  IMPORT: '重大事项请示报告权限',
+  RISK: '廉政风险排查防控权限',
+  APPRAISAL: '履责考评权限',
+  QUESTION: '履责约谈权限',
+}
