@@ -33,7 +33,7 @@ export default function MeetingNotice() {
     <BaseDivider title={'相关附件'}/>
     <DemoFileDownload/>
 
-    <BaseDivider title={'审批流程'}/>
+    <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
 
     <FooterToolbar>

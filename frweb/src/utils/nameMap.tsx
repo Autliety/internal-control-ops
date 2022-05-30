@@ -38,6 +38,7 @@ export const meetingStatusEnum = {
 };
 
 export const statusEnum = {
+  NONE_REVIEW: <Tag color={'default'}>未完成</Tag>,
   AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
   REVIEWED: <Tag color={'processing'}>已审核</Tag>,
   FINISHED: <Tag color={'success'}>已完成</Tag>,

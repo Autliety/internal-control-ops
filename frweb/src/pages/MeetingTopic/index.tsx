@@ -8,8 +8,8 @@ import TopicTask from './TopicTask';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from '../Meeting/MeetingInfo';
 import { useAuth } from '../../utils/auth';
-import SelectUser from '../../components/SelectUser';
 import ApprovalTable from '../../components/ApprovalTable';
+import UserSelectCascader from '../../components/UserSelectCascader';
 
 export default function MeetingTopic() {
 
@@ -25,7 +25,7 @@ export default function MeetingTopic() {
 
   const [info, setInfo] = React.useState<any>({ user });
   const [task, setTask] = React.useState([]);
-  const [approveUserId, setApproveUserId] = React.useState(1);
+  const [approveUser, setApproveUser] = React.useState({ id: 1 });
   React.useEffect(() => {
     if (!isCreate) {
       setInfo(state);
@@ -57,10 +57,10 @@ export default function MeetingTopic() {
     <Divider orientation={'left'}>审核流程</Divider>
     {isCreate ?
         <Form.Item label="选择审核人"
-                   name={['approval', 'approveUserId']}
+                   name={['approval', 'approveUser']}
                    rules={[{ required: true, message: '请选择' }]}
         >
-          <SelectUser withUser onChange={setApproveUserId}/>
+          <UserSelectCascader value={approveUser} onChange={setApproveUser}/>
         </Form.Item>
         :
         <ApprovalTable value={info.approval}/>
@@ -74,7 +74,7 @@ export default function MeetingTopic() {
               ...info,
               meeting: { id: parseInt(meetingId) },
               task,
-              approval: { approveUserId },
+              approval: { approveUser },
             })
             .then(res => navigate(`/mz/meeting/${meetingId}/topic/${res.id}`))}
         >

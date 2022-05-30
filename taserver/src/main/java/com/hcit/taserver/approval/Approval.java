@@ -3,9 +3,11 @@ package com.hcit.taserver.approval;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
+import com.hcit.taserver.fr.progress.Progress;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -40,9 +43,13 @@ public class Approval implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ApiModelProperty("选择审核人")
-  @Transient
-  private Long approveUserId;
+  @ApiModelProperty("审核人")
+  @ManyToOne
+  private User approveUser;
+
+  @ApiModelProperty("抄送人")
+  @ManyToOne
+  private User copyUser;
 
   @CreationTimestamp
   private LocalDateTime createTime;
@@ -71,6 +78,10 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties({"approval"})
   @OneToOne(cascade = CascadeType.PERSIST)
   private Matter matter;
+
+  @JsonIgnoreProperties({"approval"})
+  @OneToOne(cascade = CascadeType.PERSIST)
+  private Progress progress;
 }
 
 

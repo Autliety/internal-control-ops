@@ -3,6 +3,7 @@ package com.hcit.taserver.approval;
 import com.hcit.taserver.fr.matter.MatterService;
 import com.hcit.taserver.fr.meeting.MeetingService;
 import com.hcit.taserver.fr.meeting.TopicService;
+import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class ApprovalController {
   private final MeetingService meetingService;
   private final TopicService topicService;
   private final MatterService matterService;
+  private final ProgressService progressService;
 
   @GetMapping(params = {"current"})
   public List<Approval> fetchCurrent(@RequestParam boolean current) {
@@ -44,6 +46,8 @@ public class ApprovalController {
       topicService.onReviewed(approval.getMeetingTopic());
     } else if (approval.getMatter() != null) {
       matterService.onReviewed(approval.getMatter());
+    } else if (approval.getProgress() != null) {
+      progressService.onReviewed(approval.getProgress());
     }
     return approval;
   }

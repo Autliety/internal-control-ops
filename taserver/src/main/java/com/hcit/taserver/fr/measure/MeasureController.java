@@ -31,7 +31,7 @@ public class MeasureController {
 
   @PostMapping
   @Transactional
-  public List<Measure> create(@RequestBody List<Measure> measures) {
+  public Measure create(@RequestBody Measure measures) {
     return measureService.create(measures);
   }
 

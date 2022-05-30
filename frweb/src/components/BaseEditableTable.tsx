@@ -42,7 +42,7 @@ export default function BaseEditableTable(
           })
           : columns
       }
-      value={value.map(v => {
+      value={value.filter(v => v).map(v => {
         v.key = v.key ? v.key : v.id;
         return v;
       })}

@@ -5,15 +5,18 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
+import com.hcit.taserver.fr.progress.Progress;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.Optional;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +51,7 @@ public class Measure implements BasicPersistable {
     return Optional.ofNullable(matter).map(Matter::getMeasureStatus).orElse(null);
   }
 
-  @ApiModelProperty("工作措施")
+  @ApiModelProperty("工作措施详情")
   private String content;
 
   @ApiModelProperty("责任人")
@@ -59,5 +62,8 @@ public class Measure implements BasicPersistable {
 
   private LocalDate endDate;
 
+  @JsonIgnoreProperties(value = {"measure"}, allowSetters = true)
+  @OneToOne(cascade = CascadeType.ALL)
+  private Progress progress;
 
 }

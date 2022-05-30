@@ -1,7 +1,9 @@
 package com.hcit.taserver.fr.matter;
 
+import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.user.User;
 import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,24 +33,23 @@ public class MatterService {
     return matterRepository.saveAllAndFlush(matters);
   }
 
-  public List<Matter> updateMeasures(Collection<Long> ids) {
-    var matters = matterRepository.findAllById(ids);
-    matters.forEach(m -> {
-      m.setMeasureStatus(Status.AWAITING_REVIEW);
-      if (m.getApproval() == null) {
-        approvalService.generate(1L, m); // todo check the right id
-      } else {
-        approvalService.reset(m.getApproval());
-      }
-    });
-    return matterRepository.saveAll(matters);
-  }
-
   public List<Matter> updateAll(List<Matter> matters) {
     return matterRepository.saveAll(matters);
   }
 
   public void onReviewed(Matter matter) {
     matter.setMeasureStatus(Status.REVIEWED);
+    matterRepository.save(matter);
+  }
+
+  public Matter updateMeasure(Long id) {
+    var matter = matterRepository.findById(id).orElseThrow();
+    matter.setMeasureStatus(Status.AWAITING_REVIEW);
+    if (matter.getApproval() == null) {
+      approvalService.generate(Approval.builder().approveUser(User.builder().id(1L).build()).build(), matter); // todo get the right approve user
+    } else {
+      approvalService.reset(matter.getApproval());
+    }
+    return matterRepository.save(matter);
   }
 }

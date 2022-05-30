@@ -4,8 +4,8 @@ import { PlusSquareOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../utils/request';
-import SelectUser from '../../components/SelectUser';
 import AttendeeSelectCard from './AttendeeSelectCard';
+import UserSelectCascader from '../../components/UserSelectCascader';
 
 export default function MeetingCreateModal() {
 
@@ -28,6 +28,8 @@ export default function MeetingCreateModal() {
     3: '',
   };
 
+  const approveUserDefaultId = { 1: 1 };
+
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}>
       <PlusSquareOutlined/> 会议召开通知
@@ -46,7 +48,14 @@ export default function MeetingCreateModal() {
           form={form}
           layout="vertical"
           name="meetingCreate"
-          onValuesChange={({ type }) => !type || form.setFieldsValue({ content: contentDefaultValue[type] })}
+          onValuesChange={({ type }) => {
+            if (type) {
+              form.setFieldsValue({
+                content: contentDefaultValue[type],
+                approval: { approveUser: { id: approveUserDefaultId[type] } },
+              });
+            }
+          }}
           onFinish={async values => {
             values.type = typeOptions.find(o => o.value === values.type)?.label;
             values.startTime = values.startTime.valueOf();
@@ -98,10 +107,10 @@ export default function MeetingCreateModal() {
 
         <Form.Item
             label="选择审核人"
-            name={['approval', 'approveUserId']}
+            name={['approval', 'approveUser']}
             rules={[{ required: true, message: '请选择' }]}
         >
-          <SelectUser withUser/>
+          <UserSelectCascader/>
         </Form.Item>
       </Form>
     </Modal>

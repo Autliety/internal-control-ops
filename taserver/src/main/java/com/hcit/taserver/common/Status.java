@@ -1,6 +1,10 @@
 package com.hcit.taserver.common;
 
 public enum Status {
+
+  // 未提交审核
+  NONE_REVIEW,
+
   // 待审核
   AWAITING_REVIEW,
 

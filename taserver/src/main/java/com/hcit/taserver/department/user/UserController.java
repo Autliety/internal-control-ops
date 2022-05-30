@@ -1,12 +1,11 @@
 package com.hcit.taserver.department.user;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestController

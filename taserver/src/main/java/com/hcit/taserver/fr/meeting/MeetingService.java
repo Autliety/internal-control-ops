@@ -33,7 +33,7 @@ public class MeetingService {
     meeting.setCode("HY001");
     meeting.setStatus(Status.AWAITING_REVIEW);
     meeting.setUser(authService.getCurrentUser());
-    approvalService.generate(meeting.getApproval().getApproveUserId(), meeting);
+    approvalService.generate(meeting.getApproval(), meeting);
     return meeting;
   }
 

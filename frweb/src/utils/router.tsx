@@ -26,14 +26,12 @@ import LearnList from '../pages/LearnList';
 import Learn from '../pages/Learn';
 import Temporary from '../pages/Temporary';
 import Motion from '../pages/Motion';
-import ContributeList from '../pages/ContributeList';
+import ProgressList from '../pages/ProgressList';
 import DisposalList from '../pages/DisposalList';
 import Report from '../pages/Report';
 import ReportList from '../pages/ReportList';
 import Disposal from '../pages/Disposal';
-import Contribute from '../pages/Contribute';
-import DynamicList from '../pages/DynamicList';
-import Dynamic from '../pages/Dynamic';
+import Progress from '../pages/Progress';
 import Permission from '../pages/Permission';
 
 export const router = {
@@ -93,13 +91,13 @@ export const router = {
             },
             {
               name: '履责情况',
-              path: '/lz/list/contribute',
-              element: <ContributeList/>,
+              path: '/lz/list/progress',
+              element: <ProgressList/>,
             },
             {
               name: '动态跟踪',
               path: '/lz/list/dynamic',
-              element: <DynamicList/>,
+              element: <ProgressList isTrace />,
             },
           ]
         },
@@ -261,14 +259,8 @@ export const router = {
     {
       hideInMenu: true,
       name: '履责情况详情',
-      path: '/lz/list/contribute/:id',
-      element: <Contribute/>,
-    },
-    {
-      hideInMenu: true,
-      name: '动态跟踪详情',
-      path: '/lz/list/dynamic/:id',
-      element: <Dynamic/>,
+      path: '/lz/list/progress/:id',
+      element: <Progress/>,
     },
     {
       hideInMenu: true,

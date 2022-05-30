@@ -2,10 +2,10 @@ package com.hcit.taserver.approval;
 
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
+import com.hcit.taserver.fr.progress.Progress;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -28,36 +28,42 @@ public class ApprovalService {
         .collect(Collectors.toList());
   }
 
-  private Approval generate(Long approveUserId) {
-    var approval = Approval.builder()
-        .build();
+  private Approval generate(Approval approval) {
     var step = ApprovalStep.builder()
         .approval(approval)
-        .approveUser(User.builder().id(approveUserId).build())
+        .approveUser(approval.getApproveUser())
         .status(Status.AWAITING_REVIEW)
         .build();
     approval.setStep(List.of(step));
+    approval.setId(null);
     return approval;
   }
 
-  public Approval generate(Long id, Meeting meeting) {
-    var approval = generate(id);
+  public Approval generate(Approval input, Meeting meeting) {
+    var approval = generate(input);
     approval.setMeeting(meeting);
     meeting.setApproval(approval);
     return approvalRepository.save(approval);
   }
 
-  public Approval generate(Long id, Topic topic) {
-    var approval = generate(id);
+  public Approval generate(Approval input, Topic topic) {
+    var approval = generate(input);
     approval.setMeetingTopic(topic);
     topic.setApproval(approval);
     return approvalRepository.save(approval);
   }
 
-  public Approval generate(Long id, Matter matter) {
-    var approval = generate(id);
+  public Approval generate(Approval input, Matter matter) {
+    var approval = generate(input);
     approval.setMatter(matter);
     matter.setApproval(approval);
+    return approvalRepository.save(approval);
+  }
+
+  public Approval generate(Approval input, Progress progress) {
+    var approval = generate(input);
+    approval.setProgress(progress);
+    progress.setApproval(approval);
     return approvalRepository.save(approval);
   }
 

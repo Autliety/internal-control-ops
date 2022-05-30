@@ -22,7 +22,7 @@ public class TopicService {
     topic.setUser(authService.getCurrentUser());
     topic.setStatus(Status.AWAITING_REVIEW);
     topic.getTask().forEach(t -> t.setTopic(topic));
-    approvalService.generate(topic.getApproval().getApproveUserId(), topic);
+    approvalService.generate(topic.getApproval(), topic);
     return topic;
   }
 

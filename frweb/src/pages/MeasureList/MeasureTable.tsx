@@ -1,24 +1,13 @@
 import React from 'react';
-import { useHttp } from '../../utils/request';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { measureColumns } from '../Measure/MeasureInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-type Props = {
-  isSearch?: boolean,
-  dataSource?: object[],
-  params?: {
-    ids?: number[],
-  }
-};
-
-export default function MeasureTable({ isSearch = false, dataSource }: Props) {
+export default function MeasureTable({ isSearch = false, dataSource } ) {
 
   const navigate = useNavigate();
-
-  const { state } = useHttp('/measure', { initState: [], isManual: !!dataSource });
 
   const columns = measureColumns.concat([
     {
@@ -43,7 +32,7 @@ export default function MeasureTable({ isSearch = false, dataSource }: Props) {
   return <>
     <BaseEditableTable
         columns={columns}
-        value={dataSource || state}
+        value={dataSource}
         isSearch={isSearch}
     />
   </>;

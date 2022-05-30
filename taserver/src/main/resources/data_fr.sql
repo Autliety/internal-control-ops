@@ -30,43 +30,12 @@ VALUES
 , (1, 999)
 ;
 
+INSERT INTO
+  fr_matter (id, code, content, end_date, measure_status, origin, update_time, user_id, source_inform_id)
+VALUES
+  (1, 'WT001', '测试用问题', NULL, 'AWAITING_REVIEW', 'xxx', NULL, 999, NULL);
 
 /*
-INSERT INTO
-  fr_meeting (id, code, dept_id, placement, start_time, type, status)
-VALUES
-  (1, 'HY001', 1, '1', NULL, '1专题会议', 'AWAITING_REVIEW')
-, (2, 'HX002', 1, '1', NULL, 'x专题会议', 'REVIEWED')
-;
-
-INSERT INTO
-  fr_meeting_user (meeting_id, user_id)
-VALUES
-  (1, 3)
-, (1, 4)
-, (1, 5)
-, (2, 6)
-, (2, 7)
-, (2, 8)
-, (2, 9)
-;
-
-INSERT INTO
-  fr_meeting_topic (id, meeting_id, status, create_time, user_id)
-VALUES
-  (1, 1, 'REVIEWED', NULL, 3)
-, (2, 1, 'REVIEWED', NULL, 4)
-;
-
-INSERT INTO
-  fr_meeting_topic_content (topic_id, content)
-VALUES
-  (1, 'abcde')
-, (1, 'abcdef')
-, (1, 'abcdefg')
-, (2, 'abcdefgh')
-;
-
 INSERT INTO
   fr_inform (id, code, create_time, dest_dept_id, dest_user_id, from_dept_id, from_user_id, type)
 VALUES

@@ -19,7 +19,7 @@ export default function Matter() {
         <Space>
           <MeasureCreateModal
               measures={state.measures}
-              matterId={id}
+              matter={state}
           />
         </Space>
       }

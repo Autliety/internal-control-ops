@@ -5,7 +5,7 @@ import { Button, Divider, Radio } from 'antd';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
 
-export default function MeasureCreateModal({ measures = [], matterId }) {
+export default function MeasureCreateModal({ measures = [], matter }) {
 
   const { http } = useHttp(`/measure`, { method: 'POST', isManual: true });
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
@@ -15,12 +15,17 @@ export default function MeasureCreateModal({ measures = [], matterId }) {
   const { state } = useHttp(`/user?deptId=${user?.department?.id}`, { initState: [] });
 
   return <>
-    <Button type={'primary'} onClick={() => setIsVisible(true)}><UnorderedListOutlined/>添加措施</Button>
+    <Button
+        type={'primary'}
+        disabled={user.id !== matter.user?.id}
+        onClick={() => setIsVisible(true)}
+    ><UnorderedListOutlined/>添加措施</Button>
+
     <ModalForm
         title="添加措施"
         visible={isVisible}
         onFinish={async (v) => {
-          http(null, null, [{ ...v, matter: { id: matterId } }]).then(() => window.location.reload());
+          http(null, null, { ...v, matter }).then(() => window.location.reload());
           return true;
         }}
         modalProps={{
