@@ -7,7 +7,7 @@ import { useHttp } from '../../utils/request';
 import AttendeeSelectCard from './AttendeeSelectCard';
 import UserSelectCascader from '../../components/UserSelectCascader';
 
-export default function MeetingCreateModal() {
+export default function MeetingCreateModal({ typesLimit = null }) {
 
   const navigate = useNavigate();
 
@@ -82,7 +82,7 @@ export default function MeetingCreateModal() {
         </Space>
 
         <Form.Item name="type" label="会议类型" rules={[{ required: true, message: '请选择' }]}>
-          <Radio.Group options={typeOptions}/>
+          <Radio.Group options={typeOptions.filter(o => !typesLimit || o.value === typesLimit)}/>
         </Form.Item>
 
         <Form.Item name="content" label="会议议题">

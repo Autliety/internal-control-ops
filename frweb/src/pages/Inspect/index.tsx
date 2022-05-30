@@ -1,12 +1,11 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { reportColumns } from '../ReportList';
+import { inspectColumns } from '../InspectList';
 
-export default function Report() {
+export default function Inspect() {
 
   return <PageContainer>
-    <BaseDescriptions columns={reportColumns} dataSource={{}} />
+    <BaseDescriptions columns={inspectColumns} dataSource={{}}/>
   </PageContainer>;
 }
-

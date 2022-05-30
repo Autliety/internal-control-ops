@@ -1,12 +1,11 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Descriptions, Divider, Space, Tooltip } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import { ProColumns } from '@ant-design/pro-table';
-import MeetingCreateModal from "../MeetingList/MeetingCreateModal";
-import { meetingColumns } from "../Meeting/MeetingInfo";
-import { ContainerOutlined, MailOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import MeetingCreateModal from '../MeetingList/MeetingCreateModal';
+import { meetingColumns } from '../Meeting/MeetingInfo';
+import { ContainerOutlined, MailOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function Motion() {
 
@@ -41,7 +40,7 @@ export default function Motion() {
 
   return <PageContainer
       extra={<Space size={'large'}>
-        <MeetingCreateModal/>
+        <MeetingCreateModal typesLimit={3} />
       </Space>}
   >
     <BaseEditableTable

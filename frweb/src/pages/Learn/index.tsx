@@ -1,36 +1,30 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { Button, DatePicker, Divider, Input, Select } from 'antd';
+import { Divider, Select } from 'antd';
 import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
 import DemoFileDownload from '../../components/DemoFileDownload';
+import BaseDivider from '../../components/BaseDivider';
+import BaseDescriptions from '../../components/BaseDescriptions';
+import { learningColumns, learningData } from '../LearnList';
+import ApproveAndCopyModal from '../../components/ApproveAndCopyModal';
 
 export default function Learn() {
 
-  const [tmpData, setTmpData] = React.useState<any>({});
-
-  function mergeTmpData(key, value) {
-    setTmpData(orig => {
-      return { ...orig, [key]: value };
-    });
-  }
 
   const columns: ColumnDef[] = [
-    { title: '责任主体', dataIndex: 'dept', render: () => '党委' },
+    { title: '责任主体', dataIndex: 'department', render: () => '其它班子成员' },
     { title: '责任人', dataIndex: 'user', render: () => '王哲' },
     {
       title: '学习时间',
       dataIndex: 'date',
-      renderFormItem: () => <DatePicker onChange={v => mergeTmpData('date', v)}/>,
     },
     {
       title: '学习地点',
       dataIndex: 'placement',
-      renderFormItem: () => <Input onChange={v => mergeTmpData('placement', v.target.value)}/>,
     },
     {
       title: '学习主题',
       dataIndex: 'topic',
-      renderFormItem: () => <Input onChange={v => mergeTmpData('topic', v.target.value)}/>,
     },
     {
       title: '组织形式',
@@ -45,27 +39,28 @@ export default function Learn() {
     {
       title: '参加对象',
       dataIndex: 'attendee',
-      renderFormItem: () => <Input onChange={v => mergeTmpData('attendee', v.target.value)}/>,
     },
     {
       title: '学习内容',
       dataIndex: 'content',
-      renderFormItem: () => <Input onChange={v => mergeTmpData('content', v.target.value)}/>
     },
   ];
 
-  return <PageContainer
-  >
+  return <PageContainer>
+    <BaseDivider title={'学习安排'} />
+    <BaseDescriptions columns={learningColumns} dataSource={learningData}/>
+
+    <BaseDivider title={'学习记录'} />
     <EditableDescriptions
         isEdit
         columns={columns}
     />
-    <Divider orientation={'left'}>附件记录</Divider>
+
+    <Divider orientation={'left'}>相关附件</Divider>
     <DemoFileDownload/>
 
     <FooterToolbar>
-      {/* todo 填写完毕并上传 */}
-      <Button type={'primary'} onClick={() => console.log(tmpData)}>确定</Button>
+      <ApproveAndCopyModal onSubmit={() => {}}/>
     </FooterToolbar>
   </PageContainer>;
 }

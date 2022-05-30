@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { ContainerOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import InformCreateModal from '../InformList/InformCreateModal';
-import { baseColumns } from '../InformList';
+import { informColumns } from '../InformList';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function DisposalList() {
 
-  const columns: ProColumns[] = baseColumns.concat({
+  const columns: ProColumns[] = informColumns.concat({
     title: '详情',
     key: 'operation',
     width: '5%',

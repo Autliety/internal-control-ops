@@ -24,7 +24,7 @@ import EvaluationList from '../pages/EvaluationList';
 import Evaluation from '../pages/Evaluation';
 import LearnList from '../pages/LearnList';
 import Learn from '../pages/Learn';
-import Temporary from '../pages/Temporary';
+import Inspect from '../pages/Inspect';
 import Motion from '../pages/Motion';
 import ProgressList from '../pages/ProgressList';
 import DisposalList from '../pages/DisposalList';
@@ -33,6 +33,7 @@ import ReportList from '../pages/ReportList';
 import Disposal from '../pages/Disposal';
 import Progress from '../pages/Progress';
 import Permission from '../pages/Permission';
+import InspectList from '../pages/InspectList';
 
 export const router = {
   routes: [
@@ -103,8 +104,8 @@ export const router = {
         },
         {
           name: '监督检查',
-          path: '/lz/temporary',
-          element: <Temporary/>,
+          path: '/lz/inspect',
+          element: <InspectList/>,
         },
         {
           name: '第一种形态处置运用',
@@ -240,6 +241,12 @@ export const router = {
     },
     {
       hideInMenu: true,
+      name: '监督检查详情',
+      path: '/lz/inspect/:id',
+      element: <Inspect/>,
+    },
+    {
+      hideInMenu: true,
       name: '一单三书详情',
       path: '/lz/inform/:id',
       element: <Inform/>,
@@ -271,7 +278,7 @@ export const router = {
     {
       hideInMenu: true,
       name: '学习记录',
-      path: '/mz/learning/edit',
+      path: '/mz/learning/:id',
       element: <Learn/>
     },
   ],

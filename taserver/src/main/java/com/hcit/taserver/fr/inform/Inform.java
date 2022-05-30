@@ -5,7 +5,7 @@ import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,7 +39,7 @@ public class Inform implements BasicPersistable {
 
   private String code;
 
-  private LocalDateTime createTime;
+  private LocalDate createDate;
 
   @Enumerated(EnumType.STRING)
   private InformType type;
@@ -56,7 +56,7 @@ public class Inform implements BasicPersistable {
   @ManyToOne
   private User destUser;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "source_inform_id")
   private List<Matter> matter;
 }

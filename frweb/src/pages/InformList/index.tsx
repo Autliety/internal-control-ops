@@ -1,8 +1,8 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Divider, Input, Select, Space } from 'antd';
+import { Button, Divider, Select, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProColumns } from '@ant-design/pro-table';
 
 import { useHttp } from '../../utils/request';
@@ -10,28 +10,41 @@ import { informType } from '../../utils/nameMap';
 import InformCreateModal from './InformCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export const baseColumns: ProColumns[] = [
+export const informColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code', width: 100 },
   { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
-  { title: '下达时间', dataIndex: 'createTime' },
-  { title: '下达部门', dataIndex: 'destDepartment' },
+  { title: '下达部门', dataIndex: ['fromUser', 'department' , 'name'] },
+  { title: '签发人', dataIndex: ['fromUser', 'name'] },
+  { title: '接收部门', dataIndex: ['destUser', 'department', 'name'] },
+  { title: '接收人', dataIndex: ['destUser', 'name'] },
+  { title: '下达日期', dataIndex: 'createDate', valueType: 'date' },
 ];
 
-function InformList() {
+export default function InformList() {
 
-  const columns: ProColumns[] = baseColumns.concat({
-    title: '详情',
-    key: 'operation',
-    width: '5%',
-    align: 'center',
+  const navigate = useNavigate();
+
+  const columns: ProColumns[] = informColumns.concat({
+    hideInSearch: true,
+    dataIndex: 'operation',
+    render: (_, record: any) => <Space>
+      <Tooltip title={'查看详情'}>
+        <Button
+            type={'primary'}
+            icon={<ContainerOutlined/>}
+            size={'small'}
+            onClick={() => navigate(`/lz/inform/${record.id}`)}
+        />
+      </Tooltip>
+    </Space>,
     fixed: 'right',
-    render: (_, record: any) => <Link to={`/lz/inform/${record.id}`}><ContainerOutlined/></Link>,
+    width: 50,
+    align: 'center',
   });
 
   const { state, loading } = useHttp('/inform', { initState: [] });
 
   return <PageContainer
-      title={'一单三书'}
       extra={
         <Space>
           <InformCreateModal httpPath={'inform'}/>
@@ -45,10 +58,8 @@ function InformList() {
         <Select.Option value={'ADVICE'}>建议书</Select.Option>
         <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
       </Select>
-      <Input.Search placeholder={'搜索'} enterButton/>
     </Space>
     <Divider/>
-
     <BaseEditableTable
         columns={columns}
         value={state}
@@ -56,5 +67,3 @@ function InformList() {
     />
   </PageContainer>;
 }
-
-export default InformList;
