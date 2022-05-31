@@ -17,7 +17,27 @@ export default function StatisticNotes() {
     {},
     { title: '待办事项', data: state['AWAITING_REVIEW'] || [] },
     { title: '已处理待办事项', data: state['REVIEWED'] || [] },
-    { title: '提醒事项', data: [] },
+    { title: '未读提醒事项', data: [
+        {
+          id: 26,
+          title: '填写/修改措施清单',
+          content: '收到一份问题清单，请尽快填写/修改措施清单',
+          link: '/mz/list/matter',
+        },
+        {
+          id: 22,
+          title: '已审会议通知',
+          content: '会议通知【HY001】已审核完成，需发送',
+          link: '/mz/meeting/1/notice',
+        },
+        {
+          id: 23,
+          title: '会议通知',
+          content: '收到会议通知【HY001】，请尽快填写会议议题',
+          link: '/mz/meeting/1',
+        },
+      ] },
+    { title: '已读提醒事项', data: [] },
     { title: '动态跟踪', data: [] },
     { title: '已完成动态跟踪', data: [] },
   ];
@@ -63,11 +83,21 @@ export default function StatisticNotes() {
       <StatisticCard
           style={{ padding: 24 }}
           statistic={{
-            title: '提醒事项',
+            title: '未读',
             value: pageInfo[3].data.length,
             icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'blue'}/>,
           }}
           onClick={() => setOnPage(3)
+          }
+      />
+      <StatisticCard
+          style={{ padding: 24 }}
+          statistic={{
+            title: '已读',
+            value: pageInfo[4].data.length,
+            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'green'}/>,
+          }}
+          onClick={() => setOnPage(4)
           }
       />
     </StatisticCard.Group>
@@ -84,19 +114,19 @@ export default function StatisticNotes() {
           style={{ padding: 24 }}
           statistic={{
             title: '执行中',
-            value: pageInfo[4].data.length,
+            value: pageInfo[5].data.length,
             icon: <TagsTwoTone className={'homepage-icon'} twoToneColor={'orange'}/>,
           }}
-          onClick={() => setOnPage(4)}
+          onClick={() => setOnPage(5)}
       />
       <StatisticCard
           style={{ padding: 24 }}
           statistic={{
             title: '已完成',
-            value: pageInfo[5].data.length,
+            value: pageInfo[6].data.length,
             icon: <TagsTwoTone className={'homepage-icon'}/>,
           }}
-          onClick={() => setOnPage(5)}
+          onClick={() => setOnPage(6)}
       />,
     </StatisticCard.Group>
 

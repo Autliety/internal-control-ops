@@ -171,6 +171,11 @@ export const router = {
           path: '/dz/todo',
           disabled: true,
         },
+        {
+          name: '预警追踪',
+          path: '/dz/todo',
+          disabled: true,
+        },
       ]
     },
     {

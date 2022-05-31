@@ -6,6 +6,7 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,9 @@ public class MatterService {
   }
 
   public List<Matter> updateAll(List<Matter> matters) {
-    return matterRepository.saveAll(matters);
+    // has a better way
+    create(matters.stream().filter(m -> m.getId() == null).collect(Collectors.toList()));
+    return matterRepository.saveAll(matters.stream().filter(m -> m.getId() != null).collect(Collectors.toList()));
   }
 
   public void onReviewed(Matter matter) {

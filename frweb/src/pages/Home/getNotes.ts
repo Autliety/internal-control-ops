@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export function getApprovalNotes(input: any) {
-  let result: any = {};
+  let result;
 
   if (input.meeting) {
     result = {
@@ -30,6 +30,10 @@ export function getApprovalNotes(input: any) {
       title: '履责情况审核',
       content: `措施【${input.progress.measure.code}】提交了履责情况表，正在等待您审核`,
     }
+
+    // todo demo only
+  } else {
+    result = {...input};
   }
 
   result.key = 'approval_' + input.id;

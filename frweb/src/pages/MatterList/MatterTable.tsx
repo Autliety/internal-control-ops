@@ -28,6 +28,7 @@ export default function MatterTable({ value, ...rest }) {
             fixed: 'right',
             width: 50,
             align: 'center',
+            editable: false,
           },
         ])}
         value={value}
