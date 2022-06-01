@@ -41,6 +41,7 @@ export default function QuestionList() {
       user: '李勤根',
       type: '个别约谈',
       date: '2022-04-23',
+      station: '工作不到位',
     }
   ];
 

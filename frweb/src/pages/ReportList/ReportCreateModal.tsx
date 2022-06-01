@@ -15,7 +15,7 @@ export default function ReportCreateModal() {
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增报告</Button>}
 
-        columns={reportColumns}
+        columns={reportColumns.slice(0, 4)}
         onFinish={async () => navigate('/lz/report/1')}
     />
   </>;
