@@ -34,6 +34,10 @@ import Disposal from '../pages/Disposal';
 import Progress from '../pages/Progress';
 import Permission from '../pages/Permission';
 import InspectList from '../pages/InspectList';
+import ImportantList from '../pages/ImportantList';
+import Important from '../pages/Important';
+import Question from '../pages/Question';
+import QuestionList from '../pages/QuestionList';
 
 export const router = {
   routes: [
@@ -98,7 +102,7 @@ export const router = {
             {
               name: '动态跟踪',
               path: '/lz/list/dynamic',
-              element: <ProgressList isTrace />,
+              element: <ProgressList isTrace/>,
             },
           ]
         },
@@ -130,7 +134,7 @@ export const router = {
         {
           name: '重大事项请示报告',
           path: '/lz/important',
-          disabled: true,
+          element: <ImportantList/>,
         },
         {
           name: '廉政风险排查防控',
@@ -168,8 +172,8 @@ export const router = {
       routes: [
         {
           name: '履责约谈',
-          path: '/dz/todo',
-          disabled: true,
+          path: '/dz/question',
+          element: <QuestionList/>,
         },
         {
           name: '预警追踪',
@@ -276,6 +280,12 @@ export const router = {
     },
     {
       hideInMenu: true,
+      name: '重大事项请示报告详情',
+      path: '/lz/important/:id',
+      element: <Important/>,
+    },
+    {
+      hideInMenu: true,
       name: '绩效考评详情',
       path: '/pz/evaluation/:type/:year',
       element: <Evaluation/>,
@@ -285,6 +295,12 @@ export const router = {
       name: '学习记录',
       path: '/mz/learning/:id',
       element: <Learn/>
+    },
+    {
+      hideInMenu: true,
+      name: '履责约谈记录',
+      path: '/dz/question/:id',
+      element: <Question/>
     },
   ],
 };
