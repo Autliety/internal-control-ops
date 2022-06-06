@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, Select } from 'antd';
+import { Button, Form, Input, Modal, Select, Typography } from 'antd';
 import SelectUser from '../../components/SelectUser';
 
 function ImportantCreateModal() {
@@ -37,11 +37,11 @@ function ImportantCreateModal() {
         </Form.Item>
 
         <Form.Item name='type' label='事项类型'>
-          <Select>
-            <Select.Option value={0}>重大金额</Select.Option>
-            <Select.Option value={1}>重大人事任免</Select.Option>
-            <Select.Option value={2}>重要项目</Select.Option>
-            <Select.Option value={3}>其他</Select.Option>
+          <Select placeholder={'请选择'}>
+            <Select.Option value={0}>即时报告</Select.Option>
+            <Select.Option value={1}>年度报告</Select.Option>
+            <Select.Option value={2}>个人有关事项集中报告</Select.Option>
+            <Select.Option value={3}>个人其他重要事项报告</Select.Option>
           </Select>
         </Form.Item>
 

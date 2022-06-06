@@ -7,7 +7,7 @@ import { useHttp } from '../../utils/request';
 import AttendeeSelectCard from './AttendeeSelectCard';
 import UserSelectCascader from '../../components/UserSelectCascader';
 
-export default function MeetingCreateModal({ typesLimit = null }) {
+export default function MeetingCreateModal({ typesLimit = null, isMotion = true }) {
 
   const navigate = useNavigate();
 
@@ -19,7 +19,6 @@ export default function MeetingCreateModal({ typesLimit = null }) {
   const typeOptions = [
     { value: 1, label: '1专题会议' },
     { value: 2, label: 'X专门会议' },
-    { value: 3, label: '纪委动议' },
   ];
 
   const contentDefaultValue = {
@@ -37,7 +36,7 @@ export default function MeetingCreateModal({ typesLimit = null }) {
 
     <Modal
         width={1190}
-        title="新建会议"
+        title={'新建会议'}
         okText="提交审核"
         destroyOnClose
         visible={isVisible}
@@ -81,9 +80,11 @@ export default function MeetingCreateModal({ typesLimit = null }) {
           </Form.Item>
         </Space>
 
-        <Form.Item name="type" label="会议类型" rules={[{ required: true, message: '请选择' }]}>
-          <Radio.Group options={typeOptions.filter(o => !typesLimit || o.value === typesLimit)}/>
-        </Form.Item>
+        {
+            isMotion && <Form.Item name="type" label="会议类型" rules={[{ required: true, message: '请选择' }]}>
+              <Radio.Group options={typeOptions.filter(o => !typesLimit || o.value === typesLimit)}/>
+            </Form.Item>
+        }
 
         <Form.Item name="content" label="会议议题">
           <Input.TextArea placeholder={'请填写会议议题'} rows={6}/>
@@ -101,9 +102,11 @@ export default function MeetingCreateModal({ typesLimit = null }) {
           <AttendeeSelectCard/>
         </Form.Item>
 
-        <Form.Item name={'subUser'} label={'列席人员'}>
-          <AttendeeSelectCard/>
-        </Form.Item>
+        {
+            isMotion && <Form.Item name={'subUser'} label={'列席人员'}>
+              <AttendeeSelectCard/>
+            </Form.Item>
+        }
 
         <Form.Item
             label="选择审核人"
@@ -112,6 +115,7 @@ export default function MeetingCreateModal({ typesLimit = null }) {
         >
           <UserSelectCascader/>
         </Form.Item>
+
       </Form>
     </Modal>
   </>;

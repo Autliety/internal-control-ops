@@ -24,11 +24,11 @@ export default function Login() {
       }}
   >
     <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent'}}>
-      <Typography.Title style={{marginTop: 10}}><Image src={logo} width={70} />  浙江百步经济开发区(百步镇)</Typography.Title>
+      <Typography.Title style={{marginTop: 10}}><Image src={logo} width={70} preview={false}/>  浙江百步经济开发区(百步镇)</Typography.Title>
     </Layout.Header>
     <Row>
       <Col span={16}/>
-      <Col span={4} className={'bgStyle'} style={{ minWidth: 400, marginTop: 60 }}>
+      <Col span={4} className={'bgStyle'} style={{ minWidth: 400, marginTop: 100 }}>
         <LoginForm
             onFinish={async (values: any) => {
               await http(null, null, qs.stringify(values));

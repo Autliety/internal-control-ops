@@ -22,7 +22,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
     <Modal
         visible={isVisible}
         destroyOnClose
-        title="添加"
+        title={'添加'}
         width={1200}
         onCancel={() => setIsVisible(false)}
         onOk={() => form.submit()}
@@ -33,7 +33,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
           name="inform"
           onFinish={values => {
             http(null, null, values)
-            .then(() => window.location.reload());
+                .then(() => window.location.reload());
           }}
       >
         <Form.Item name="type" label="类型">
@@ -77,7 +77,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
                                   label={'涉及部门/党员干部'}
                                   name={[name, 'user']}
                               >
-                                <UserSelectCascader />
+                                <UserSelectCascader/>
                               </Form.Item>
                               <Form.Item
                                   {...restField}

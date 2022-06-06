@@ -6,10 +6,11 @@ import RiskCreateModal from './RiskCreateModal';
 import { Button, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import SelectUser from "../../components/SelectUser";
 
 export const riskColumns: ProColumns[] = [
   { title: '排查人', dataIndex: 'user' },
-  { title: '责任主体', dataIndex: 'field' },
+  { title: '责任主体', dataIndex: 'field', renderFormItem: () => <SelectUser/> },
   { title: '廉政风险点', dataIndex: 'detail', valueType: 'textarea' },
   { title: '防控措施', dataIndex: 'detail', valueType: 'textarea' },
 ];

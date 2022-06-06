@@ -10,13 +10,14 @@ export default function LearningCreateModal() {
   const navigate = useNavigate();
 
   return <>
-    <BetaSchemaForm
-        title={'学习安排'}
-        layoutType={'ModalForm'}
-        trigger={<Button type={'primary'}><PlusSquareOutlined/>学习安排</Button>}
+  <BetaSchemaForm
+      title={'学习安排'}
 
-        columns={learningColumns}
-        onFinish={async () => navigate('/mz/learning/1')}
-    />
+      layoutType={'ModalForm'}
+      trigger={<Button type={'primary'}><PlusSquareOutlined/>学习安排</Button>}
+
+      columns={learningColumns}
+      onFinish={async () => navigate('/mz/learning/1')}
+  />
   </>;
 }

@@ -12,7 +12,7 @@ export default function Evaluation() {
 
   const { year } = useParams();
   const { user } = useAuth();
-  const { state: data } = useHttp('/evaluation', { initState: []})
+  const { state: data } = useHttp('/evaluation', { initState: [] })
 
   const columns: ProColumns[] = [
     { title: '序号', dataIndex: 'id' },
@@ -44,7 +44,7 @@ export default function Evaluation() {
 
   return <PageContainer
       content={<Space size={'large'}>
-        <Statistic title="年度" value={year}/>
+        <Statistic title="年度" value={year} groupSeparator={''}/>
         <Statistic title="被考评人" value={user?.name}/>
       </Space>}
   >

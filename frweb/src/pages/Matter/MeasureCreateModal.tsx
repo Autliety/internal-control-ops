@@ -1,7 +1,7 @@
 import React from 'react';
 import ProForm, { ModalForm, ProFormDatePicker, ProFormSelect, ProFormTextArea } from '@ant-design/pro-form';
 import { UnorderedListOutlined } from '@ant-design/icons';
-import { Button, Divider, Radio } from 'antd';
+import { Button, Divider, Radio, Typography } from 'antd';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
 
@@ -22,7 +22,7 @@ export default function MeasureCreateModal({ measures = [], matter }) {
     ><UnorderedListOutlined/>添加措施</Button>
 
     <ModalForm
-        title="添加措施"
+        title={<Typography.Title style={{ textAlign: 'center' }} level={4}>添加措施</Typography.Title>}
         visible={isVisible}
         onFinish={async (v) => {
           http(null, null, { ...v, matter }).then(() => window.location.reload());

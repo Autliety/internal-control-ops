@@ -11,6 +11,7 @@ export default function RiskCreateModal() {
 
   return <>
     <BetaSchemaForm
+        title={'排查记录'}
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>排查记录</Button>}
 

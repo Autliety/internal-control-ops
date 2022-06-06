@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Form, Input, Modal, Select } from 'antd';
+import { Button, DatePicker, Form, Input, Modal, Select, Typography } from 'antd';
 import SelectUser from '../../components/SelectUser';
 
 function QuestionCreateModal() {
@@ -11,7 +11,7 @@ function QuestionCreateModal() {
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>新建约谈</Button>
     <Modal
-        title={'新建约谈'}
+        title={'履责约谈新建'}
         visible={isVisible}
         width={800}
         onCancel={() => setIsVisible(false)}
@@ -52,7 +52,7 @@ function QuestionCreateModal() {
         </Form.Item>
 
         <Form.Item name='station' label='约谈内容'>
-          <Input/>
+          <Input.TextArea placeholder={'内容'}/>
         </Form.Item>
       </Form>
     </Modal>

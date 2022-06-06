@@ -11,6 +11,8 @@ export default function ThreeCreateModal() {
 
   return <>
     <BetaSchemaForm
+        title={'三重一大'}
+        width={1000}
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新建</Button>}
 
