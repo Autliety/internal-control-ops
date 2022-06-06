@@ -2,6 +2,8 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { reportColumns } from '../ReportList';
+import BaseDivider from '../../components/BaseDivider';
+import ApprovalTable from '../../components/ApprovalTable';
 
 export default function Report() {
 
@@ -17,6 +19,8 @@ export default function Report() {
 
   return <PageContainer>
     <BaseDescriptions columns={reportColumns} dataSource={data}/>
+    <BaseDivider title={'审核流程'} />
+    <ApprovalTable value={[]}/>
   </PageContainer>;
 }
 

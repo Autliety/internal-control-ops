@@ -20,10 +20,6 @@
   padding: 10px;
 }
 
-.loginStyle {
-  background-color: #8ED3F9;
-}
-
 .bgStyle {
   background: rgba(255, 255, 255, 0.7);
   margin-top: 150px;
@@ -48,7 +44,7 @@
 .ant-pro-checkcard-disabled {
   background-color: #fff;
   border-color: #d9d9d9;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
 .ant-pro-card-body {

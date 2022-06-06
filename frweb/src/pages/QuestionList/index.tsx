@@ -7,19 +7,29 @@ import { useNavigate } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import QuestionCreateModal from './QuestionCreateModal';
 
-export const baseColumns: ProColumns[] = [
+export const questionColumns: ProColumns[] = [
   { title: '约谈人', dataIndex: 'leader' },
   { title: '约谈对象', dataIndex: 'user' },
-  { title: '约谈类别', dataIndex: 'type' },
-  { title: '约谈时间', dataIndex: 'date' },
-  { title: '约谈情形', dataIndex: 'station' },
+  { title: '约谈方式', dataIndex: 'type' },
+  { title: '时间', dataIndex: 'time', valueType: 'dateTime' },
+  { title: '约谈内容', dataIndex: 'content', valueType: 'textarea' },
 ];
+
+export const questionData = [
+  {
+    id: 1,
+    user: '王哲',
+    leader: '李勤根',
+    type: '个别约谈',
+    time: '2022-04-23 12:00:00',
+  }
+]
 
 export default function QuestionList() {
 
   const navigate = useNavigate();
 
-  const columns: ProColumns[] = baseColumns.concat({
+  const columns: ProColumns[] = questionColumns.concat({
     title: '详情',
     dataIndex: 'operation',
     width: 100,
@@ -34,22 +44,11 @@ export default function QuestionList() {
     </Tooltip>,
   });
 
-  const data = [
-    {
-      id: 1,
-      leader: '王哲',
-      user: '李勤根',
-      type: '个别约谈',
-      date: '2022-04-23',
-      station: '工作不到位',
-    }
-  ];
-
   return <PageContainer
       extra={<Space>
         <QuestionCreateModal/>
       </Space>}
   >
-    <BaseEditableTable columns={columns} value={data}/>
+    <BaseEditableTable columns={columns} value={questionData}/>
   </PageContainer>;
 }

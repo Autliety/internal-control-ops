@@ -6,7 +6,6 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 
 export const matterColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code'},
-  { title: '问题内容', dataIndex: 'content' },
   {
     title: '问题来源及类型',
     dataIndex: 'origin',
@@ -31,6 +30,8 @@ export const matterColumns: ProColumns[] = [
             { value: '本级纪检监察部门监督检查、信访调查、审查调查、问题线索处置等发现、暴露的各类问题', label: '本级纪检监察部门监督检查、信访调查、审查调查、问题线索处置等发现、暴露的各类问题' },
             { value: '本级组织等职能部门监督、发现的各类问题', label: '本级组织等职能部门监督、发现的各类问题' },
             { value: '本级人大、政协监督发现、反馈、移交、交办的问题', label: '本级人大、政协监督发现、反馈、移交、交办的问题' },
+            { value: '一单三书', label: '一单三书' },
+            { value: '纪委动议', label: '纪委动议' },
             { value: '党委认定应当列入的其他各类问题', label: '党委认定应当列入的其他各类问题' },
           ],
         },
@@ -42,15 +43,17 @@ export const matterColumns: ProColumns[] = [
             { value: '执行落实中央八项规定精神等方面的问题风险', label: '执行落实中央八项规定精神等方面的问题风险' },
             { value: '作风建设方面的问题或风险', label: '作风建设方面的问题或风险' },
             { value: '严守国家法律法规和党的纪律方面的问题或风险', label: '严守国家法律法规和党的纪律方面的问题或风险' },
+            { value: '上级责任主体交办', label: '上级责任主体交办' },
             { value: '其他方面的问题或风险', label: '其他方面的问题或风险' },
           ],
         },
       ],
     },
   },
+  { title: '问题内容', dataIndex: 'content' },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   { title: '责任主体', dataIndex: ['department', 'name'], editable: false },
-  { title: '负责人', dataIndex: 'user', render: (_, u) => u?.name, renderFormItem: () => <UserSelectCascader /> },
+  { title: '负责人', dataIndex: 'user', render: (u: any) => u.name, renderFormItem: () => <UserSelectCascader /> },
 ];
 
 export default function MatterInfo({ dataSource }) {

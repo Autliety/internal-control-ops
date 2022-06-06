@@ -14,7 +14,7 @@ export default function Home() {
 
   return <div>
     <PageContainer
-        title="百步镇镇村一体全面管党治党综合管理平台"
+        title="区(镇)村(社)一体全面从严治党责任落实应用系统"
         subTitle={'首页'}
         content={
           <Space size={'large'}>

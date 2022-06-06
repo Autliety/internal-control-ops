@@ -85,7 +85,7 @@ export default function StatisticNotes() {
           statistic={{
             title: '未读',
             value: pageInfo[3].data.length,
-            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'blue'}/>,
+            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'red'}/>,
           }}
           onClick={() => setOnPage(3)
           }
@@ -95,7 +95,7 @@ export default function StatisticNotes() {
           statistic={{
             title: '已读',
             value: pageInfo[4].data.length,
-            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'green'}/>,
+            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'blue'}/>,
           }}
           onClick={() => setOnPage(4)
           }

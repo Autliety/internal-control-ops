@@ -38,6 +38,12 @@ import ImportantList from '../pages/ImportantList';
 import Important from '../pages/Important';
 import Question from '../pages/Question';
 import QuestionList from '../pages/QuestionList';
+import Risk from '../pages/Risk';
+import RiskList from '../pages/RiskList';
+import ThreeList from '../pages/ThreeList';
+import DisciplineList from '../pages/DisciplineList';
+import Three from '../pages/Three';
+import Discipline from '../pages/Discipline';
 
 export const router = {
   routes: [
@@ -74,7 +80,7 @@ export const router = {
           ]
         },
         {
-          name: '“第一议题”学规学纪',
+          name: '第一议题',
           path: '/mz/learning',
           element: <LearnList/>,
         },
@@ -90,11 +96,6 @@ export const router = {
           path: '/lz/list',
           routes: [
             {
-              name: '整改清单',
-              path: '/lz/list/reform',
-              disabled: true,
-            },
-            {
               name: '履责情况',
               path: '/lz/list/progress',
               element: <ProgressList/>,
@@ -107,14 +108,24 @@ export const router = {
           ]
         },
         {
+          name: '三重一大',
+          path: '/lz/three',
+          element: <ThreeList/>,
+        },
+        {
           name: '监督检查',
           path: '/lz/inspect',
           element: <InspectList/>,
         },
         {
-          name: '第一种形态处置运用',
+          name: '第一种形态运用',
           path: '/lz/disposal',
           element: <DisposalList/>,
+        },
+        {
+          name: '违纪违法上报',
+          path: '/lz/discipline',
+          element: <DisciplineList/>,
         },
         {
           name: '一单三书',
@@ -139,7 +150,7 @@ export const router = {
         {
           name: '廉政风险排查防控',
           path: '/lz/risk',
-          disabled: true,
+          element: <RiskList/>,
         },
         {
           name: '纪委监察工作联络站',
@@ -159,7 +170,12 @@ export const router = {
           element: <EvaluationList/>
         },
         {
-          name: '村社考评',
+          name: '中心办(所)考评',
+          path: '/pz/evaluation/office',
+          element: <EvaluationList/>
+        },
+        {
+          name: '村(社)考评',
           path: '/pz/performance/village',
           element: <EvaluationList/>
         },
@@ -301,6 +317,24 @@ export const router = {
       name: '履责约谈记录',
       path: '/dz/question/:id',
       element: <Question/>
+    },
+    {
+      hideInMenu: true,
+      name: '廉政风险排查防控记录',
+      path: '/lz/risk/:id',
+      element: <Risk/>,
+    },
+    {
+      hideInMenu: true,
+      name: '三重一大集体决策',
+      path: '/lz/three/:id',
+      element: <Three/>,
+    },
+    {
+      hideInMenu: true,
+      name: '违纪违法上报详情',
+      path: '/lz/discipline/:id',
+      element: <Discipline/>,
     },
   ],
 };

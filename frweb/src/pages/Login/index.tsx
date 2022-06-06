@@ -1,11 +1,12 @@
 import React from 'react';
 import { LoginForm, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, message, Row } from 'antd';
+import { Col, Divider, Image, Layout, message, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/bg.png';
+import title from '../../image/title.jpg';
+
 import { useHttp } from '../../utils/request';
 
 export default function Login() {
@@ -13,27 +14,31 @@ export default function Login() {
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
 
-  return <div className={'loginStyle'} style={{ height: '100%', minWidth: 1500, overflow: 'scroll' }}>
+  return <div
+      style={{
+        height: '100%',
+        width: '100%',
+        overflow: 'scroll',
+        backgroundImage: `url(${title})`,
+        backgroundSize: '100%',
+      }}
+  >
+    <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent'}}>
+      <Typography.Title style={{marginTop: 10}}><Image src={logo} width={70} />  浙江百步经济开发区(百步镇)</Typography.Title>
+    </Layout.Header>
     <Row>
-      <Col span={6}/>
-      <Col span={8} className={'bgStyle'}>
-        <br/><br/>
-        <img src={bg} alt="" height={414} width={384} style={{ marginLeft: 100 }}/>
-      </Col>
-      <Col span={6} style={{ marginTop: 150, backgroundColor: '#fff' }}>
+      <Col span={16}/>
+      <Col span={4} className={'bgStyle'} style={{ minWidth: 400, marginTop: 60 }}>
         <LoginForm
-            logo={logo}
-            title='百步开发区(百步镇)'
-            subTitle='四责协同管理平台'
             onFinish={async (values: any) => {
               await http(null, null, qs.stringify(values));
               message.success('登录成功');
               navigate('/');
             }}
         >
-
+          <Typography.Title style={{textAlign: 'center'}} level={3}>{'区(镇)村(社)一体全面从严治党\n责任落实应用系统'}</Typography.Title>
           <ProFormText
-              name='username'
+              name="username"
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={'prefixIcon'}/>,
@@ -52,7 +57,7 @@ export default function Login() {
           <Divider/>
 
           <ProFormText.Password
-              name='password'
+              name="password"
               fieldProps={{
                 size: 'large',
                 prefix: <LockOutlined className={'prefixIcon'}/>,
@@ -69,7 +74,7 @@ export default function Login() {
           <Divider/>
 
           <ProFormText
-              name='validation'
+              name="validation"
               fieldProps={{
                 size: 'large',
                 prefix: <SafetyOutlined className={'prefixIcon'}/>,
@@ -80,7 +85,8 @@ export default function Login() {
           <Divider/>
           <div>
             <a style={{ float: 'right' }} onClick={() => {
-            }}>
+            }}
+            >
               忘记密码
             </a>
           </div>
@@ -89,6 +95,5 @@ export default function Login() {
       </Col>
       <Col span={4}/>
     </Row>
-
   </div>;
 }

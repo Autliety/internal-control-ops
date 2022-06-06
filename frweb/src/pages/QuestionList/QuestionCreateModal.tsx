@@ -32,7 +32,7 @@ function QuestionCreateModal() {
           layout='vertical'
           name='form_in_modal'
       >
-        <Form.Item name='type' label='约谈类别'>
+        <Form.Item name='type' label='约谈方式'>
           <Select placeholder={'请选择'}>
             <Select.Option value={0}>集体约谈</Select.Option>
             <Select.Option value={1}>个别约谈</Select.Option>
@@ -51,7 +51,7 @@ function QuestionCreateModal() {
           <DatePicker/>
         </Form.Item>
 
-        <Form.Item name='station' label='约谈情形'>
+        <Form.Item name='station' label='约谈内容'>
           <Input/>
         </Form.Item>
       </Form>
