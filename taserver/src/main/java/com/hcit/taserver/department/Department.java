@@ -22,6 +22,12 @@ public class Department implements BasicPersistable {
 
   private String name;
 
+  private String shortName;
+
+  public String getShortName() {
+    return shortName == null ? name : shortName;
+  }
+
   private Long parentId;
 
 }

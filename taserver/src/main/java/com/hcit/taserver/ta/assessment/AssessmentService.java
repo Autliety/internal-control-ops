@@ -1,11 +1,9 @@
 package com.hcit.taserver.ta.assessment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,45 +13,24 @@ public class AssessmentService {
 
   private final AssessmentRepository assessmentRepository;
 
-  public Map<Integer, Assessment> getMap() {
-    return assessmentRepository.findAll().stream().collect(Collectors.toMap(Assessment::getId, Function.identity()));
+  public Map<String, Map<String, List<Assessment>>> findAllWithTree() {
+    Map<String, Map<String, List<Assessment>>> l1Map = new HashMap<>();
+    for (Assessment a : assessmentRepository.findAll()) {
+      l1Map.putIfAbsent(a.getLevelOne(), new HashMap<>());
+      var l2Map = l1Map.get(a.getLevelOne());
+      l2Map.putIfAbsent(a.getLevelTwo(), new ArrayList<>());
+      var list = l2Map.get(a.getLevelTwo());
+      list.add(a);
+    }
+    return l1Map;
   }
 
   public List<Assessment> findAll() {
     return assessmentRepository.findAll();
   }
 
-  public List<Assessment> getTree() {
-    var map = getMap();
-
-    List<Assessment> result = new ArrayList<>();
-    for (Assessment asmt : map.values()) {
-      var parentId = asmt.getParentId();
-      if (parentId == null) {
-        result.add(asmt);
-        continue;
-      }
-      Assessment parent = map.get(parentId);
-      List<Assessment> children = Optional.ofNullable(parent.getChildren()).orElseGet(ArrayList::new);
-      children.add(asmt);
-      parent.setChildren(children);
-    }
-    return result;
-  }
-
-  public Assessment findById(Integer id){
-    return bindData(assessmentRepository.findById(id).orElseThrow());
-  }
-
-  private Assessment bindData(Assessment asmt){
-    var parentId = asmt.getParentId();
-    if (parentId != null) {
-      asmt.setParent(assessmentRepository.findById(parentId).orElse(null));
-    } else {
-      var children = assessmentRepository.findAllByParentId(asmt.getId());
-      asmt.setChildren(children);
-    }
-    return asmt;
+  public Assessment findById(Integer id) {
+    return assessmentRepository.findById(id).orElseThrow();
   }
 
 }

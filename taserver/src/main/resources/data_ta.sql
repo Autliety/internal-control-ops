@@ -1,3 +1,4 @@
+/*
 INSERT INTO
   ta_assessment (id, code, name, parent_id, point, value_type, value, standard, upper_department)
 VALUES
@@ -38,3 +39,4 @@ VALUES
   (1, 1, 1, '受疫情影响较大', '21000000', NULL, NULL),
   (2, 1, 2, NULL, '0.2', NULL, NULL),
   (3, 2, 3, NULL, '0.16', NULL, NULL);
+*/
