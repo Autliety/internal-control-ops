@@ -11,7 +11,7 @@ export default function LearningCreateModal() {
 
   return <>
   <BetaSchemaForm
-      title={'学习安排'}
+      title={'学习安排添加'}
 
       layoutType={'ModalForm'}
       trigger={<Button type={'primary'}><PlusSquareOutlined/>学习安排</Button>}

@@ -33,7 +33,7 @@ export default function InformList() {
             type={'primary'}
             icon={<ContainerOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/lz/inform/${record.id}`)}
+            onClick={() => navigate(`/dz/inform/${record.id}`)}
         />
       </Tooltip>
     </Space>,

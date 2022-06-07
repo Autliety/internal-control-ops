@@ -64,7 +64,7 @@ export const router = {
           element: <MeetingList/>,
         },
         {
-          name: '责任清单建立',
+          name: '建立责任清单',
           path: '/mz/list',
           routes: [
             {
@@ -80,7 +80,7 @@ export const router = {
           ]
         },
         {
-          name: '第一议题',
+          name: '第一议题制度',
           path: '/mz/learning',
           element: <LearnList/>,
         },
@@ -92,7 +92,7 @@ export const router = {
       path: '/lz',
       routes: [
         {
-          name: '责任清单落实',
+          name: '落实责任清单',
           path: '/lz/list',
           routes: [
             {
@@ -108,55 +108,76 @@ export const router = {
           ]
         },
         {
-          name: '三重一大',
-          path: '/lz/three',
-          element: <ThreeList/>,
+          name: '5+1谈话机制',
+          path: '/lz/talk',
+          disabled: true,
         },
         {
-          name: '监督检查',
+          name: '监督检查工作',
           path: '/lz/inspect',
           element: <InspectList/>,
         },
+        {
+          name: '三重一大决策',
+          path: '/lz/three',
+          element: <ThreeList/>,
+        },
+
         {
           name: '第一种形态运用',
           path: '/lz/disposal',
           element: <DisposalList/>,
         },
         {
-          name: '违纪违法上报',
-          path: '/lz/discipline',
-          element: <DisciplineList/>,
+          name: '相互监督提醒',
+          path: '/lz/remind',
+          disabled: true,
         },
         {
-          name: '一单三书',
-          path: '/lz/inform',
-          element: <InformList/>,
-        },
-        {
-          name: '纪委动议',
-          path: '/lz/motion',
-          element: <Motion/>,
-        },
-        {
-          name: '履责报告',
+          name: '年度履责报告',
           path: '/lz/report',
           element: <ReportList/>,
         },
         {
-          name: '重大事项请示报告',
+          name: '述责述廉评议',
+          path: '/lz/comment',
+          disabled: true,
+        },
+        // {
+        //   name: '违纪违法上报',
+        //   path: '/lz/discipline',
+        //   element: <DisciplineList/>,
+        // },
+        {
+          name: '个人有关事项报告及公开',
           path: '/lz/important',
           element: <ImportantList/>,
         },
         {
-          name: '廉政风险排查防控',
-          path: '/lz/risk',
-          element: <RiskList/>,
-        },
-        {
-          name: '纪委监察工作联络站',
-          path: '/lz/contact',
+          name: '民主（组织）生活会督导',
+          path: '/lz/democracy',
           disabled: true,
         },
+        {
+          name: '领导干部插手干预重大事项记录报告',
+          path: '/lz/leader',
+          disabled: true,
+        },
+        {
+          name: '政治生态分析研判',
+          path: '/lz/political',
+          disabled: true
+        }
+        // {
+        //   name: '廉政风险排查防控',
+        //   path: '/lz/risk',
+        //   element: <RiskList/>,
+        // },
+        // {
+        //   name: '纪委监察工作联络站',
+        //   path: '/lz/contact',
+        //   disabled: true,
+        // },
       ]
     },
     {
@@ -170,7 +191,7 @@ export const router = {
           element: <EvaluationList/>
         },
         {
-          name: '中心办(所)考评',
+          name: '基层站所考评',
           path: '/pz/evaluation/office',
           element: <EvaluationList/>
         },
@@ -186,6 +207,16 @@ export const router = {
       icon: <SecurityScanOutlined/>,
       path: '/dz',
       routes: [
+        {
+          name: '一单三书',
+          path: '/dz/inform',
+          element: <InformList/>,
+        },
+        {
+          name: '纪委动议',
+          path: '/dz/motion',
+          element: <Motion/>,
+        },
         {
           name: '履责约谈',
           path: '/dz/question',
@@ -204,7 +235,7 @@ export const router = {
       path: '/zz',
       routes: [
         {
-          name: '党员干部监督',
+          name: '预警处置',
           path: '/zz/todo',
           disabled: true,
         },

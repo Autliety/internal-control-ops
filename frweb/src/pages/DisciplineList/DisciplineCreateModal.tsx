@@ -11,7 +11,7 @@ export default function DisciplineCreateModal() {
 
   return <>
     <BetaSchemaForm
-        title={'违法违纪上报'}
+        title={'违法违纪上报新建'}
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新建</Button>}
 
