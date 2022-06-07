@@ -2,7 +2,7 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
 import { Button, Space, Tooltip } from 'antd';
-import { FileTextOutlined, PlusOutlined } from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import ImportantCreateModal from './ImportantCreateModal';
@@ -34,8 +34,8 @@ export default function ImportantList() {
   const data = [
     {
       id: 1,
-      name: '海盐县人民医院迁建工程',
-      type: '重要项目',
+      name: '新购住房一间',
+      type: '个人其它重要事项报告',
       submitter: '王哲',
     }
   ];

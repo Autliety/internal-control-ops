@@ -16,7 +16,7 @@ export default function InspectCreateModal() {
   return <>
 
     <Button type={'primary'} onClick={() => setIsVisible(true)}>
-      <PlusSquareOutlined/> 会议召开通知
+      <PlusSquareOutlined/> 检查记录
     </Button>
 
     <Modal
