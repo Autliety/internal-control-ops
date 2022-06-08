@@ -2,21 +2,23 @@ import React from 'react';
 import { EditableProTable } from '@ant-design/pro-table';
 import moment from 'moment';
 
-export default ({
-                  columns,
-                  isInEdit = false,
-                  isSearch = false,
-                  value = [],
-                  onChange = ([]) => {
-                  },
-                  ...restProps
-                }) => {
+export default function BaseEditableTable(
+    {
+      columns,
+      isInEdit = false,
+      isSearch = false,
+      disableAdd = false,
+      value = [],
+      onChange = (_: any[]) => {},
+      ...restProps
+    }) {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
 
   const [collapsed, setCollapsed] = React.useState(true);
 
   return <EditableProTable
+      bordered
       size={'middle'}
       scroll={{
         x: 'max-content',
@@ -24,26 +26,28 @@ export default ({
       }}
 
       pagination={{ hideOnSinglePage: true, ...restProps.pagination }}
-      rowKey={'id'}
-      columns={isInEdit ? columns.concat({
+      rowKey={'key'}
+      columns={isInEdit ? columns.filter(c => c.dataIndex !== 'operation').concat({
             title: '操作',
             width: 150,
             valueType: 'option',
             render: (text, record, _, action) => [
-              <a key='editable' onClick={() => action?.startEditable?.(record.id)}>
+              <a key="editable" onClick={() => action?.startEditable?.(record.key)}>
                 编辑
               </a>,
-              <a key='delete' onClick={() => onChange(value.filter(i => i.id !== record.id))}>
+              <a key="delete" onClick={() => onChange(value.filter(i => i.key !== record.key))}>
                 删除
               </a>,
             ],
           })
           : columns
       }
-      value={value}
+      value={value.filter(v => v).map(v => {
+        v.key = v.key ? v.key : v.id;
+        return v;
+      })}
       onChange={onChange}
 
-      // 筛选form
       search={isSearch && {
         collapsed,
         onCollapse: setCollapsed,
@@ -55,7 +59,7 @@ export default ({
         editableKeys,
         onChange: setEditableKeys,
       }}
-      recordCreatorProps={isInEdit && { record: () => ({ id: moment().valueOf() }) }}
+      recordCreatorProps={isInEdit && !disableAdd && { record: () => ({ key: moment().valueOf() }) }}
 
       {...restProps}
   />;

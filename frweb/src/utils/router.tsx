@@ -5,7 +5,7 @@ import {
   ProfileOutlined,
   SecurityScanOutlined,
   SettingOutlined,
-  WarningOutlined
+  WarningOutlined,
 } from '@ant-design/icons';
 
 import Home from '../pages/Home';
@@ -39,9 +39,7 @@ import Important from '../pages/Important';
 import Question from '../pages/Question';
 import QuestionList from '../pages/QuestionList';
 import Risk from '../pages/Risk';
-import RiskList from '../pages/RiskList';
 import ThreeList from '../pages/ThreeList';
-import DisciplineList from '../pages/DisciplineList';
 import Three from '../pages/Three';
 import Discipline from '../pages/Discipline';
 
@@ -304,7 +302,7 @@ export const router = {
     {
       hideInMenu: true,
       name: '一单三书详情',
-      path: '/lz/inform/:id',
+      path: '/dz/inform/:id',
       element: <Inform/>,
     },
     {

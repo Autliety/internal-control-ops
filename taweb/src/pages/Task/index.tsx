@@ -32,7 +32,7 @@ export default function Task() {
     <PlanInfo data={state.plan} />
 
     <Divider orientation={'left'}>{'关联指标详情'}</Divider>
-    <AssessmentTable dataSource={state.plan?.assessment} />
+    <AssessmentTable value={state.plan?.assessment} />
 
     <Divider orientation={'left'}>{'措施及进度'}</Divider>
     <TaskProgress dataSource={state.details} />

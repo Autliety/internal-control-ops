@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 
 import Home from '../pages/Home';
-import NotFound from '../pages/NotFound';
 import Settings from '../pages/Settings';
 import AssessmentList from '../pages/AssessmentList';
 import Assessment from '../pages/Assessment';
@@ -41,7 +40,7 @@ export const router = {
           element: <AssessmentList/>,
         },
         {
-          name: '临时考核指标',
+          name: '负分考核指标',
           path: '/assessment/temporary',
           disabled: true,
         },
@@ -122,7 +121,7 @@ export const router = {
           name: '权限管理',
           path: '/dept/permission',
           element: <Permission/>,
-        }
+        },
       ],
     },
     {
@@ -142,32 +141,31 @@ export const router = {
         },
       ],
     },
+
+    // ext routes
+    {
+      name: '指标详情',
+      path: '/assessment/basic/:id',
+      element: <Assessment/>,
+      hideInMenu: true,
+    },
+    {
+      path: '/plan/:id',
+      element: <Plan/>,
+      hideInMenu: true,
+    },
+    {
+      path: '/task/:id',
+      element: <Task/>,
+      hideInMenu: true,
+    },
+    {
+      path: '/admin/settings',
+      element: <Settings/>,
+      hideInMenu: true,
+    },
   ],
 };
-
-const extRoutes = [
-  {
-    path: '/assessment/:id',
-    element: <Assessment/>,
-  },
-  {
-    path: '/plan/:id',
-    element: <Plan/>,
-  },
-  {
-    path: '/task/:id',
-    element: <Task/>,
-  },
-  {
-    path: '/admin/settings',
-    element: <Settings/>,
-  },
-  {
-    path: '*',
-    element: <NotFound/>,
-  },
-];
-
 
 function routerConcat(routes: any) {
   let result = routes;
@@ -177,4 +175,4 @@ function routerConcat(routes: any) {
   return result;
 }
 
-export const routesConfig = routerConcat([...router.routes]).concat(routerConcat(extRoutes));
+export const routesConfig = routerConcat([...router.routes]);

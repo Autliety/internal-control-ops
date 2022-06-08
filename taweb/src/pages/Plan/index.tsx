@@ -55,7 +55,7 @@ export default function Plan() {
     <PlanInfo data={state}/>
 
     <Divider orientation={'left'}>{'相关指标详情'}</Divider>
-    <AssessmentTable dataSource={state.assessment}/>
+    <AssessmentTable value={state.assessment}/>
 
     <Divider orientation={'left'}>{'计划措施'}</Divider>
     <BaseEditableTable

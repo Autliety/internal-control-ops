@@ -1,16 +1,26 @@
 import React from 'react';
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
 import { router, routesConfig } from '../utils/router';
 import logo from '../image/logo.png';
+import NotFound from './NotFound';
+import { useHttp } from '../utils/request';
 
 function Pages() {
 
-  const { auth, Provider } = useAuthProvider();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const { auth, setAuth, Provider } = useAuthProvider();
+  const { http } = useHttp('/user?current=true', { isManual: true });
+  React.useEffect(() => {
+    http()
+    .then(setAuth)
+    .catch(() => navigate('/login'));
+  }, [pathname]);
 
   return <>
     <Provider value={auth}>
@@ -35,6 +45,7 @@ function Pages() {
       >
         <Routes>
           {routesConfig.map((route, i) => <Route key={i} {...route} />)}
+          <Route key="404" element={NotFound}/>
         </Routes>
       </ProLayout>
     </Provider>

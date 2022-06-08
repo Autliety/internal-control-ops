@@ -27,7 +27,7 @@ export default function BaseEditableTable(
 
       pagination={{ hideOnSinglePage: true, ...restProps.pagination }}
       rowKey={'key'}
-      columns={isInEdit ? columns.concat({
+      columns={isInEdit ? columns.filter(c => c.dataIndex !== 'operation').concat({
             title: '操作',
             width: 150,
             valueType: 'option',

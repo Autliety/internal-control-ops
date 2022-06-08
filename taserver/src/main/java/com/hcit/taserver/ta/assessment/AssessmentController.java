@@ -1,8 +1,9 @@
 package com.hcit.taserver.ta.assessment;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import java.util.Collection;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,18 @@ public class AssessmentController {
    * 和没有计划的指标
    * */
   @GetMapping
-  public JsonNode fetchAll() {
-    // todo 格式
-    return objectMapper.convertValue(assessmentService.findAllWithTree(), ObjectNode.class);
+  public Collection<?> fetchAll() {
+    return assessmentService.findAllWithTree().entrySet().stream().map(e1 ->
+        objectMapper.createObjectNode()
+            .put("id", e1.getKey())
+            .put("name", e1.getKey())
+            .set("children", objectMapper.convertValue(e1.getValue().entrySet().stream().map(e2 ->
+                objectMapper.createObjectNode()
+                    .put("id", e2.getKey() + "L2")
+                    .put("name", e2.getKey())
+                    .set("children", objectMapper.convertValue(e2.getValue(), ArrayNode.class))
+            ).collect(Collectors.toList()), ArrayNode.class))
+    ).collect(Collectors.toList());
   }
 
   @GetMapping("/{id}")

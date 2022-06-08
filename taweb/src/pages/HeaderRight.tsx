@@ -2,38 +2,34 @@ import React from 'react';
 import { Dropdown, Menu, Space } from 'antd';
 import { LoginOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/auth';
 
 export default function HeaderRight() {
-  const user = { name: '管理员' };
 
   const navigate = useNavigate();
+
+  const { user } = useAuth();
 
   if (!user) {
     return <></>;
   }
 
-  const personalMenu = (
-      <Menu>
-        {/*<Menu.Item key="1" icon={<UserOutlined/>} onClick={() => navigate('/admin/settings')}>*/}
-        {/*  个人中心*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Divider/>*/}
-        <Menu.Item key="2" icon={<LoginOutlined/>} onClick={() => navigate('/logout')}>
-          退出系统
-        </Menu.Item>
-      </Menu>
-  )
-
   return <div style={{ color: 'white' }}>
     <Space>
-      {/* 个人中心 */}
       <Dropdown
-          placement='bottomCenter'
-          overlay={personalMenu}
+          placement="bottomCenter"
+          overlay={
+            <Menu>
+              <Menu.Item key="1" icon={<LoginOutlined />} onClick={() => navigate('/logout')}>
+                退出登录
+              </Menu.Item>
+              <Menu.Divider />
+            </Menu>
+          }
       >
         <Space>
           <span style={{ marginLeft: 10 }}>{user.name}</span>
-          <UserOutlined style={{ fontSize: 18 }}/>
+          <UserOutlined style={{ fontSize: 18 }} />
         </Space>
       </Dropdown>
 

@@ -15,7 +15,7 @@ public class AssessmentService {
 
   public Map<String, Map<String, List<Assessment>>> findAllWithTree() {
     Map<String, Map<String, List<Assessment>>> l1Map = new HashMap<>();
-    for (Assessment a : assessmentRepository.findAll()) {
+    for (Assessment a : assessmentRepository.findAllByOrderByCode()) {
       l1Map.putIfAbsent(a.getLevelOne(), new HashMap<>());
       var l2Map = l1Map.get(a.getLevelOne());
       l2Map.putIfAbsent(a.getLevelTwo(), new ArrayList<>());

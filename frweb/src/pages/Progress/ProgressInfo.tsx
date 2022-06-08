@@ -10,7 +10,7 @@ export const progressColumns: ProColumns[] = [
   { title: '结束日期', dataIndex: ['measure', 'endDate'], valueType: 'date', hideInTable: true, editable: false },
   { title: '状态', dataIndex: 'status', valueEnum: statusEnum, editable: false },
   { title: '履责情况', dataIndex: 'content', valueType: 'textarea', hideInTable: true },
-  { title: '总体完成率', dataIndex: 'percentage', valueType: 'progress' },
+  { title: '事项完成率', dataIndex: 'percentage', valueType: 'progress' },
   { title: '未完成原因', dataIndex: 'reason', valueType: 'textarea', hideInTable: true },
   { title: '最后更新时间', dataIndex: 'updateTime', valueType: 'dateTime', editable: false },
 ];
