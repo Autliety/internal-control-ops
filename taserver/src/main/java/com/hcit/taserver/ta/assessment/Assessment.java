@@ -7,7 +7,7 @@ import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("指标")
 
@@ -93,8 +92,6 @@ public class Assessment {
   private String respDepartmentContent;
 
   @CreationTimestamp
-  private LocalDateTime createTime;
+  private LocalDate createDate;
 
-  @UpdateTimestamp
-  private LocalDateTime updateTime;
 }

@@ -1,7 +1,7 @@
 package com.hcit.taserver.ta.assessment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,9 @@ public class AssessmentService {
   private final AssessmentRepository assessmentRepository;
 
   public Map<String, Map<String, List<Assessment>>> findAllWithTree() {
-    Map<String, Map<String, List<Assessment>>> l1Map = new HashMap<>();
-    for (Assessment a : assessmentRepository.findAllByOrderByCode()) {
-      l1Map.putIfAbsent(a.getLevelOne(), new HashMap<>());
+    Map<String, Map<String, List<Assessment>>> l1Map = new LinkedHashMap<>();
+    for (Assessment a : assessmentRepository.findAll()) {
+      l1Map.putIfAbsent(a.getLevelOne(), new LinkedHashMap<>());
       var l2Map = l1Map.get(a.getLevelOne());
       l2Map.putIfAbsent(a.getLevelTwo(), new ArrayList<>());
       var list = l2Map.get(a.getLevelTwo());

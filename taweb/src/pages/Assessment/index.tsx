@@ -6,8 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProCard from '@ant-design/pro-card';
 import { useHttp } from '../../utils/request';
 import AssessmentInfo from './AssessmentInfo';
-import DemoDeptResponse from '../../components/DemoDeptResponse';
-import DemoUpperResponse from '../../components/DemoUpperResponse';
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export default function Assessment() {
 
@@ -23,40 +22,34 @@ export default function Assessment() {
           <Statistic title={'名称'} value={state.name}/>
         </Space>}
     >
-      <Divider orientation='left'>基本信息</Divider>
+      <Divider orientation="left">基本信息</Divider>
       <AssessmentInfo data={state}/>
 
       <Divider orientation={'left'}>指标责任领导</Divider>
-      <ProCard gutter={[16, 16]} wrap>
-        {
-          [
-            { id: 1, name: '王哲', station: '部门A领导', dept: '部门A' },
-            { id: 2, name: '叶锋', station: '部门B领导', dept: '部门B' },
-            { id: 3, name: '吴肖峰', station: '部门C领导', dept: '部门C' },
-          ].map((item, index) => <ProCard
-              colSpan={{ xs: 24, sm: 12, md: 8, lg: 6, xl: 4 }}
-              bordered
-              key={index}
-              size={'small'}
-              layout={'center'}
-          >
-            <p>
-              {item.name}
-              <Divider type={'vertical'}/>
-              {item.dept}
-              <Divider type={'vertical'}/>
-              {item.station}
-            </p>
-          </ProCard>)
-        }
-
+      <ProCard gutter={[16, 16]} wrap ghost>
+        {state?.respUser?.map(i => <ProCard
+            colSpan={{ sm: 12, md: 6 }}
+            bordered
+            key={i.id}
+            size={'small'}
+            layout={'center'}
+        >
+          {i.name}
+          <Divider type={'vertical'}/>
+          {i.department?.name}
+          <Divider type={'vertical'}/>
+          {i.station?.name}
+        </ProCard>)}
       </ProCard>
 
-      <Divider orientation='left'>指标责任部门</Divider>
-      <DemoDeptResponse/>
-
-      <Divider orientation='left'>审核意见</Divider>
-      <DemoUpperResponse/>
+      <Divider orientation="left">指标责任部门</Divider>
+      <BaseEditableTable
+          columns={[
+            { title: '部门', dataIndex: 'name' },
+            { title: '相关计划数', dataIndex: 'count' },
+          ]}
+          value={state.respDepartment}
+      />
 
     </PageContainer>
   </>;

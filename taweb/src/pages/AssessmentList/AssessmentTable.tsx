@@ -10,6 +10,8 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 
 export const assessmentColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code' },
+  { title: '一级指标', dataIndex: 'levelOne', hideInTable: true },
+  { title: '二级指标', dataIndex: 'levelTwo', hideInTable: true },
   { title: '指标名称', dataIndex: 'name' },
   {
     title: '指标要求',

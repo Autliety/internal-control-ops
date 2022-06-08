@@ -40,7 +40,7 @@ export const router = {
           element: <AssessmentList/>,
         },
         {
-          name: '负分考核指标',
+          name: '增减分考核指标',
           path: '/assessment/temporary',
           disabled: true,
         },
@@ -50,23 +50,7 @@ export const router = {
       name: '工作计划',
       icon: <BarsOutlined/>,
       path: '/plan',
-      routes: [
-        {
-          name: '年度工作计划',
-          path: '/plan/annual',
-          element: <PlanList/>,
-        },
-        {
-          name: '时限工作计划',
-          path: '/plan/limited',
-          disabled: true,
-        },
-        {
-          name: '无时限工作计划',
-          path: '/plan/infinite',
-          disabled: true,
-        },
-      ],
+      element: <PlanList/>,
     },
     {
       name: '工作进度',
@@ -80,7 +64,7 @@ export const router = {
         },
         {
           name: '无时限工作进度',
-          path: '/task/infinite',
+          path: '/task/unlimited',
           disabled: true,
         },
       ],

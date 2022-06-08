@@ -44,3 +44,15 @@
   margin: 0 8px 8px 0;
   vertical-align: top;
 }
+
+.ant-pro-card-body {
+  padding: 0;
+}
+
+.ant-pro-global-header-layout-mix{
+  background-color: #288CE3;
+}
+
+.homepage-icon {
+  font-size: 60px;
+}
