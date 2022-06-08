@@ -19,8 +19,8 @@ import Plan from '../pages/Plan';
 import TaskList from '../pages/TaskList';
 import Task from '../pages/Task';
 import Department from '../pages/Department';
-import Users from '../pages/Department/Users';
 import Complaint from '../pages/Wall/Complaint';
+import Permission from '../pages/Permission';
 
 export const router = {
   routes: [
@@ -116,8 +116,13 @@ export const router = {
         {
           name: '员工档案',
           path: '/dept/users',
-          element: <Users/>,
+          element: <Department withUser/>,
         },
+        {
+          name: '权限管理',
+          path: '/dept/permission',
+          element: <Permission/>,
+        }
       ],
     },
     {

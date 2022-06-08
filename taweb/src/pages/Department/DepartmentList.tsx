@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, List } from 'antd';
+import { List } from 'antd';
 import { useHttp } from '../../utils/request';
+import DepartmentEditModal from "./DepartmentEditModal";
 
 type Props = {
   isEdit?: boolean,
@@ -30,7 +31,7 @@ export default function DepartmentList({ isEdit, onChange, onNameChange }: Props
                 {item.name}
               </div>
               {
-                  isEdit && <Button type='link'>编辑</Button>
+                  isEdit && <DepartmentEditModal departmentData={item}/>
               }
             </List.Item>
         )}

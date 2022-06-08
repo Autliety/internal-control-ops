@@ -7,11 +7,12 @@ import 'moment/locale/zh-cn';
 
 import './App.css';
 import Pages from './pages';
-import Login from "./pages/Login";
+import Login from './pages/Login';
+import Logout from './pages/Logout';
 moment.locale('zh-cn');
 
 function App() {
-  return <div className="App">
+  return <div className='App'>
     <ConfigProvider
         locale={zhCN}
         input={{ autoComplete: 'off' }}
@@ -19,6 +20,7 @@ function App() {
     >
       <Routes>
         <Route path={'/login'} element={<Login />} />
+        <Route path={'/logout'} element={<Logout/>}/>
         <Route path={'*'} element={<Pages />} />
       </Routes>
     </ConfigProvider>

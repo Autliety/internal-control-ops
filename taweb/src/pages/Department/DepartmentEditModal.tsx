@@ -1,37 +1,43 @@
 import React from 'react';
-import { Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal } from 'antd';
 
-export default function DepartmentEditModal({ isVisible, departmentData, onClose }) {
+export default function DepartmentEditModal({ departmentData }) {
+
   const [form] = Form.useForm();
   const formColumns = [
-    { label: '部门名称', name: 'name' },
-    // { label: '岗位信息', name: 'positions', render: text => <Input defaultValue={text.join('')}/> }
+    { label: '原部门名称', name: 'name', disable: true },
+    { label: '新部门名称', name: 'newName', placeholder: '新名称' },
   ];
 
-  return <Modal
-      title='部门岗位信息编辑'
-      closable
-      destroyOnClose
-      visible={isVisible}
-      // onOk={() => setIsVisible(false)}
-      onCancel={onClose}
-  >
-    <Form
-        form={form}
-        layout='vertical'
-        name='edit_department'
-        initialValues={departmentData}
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  return <>
+    <Button type='link' onClick={() => setIsVisible(true)}>编辑</Button>
+    <Modal
+        title='更改部门名称'
+        closable
+        destroyOnClose
+        visible={isVisible}
+        onOk={() => setIsVisible(false)}
+        onCancel={() => setIsVisible(false)}
     >
-      {
-        formColumns.map((config, index) => <Form.Item
-            {...config}
-            key={index}
-            label={config.label}
-            name={config.name}
-        >
-          <Input/>
-        </Form.Item>)
-      }
-    </Form>
-  </Modal>;
+      <Form
+          form={form}
+          layout='vertical'
+          name='edit_department'
+          initialValues={departmentData}
+      >
+        {
+          formColumns.map((config, index) => <Form.Item
+              {...config}
+              key={index}
+              label={config.label}
+              name={config.name}
+          >
+            <Input placeholder={config.placeholder} disabled={config.disable}/>
+          </Form.Item>)
+        }
+      </Form>
+    </Modal>
+  </>;
 }

@@ -180,3 +180,13 @@ export const countingStatus = {
   DONE: { label: '已完成', tag: 'success' },
   CANCEL: { label: '已取消', tag: 'error' },
 }
+
+
+// 权限类别
+export const permissionType = {
+  ASSESSMENT: '考核指标相关权限',
+  PLAN: '工作计划相关权限',
+  TASK: '工作进度相关权限',
+  APPRAISAL: '考评相关权限',
+  WALL: '回音壁相关权限',
+}

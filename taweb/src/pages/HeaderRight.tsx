@@ -14,11 +14,11 @@ export default function HeaderRight() {
 
   const personalMenu = (
       <Menu>
-        <Menu.Item key="1" icon={<UserOutlined/>} onClick={() => navigate('/admin/settings')}>
-          个人中心
-        </Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item key="2" icon={<LoginOutlined/>} onClick={() => navigate('logout')}>
+        {/*<Menu.Item key="1" icon={<UserOutlined/>} onClick={() => navigate('/admin/settings')}>*/}
+        {/*  个人中心*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Divider/>*/}
+        <Menu.Item key="2" icon={<LoginOutlined/>} onClick={() => navigate('/logout')}>
           退出系统
         </Menu.Item>
       </Menu>
