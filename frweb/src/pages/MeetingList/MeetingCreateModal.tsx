@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, DatePicker, Form, Input, Modal, Radio, Space, Upload } from 'antd';
-import { PlusSquareOutlined, UploadOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined, UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../utils/request';
@@ -89,6 +89,47 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
         <Form.Item name="content" label="会议议题">
           <Input.TextArea placeholder={'请填写会议议题'} rows={6}/>
         </Form.Item>
+
+        { isMotion ||  <Form.Item label={'相关问题'}>
+          <Form.List name='matter'>
+            {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                      <Space key={key} style={{ display: 'flex', marginBottom: 8 }}>
+                        <Form.Item
+                            {...restField}
+                            label={'涉及部门/党员干部'}
+                            name={[name, 'user']}
+                        >
+                          <UserSelectCascader/>
+                        </Form.Item>
+                        <Form.Item
+                            {...restField}
+                            label={'问题内容'}
+                            name={[name, 'content']}
+                            style={{ width: 700 }}
+                        >
+                          <Input.TextArea rows={1} placeholder='问题内容'/>
+                        </Form.Item>
+                        <Form.Item
+                            {...restField}
+                            label={'反馈报告时限'}
+                            name={[name, 'endDate']}
+                        >
+                          <DatePicker/>
+                        </Form.Item>
+                        <MinusCircleOutlined onClick={() => remove(name)}/>
+                      </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type='dashed' onClick={() => add()} block icon={<PlusOutlined/>}>
+                      添加一项
+                    </Button>
+                  </Form.Item>
+                </>
+            )}
+          </Form.List>
+        </Form.Item>}
 
         <Form.Item name="upload" label="附件上传">
           <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>

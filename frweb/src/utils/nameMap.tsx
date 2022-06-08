@@ -29,6 +29,8 @@ export const informType = {
   OPINION: { name: '意见书', title: '意见内容', label: '整改措施' },
   ADVICE: { name: '建议书', title: '建议内容', label: '防范措施' },
   ANNOUNCE: { name: '第一种形态告知书', title: '具体问题', label: '整改措施' },
+  1: { name: '约谈', title: '具体问题', label: '整改措施' },
+  2: { name: '提醒谈话', title: '具体问题', label: '整改措施' },
 };
 
 export const meetingStatusEnum = {

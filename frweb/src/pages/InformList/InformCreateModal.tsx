@@ -33,15 +33,24 @@ export default function InformCreateModal({ isDisposal }: Props) {
           name="inform"
           onFinish={values => {
             http(null, null, values)
-                .then(() => window.location.reload());
+            .then(() => window.location.reload());
           }}
       >
         <Form.Item name="type" label="类型">
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
-            <Select.Option value={'COPY'} disabled={isDisposal}>抄告单</Select.Option>
-            <Select.Option value={'OPINION'} disabled={isDisposal}>意见书</Select.Option>
-            <Select.Option value={'ADVICE'} disabled={isDisposal}>建议书</Select.Option>
-            <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
+            {isDisposal ?
+                <>
+                  <Select.Option value={'1'}>约谈</Select.Option>
+                  <Select.Option value={'2'}>提醒谈话</Select.Option>
+                </>
+                :
+                <>
+                  <Select.Option value={'COPY'} disabled={isDisposal}>抄告单</Select.Option>
+                  <Select.Option value={'OPINION'} disabled={isDisposal}>意见书</Select.Option>
+                  <Select.Option value={'ADVICE'} disabled={isDisposal}>建议书</Select.Option>
+                  <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
+                </>
+            }
           </Select>
         </Form.Item>
         <Divider/>

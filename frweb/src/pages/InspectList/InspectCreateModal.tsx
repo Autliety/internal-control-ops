@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, DatePicker, Form, Input, Modal, Space } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Modal, Space, Upload } from 'antd';
+import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined, UploadOutlined } from '@ant-design/icons';
 
 import UserSelectCascader from '../../components/UserSelectCascader';
 import SelectUser from '../../components/SelectUser';
@@ -101,6 +101,9 @@ export default function InspectCreateModal() {
                 </>
             )}
           </Form.List>
+        </Form.Item>
+        <Form.Item name="upload" label="附件上传">
+          <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
         </Form.Item>
 
       </Form>

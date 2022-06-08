@@ -1,6 +1,6 @@
 import React from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, Select, Typography } from 'antd';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal, Select, Upload } from 'antd';
 import SelectUser from '../../components/SelectUser';
 
 function ImportantCreateModal() {
@@ -52,6 +52,10 @@ function ImportantCreateModal() {
           <Input.TextArea placeholder={'简要介绍'}/>
         </Form.Item>
       </Form>
+      <Form.Item name="upload" label="附件上传">
+        <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
+      </Form.Item>
+
     </Modal>
   </>;
 }
