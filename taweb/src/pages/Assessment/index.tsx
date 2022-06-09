@@ -1,26 +1,27 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Divider, Space, Statistic } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProCard from '@ant-design/pro-card';
 import { useHttp } from '../../utils/request';
 import AssessmentInfo from './AssessmentInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import PlanCreateModal from './PlanCreateModal';
 
 export default function Assessment() {
 
   const { id } = useParams();
-  const navigate = useNavigate();
   const { state } = useHttp(`/assessment/${id}`);
 
   return <>
     <PageContainer
-        title={<><ArrowLeftOutlined onClick={() => navigate(-1)}/> 考核指标详情</>}
         content={<Space size={'large'}>
           <Statistic title={'编号'} value={state.code || state.id}/>
           <Statistic title={'名称'} value={state.name}/>
         </Space>}
+        extra={[
+          <PlanCreateModal assessment={state}/>
+        ]}
     >
       <Divider orientation="left">基本信息</Divider>
       <AssessmentInfo data={state}/>

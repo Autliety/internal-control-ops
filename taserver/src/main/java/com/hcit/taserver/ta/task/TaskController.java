@@ -3,7 +3,9 @@ package com.hcit.taserver.ta.task;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,12 @@ public class TaskController {
   }
 
   @GetMapping("/{id}")
-  public Task fetch(@PathVariable Integer id) {
+  public Task fetch(@PathVariable Long id) {
     return taskService.findById(id);
+  }
+
+  @PatchMapping("/{id}")
+  public Task update(@RequestBody Task task) {
+    return taskService.update(task);
   }
 }

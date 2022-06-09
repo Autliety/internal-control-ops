@@ -29,7 +29,7 @@ public class AssessmentService {
     return assessmentRepository.findAll();
   }
 
-  public Assessment findById(Integer id) {
+  public Assessment findById(Long id) {
     return assessmentRepository.findById(id).orElseThrow();
   }
 

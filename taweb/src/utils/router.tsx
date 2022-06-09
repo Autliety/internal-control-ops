@@ -41,7 +41,7 @@ export const router = {
         },
         {
           name: '增减分考核指标',
-          path: '/assessment/temporary',
+          path: '/assessment/addition',
           disabled: true,
         },
       ],
@@ -56,18 +56,7 @@ export const router = {
       name: '工作进度',
       icon: <FundProjectionScreenOutlined/>,
       path: '/task',
-      routes: [
-        {
-          name: '时限工作进度',
-          path: '/task/basic',
-          element: <TaskList/>,
-        },
-        {
-          name: '无时限工作进度',
-          path: '/task/unlimited',
-          disabled: true,
-        },
-      ],
+      element: <TaskList/>,
     },
     {
       name: '考评情况',
@@ -75,16 +64,33 @@ export const router = {
       path: '/appraisal',
       routes: [
         {
-          name: '计划制定考评',
+          name: '计划执行考评',
           path: '/appraisal/plan',
           disabled: true,
         },
         {
-          name: '实际工作考评',
-          path: '/appraisal/actual',
+          name: '增减分考评',
+          path: '/appraisal/addition',
           disabled: true,
         },
       ],
+    },
+    {
+      name: '预警事项',
+      icon: <ClusterOutlined/>,
+      disabled: true,
+      routes: [
+        {
+          name: '预警提醒',
+          path: '/dept/depts',
+          element: <Department/>,
+        },
+        {
+          name: '预警追踪',
+          path: '/dept/depts',
+          element: <Department/>,
+        },
+      ]
     },
     {
       name: '系统设置',
@@ -134,11 +140,13 @@ export const router = {
       hideInMenu: true,
     },
     {
+      name: '计划详情',
       path: '/plan/:id',
       element: <Plan/>,
       hideInMenu: true,
     },
     {
+      name: '进度详情',
       path: '/task/:id',
       element: <Task/>,
       hideInMenu: true,

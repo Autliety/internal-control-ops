@@ -14,12 +14,12 @@ export default function TaskList() {
   const { state, loading } = useHttp('/task', { initState: [] });
 
   const columns: ProColumns[] = [
-    { title: '指标编号', dataIndex: ['plan', 'assessment', 'code'] },
-    { title: '指标名称', dataIndex: ['plan', 'assessment', 'name'] },
-    { title: '计划编号', dataIndex: ['plan', 'code'] },
-    { title: '责任单位', dataIndex: ['plan', 'department', 'name'] },
-    { title: '进度更新时间', dataIndex: 'updatedTime', render: () => '2022-01-01' },
-    { title: '总体工作进度', dataIndex: '0.4', render: () => <Progress percent={40} size={'small'}/> },
+    { title: '指标编号', dataIndex: ['planDetail', 'plan', 'assessment', 'code'] },
+    { title: '指标名称', dataIndex: ['planDetail', 'plan', 'assessment', 'name'] },
+    { title: '计划编号', dataIndex: ['planDetail', 'plan', 'code'] },
+    { title: '责任单位', dataIndex: ['planDetail', 'plan', 'department', 'name'] },
+    { title: '进度更新时间', dataIndex: 'updatedTime' },
+    { title: '总体工作进度', dataIndex: 'progress', render: () => <Progress percent={0} size={'small'}/> },
     {
       title: '操作',
       dataIndex: 'operation',

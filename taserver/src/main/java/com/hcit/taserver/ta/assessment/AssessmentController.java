@@ -40,7 +40,7 @@ public class AssessmentController {
   }
 
   @GetMapping("/{id}")
-  public Assessment fetch(@PathVariable Integer id) {
+  public Assessment fetch(@PathVariable Long id) {
     return assessmentService.findById(id);
   }
 

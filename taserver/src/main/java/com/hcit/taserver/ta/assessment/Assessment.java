@@ -1,14 +1,17 @@
 package com.hcit.taserver.ta.assessment;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.ValueType;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +21,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -39,7 +43,7 @@ import org.hibernate.annotations.FetchMode;
 public class Assessment {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @ExcelProperty("编号")
   @ApiModelProperty("编号")
@@ -93,5 +97,9 @@ public class Assessment {
 
   @CreationTimestamp
   private LocalDate createDate;
+
+  @JsonIgnoreProperties({"plan"})
+  @OneToMany(mappedBy = "assessment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  private List<Plan> plan;
 
 }
