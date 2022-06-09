@@ -2,6 +2,7 @@ package com.hcit.taserver.ta.plan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.ValueType;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.ta.task.Task;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -32,6 +33,9 @@ public class Detail {
   @JsonIgnoreProperties({"detail"})
   @ManyToOne
   private Plan plan;
+
+  @ManyToOne
+  private User user;
 
   private String name;
 

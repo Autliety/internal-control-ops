@@ -3,6 +3,7 @@ package com.hcit.taserver.ta.plan;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.ta.assessment.Assessment;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,11 +53,15 @@ public class Plan {
   @ManyToOne
   private Department department;
 
+  @ManyToOne
+  private User user;
+
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
   @JsonIgnoreProperties({"plan"})
   @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Detail> detail;
+
 
 }
