@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { ContainerOutlined } from '@ant-design/icons';
 
 import { useHttp } from '../../utils/request';
-import CreateModal from './CreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { ProColumns } from '@ant-design/pro-table';
 
@@ -25,11 +24,7 @@ export default function PlanList() {
   const navigate = useNavigate();
   const { state } = useHttp('/plan', { initState: [] });
 
-  return <PageContainer
-      extra={[
-        <CreateModal/>,
-      ]}
-  >
+  return <PageContainer>
 
     <BaseEditableTable
         columns={planColumns.concat({

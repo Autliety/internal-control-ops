@@ -11,13 +11,13 @@ VALUES
 ;
 
 INSERT INTO
-  ta_plan_detail (id, name, remark, value, value_type, plan_id)
+  ta_task (id, remark, status, value, value_type)
 VALUES
-  (1, '测试利用外资计划', '测试数据', '160000', 'MONEY', 1);
+  (1, '测试工作进度', 'NONE_REVIEW', '80000', 'MONEY');
 ;
 
 INSERT INTO
-  ta_task (id, remark, status, value, value_type, plan_detail_id)
+  ta_plan_detail (id, name, remark, value, value_type, plan_id, task_id)
 VALUES
-  (1, '测试工作进度', 'NONE_REVIEW', '80000', 'MONEY', 1);
+  (1, '测试利用外资计划', '测试数据', '160000', 'MONEY', 1, 1);
 ;

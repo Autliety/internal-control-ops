@@ -5,15 +5,8 @@ import com.hcit.taserver.common.ValueType;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.ta.task.Task;
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,7 +44,7 @@ public class Detail {
   private LocalDate endDate;
 
   @JsonIgnoreProperties({"planDetail"})
-  @OneToOne(mappedBy = "planDetail")
+  @OneToOne(cascade = CascadeType.ALL)
   private Task task;
 
 }

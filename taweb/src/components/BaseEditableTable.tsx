@@ -9,13 +9,23 @@ export default function BaseEditableTable(
       isSearch = false,
       disableAdd = false,
       value = [],
-      onChange = (_: any[]) => {},
+      onChange = (_: any[]) => {
+      },
       ...restProps
     }) {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
 
   const [collapsed, setCollapsed] = React.useState(true);
+
+  const getColumns = (columns: any) => {
+    columns.forEach(c => {
+      if (Array.isArray(c.dataIndex)) {
+        c.dataIndex = c.dataIndex[0];
+      }
+    })
+    return columns;
+  }
 
   return <EditableProTable
       bordered
@@ -27,7 +37,7 @@ export default function BaseEditableTable(
 
       pagination={{ hideOnSinglePage: true, ...restProps.pagination }}
       rowKey={'key'}
-      columns={isInEdit ? columns.filter(c => c.dataIndex !== 'operation').concat({
+      columns={isInEdit ? getColumns(columns).filter(c => c.dataIndex !== 'operation').concat({
             title: '操作',
             width: 150,
             valueType: 'option',

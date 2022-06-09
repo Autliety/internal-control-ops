@@ -1,25 +1,85 @@
 import React from 'react';
 import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
-import { Progress } from 'antd';
+import { Button, Input, Progress, Space, Tag } from 'antd';
+import { FooterToolbar } from '@ant-design/pro-layout';
+import { useHttp } from '../../utils/request';
+import { planStatus } from '../../utils/nameMap';
+import valueTypeMap from '../../utils/valueTypeMap';
 
-export default function TaskInfo({ data }) {
+export default function TaskInfo({ data, pathname }) {
+
+  const [isEdit, setIsEdit] = React.useState(false);
+  const { http } = useHttp(pathname, { method: 'PATCH', isManual: true });
+
+  const [tmpData, setTmpData] = React.useState<any>({});
+
+  function mergeTmpData(key, value) {
+    setTmpData(orig => {
+      return { ...orig, [key]: value };
+    });
+  }
+
   const columns: ColumnDef[] = [
-    { title: '责任部门', dataIndex: ['plan', 'department', 'name'] },
-    { title: '状态', dataIndex: 'status', render: () => '已审核' },
+    {
+      title: '当前状态',
+      dataIndex: 'status',
+      render: text => <Tag color={planStatus[text]?.tag}>{planStatus[text]?.label}</Tag>,
+      renderFormItem: () => <Tag color={planStatus[data.status]?.tag}>{planStatus[data.status]?.label}</Tag>
+    },
+    { title: '执行人', dataIndex: ['user', 'name'] },
     {
       title: '总体进度', dataIndex: 'progress',
-      render: () => <Progress percent={40} />,
+      render: () => <Progress percent={40}/>,
+      renderFormItem: () => <Progress percent={40}/>
     },
-    { title: '当前加权分', dataIndex: 'currentPoint', render: () => 0.02 },
-    { title: '创建时间', dataIndex: 'createTime' },
-    { title: '更新时间', dataIndex: 'updateTime' },
+    {
+      title: '目标完成值',
+      dataIndex: 'value',
+      render: (text, record: any) => valueTypeMap(text, record?.valueType),
+      renderFormItem: () => <Input
+          defaultValue={data.value}
+          placeholder={'当前目标完成值'}
+          onChange={e => mergeTmpData('value', e.target.value)}
+      />
+    },
+    {
+      title: '备注',
+      dataIndex: 'remark',
+      renderFormItem: () => <Input.TextArea
+          placeholder={'备注'}
+          rows={1}
+          defaultValue={data.remark}
+          onChange={e => mergeTmpData('remark', e.target.value)}
+      />
+    },
   ];
 
   return <>
     <EditableDescriptions
         columns={columns}
         data={data}
-        isEdit={false}
+        isEdit={isEdit}
     />
+    <FooterToolbar>
+      {
+          isEdit || <Button type={'primary'} onClick={() => setIsEdit(true)}>编辑</Button>
+      }
+      {
+          isEdit && <Space>
+            <Button
+                type={'primary'}
+                onClick={() => http(null, null, {
+                  'id': data.id,
+                  'status': data.status,
+                  'value': tmpData.value || data.value,
+                  'remark': tmpData.remark || data.remark,
+                }).then(() => window.location.reload())}
+            >
+              保存
+            </Button>
+            <Button type={'default'} onClick={() => setIsEdit(false)}>取消</Button>
+          </Space>
+      }
+    </FooterToolbar>
   </>;
 }

@@ -181,6 +181,16 @@ export const countingStatus = {
   CANCEL: { label: '已取消', tag: 'error' },
 }
 
+//*********************************************************************************
+
+// 工作状态
+export const planStatus = {
+  NONE_REVIEW: { label: '未提交审核', tag: 'default' },
+  AWAITING_REVIEW: { label: '待审核', tag: 'warning' },
+  REVIEWED: { label: '审核完成', tag: 'processing' },
+  REVIEW_DENIED: { label: '审核不通过', tag: 'error' },
+  FINISHED: { label: '已完成', tag: 'success' },
+}
 
 // 权限类别
 export const permissionType = {

@@ -31,7 +31,7 @@ public class Task {
   private Long id;
 
   @JsonIgnoreProperties({"task"})
-  @OneToOne
+  @OneToOne(mappedBy = "task")
   private Detail planDetail;
 
   @Enumerated(EnumType.STRING)

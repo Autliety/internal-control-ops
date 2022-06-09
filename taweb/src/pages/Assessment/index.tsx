@@ -20,7 +20,7 @@ export default function Assessment() {
           <Statistic title={'名称'} value={state.name}/>
         </Space>}
         extra={[
-          <PlanCreateModal assessment={state}/>
+          <PlanCreateModal/>
         ]}
     >
       <Divider orientation="left">基本信息</Divider>
