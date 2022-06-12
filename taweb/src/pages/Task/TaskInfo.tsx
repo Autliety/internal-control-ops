@@ -1,10 +1,11 @@
 import React from 'react';
 import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
-import { Button, Input, Progress, Space, Tag } from 'antd';
+import { Button, Input, Progress, Tag } from 'antd';
 import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../../utils/request';
 import { statusEnumOrigin } from '../../utils/nameMap';
 import valueTypeMap from '../../utils/valueTypeMap';
+import ApproveAndCopyModal from '../../components/ApproveAndCopyModal';
 
 export default function TaskInfo({ data, pathname }) {
 
@@ -24,13 +25,14 @@ export default function TaskInfo({ data, pathname }) {
       title: '当前状态',
       dataIndex: 'status',
       render: text => <Tag color={statusEnumOrigin[text]?.tag}>{statusEnumOrigin[text]?.label}</Tag>,
-      renderFormItem: () => <Tag color={statusEnumOrigin[data.status]?.tag}>{statusEnumOrigin[data.status]?.label}</Tag>
+      renderFormItem: () => <Tag color={statusEnumOrigin[data.status]?.tag}
+      >{statusEnumOrigin[data.status]?.label}</Tag>,
     },
     { title: '执行人', dataIndex: ['user', 'name'] },
     {
       title: '总体进度', dataIndex: 'progress',
       render: () => <Progress percent={40}/>,
-      renderFormItem: () => <Progress percent={40}/>
+      renderFormItem: () => <Progress percent={40}/>,
     },
     {
       title: '目标完成值',
@@ -40,7 +42,7 @@ export default function TaskInfo({ data, pathname }) {
           defaultValue={data.value}
           placeholder={'当前目标完成值'}
           onChange={e => mergeTmpData('value', e.target.value)}
-      />
+      />,
     },
     {
       title: '备注',
@@ -50,7 +52,7 @@ export default function TaskInfo({ data, pathname }) {
           rows={1}
           defaultValue={data.remark}
           onChange={e => mergeTmpData('remark', e.target.value)}
-      />
+      />,
     },
   ];
 
@@ -61,11 +63,8 @@ export default function TaskInfo({ data, pathname }) {
         isEdit={isEdit}
     />
     <FooterToolbar>
-      {
-          isEdit || <Button type={'primary'} onClick={() => setIsEdit(true)}>编辑</Button>
-      }
-      {
-          isEdit && <Space>
+      {isEdit ?
+          <>
             <Button
                 type={'primary'}
                 onClick={() => http(null, null, {
@@ -78,7 +77,12 @@ export default function TaskInfo({ data, pathname }) {
               保存
             </Button>
             <Button type={'default'} onClick={() => setIsEdit(false)}>取消</Button>
-          </Space>
+          </>
+          :
+          <>
+            <Button onClick={() => setIsEdit(true)}>更新进度</Button>
+            <ApproveAndCopyModal onSubmit={() => {}} />
+          </>
       }
     </FooterToolbar>
   </>;

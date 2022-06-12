@@ -47,13 +47,13 @@ export default function Assessment() {
       <Divider orientation="left">指标责任部门</Divider>
       <BaseEditableTable
           columns={[
-            { title: '部门', dataIndex: 'name' },
+            { title: '部门', dataIndex: 'dName' },
             { title: '计划审核状态', dataIndex: 'status', valueEnum: statusEnum },
-            { title: '计划措施数', dataIndex: 'count' },
+            { title: '计划措施数', dataIndex: 'detailCount' },
           ]}
           value={state.respDepartment?.map(d => ({
-            name: d.name,
-            status: state.plan?.find(p => p.department.id === d.id)?.status,
+            dName: d.name,
+            ...state.plan?.find(p => p.department.id === d.id)
           }))}
       />
 

@@ -5,9 +5,9 @@ import { Divider, Space, Statistic } from 'antd';
 
 import { useHttp } from '../../utils/request';
 import PlanInfo from './PlanInfo';
-import DemoUpperResponse from '../../components/DemoUpperResponse';
 import PlanDetailTable from './PlanDetailTable';
 import AssessmentInfo from '../Assessment/AssessmentInfo';
+import ApprovalTable from '../../components/ApprovalTable';
 
 export default function Plan() {
 
@@ -29,8 +29,8 @@ export default function Plan() {
     <Divider orientation={'left'}>{'计划措施'}</Divider>
     <PlanDetailTable value={state.detail}/>
 
-    <Divider orientation='left'>审核意见</Divider>
-    <DemoUpperResponse/>
+    <Divider orientation='left'>审核流程</Divider>
+    <ApprovalTable value={state.approval}/>
 
   </PageContainer>;
 }

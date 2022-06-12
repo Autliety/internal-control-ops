@@ -12,7 +12,7 @@ export const planColumns: ProColumns[] = [
   { title: '指标编号', dataIndex: ['assessment', 'code'], hideInDescriptions: true },
   { title: '指标名称', dataIndex: ['assessment', 'name'], hideInDescriptions: true },
   { title: '计划编号', dataIndex: 'code' },
-  { title: '措施数', dataIndex: 'count', valueType: 'digit' },
+  { title: '措施数', dataIndex: 'detailCount', valueType: 'digit' },
   { title: '责任单位', dataIndex: ['department', 'name'] },
   { title: '负责人', dataIndex: ['user', 'name'] },
   { title: '计划完整度', dataIndex: 'progress', render: () => '100%' },

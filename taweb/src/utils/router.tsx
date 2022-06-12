@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   ProjectOutlined,
   ReconciliationOutlined,
+  WarningOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons';
 
@@ -76,7 +77,7 @@ export const router = {
     },
     {
       name: '预警事项',
-      icon: <ClusterOutlined/>,
+      icon: <WarningOutlined/>,
       path: 'warning',
       routes: [
         {
@@ -89,7 +90,7 @@ export const router = {
           path: '/warning/trace',
           disabled: true,
         },
-      ]
+      ],
     },
     {
       name: '系统设置',
