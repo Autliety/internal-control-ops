@@ -15,6 +15,7 @@ export default function Department({ withUser = false }) {
   const [deptId, setDeptId] = React.useState('');
   const [deptName, setDeptName] = React.useState('');
   const { state: stationState } = useHttp(`/station?deptId=${deptId}`, { initState: [], isManual: deptId === '' });
+  const { state: userState } = useHttp(`/user?deptId=${deptId}`, { initState: [], isManual: deptId === '' });
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [initData, setInitData] = React.useState<any>({});
@@ -33,7 +34,7 @@ export default function Department({ withUser = false }) {
       <Col span={13} className='content'>
         <List
             header={<p>{deptName} 岗位信息</p>}
-            dataSource={stationState}
+            dataSource={withUser ? userState : stationState}
             locale={{ emptyText: '暂无数据，点击左侧部门名称查看岗位信息' }}
             renderItem={(item: any) => (
                 <List.Item
@@ -46,7 +47,7 @@ export default function Department({ withUser = false }) {
                       avatar={<Avatar style={{ backgroundColor: '#1890ff' }}
                                       icon={withUser ? <UserOutlined/> : <LaptopOutlined/>}/>}
                       title={item.name}
-                      description={withUser && `电话：188XXXX0998`}
+                      description={withUser && item.station?.name}
                   />
                 </List.Item>
             )}

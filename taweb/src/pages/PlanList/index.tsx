@@ -16,7 +16,7 @@ export const planColumns: ProColumns[] = [
   { title: '责任单位', dataIndex: ['department', 'name'] },
   { title: '负责人', dataIndex: ['user', 'name'] },
   { title: '计划完整度', dataIndex: 'progress', render: () => '100%' },
-  { title: '更新时间', dataIndex: 'updateTime' },
+  { title: '更新时间', dataIndex: 'updateTime', valueType: 'dateTime' },
 ];
 
 export default function PlanList() {

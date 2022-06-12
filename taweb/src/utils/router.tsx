@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 
 import Home from '../pages/Home';
-import Settings from '../pages/Settings';
 import AssessmentList from '../pages/AssessmentList';
 import Assessment from '../pages/Assessment';
 import PlanList from '../pages/PlanList';
@@ -78,38 +77,38 @@ export const router = {
     {
       name: '预警事项',
       icon: <ClusterOutlined/>,
-      disabled: true,
+      path: 'warning',
       routes: [
         {
           name: '预警提醒',
-          path: '/dept/depts',
-          element: <Department/>,
+          path: '/warning/tip',
+          disabled: true,
         },
         {
           name: '预警追踪',
-          path: '/dept/depts',
-          element: <Department/>,
+          path: '/warning/trace',
+          disabled: true,
         },
       ]
     },
     {
       name: '系统设置',
       icon: <ClusterOutlined/>,
-      path: '/dept',
+      path: '/setting',
       routes: [
         {
           name: '组织架构',
-          path: '/dept/depts',
+          path: '/setting/department',
           element: <Department/>,
         },
         {
           name: '员工档案',
-          path: '/dept/users',
+          path: '/setting/user',
           element: <Department withUser/>,
         },
         {
           name: '权限管理',
-          path: '/dept/permission',
+          path: '/setting/permission',
           element: <Permission/>,
         },
       ],
@@ -149,11 +148,6 @@ export const router = {
       name: '进度详情',
       path: '/task/:id',
       element: <Task/>,
-      hideInMenu: true,
-    },
-    {
-      path: '/admin/settings',
-      element: <Settings/>,
       hideInMenu: true,
     },
   ],

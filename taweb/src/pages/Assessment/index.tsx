@@ -7,6 +7,7 @@ import { useHttp } from '../../utils/request';
 import AssessmentInfo from './AssessmentInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import PlanCreateModal from './PlanCreateModal';
+import { statusEnum } from '../../utils/nameMap';
 
 export default function Assessment() {
 
@@ -20,7 +21,7 @@ export default function Assessment() {
           <Statistic title={'名称'} value={state.name}/>
         </Space>}
         extra={[
-          <PlanCreateModal/>
+          <PlanCreateModal/>,
         ]}
     >
       <Divider orientation="left">基本信息</Divider>
@@ -47,9 +48,13 @@ export default function Assessment() {
       <BaseEditableTable
           columns={[
             { title: '部门', dataIndex: 'name' },
-            { title: '相关计划数', dataIndex: 'count' },
+            { title: '计划审核状态', dataIndex: 'status', valueEnum: statusEnum },
+            { title: '计划措施数', dataIndex: 'count' },
           ]}
-          value={state.respDepartment}
+          value={state.respDepartment?.map(d => ({
+            name: d.name,
+            status: state.plan?.find(p => p.department.id === d.id)?.status,
+          }))}
       />
 
     </PageContainer>

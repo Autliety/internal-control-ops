@@ -1,6 +1,8 @@
 package com.hcit.taserver.ta.plan;
 
+import com.hcit.taserver.ta.assessment.AssessmentService;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlanController {
 
   private final PlanService planService;
+  private final AssessmentService assessmentService;
 
   /*具体计划CRUD*/
   @GetMapping
-  public List<Plan> fetchAll(Plan plan) {
-    return planService.findAllByCondition(plan);
+  public List<Plan> fetchAll() {
+    return assessmentService.demoFilteredFindAll().stream().flatMap(a -> a.getPlan().stream()).collect(Collectors.toList());
   }
 
   /*具体查询一条计划by计划id*/

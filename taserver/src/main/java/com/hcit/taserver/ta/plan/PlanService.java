@@ -31,7 +31,7 @@ public class PlanService {
 
   public Plan create(Plan plan) {
     plan.setId(null);
-    plan.setCode(null);
+    plan.setCode("JH2022-0001"); // todo generate code
     plan.setStatus(Status.AWAITING_REVIEW);
     if (!CollectionUtils.isEmpty(plan.getDetail())) {
       plan.getDetail().forEach(d -> {

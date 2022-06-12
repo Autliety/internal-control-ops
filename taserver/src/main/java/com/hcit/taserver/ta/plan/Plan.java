@@ -24,6 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.CollectionUtils;
 
 /*
  * 措施
@@ -63,5 +64,8 @@ public class Plan {
   @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Detail> detail;
 
+  public Integer getDetailCount() {
+    return CollectionUtils.isEmpty(detail) ? null : detail.size();
+  }
 
 }

@@ -7,7 +7,7 @@ export default function PlanInfo({ data }) {
   return <>
     <BaseDescriptions
         columns={planColumns}
-        dataSource={data?.plan}
+        dataSource={data}
     />
     <BaseDescriptions
         columns={[

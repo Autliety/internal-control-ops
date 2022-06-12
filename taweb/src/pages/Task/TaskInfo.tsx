@@ -3,7 +3,7 @@ import EditableDescriptions, { ColumnDef } from '../../components/EditableDescri
 import { Button, Input, Progress, Space, Tag } from 'antd';
 import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../../utils/request';
-import { planStatus } from '../../utils/nameMap';
+import { statusEnumOrigin } from '../../utils/nameMap';
 import valueTypeMap from '../../utils/valueTypeMap';
 
 export default function TaskInfo({ data, pathname }) {
@@ -23,8 +23,8 @@ export default function TaskInfo({ data, pathname }) {
     {
       title: '当前状态',
       dataIndex: 'status',
-      render: text => <Tag color={planStatus[text]?.tag}>{planStatus[text]?.label}</Tag>,
-      renderFormItem: () => <Tag color={planStatus[data.status]?.tag}>{planStatus[data.status]?.label}</Tag>
+      render: text => <Tag color={statusEnumOrigin[text]?.tag}>{statusEnumOrigin[text]?.label}</Tag>,
+      renderFormItem: () => <Tag color={statusEnumOrigin[data.status]?.tag}>{statusEnumOrigin[data.status]?.label}</Tag>
     },
     { title: '执行人', dataIndex: ['user', 'name'] },
     {

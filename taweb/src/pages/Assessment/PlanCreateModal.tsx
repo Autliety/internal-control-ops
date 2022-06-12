@@ -1,19 +1,21 @@
 import React from 'react';
 import { Button, Divider, Modal, Space } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import BaseEditableTable from "../../components/BaseEditableTable";
-import { detailColumns } from "../Plan/PlanDetailTable";
-import UserSelectCascader from "../../components/UserSelectCascader";
-import { useHttp } from "../../utils/request";
-import SelectUser from "../../components/SelectUser";
+import BaseEditableTable from '../../components/BaseEditableTable';
+import { detailColumns } from '../Plan/PlanDetailTable';
+import UserSelectCascader from '../../components/UserSelectCascader';
+import { useHttp } from '../../utils/request';
+import { useAuth } from '../../utils/auth';
+import { useNavigate, useParams } from 'react-router-dom';
 
+export default function PlanCreateModal({ title = '制定计划' }) {
 
-
-export default function PlanCreateModal({ title ='制定计划'}) {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [detailData, setDetailData] = React.useState([]);
-  const [planData, setPlanData] = React.useState({});
   const { http } = useHttp('/plan', { method: 'POST', isManual: true });
 
   return <>
@@ -25,19 +27,25 @@ export default function PlanCreateModal({ title ='制定计划'}) {
         visible={isVisible}
         closable
         onCancel={() => setIsVisible(false)}
-        onOk={() => http(null, null, { ...planData, detail: detailData }).then(() => window.location.reload())}
+        onOk={() => http(null, null, {
+          assessment: { id },
+          user,
+          department: user.department,
+          detail: detailData,
+        }).then(res => navigate(`/plan/${res.id}`))}
     >
 
       <Space size={'large'}>
-        <SelectUser placeholder={'计划负责部门'} onChange={v => setPlanData({ ...planData, department: { id: v } })}/>
-        <UserSelectCascader placeholder={'请选择计划负责人'} onChange={v => setPlanData({ ...planData, user: v })}/>
+        计划负责人:
+        <UserSelectCascader value={user} disabled/>
       </Space>
-      <Divider/>
+      <Divider />
+
       <BaseEditableTable
           columns={detailColumns}
-          isInEdit={isVisible}
+          isInEdit
           value={detailData}
-          onChange={v => setDetailData(v)}
+          onChange={setDetailData}
       />
 
     </Modal>

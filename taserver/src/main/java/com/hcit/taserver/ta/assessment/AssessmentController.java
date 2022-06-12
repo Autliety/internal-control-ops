@@ -26,17 +26,20 @@ public class AssessmentController {
    * */
   @GetMapping
   public Collection<?> fetchAll() {
-    return assessmentService.findAllWithTree().entrySet().stream().map(e1 ->
-        objectMapper.createObjectNode()
-            .put("id", e1.getKey())
-            .put("name", e1.getKey())
-            .set("children", objectMapper.convertValue(e1.getValue().entrySet().stream().map(e2 ->
-                objectMapper.createObjectNode()
-                    .put("id", e2.getKey() + "L2")
-                    .put("name", e2.getKey())
-                    .set("children", objectMapper.convertValue(e2.getValue(), ArrayNode.class))
-            ).collect(Collectors.toList()), ArrayNode.class))
-    ).collect(Collectors.toList());
+    return assessmentService.toTree(assessmentService.demoFilteredFindAll())
+        .entrySet()
+        .stream()
+        .map(e1 ->
+            objectMapper.createObjectNode()
+                .put("id", e1.getKey())
+                .put("name", e1.getKey())
+                .set("children", objectMapper.convertValue(e1.getValue().entrySet().stream().map(e2 ->
+                    objectMapper.createObjectNode()
+                        .put("id", e2.getKey() + "L2")
+                        .put("name", e2.getKey())
+                        .set("children", objectMapper.convertValue(e2.getValue(), ArrayNode.class))
+                ).collect(Collectors.toList()), ArrayNode.class))
+        ).collect(Collectors.toList());
   }
 
   @GetMapping("/{id}")
@@ -44,8 +47,9 @@ public class AssessmentController {
     return assessmentService.findById(id);
   }
 
-  @PostMapping
-  public void test() {
+  @PostMapping("/import")
+//  public void uploadAndImport(MultipartFile file) throws IOException {
+  public void uploadAndImport() {
     assessmentFileService.test();
   }
 
