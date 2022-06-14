@@ -50,6 +50,10 @@ import CommentList from '../pages/CommentList';
 import Comment from '../pages/Comment';
 import RemindList from '../pages/RemindList';
 import Remind from '../pages/Remind';
+import DemocracyList from '../pages/DemocracyList';
+import Democracy from '../pages/Democracy';
+import TalkList from '../pages/TalkList';
+import Talk from '../pages/Talk';
 
 export const router = {
   routes: [
@@ -116,7 +120,7 @@ export const router = {
         {
           name: '5+1谈话机制',
           path: '/lz/talk',
-          disabled: true,
+          element: <TalkList/>,
         },
         {
           name: '监督检查工作',
@@ -162,7 +166,7 @@ export const router = {
         {
           name: '民主（组织）生活会督导',
           path: '/lz/democracy',
-          disabled: true,
+          element: <DemocracyList/>,
         },
         {
           name: '领导干部插手干预重大事项记录报告',
@@ -396,6 +400,18 @@ export const router = {
       name: '相互监督提醒详情',
       path: '/lz/remind/:id',
       element: <Remind/>,
+    },
+    {
+      hideInMenu: true,
+      name: '民主（组织）生活会督导详情',
+      path: '/lz/democracy/:id',
+      element: <Democracy/>,
+    },
+    {
+      hideInMenu: true,
+      name: '5+1 谈话内容详情',
+      path: '/lz/talk/:id',
+      element: <Talk/>,
     }
   ],
 };
