@@ -10,6 +10,7 @@ export default function Report() {
   const data = {
     id: 1,
     user: '王哲',
+    type: '特殊情况报告',
     content: '加强党对教育工作的领导，落实教育优先发展。',
     createDate: '2022-03-12',
     reviewUser: '李勤根',
@@ -19,7 +20,7 @@ export default function Report() {
 
   return <PageContainer>
     <BaseDescriptions columns={reportColumns} dataSource={data}/>
-    <BaseDivider title={'审核流程'} />
+    <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={[]}/>
   </PageContainer>;
 }
