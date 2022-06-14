@@ -43,9 +43,7 @@ export default function TaskList() {
     }
   ];
 
-  return <PageContainer
-      extra={<Button type={'primary'}>新建</Button>}
-  >
+  return <PageContainer>
     <BaseEditableTable
         columns={columns}
         value={state}

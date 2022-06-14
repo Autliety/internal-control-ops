@@ -98,7 +98,7 @@ public class Assessment {
   @CreationTimestamp
   private LocalDate createDate;
 
-  @JsonIgnoreProperties({"plan"})
+  @JsonIgnoreProperties(value = {"plan"}, allowSetters = true)
   @OneToMany(mappedBy = "assessment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Plan> plan;
 

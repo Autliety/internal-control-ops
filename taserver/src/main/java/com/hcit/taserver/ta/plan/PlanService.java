@@ -1,12 +1,10 @@
 package com.hcit.taserver.ta.plan;
 
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.ta.task.Task;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -30,20 +28,11 @@ public class PlanService {
   }
 
   public Plan create(Plan plan) {
-    plan.setId(null);
-    plan.setCode("JH2022-0001"); // todo generate code
-    plan.setStatus(Status.AWAITING_REVIEW);
-    if (!CollectionUtils.isEmpty(plan.getDetail())) {
-      plan.getDetail().forEach(d -> {
-        d.setPlan(plan);
-        d.setTask(Task.builder()
-            .planDetail(d)
-            .status(Status.NONE_REVIEW)
-            .valueType(d.getValueType())
-            .build());
-      });
-    }
     return planRepository.saveAndFlush(plan);
   }
 
+  public void onReviewed(Plan plan) {
+    plan.setStatus(Status.REVIEWED);
+    planRepository.save(plan);
+  }
 }

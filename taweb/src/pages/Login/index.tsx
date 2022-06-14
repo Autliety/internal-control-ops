@@ -29,7 +29,7 @@ export default function Login() {
     </Layout.Header>
     <Row>
       <Col span={16}/>
-      <Col span={4} className={'bgStyle'} style={{ minWidth: 400, marginTop: 100 }}>
+      <Col span={4} className={'bgStyle'} style={{ minWidth: 360, marginTop: 100 }}>
         <LoginForm
             onFinish={async (values: any) => {
               await http(null, null, qs.stringify(values));

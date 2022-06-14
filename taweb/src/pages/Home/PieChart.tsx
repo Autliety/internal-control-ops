@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 
-export default function AssetPieChart({ title, value, options }) {
+export default function PieChart({ title }) {
 
   const option = {
     title: {
@@ -18,7 +18,7 @@ export default function AssetPieChart({ title, value, options }) {
     },
     series: [
       {
-        name: '资产数量',
+        name: '指标情况',
         type: 'pie',
         radius: '50%',
         data: [

@@ -8,6 +8,7 @@ import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import com.hcit.taserver.fr.progress.Progress;
+import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -67,6 +68,7 @@ public class Approval implements BasicPersistable {
     return Optional.ofNullable(step).map(l -> l.get(0)).map(ApprovalStep::getStatus).orElse(null);
   }
 
+  // fr
   @JsonIgnoreProperties({"approval"})
   @OneToOne(cascade = CascadeType.PERSIST)
   private Meeting meeting;
@@ -82,6 +84,11 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties({"approval"})
   @OneToOne(cascade = CascadeType.PERSIST)
   private Progress progress;
+
+  // ta
+  @JsonIgnoreProperties({"approval"})
+  @OneToOne(cascade = CascadeType.PERSIST)
+  private Plan plan;
 }
 
 

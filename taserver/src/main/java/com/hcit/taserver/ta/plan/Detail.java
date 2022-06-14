@@ -23,7 +23,7 @@ public class Detail {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JsonIgnoreProperties({"detail"})
+  @JsonIgnoreProperties(value = {"detail"}, allowSetters = true)
   @ManyToOne
   private Plan plan;
 
@@ -43,7 +43,7 @@ public class Detail {
 
   private LocalDate endDate;
 
-  @JsonIgnoreProperties({"planDetail"})
+  @JsonIgnoreProperties(value = {"planDetail"}, allowSetters = true)
   @OneToOne(cascade = CascadeType.ALL)
   private Task task;
 

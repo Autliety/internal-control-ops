@@ -31,7 +31,7 @@ public class ApprovalStep implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JsonIgnoreProperties("step")
+  @JsonIgnoreProperties(value = "step", allowSetters = true)
   @ManyToOne
   private Approval approval;
 

@@ -35,7 +35,7 @@ public class Station implements BasicPersistable {
   @ManyToOne
   private Department department;
 
-  @JsonIgnoreProperties("station")
+  @JsonIgnoreProperties(value = "station", allowSetters = true)
   @OneToMany(mappedBy = "station", fetch = FetchType.EAGER)
   private Collection<User> users;
 

@@ -30,7 +30,7 @@ public class Task {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JsonIgnoreProperties({"task"})
+  @JsonIgnoreProperties(value = {"task"}, allowSetters = true)
   @OneToOne(mappedBy = "task")
   private Detail planDetail;
 

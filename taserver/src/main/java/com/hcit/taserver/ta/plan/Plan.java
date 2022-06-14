@@ -1,6 +1,7 @@
 package com.hcit.taserver.ta.plan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,7 +49,7 @@ public class Plan {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @JsonIgnoreProperties({"plan"})
+  @JsonIgnoreProperties(value = {"plan"}, allowSetters = true)
   @ManyToOne
   private Assessment assessment;
 
@@ -60,7 +62,7 @@ public class Plan {
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
-  @JsonIgnoreProperties({"plan"})
+  @JsonIgnoreProperties(value = {"plan"}, allowSetters = true)
   @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Detail> detail;
 
@@ -68,4 +70,7 @@ public class Plan {
     return CollectionUtils.isEmpty(detail) ? null : detail.size();
   }
 
+  @JsonIgnoreProperties(value = {"plan"}, allowSetters = true)
+  @OneToOne(mappedBy = "plan")
+  private Approval approval;
 }

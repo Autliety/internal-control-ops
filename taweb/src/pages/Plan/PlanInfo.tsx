@@ -1,7 +1,6 @@
 import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { planColumns } from '../PlanList';
-import valueTypeMap from '../../utils/valueTypeMap';
 
 export default function PlanInfo({ data }) {
   return <>
@@ -9,6 +8,8 @@ export default function PlanInfo({ data }) {
         columns={planColumns}
         dataSource={data}
     />
+
+{/*
     <BaseDescriptions
         columns={[
           { title: '总目标值', dataIndex: 'value', render: (text, record: any) => valueTypeMap(text, record?.valueType) },
@@ -16,5 +17,6 @@ export default function PlanInfo({ data }) {
         ]}
         dataSource={data}
     />
+*/}
   </>;
 }
