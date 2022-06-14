@@ -42,6 +42,14 @@ import Risk from '../pages/Risk';
 import ThreeList from '../pages/ThreeList';
 import Three from '../pages/Three';
 import Discipline from '../pages/Discipline';
+import LeaderList from '../pages/LeaderList';
+import Leader from '../pages/Leader';
+import PersonList from '../pages/PersonList';
+import Person from '../pages/Person';
+import CommentList from '../pages/CommentList';
+import Comment from '../pages/Comment';
+import RemindList from '../pages/RemindList';
+import Remind from '../pages/Remind';
 
 export const router = {
   routes: [
@@ -129,7 +137,7 @@ export const router = {
         {
           name: '相互监督提醒',
           path: '/lz/remind',
-          disabled: true,
+          element: <RemindList/>,
         },
         {
           name: '年度履责报告',
@@ -139,7 +147,7 @@ export const router = {
         {
           name: '述责述廉评议',
           path: '/lz/comment',
-          disabled: true,
+          element: <CommentList/>,
         },
         // {
         //   name: '违纪违法上报',
@@ -148,8 +156,8 @@ export const router = {
         // },
         {
           name: '个人有关事项报告及公开',
-          path: '/lz/important',
-          element: <ImportantList/>,
+          path: '/lz/person',
+          element: <PersonList/>,
         },
         {
           name: '民主（组织）生活会督导',
@@ -159,7 +167,7 @@ export const router = {
         {
           name: '领导干部插手干预重大事项记录报告',
           path: '/lz/leader',
-          disabled: true,
+          element: <LeaderList/>,
         },
         {
           name: '政治生态分析研判',
@@ -365,6 +373,30 @@ export const router = {
       path: '/lz/discipline/:id',
       element: <Discipline/>,
     },
+    {
+      hideInMenu: true,
+      name: '领导干部插手干预重大事项记录报告详情',
+      path: '/lz/leader/:id',
+      element: <Leader/>,
+    },
+    {
+      hideInMenu: true,
+      name: '个人有关事项报告及公开详情',
+      path: '/lz/person/:id',
+      element: <Person/>,
+    },
+    {
+      hideInMenu: true,
+      name: '述责述廉评议详情',
+      path: '/lz/comment/:id',
+      element: <Comment/>
+    },
+    {
+      hideInMenu: true,
+      name: '相互监督提醒详情',
+      path: '/lz/remind/:id',
+      element: <Remind/>,
+    }
   ],
 };
 
