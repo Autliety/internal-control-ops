@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   AuditOutlined,
+  BulbOutlined,
   HomeOutlined,
   ProfileOutlined,
   SecurityScanOutlined,
@@ -34,7 +35,6 @@ import Disposal from '../pages/Disposal';
 import Progress from '../pages/Progress';
 import Permission from '../pages/Permission';
 import InspectList from '../pages/InspectList';
-import ImportantList from '../pages/ImportantList';
 import Important from '../pages/Important';
 import Question from '../pages/Question';
 import QuestionList from '../pages/QuestionList';
@@ -65,7 +65,7 @@ export const router = {
     },
     {
       name: '明责',
-      icon: <HomeOutlined/>,
+      icon: <BulbOutlined/>,
       path: '/mz',
       routes: [
         {

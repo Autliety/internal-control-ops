@@ -3,7 +3,7 @@ import { ProColumns } from '@ant-design/pro-table';
 import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import { Button, Input, Select, Tooltip } from 'antd';
+import { Button, Select, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import { statusEnum } from '../../utils/nameMap';
@@ -13,12 +13,7 @@ import ThreeCreateModal from './ThreeCreateModal';
 export const threeColumns: ProColumns[] = [
   { title: '序号', dataIndex: 'code', hideInForm: true },
   { title: '拟提交事项', dataIndex: 'title' },
-  {
-    title: '拟提交事项内容',
-    dataIndex: 'content',
-    hideInTable: true,
-    renderFormItem: () => <Input.TextArea rows={2}/>
-  },
+  { title: '拟提交事项内容', dataIndex: 'content', valueType: 'textarea', hideInTable: true },
   {
     title: '议题来源',
     dataIndex: 'source',
@@ -28,10 +23,10 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={2}>镇长办公会议商议提交</Select.Option>
       <Select.Option value={3}>书记专题会议酝酿提交</Select.Option>
       <Select.Option value={4}>其他情形</Select.Option>
-    </Select>
+    </Select>,
   },
   { title: '提交人', dataIndex: 'user', renderFormItem: () => <UserSelectCascader/> },
-  { title: '审核状态', dataIndex: 'status', valueEnum: statusEnum },
+  { title: '审核状态', dataIndex: 'status', valueEnum: statusEnum, hideInForm: true },
   { title: '决策时间', dataIndex: 'date', valueType: 'date' },
   {
     title: '决策方式',
@@ -41,7 +36,7 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={1}>举手表决</Select.Option>
       <Select.Option value={2}>书面投票</Select.Option>
       <Select.Option value={3}>其他</Select.Option>
-    </Select>
+    </Select>,
   },
   { title: '决策过程描述', dataIndex: 'process', valueType: 'textarea', hideInTable: true },
   {
@@ -53,9 +48,9 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={2}>退回重新拟定方案、意见等再行决策</Select.Option>
       <Select.Option value={3}>终止提交方案、意见等不再执行</Select.Option>
       <Select.Option value={4}>其他情况</Select.Option>
-    </Select>
+    </Select>,
   },
-  { title: '纪委监督意见', dataIndex: 'result', hideInForm: true, },
+  { title: '纪委监督意见', dataIndex: 'result', hideInForm: true },
 ];
 
 export default function ThreeList() {

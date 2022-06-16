@@ -10,16 +10,16 @@ function TalkCreateModal() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const columns1 = [
-        { title: '谈话对象', dataIndex: 'accepter', render: <UserSelectCascader/> },
-        { title: '谈话实施人', dataIndex: 'executor', render: <UserSelectCascader/> },
-        { title: '谈话事由', dataIndex: 'reason' },
+        { title: '谈话实施人', dataIndex: 'request', render: <UserSelectCascader/> },
+        { title: '谈话对象', dataIndex: 'point', render: <UserSelectCascader/> },
+        { title: '谈话事由', dataIndex: 'title' },
         { title: '谈话内容', dataIndex: 'content' },
-        { title: '谈话对象表态', dataIndex: 'position' },
+        { title: '谈话对象表态', dataIndex: 'response' },
       ],
       columns2 = [
-        { title: '申请谈话人', dataIndex: 'applicant', render: <UserSelectCascader/> },
-        { title: '互谈人', dataIndex: 'another', render: <UserSelectCascader/> },
-        { title: '谈话事由', dataIndex: 'reason' },
+        { title: '申请谈话人', dataIndex: 'request', render: <UserSelectCascader/> },
+        { title: '互谈人', dataIndex: 'point', render: <UserSelectCascader/> },
+        { title: '谈话事由', dataIndex: 'title' },
         { title: '谈话内容', dataIndex: 'content' },
       ],
       talkPoint = [
@@ -31,11 +31,11 @@ function TalkCreateModal() {
         { label: '村（社）、基层站所“一把手”申请向上级党组织负责人（：一把手、纪委负责人、组织部门负责人及分管班子成员）汇报', value: 6 },
       ],
       talkType = [
-        { label: '对应日常谈话、任职谈话、监督谈话', value: 1 },
-        { label: '对应日常谈话、任职（廉政）谈话、集体谈话', value: 2 },
-        { label: '对应日常谈话、监督谈话、勉励谈话', value: 3 },
-        { label: '对应日常谈话、任职谈话（受委托）、监督谈话（受委托）', value: 4 },
-        { label: '对应日常谈话、监督谈话', value: 5 },
+        { label: '日常谈话', value: 1 },
+        { label: '任职（廉政）谈话', value: 2 },
+        { label: '监督谈话', value: 3 },
+        { label: '集体谈话', value: 4 },
+        { label: '勉励谈话', value: 5 },
         { label: '双向互谈', value: 6 },
       ];
 
