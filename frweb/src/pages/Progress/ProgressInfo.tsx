@@ -2,6 +2,7 @@ import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { ProColumns } from '@ant-design/pro-table';
 import { statusEnum } from '../../utils/nameMap';
+import moment from "moment";
 
 export const progressColumns: ProColumns[] = [
   { title: '措施编号', dataIndex: ['measure', 'code'], hideInDescriptions: true, editable: false },
@@ -12,7 +13,7 @@ export const progressColumns: ProColumns[] = [
   { title: '履责情况', dataIndex: 'content', valueType: 'textarea', hideInTable: true },
   { title: '事项完成率', dataIndex: 'percentage', valueType: 'progress' },
   { title: '未完成原因', dataIndex: 'reason', valueType: 'textarea', hideInTable: true },
-  { title: '最后更新时间', dataIndex: 'updateTime', valueType: 'dateTime', editable: false },
+  { title: '最后更新时间', dataIndex: 'updateTime', editable: false, renderText: t => moment(t).format('YYYY-MM-DD HH:mm') },
 ];
 
 export default function ProgressInfo({ dataSource, ...rest }) {

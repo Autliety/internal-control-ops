@@ -3,11 +3,12 @@ import BaseDescriptions from '../../components/BaseDescriptions';
 import { Space, Switch } from 'antd';
 import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import moment from 'moment';
 
 export const matterColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code'},
+  { title: '编号', dataIndex: 'code' },
   {
-    title: '问题来源及类型',
+    title: '来源及类型',
     dataIndex: 'origin',
     valueType: 'cascader',
     fieldProps: {
@@ -50,18 +51,23 @@ export const matterColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '问题内容', dataIndex: 'content' },
+  { title: '问题内容', dataIndex: 'content', valueType: 'textarea' },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   { title: '责任主体', dataIndex: ['department', 'name'], editable: false },
-  { title: '负责人', dataIndex: 'user', render: (u: any) => u.name, renderFormItem: () => <UserSelectCascader /> },
+  { title: '负责人', dataIndex: 'user', render: (u: any) => u.name, renderFormItem: () => <UserSelectCascader/> },
 ];
 
 export default function MatterInfo({ dataSource }) {
+
   return <>
     <BaseDescriptions
         columns={matterColumns.concat([
-          { title: '更新时间', dataIndex: 'updateTime', valueType: 'dateTime' },
-          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch /> 开启动态跟踪</Space> },
+          {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+            renderText: text => moment(text).format('YYYY-MM-DD HH:mm'),
+          },
+          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch/> 开启动态跟踪</Space> },
         ])}
         dataSource={dataSource}
     />
