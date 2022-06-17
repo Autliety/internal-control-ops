@@ -29,7 +29,10 @@ function DemocracyList() {
   const data = [
     {
       id: 1,
-      topic:'555'
+      type: '镇（街道）领导班子民主生活会',
+      condition: '单位遇到重要或普遍性问题',
+      topic:'测试数据',
+      time: '2022-01-01',
     }
   ]
 
