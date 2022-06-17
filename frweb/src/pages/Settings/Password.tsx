@@ -20,7 +20,6 @@ export default function Password() {
         duration: 2,
       });
       form.resetFields();
-
     } else {
       delete values.p_password;
       delete values.username;
@@ -92,17 +91,17 @@ export default function Password() {
 const formLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 },
+    sm: { span: 4 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 6 },
+    sm: { span: 12 },
   },
 };
 const buttonLayout = {
   wrapperCol: {
     xs: { offset: 3, span: 24 },
-    sm: { offset: 8, span: 24 },
+    sm: { offset: 4, span: 24 },
   },
 };
 

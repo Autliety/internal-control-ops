@@ -12,7 +12,7 @@ export const baseColumns: ProColumns[] = [
   { title: '谈话对象', dataIndex: 'point' },
   { title: '谈话类型', dataIndex: 'type' },
   { title: '谈话事由', dataIndex: 'title', hideInDescriptions: true },
-  { title: '谈话时间', dataIndex: 'time' },
+  { title: '谈话时间', dataIndex: 'time', valueType: 'date' },
   { title: '谈话地点', dataIndex: 'placement' },
 ];
 
