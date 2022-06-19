@@ -20,16 +20,19 @@ export default function HeaderRight() {
           placement="bottomCenter"
           overlay={
             <Menu>
-              <Menu.Item key="1" icon={<LoginOutlined />} onClick={() => navigate('/logout')}>
+              <Menu.Item key="1" icon={<UserOutlined/>} onClick={() => navigate('/setting/center')}>
+                个人中心
+              </Menu.Item>
+              <Menu.Item key="2" icon={<LoginOutlined/>} onClick={() => navigate('/logout')}>
                 退出登录
               </Menu.Item>
-              <Menu.Divider />
+              <Menu.Divider/>
             </Menu>
           }
       >
         <Space>
           <span style={{ marginLeft: 10 }}>{user.name}</span>
-          <UserOutlined style={{ fontSize: 18 }} />
+          <UserOutlined style={{ fontSize: 18 }}/>
         </Space>
       </Dropdown>
 

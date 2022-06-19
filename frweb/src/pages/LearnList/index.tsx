@@ -7,21 +7,21 @@ import { EditOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import LearningCreateModal from './LearningCreateModal';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
+import UserSelectCascader from "../../components/UserSelectCascader";
+import { data } from "./data";
 
 export const learningColumns: ProColumns[] = [
-  { title: '年度', dataIndex: 'year' },
-  { title: '月份', dataIndex: 'month' },
+  { title: '年度/月份', dataIndex: 'date', valueType: 'dateMonth' },
   { title: '学习内容', dataIndex: 'content', valueType: 'textarea' },
-  { title: '经办人', dataIndex: 'user', hideInTable: true },
-  { title: '参加对象', dataIndex: 'attendUser', renderFormItem: () => <AttendeeSelectCard /> },
+  { title: '经办人', dataIndex: 'user', hideInTable: true, renderFormItem: () => <UserSelectCascader/> },
+  { title: '参加对象', dataIndex: 'attendUser', renderFormItem: () => <AttendeeSelectCard/> },
   { title: '创建日期', dataIndex: 'createDate', valueType: 'date', hideInForm: true },
 ];
 
 export const learningData = [
   {
     id: 1,
-    year: '2022',
-    month: '1',
+    date: '2022-01',
     content: `会议传达学习了习近平总书记《在中央政协工作会议暨庆祝中国人民政治协商会议成立70周年大会上的讲话》`,
     attendUser: '赵小龙、王哲、吴胜杰、李勤根',
     user: '党委',
@@ -55,7 +55,7 @@ export default function LearnList() {
         <LearningCreateModal/>
       </Space>}
   >
-    <BaseEditableTable columns={columns} value={learningData}/>
+    <BaseEditableTable columns={columns} value={data}/>
   </PageContainer>;
 }
 

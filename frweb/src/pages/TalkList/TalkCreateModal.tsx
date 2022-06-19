@@ -10,11 +10,11 @@ function TalkCreateModal() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   const columns1 = [
-        { title: '谈话实施人', dataIndex: 'request', render: <UserSelectCascader/> },
         { title: '谈话对象', dataIndex: 'point', render: <UserSelectCascader/> },
+        { title: '谈话实施人', dataIndex: 'request', render: <UserSelectCascader/> },
         { title: '谈话事由', dataIndex: 'title' },
         { title: '谈话内容', dataIndex: 'content' },
-        { title: '谈话对象表态', dataIndex: 'response' },
+        { title: '谈话对象表态', dataIndex: 'response', render: <Input placeholder='表态内容'/> },
       ],
       columns2 = [
         { title: '申请谈话人', dataIndex: 'request', render: <UserSelectCascader/> },
@@ -23,20 +23,23 @@ function TalkCreateModal() {
         { title: '谈话内容', dataIndex: 'content' },
       ],
       talkPoint = [
-        { label: '区（镇）“一把手”同村（社）、基层站所（视情）“一把手”谈话', value: 1 },
-        { label: '区（镇）纪委负责人同村（社）、基层站所“一把手”谈话', value: 2 },
-        { label: '区（镇）组织部门负责人同村（社）、基层站所“一把手”谈话', value: 3 },
-        { label: '区（镇）班子成员同分管基层站所“一把手”谈话', value: 4 },
-        { label: '区（镇）、村（社）“一把手”同班子成员谈话', value: 5 },
-        { label: '村（社）、基层站所“一把手”申请向上级党组织负责人（：一把手、纪委负责人、组织部门负责人及分管班子成员）汇报', value: 6 },
+        { label: '区（镇）“一把手”同村（社）、基层站所（视情）“一把手”谈话', value: '区（镇）“一把手”同村（社）、基层站所（视情）“一把手”谈话' },
+        { label: '区（镇）纪委负责人同村（社）、基层站所“一把手”谈话', value: '区（镇）纪委负责人同村（社）、基层站所“一把手”谈话' },
+        { label: '区（镇）组织部门负责人同村（社）、基层站所“一把手”谈话', value: '区（镇）组织部门负责人同村（社）、基层站所“一把手”谈话' },
+        { label: '区（镇）班子成员同分管基层站所“一把手”谈话', value: '区（镇）班子成员同分管基层站所“一把手”谈话' },
+        { label: '区（镇）、村（社）“一把手”同班子成员谈话', value: '区（镇）、村（社）“一把手”同班子成员谈话' },
+        {
+          label: '村（社）、基层站所“一把手”申请向上级党组织负责人（：一把手、纪委负责人、组织部门负责人及分管班子成员）汇报',
+          value: '村（社）、基层站所“一把手”申请向上级党组织负责人（：一把手、纪委负责人、组织部门负责人及分管班子成员）汇报'
+        },
       ],
       talkType = [
-        { label: '日常谈话', value: 1 },
-        { label: '任职（廉政）谈话', value: 2 },
-        { label: '监督谈话', value: 3 },
-        { label: '集体谈话', value: 4 },
-        { label: '勉励谈话', value: 5 },
-        { label: '双向互谈', value: 6 },
+        { label: '日常谈话', value: '日常谈话' },
+        { label: '任职（廉政）谈话', value: '任职（廉政）谈话' },
+        { label: '监督谈话', value: '监督谈话' },
+        { label: '集体谈话', value: '集体谈话' },
+        { label: '勉励谈话', value: '勉励谈话' },
+        { label: '双向互谈', value: '双向互谈' },
       ];
 
   const [point, setPoint] = React.useState(1);
@@ -54,7 +57,7 @@ function TalkCreateModal() {
               .validateFields()
               .then(values => {
                 form.resetFields();
-                console.log(values);
+                console.log(JSON.stringify(values));
               })
               .catch(info => {
                 console.log('Validate Failed:', info);
@@ -94,7 +97,7 @@ function TalkCreateModal() {
 
         <Space size={'large'}>
           <Form.Item name='time' label='谈话时间'>
-            <DatePicker showTime={{ format: 'YYYY-MM-DD HH-mm' }}/>
+            <DatePicker/>
           </Form.Item>
 
           <Form.Item name='placement' label='谈话地点'>
@@ -113,14 +116,14 @@ function TalkCreateModal() {
                   label={item.title}
                   name={item.dataIndex}
               >
-                {item.render || <Input.TextArea rows={1} placeholder={item.title}/>}
+                {item.render || <Input.TextArea rows={3} placeholder={item.title}/>}
               </Form.Item>)
               : columns1.map((item, index) => <Form.Item
                   key={index}
                   label={item.title}
                   name={item.dataIndex}
               >
-                {item.render || <Input.TextArea rows={1} placeholder={item.title}/>}
+                {item.render || <Input.TextArea rows={3} placeholder={item.title}/>}
               </Form.Item>)
         }
       </Form>

@@ -54,6 +54,7 @@ import DemocracyList from '../pages/DemocracyList';
 import Democracy from '../pages/Democracy';
 import TalkList from '../pages/TalkList';
 import Talk from '../pages/Talk';
+import Settings from '../pages/Settings';
 
 export const router = {
   routes: [
@@ -412,6 +413,12 @@ export const router = {
       name: '5+1 谈话内容详情',
       path: '/lz/talk/:id',
       element: <Talk/>,
+    },
+    {
+      hideInMenu: true,
+      name: '个人中心',
+      path: '/setting/center',
+      element: <Settings/>,
     }
   ],
 };
