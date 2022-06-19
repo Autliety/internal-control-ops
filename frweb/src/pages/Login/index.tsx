@@ -20,11 +20,19 @@ export default function Login() {
         width: '100%',
         overflow: 'scroll',
         backgroundImage: `url(${title})`,
-        backgroundSize: '100%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
   >
-    <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent'}}>
-      <Typography.Title style={{marginTop: 10}}><Image src={logo} width={70} preview={false}/>  浙江百步经济开发区(百步镇)</Typography.Title>
+    <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent' }}>
+      <Typography.Title style={{ marginTop: 10 }}>
+        <Image
+            src={logo}
+            width={70}
+            preview={false}
+        />
+        浙江百步经济开发区(百步镇)
+      </Typography.Title>
     </Layout.Header>
     <Row>
       <Col span={16}/>
@@ -36,9 +44,9 @@ export default function Login() {
               navigate('/');
             }}
         >
-          <Typography.Title style={{textAlign: 'center'}} level={3}>{'区(镇)村(社)一体全面从严治党\n责任落实应用系统'}</Typography.Title>
+          <Typography.Title style={{ textAlign: 'center' }} level={3}>{'区(镇)村(社)一体全面从严治党\n责任落实应用系统'}</Typography.Title>
           <ProFormText
-              name="username"
+              name='username'
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={'prefixIcon'}/>,
@@ -57,7 +65,7 @@ export default function Login() {
           <Divider/>
 
           <ProFormText.Password
-              name="password"
+              name='password'
               fieldProps={{
                 size: 'large',
                 prefix: <LockOutlined className={'prefixIcon'}/>,
@@ -74,7 +82,7 @@ export default function Login() {
           <Divider/>
 
           <ProFormText
-              name="validation"
+              name='validation'
               fieldProps={{
                 size: 'large',
                 prefix: <SafetyOutlined className={'prefixIcon'}/>,

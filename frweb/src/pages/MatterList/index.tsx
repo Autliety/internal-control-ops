@@ -27,13 +27,13 @@ export default function MatterList() {
           <MatterTable value={editValue} onChange={setEditValue} loading={loading} isSearch isInEdit/>
           <FooterToolbar>
             <Button onClick={() => setIsInEdit(false)}>取消</Button>
-            <Button onClick={() => http(null, null, editValue.map(o => {
+            <Button type={'primary'} onClick={() => http(null, null, editValue.map(o => {
               if (o.origin instanceof Array) {
                 o.origin = o.origin.join(' / ');
               }
               return o;
             }))
-            .then(() => window.location.reload())}>保存</Button>
+                .then(() => window.location.reload())}>保存</Button>
           </FooterToolbar>
         </>
         :

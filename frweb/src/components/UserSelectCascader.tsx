@@ -13,16 +13,16 @@ export default function UserSelectCascader({ onChange, value, filter = (_) => tr
 
   const { state } = useHttp('/user', { initState: [] });
   const options = state
-  .filter(filter)
-  .reduce((r, i) => {
-    let d = r.find(d => d.id === i.department.id);
-    if (d) {
-      d.children.push(i);
-    } else {
-      r.push({ ...i.department, children: [i] });
-    }
-    return r;
-  }, []);
+      .filter(filter)
+      .reduce((r, i) => {
+        let d = r.find(d => d.id === i.department.id);
+        if (d) {
+          d.children.push(i);
+        } else {
+          r.push({ ...i.department, children: [i] });
+        }
+        return r;
+      }, []);
 
   return <>
     <Cascader
