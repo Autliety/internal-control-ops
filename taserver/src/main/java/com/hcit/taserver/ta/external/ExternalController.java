@@ -16,7 +16,7 @@ public class ExternalController {
 
   private final ExternalService externalService;
 
-  @GetMapping("/")
+  @GetMapping
   public List<External> fetchAll() {
     return externalService.findAll();
   }
