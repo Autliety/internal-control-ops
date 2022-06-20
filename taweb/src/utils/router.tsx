@@ -21,8 +21,8 @@ import Department from '../pages/Department';
 import Complaint from '../pages/Wall/Complaint';
 import Permission from '../pages/Permission';
 import AssessmentAddition from '../pages/AssessmentAddition';
-import AppraisalPlan from '../pages/AppraisalPlan';
-import AppraisalDetail from '../pages/AppraisalPlan/AppraisalDetail';
+import Evaluate from '../pages/Evaluate';
+import EvaluateDetail from '../pages/Evaluate/EvaluateDetail';
 
 export const router = {
   routes: [
@@ -44,7 +44,7 @@ export const router = {
         },
         {
           name: '增减分考核指标',
-          path: '/assessment/addition',
+          path: '/assessment/external',
           element: <AssessmentAddition/>,
         },
       ],
@@ -64,19 +64,8 @@ export const router = {
     {
       name: '考评情况',
       icon: <ReconciliationOutlined/>,
-      path: '/appraisal',
-      routes: [
-        {
-          name: '计划执行考评',
-          path: '/appraisal/plan',
-          element: <AppraisalPlan/>,
-        },
-        {
-          name: '增减分考评',
-          path: '/appraisal/addition',
-          disabled: true,
-        },
-      ],
+      path: '/evaluate',
+      element: <Evaluate/>,
     },
     {
       name: '预警事项',
@@ -156,8 +145,8 @@ export const router = {
     },
     {
       name: '评分细则',
-      path: '/appraisal/plan/appraisalDetail',
-      element: <AppraisalDetail/>,
+      path: '/evaluate/:id',
+      element: <EvaluateDetail/>,
       hideInMenu: true,
     }
   ],

@@ -16,9 +16,9 @@ export const planColumns: ProColumns[] = [
   { title: '措施数', dataIndex: 'detailCount', valueType: 'digit' },
   { title: '责任单位', dataIndex: ['department', 'name'] },
   { title: '负责人', dataIndex: ['user', 'name'] },
-  { title: '计划完整度', dataIndex: 'progress', render: () => '100%' },
   { title: '状态', dataIndex: 'status', valueEnum: statusEnum },
-  { title: '备注', dataIndex: 'remark', valueType: 'textarea' },
+  // { title: '备注', dataIndex: 'remark', valueType: 'textarea' },
+  // { title: '计划完整度', dataIndex: 'progress' },
   { title: '更新时间', dataIndex: 'updateTime', valueType: 'dateTime' },
 ];
 

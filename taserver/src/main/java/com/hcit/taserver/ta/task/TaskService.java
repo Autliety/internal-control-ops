@@ -21,6 +21,7 @@ public class TaskService {
 
   public Task update(Task input) {
     var task = taskRepository.findById(input.getId()).orElseThrow();
+    task.setProgress(input.getProgress());
     task.setRemark(input.getRemark());
     task.setValue(input.getValue());
     task.setStatus(input.getStatus());

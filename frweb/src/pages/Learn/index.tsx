@@ -1,7 +1,6 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Divider, Select } from 'antd';
-import EditableDescriptions, { ColumnDef } from '../../components/EditableDescriptions';
 import DemoFileDownload from '../../components/DemoFileDownload';
 import BaseDivider from '../../components/BaseDivider';
 import BaseDescriptions from '../../components/BaseDescriptions';
@@ -11,7 +10,7 @@ import ApproveAndCopyModal from '../../components/ApproveAndCopyModal';
 export default function Learn() {
 
 
-  const columns: ColumnDef[] = [
+  const columns = [
     { title: '责任主体', dataIndex: 'department', render: () => '其它班子成员' },
     { title: '责任人', dataIndex: 'user', render: () => '王哲' },
     {
@@ -51,10 +50,7 @@ export default function Learn() {
     <BaseDescriptions columns={learningColumns} dataSource={learningData}/>
 
     <BaseDivider title={'学习记录'} />
-    <EditableDescriptions
-        isEdit
-        columns={columns}
-    />
+    <BaseDescriptions columns={columns} dataSource={{}}/>
 
     <Divider orientation={'left'}>相关附件</Divider>
     <DemoFileDownload/>

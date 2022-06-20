@@ -5,15 +5,15 @@ import { BetaSchemaForm } from '@ant-design/pro-form';
 import { ProColumns } from '@ant-design/pro-table';
 import { useHttp } from '../../utils/request';
 
-function AppraisalDetailCreate({ value, userId }) {
+function EvaluateDetailCreate({ userId }) {
 
   const { http } = useHttp('/external/usage', { method: 'POST', isManual: true });
+  const { state } = useHttp('/external', {initState: []})
 
   function getValueEnum(value) {
     let valueEnum = {};
     value.forEach((v: any) => {
-      let u = { text: v.name };
-      valueEnum[v.id] = u;
+      valueEnum[v.id] = { text: v.name };
     });
     return valueEnum;
   }
@@ -23,7 +23,7 @@ function AppraisalDetailCreate({ value, userId }) {
       title: '选择指标',
       dataIndex: 'code',
       valueType: 'select',
-      valueEnum: getValueEnum(value),
+      valueEnum: getValueEnum(state),
     }
   ];
 
@@ -36,11 +36,11 @@ function AppraisalDetailCreate({ value, userId }) {
 
         columns={columns}
         onFinish={async (v) => http(null, null, {
-          applyUser: { id: userId.userId },
+          applyUser: { id: userId },
           external: { id: v.code }
         }).then(() => window.location.reload())}
     />
   </>;
 }
 
-export default AppraisalDetailCreate;
+export default EvaluateDetailCreate;

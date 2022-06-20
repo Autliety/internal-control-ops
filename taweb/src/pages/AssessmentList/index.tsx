@@ -8,9 +8,10 @@ import AssessmentImportModal from './AssessmentImportModal';
 
 export default function AssessmentList() {
 
-  const { state } = useHttp('/assessment', { initState: [] });
+  const { state, loading } = useHttp('/assessment', { initState: [] });
 
   return <PageContainer
+      loading={loading}
       extra={[
         <AssessmentImportModal/>
       ]}

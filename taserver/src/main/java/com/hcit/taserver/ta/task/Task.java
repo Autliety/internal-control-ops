@@ -34,6 +34,8 @@ public class Task {
   @OneToOne(mappedBy = "task")
   private Detail planDetail;
 
+  private Integer progress;
+
   @Enumerated(EnumType.STRING)
   private ValueType valueType;
 

@@ -1,3 +1,4 @@
+/*
 INSERT INTO
   ta_assessment (id, code, level_one, level_two, name, point, standard, value, value_type)
 VALUES
@@ -21,6 +22,7 @@ INSERT INTO
 VALUES
   (1, '测试利用外资计划', '测试数据', '160000', 'MONEY', 1, 1);
 ;
+*/
 
 INSERT INTO
   ta_assessment_external (id, code, create_date, name, point, standard)

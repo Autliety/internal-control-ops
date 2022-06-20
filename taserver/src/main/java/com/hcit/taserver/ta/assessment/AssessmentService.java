@@ -31,15 +31,13 @@ public class AssessmentService {
   }
 
   public List<Assessment> demoFilteredFindAll() {
-    return filterByUser(authService.getCurrentUser());
+    return filterByUser(assessmentRepository.findAll(), authService.getCurrentUser());
   }
 
   // todo better filter
   @SuppressWarnings("ConstantConditions")
-  public List<Assessment> filterByUser(User user) {
-    var list = assessmentRepository.findAll();
-
-    var id = authService.getCurrentUser().getId().intValue();
+  public List<Assessment> filterByUser(List<Assessment> list, User user) {
+    var id = user.getId().intValue();
     if (id >= 3 && id <= 27) {
       return list.stream()
           .filter(a -> a.getRespUser().stream().map(User::getId).anyMatch(i -> i.equals(user.getId())))

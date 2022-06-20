@@ -8,15 +8,5 @@ export default function PlanInfo({ data }) {
         columns={planColumns}
         dataSource={data}
     />
-
-{/*
-    <BaseDescriptions
-        columns={[
-          { title: '总目标值', dataIndex: 'value', render: (text, record: any) => valueTypeMap(text, record?.valueType) },
-          { title: '备注', dataIndex: 'remark' },
-        ]}
-        dataSource={data}
-    />
-*/}
   </>;
 }

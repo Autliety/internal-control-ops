@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.hcit.taserver.department.DepartmentRepository;
 import com.hcit.taserver.department.user.UserRepository;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,10 @@ public class AssessmentFileService {
             new PageReadListener<Assessment>(list -> {
               for (Assessment a : list) {
                 a.setCode(String.format("CZ2022-%04d", count.incrementAndGet()));
+
+                if (a.getPoint() == null) {
+                  a.setPoint(BigDecimal.ZERO);
+                }
 
                 var names = List.of(a.getRespUserContent().split("。"));
                 var users = userRepository.findAllByNameIn(names);
