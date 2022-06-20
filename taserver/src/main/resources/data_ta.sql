@@ -21,3 +21,8 @@ INSERT INTO
 VALUES
   (1, '测试利用外资计划', '测试数据', '160000', 'MONEY', 1, 1);
 ;
+
+INSERT INTO
+  ta_assessment_external (id, code, create_date, name, point, standard)
+VALUES
+  (1, 'EZ2022-0001', NULL, '测试扣分指标', -2, 'testtesttest');

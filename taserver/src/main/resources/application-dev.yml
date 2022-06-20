@@ -19,7 +19,7 @@ spring:
     defer-datasource-initialization: on
   sql.init:
     mode: always
-    data-locations: classpath:/data.sql,classpath:/data_fr.sql
+    data-locations: classpath:/data_fr.sql,classpath:/data_ta.sql
 
 springfox:
   documentation.enabled: true

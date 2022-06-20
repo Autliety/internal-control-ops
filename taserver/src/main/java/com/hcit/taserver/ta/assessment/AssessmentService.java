@@ -30,10 +30,13 @@ public class AssessmentService {
     return l1Map;
   }
 
+  public List<Assessment> demoFilteredFindAll() {
+    return filterByUser(authService.getCurrentUser());
+  }
+
   // todo better filter
   @SuppressWarnings("ConstantConditions")
-  public List<Assessment> demoFilteredFindAll() {
-    var user = authService.getCurrentUser();
+  public List<Assessment> filterByUser(User user) {
     var list = assessmentRepository.findAll();
 
     var id = authService.getCurrentUser().getId().intValue();
@@ -42,7 +45,7 @@ public class AssessmentService {
           .filter(a -> a.getRespUser().stream().map(User::getId).anyMatch(i -> i.equals(user.getId())))
           .collect(Collectors.toList());
     } else if (id <= 29 || id == 999) {
-      return assessmentRepository.findAll();
+      return list;
     } else {
       return list.stream()
           .filter(a -> a.getRespDepartment().stream().map(Department::getId).anyMatch(i -> i.equals(user.getDepartment().getId())))
