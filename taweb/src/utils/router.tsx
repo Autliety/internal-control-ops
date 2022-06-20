@@ -20,6 +20,9 @@ import Task from '../pages/Task';
 import Department from '../pages/Department';
 import Complaint from '../pages/Wall/Complaint';
 import Permission from '../pages/Permission';
+import AssessmentAddition from '../pages/AssessmentAddition';
+import AppraisalPlan from '../pages/AppraisalPlan';
+import AppraisalDetail from '../pages/AppraisalPlan/AppraisalDetail';
 
 export const router = {
   routes: [
@@ -42,7 +45,7 @@ export const router = {
         {
           name: '增减分考核指标',
           path: '/assessment/addition',
-          disabled: true,
+          element: <AssessmentAddition/>,
         },
       ],
     },
@@ -66,7 +69,7 @@ export const router = {
         {
           name: '计划执行考评',
           path: '/appraisal/plan',
-          disabled: true,
+          element: <AppraisalPlan/>,
         },
         {
           name: '增减分考评',
@@ -151,6 +154,12 @@ export const router = {
       element: <Task/>,
       hideInMenu: true,
     },
+    {
+      name: '评分细则',
+      path: '/appraisal/plan/appraisalDetail',
+      element: <AppraisalDetail/>,
+      hideInMenu: true,
+    }
   ],
 };
 

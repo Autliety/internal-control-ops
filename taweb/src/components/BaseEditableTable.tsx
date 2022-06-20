@@ -8,8 +8,11 @@ export default function BaseEditableTable(
       isInEdit = false,
       isSearch = false,
       disableAdd = false,
+      //  编辑模式下只存在删除按钮
+      isOnlyDelete = false,
       value = [],
-      onChange = (_: any[]) => {},
+      onChange = (_: any[]) => {
+      },
       ...restProps
     }) {
 
@@ -30,9 +33,9 @@ export default function BaseEditableTable(
             title: '操作',
             width: 150,
             valueType: 'option',
-        key: 'option',
+            key: 'option',
             render: (text, record, _, action) => [
-              <a key="editable" onClick={() => action?.startEditable?.(record.key)}>
+              isOnlyDelete || <a key="editable" onClick={() => action?.startEditable?.(record.key)}>
                 编辑
               </a>,
               <a key="delete" onClick={() => onChange(value.filter(i => i.key !== record.key))}>
