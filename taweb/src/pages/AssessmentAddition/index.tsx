@@ -7,10 +7,11 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import AssessmentAdditionCreate from './AssessmentAdditionCreate';
 
-export const columns: ProColumns[] = [
+export const externalColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code', width: 150 },
-  { title: '分值', dataIndex: 'point', width: 100 },
-  { title: '名称', dataIndex: 'name' },
+  { title: '一级指标', dataIndex: 'levelOne' },
+  { title: '二级指标', dataIndex: 'levelTwo' },
+  { title: '指标名称', dataIndex: 'name' },
   {
     title: '考核标准',
     dataIndex: 'standard',
@@ -20,7 +21,7 @@ export const columns: ProColumns[] = [
     </>,
     valueType: 'textarea',
   },
-  { title: '考核日期', dataIndex: 'createDate', valueType: 'date' },
+  { title: '分值', dataIndex: 'point', width: 100 },
 ];
 
 export default function AssessmentAddition() {
@@ -33,6 +34,6 @@ export default function AssessmentAddition() {
       </Space>}
       loading={loading}
   >
-    <BaseEditableTable columns={columns} value={state}/>
+    <BaseEditableTable columns={externalColumns} value={state}/>
   </PageContainer>;
 }

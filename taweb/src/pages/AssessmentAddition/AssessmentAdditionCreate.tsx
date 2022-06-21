@@ -2,7 +2,7 @@ import React from 'react';
 import { BetaSchemaForm } from '@ant-design/pro-form';
 import { Button } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
-import { columns } from './index';
+import { externalColumns } from './index';
 import { useHttp } from '../../utils/request';
 
 export default function AssessmentAdditionCreate() {
@@ -16,7 +16,7 @@ export default function AssessmentAdditionCreate() {
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新建</Button>}
 
-        columns={columns.slice(1, 4)}
+        columns={externalColumns.slice(1, 4)}
         onFinish={async (v) => http(null, null, v).then(() => window.location.reload())}
     />
   </>;

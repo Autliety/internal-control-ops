@@ -31,6 +31,10 @@ public class External {
 
   private BigDecimal point;
 
+  private String levelOne;
+
+  private String levelTwo;
+
   private String name;
 
   private String standard;
