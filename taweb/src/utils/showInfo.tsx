@@ -10,5 +10,6 @@ export default function showInfo(text) {
     </>,
     icon: undefined,
     okText: '确定',
+    width: 800,
   });
 }

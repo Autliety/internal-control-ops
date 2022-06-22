@@ -9,6 +9,7 @@ export default function showInfo(text) {
       <p>{text}</p>
     </>,
     icon: undefined,
+    okText: '确定',
     width: 800,
   });
 }

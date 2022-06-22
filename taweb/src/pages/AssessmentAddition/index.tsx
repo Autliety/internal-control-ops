@@ -35,5 +35,6 @@ export default function AssessmentAddition() {
       loading={loading}
   >
     <BaseEditableTable columns={externalColumns} value={state}/>
+
   </PageContainer>;
 }

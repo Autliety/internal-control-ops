@@ -20,7 +20,8 @@ export default function Login() {
         width: '100%',
         overflow: 'scroll',
         backgroundImage: `url(${title})`,
-        backgroundSize: '100%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
   >
     <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent' }}>
