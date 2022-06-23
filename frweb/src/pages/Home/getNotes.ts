@@ -26,6 +26,7 @@ export function getApprovalNotes(input: any) {
 
   } else if (input.progress) {
     result = {
+
       link: `/lz/list/progress/${input.progress.id}`,
       title: '履责情况审核',
       content: `措施【${input.progress.measure.code}】提交了履责情况表，正在等待您审核`,
@@ -37,6 +38,6 @@ export function getApprovalNotes(input: any) {
   }
 
   result.key = 'approval_' + input.id;
-  result.time = moment(input.updateTime).format('MM-DD HH:mm:ss');
+  result.time = moment(input.updateTime).format('MM-DD HH:mm');
   return result;
 }

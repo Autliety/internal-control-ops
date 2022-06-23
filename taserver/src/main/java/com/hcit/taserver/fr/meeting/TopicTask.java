@@ -4,12 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +33,7 @@ public class TopicTask implements BasicPersistable {
     return topic.getUser();
   }
 
+  @Column(columnDefinition = "LONGTEXT")
   private String content;
 
   private Boolean isMatter;

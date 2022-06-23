@@ -15,9 +15,10 @@ export default function StatisticNotes() {
 
   const pageInfo = [
     {},
-    { title: '待办事项', data: state['AWAITING_REVIEW'] || [] },
+    { title: '待办事项', data: state['AWAITING_REVIEW']?.reverse() || [] },
     { title: '已处理待办事项', data: state['REVIEWED'] || [] },
-    { title: '未读提醒事项', data: [
+    {
+      title: '未读提醒事项', data: [
         {
           id: 26,
           title: '填写/修改措施清单',
@@ -36,7 +37,8 @@ export default function StatisticNotes() {
           content: '收到会议通知【HY001】，请尽快填写会议议题',
           link: '/mz/meeting/1',
         },
-      ] },
+      ]
+    },
     { title: '已读提醒事项', data: [] },
     { title: '动态跟踪', data: [] },
     { title: '已完成动态跟踪', data: [] },
@@ -144,20 +146,20 @@ export default function StatisticNotes() {
           itemLayout="horizontal"
       >
         {pageInfo[onPage].data
-        ?.map(o => getApprovalNotes(o))
-        .map(item =>
-            <List.Item
-                key={item.key}
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate(item.link)}
-            >
-              <List.Item.Meta
-                  avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"/>}
-                  title={item.title}
-                  description={item.content}
-              />
-              <div>{item.time}</div>
-            </List.Item>)
+            ?.map(o => getApprovalNotes(o))
+            .map(item =>
+                <List.Item
+                    key={item.key}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate(item.link)}
+                >
+                  <List.Item.Meta
+                      avatar={<Avatar src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"/>}
+                      title={item.title}
+                      description={item.content}
+                  />
+                  <div>{item.time}</div>
+                </List.Item>)
         }
       </List>
     </Modal>

@@ -30,13 +30,13 @@ export default function Meeting() {
   return <PageContainer
       extra={<Space>
         {state.status === 'REVIEWED' &&
-        <Button
-            type={'primary'}
-            disabled={!state.meetingUser.find(u => u.id === user.id)}
-            onClick={() => navigate(`topic/0?create=true`)}
-        >
-          <FileAddOutlined/>会前准备
-        </Button>
+            <Button
+                type={'primary'}
+                disabled={!state.meetingUser.find(u => u.id === user.id)}
+                onClick={() => navigate(`topic/0?create=true`)}
+            >
+              <FileAddOutlined/>会前准备
+            </Button>
         }
       </Space>
       }
@@ -51,7 +51,7 @@ export default function Meeting() {
     <MeetingInfo dataSource={state}/>
 
     <Divider orientation={'left'}>参会人员</Divider>
-    <MeetingAttendee data={state.meetingUser} isOptional/>
+    <MeetingAttendee data={state.meetingUser} isOptional={false}/>
 
     <Divider orientation={'left'}>列席人员</Divider>
     <MeetingAttendee data={state.subUser} isOptional/>
@@ -69,7 +69,7 @@ export default function Meeting() {
 
     <FooterToolbar>
       {state.status === 'REVIEWED' &&
-      <Button type={'primary'} onClick={() => setIsVisible(true)}>结束会议</Button>
+          <Button type={'primary'} onClick={() => setIsVisible(true)}>结束会议</Button>
       }
     </FooterToolbar>
 
@@ -81,8 +81,8 @@ export default function Meeting() {
         onOk={() => {
           setIsVisible(false);
           http(null, null, tasks)
-          .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
-          .then(() => window.location.reload());
+              .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
+              .then(() => window.location.reload());
         }}
         onCancel={() => setIsVisible(false)}
     >

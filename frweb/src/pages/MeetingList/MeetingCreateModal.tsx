@@ -18,7 +18,7 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
 
   const typeOptions = [
     { value: 1, label: '1专题会议' },
-    { value: 2, label: 'X专门会议' },
+    { value: 2, label: 'X专题会议' },
   ];
 
   const contentDefaultValue = {

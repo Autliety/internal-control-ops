@@ -123,7 +123,7 @@ function PersonCreateModal() {
         </Form.Item>
 
         <Form.Item name='content' label='报告内容简述'>
-          <Input.TextArea placeholder={'内容简述'}/>
+          <Input.TextArea placeholder={'内容简述'} rows={4}/>
         </Form.Item>
 
         <Form.Item name='time' label='报告时间'>
