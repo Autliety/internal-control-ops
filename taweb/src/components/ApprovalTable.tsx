@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
-import { statusEnum } from '../utils/nameMap';
+import { statusEnum } from '../utils/nameMapTa';
 import BaseEditableTable from './BaseEditableTable';
 import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../utils/request';

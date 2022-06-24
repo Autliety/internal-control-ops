@@ -4,10 +4,10 @@ import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
-import { router, routesConfig } from '../utils/router';
+import { router, routesConfig } from './router';
 import logo from '../image/logo.png';
-import { useHttp } from '../utils/request';
 import NotFound from './NotFound';
+import { useHttp } from '../utils/request';
 
 function Pages() {
 
@@ -23,28 +23,28 @@ function Pages() {
   }, [pathname]);
 
   return <>
-      <Provider value={auth}>
-        <ProLayout
-            fixSiderbar
-            fixedHeader
-            layout="mix"
-            contentWidth="Fluid"
-            navTheme="light"
-          menu={{ defaultOpenAll: false, autoClose: false }}
+    <Provider value={auth}>
+      <ProLayout
+          fixSiderbar
+          fixedHeader
+          layout="mix"
+          contentWidth="Fluid"
+          navTheme="light"
+          menu={{ defaultOpenAll: true, autoClose: false }}
           logo={logo}
 
           rightContentRender={() => <HeaderRight/>}
 
-          title="区(镇)村(社)一体全面从严治党责任落实应用系统"
+          title="百步经济开发区(百步镇)督考平台"
           route={router}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}
-          loading={!auth.user}
+          // loading={!auth.user}
 
           footerRender={() => <DefaultFooter links={[]} copyright="嘉兴海创信息技术有限公司 2022"/>}
       >
         <Routes>
-          {routesConfig.map((route, i) => <Route key={i} {...route} />)}
+          {routesConfig.map((route, i) => <Route key={i} {...route} path={route.path.substring(3)}/>)}
           <Route key="404" element={NotFound}/>
         </Routes>
       </ProLayout>

@@ -9,8 +9,11 @@ import './App.css';
 import Pages from './pages';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
+import PagesV2 from "./pages/PageV2";
+import PagesV1 from "./pages/PageV1";
 
 moment.locale('zh-cn');
+
 
 function App() {
 
@@ -23,7 +26,9 @@ function App() {
       <Routes>
         <Route path={'/login'} element={<Login/>}/>
         <Route path={'/logout'} element={<Logout/>}/>
-        <Route path={'*'} element={<Pages/>}/>
+        <Route path={'/ta/*'} element={<PagesV2 />} />
+        <Route path={'/fr/*'} element={<PagesV1/>}/>
+        <Route path={'*'}  element={<Pages/>}/>
       </Routes>
     </ConfigProvider>
   </div>;

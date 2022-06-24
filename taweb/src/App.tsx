@@ -6,9 +6,12 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 
 import './App.css';
-import Pages from './pages';
-import Login from './pages/Login';
-import Logout from './pages/Logout';
+import Login from './Ta/Login';
+import Logout from './Ta/Logout';
+import PagesTa from './Ta/index';
+import PagesFr from './Fr/index';
+
+
 moment.locale('zh-cn');
 
 function App() {
@@ -19,9 +22,10 @@ function App() {
         renderEmpty={() => '暂无数据'}
     >
       <Routes>
-        <Route path={'/login'} element={<Login />} />
+        <Route path={'/login'} element={<Login/>}/>
         <Route path={'/logout'} element={<Logout/>}/>
-        <Route path={'*'} element={<Pages />} />
+        <Route path={'/ta/*'} element={<PagesTa/>}/>
+        <Route path={'/fr/*'} element={<PagesFr/>}/>
       </Routes>
     </ConfigProvider>
   </div>;
