@@ -37,7 +37,7 @@ export default function Evaluate() {
       loading={loading}
   >
     <Divider orientation={'left'}>个人考评</Divider>
-    <BaseEditableTable columns={columns.slice(1)} value={state.find(e => e?.user?.id === user.id)}/>
+    <BaseEditableTable columns={columns.slice(1)} value={state.filter(e => e?.user?.id === user?.id)}/>
 
     <Divider orientation={'left'}>他人考评</Divider>
     <BaseEditableTable columns={columns} value={state}/>

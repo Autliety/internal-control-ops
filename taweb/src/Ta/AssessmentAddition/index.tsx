@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
-import { Button, Space } from 'antd';
+import { Button, Divider, Space } from 'antd';
 import showInfo from '../../utils/showInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
@@ -34,7 +34,11 @@ export default function AssessmentAddition() {
       </Space>}
       loading={loading}
   >
-    <BaseEditableTable columns={externalColumns} value={state}/>
+    <Divider orientation="left">额外加分指标</Divider>
+    <BaseEditableTable columns={externalColumns} value={state.filter(e => e.point >= 0)}/>
+
+    <Divider orientation="left">额外扣分指标</Divider>
+    <BaseEditableTable columns={externalColumns} value={state.filter(e => e.point < 0)}/>
 
   </PageContainer>;
 }

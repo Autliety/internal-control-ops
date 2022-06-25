@@ -37,13 +37,7 @@ public class EvaluateService {
   }
 
   public List<Evaluate> evaluate() {
-    @SuppressWarnings("ConstantConditions")
-    var id = authService.getCurrentUser().getId().intValue();
     var list = assessmentRepository.findAll();
-    if (id <= 29 || id == 999) {
-      return userService.findAll().stream().map(User::getId).map(i -> evaluate(i, list)).collect(Collectors.toList());
-    } else {
-      return List.of();
-    }
+    return userService.findAll().stream().map(User::getId).map(i -> evaluate(i, list)).collect(Collectors.toList());
   }
 }

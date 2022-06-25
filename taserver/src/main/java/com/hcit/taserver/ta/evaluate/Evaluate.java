@@ -30,6 +30,10 @@ public class Evaluate {
 
   private User user;
 
+  public Long getId() {
+    return user.getId();
+  }
+
   private List<Assessment> assessment;
 
   public BigDecimal getAssessmentPoint() {
