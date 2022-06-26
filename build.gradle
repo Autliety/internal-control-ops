@@ -2,15 +2,14 @@ group 'com.hcit'
 version '0.0.1-SNAPSHOT'
 
 task cleanup(type: Delete) {
-  dependsOn(':taserver:clean', ':taserver:clean')
+  dependsOn(':taserver:clean', ':taweb:clean')
   delete 'bundle/'
   delete 'taserver/src/main/resources/public'
 }
 
 task copyWeb(type: Copy) {
-  dependsOn(':taweb:npm_run_build', ':frweb:npm_run_build')
-  // todo product build
-  from 'amweb/build'
+  dependsOn(':taweb:npm_run_build')
+  from 'taweb/build'
   into 'taserver/src/main/resources/public'
 }
 

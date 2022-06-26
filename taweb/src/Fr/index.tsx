@@ -2,12 +2,12 @@ import React from 'react';
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import HeaderRight from './HeaderRight';
 import { useAuthProvider } from '../utils/auth';
 import { router, routesConfig } from './router';
 import logo from '../image/logo.png';
 import { useHttp } from '../utils/request';
-import NotFound from './NotFound';
+import HeaderRight from '../components/HeaderRight';
+import NotFound from '../pages/NotFound';
 
 function Pages() {
 

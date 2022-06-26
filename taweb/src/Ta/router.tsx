@@ -17,12 +17,13 @@ import PlanList from './PlanList';
 import Plan from './Plan';
 import TaskList from './TaskList';
 import Task from './Task';
-import Department from './Department';
+import Department from '../pages/Department';
 import Complaint from './Wall/Complaint';
-import Permission from './Permission';
 import AssessmentAddition from './AssessmentAddition';
 import Evaluate from './Evaluate';
 import EvaluateDetail from './Evaluate/EvaluateDetail';
+import Permission from '../pages/Permission';
+import Settings from '../pages/Settings';
 
 export const router = {
   routes: [
@@ -85,6 +86,23 @@ export const router = {
       ],
     },
     {
+      name: '回音壁',
+      icon: <WhatsAppOutlined/>,
+      path: '/ta/wall',
+      routes: [
+        {
+          name: '投诉建议',
+          path: '/ta/wall/complaint',
+          element: <Complaint/>,
+        },
+        {
+          name: '工作回复',
+          path: '/ta/wall/reply',
+          disabled: true,
+        },
+      ],
+    },
+    {
       name: '系统设置',
       icon: <ClusterOutlined/>,
       path: '/ta/setting',
@@ -106,23 +124,7 @@ export const router = {
         },
       ],
     },
-    {
-      name: '回音壁',
-      icon: <WhatsAppOutlined/>,
-      path: '/ta/wall',
-      routes: [
-        {
-          name: '投诉建议',
-          path: '/ta/wall/complaint',
-          element: <Complaint/>,
-        },
-        {
-          name: '工作回复',
-          path: '/ta/wall/reply',
-          disabled: true,
-        },
-      ],
-    },
+
 
     // ext routes
     {
@@ -148,7 +150,13 @@ export const router = {
       path: '/ta/evaluate/:id',
       element: <EvaluateDetail/>,
       hideInMenu: true,
-    }
+    },
+    {
+      hideInMenu: true,
+      name: '个人中心',
+      path: '/ta/center',
+      element: <Settings/>,
+    },
   ],
 };
 

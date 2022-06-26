@@ -3,7 +3,7 @@ import {
   AuditOutlined,
   BulbOutlined,
   HomeOutlined,
-  ProfileOutlined, ProjectOutlined,
+  ProfileOutlined,
   SecurityScanOutlined,
   SettingOutlined,
   WarningOutlined,
@@ -20,7 +20,6 @@ import Measure from './Measure';
 import InformList from './InformList';
 import Inform from './Inform';
 import MeetingNotice from './Meeting/MeetingNotice';
-import Department from './Department';
 import EvaluationList from './EvaluationList';
 import Evaluation from './Evaluation';
 import LearnList from './LearnList';
@@ -33,7 +32,7 @@ import Report from './Report';
 import ReportList from './ReportList';
 import Disposal from './Disposal';
 import Progress from './Progress';
-import Permission from './Permission';
+import Permission from '../pages/Permission';
 import InspectList from './InspectList';
 import Important from './Important';
 import Question from './Question';
@@ -54,7 +53,8 @@ import DemocracyList from './DemocracyList';
 import Democracy from './Democracy';
 import TalkList from './TalkList';
 import Talk from './Talk';
-import Settings from './Settings';
+import Department from '../pages/Department';
+import Settings from '../pages/Settings';
 
 export const router = {
   routes: [
@@ -88,14 +88,14 @@ export const router = {
               path: '/fr/mz/list/measure',
               element: <MeasureList/>,
             },
-          ]
+          ],
         },
         {
           name: '第一议题制度',
           path: '/fr/mz/learning',
           element: <LearnList/>,
         },
-      ]
+      ],
     },
     {
       name: '履责',
@@ -116,7 +116,7 @@ export const router = {
               path: '/fr/lz/list/dynamic',
               element: <ProgressList isTrace/>,
             },
-          ]
+          ],
         },
         {
           name: '5+1谈话机制',
@@ -177,8 +177,8 @@ export const router = {
         {
           name: '政治生态分析研判',
           path: '/fr/lz/political',
-          disabled: true
-        }
+          disabled: true,
+        },
         // {
         //   name: '廉政风险排查防控',
         //   path: '/fr/lz/risk',
@@ -189,7 +189,7 @@ export const router = {
         //   path: '/fr/lz/contact',
         //   disabled: true,
         // },
-      ]
+      ],
     },
     {
       name: '评责',
@@ -199,19 +199,19 @@ export const router = {
         {
           name: '班子成员考评',
           path: '/fr/pz/evaluation/leader',
-          element: <EvaluationList/>
+          element: <EvaluationList/>,
         },
         {
           name: '基层站所考评',
           path: '/fr/pz/evaluation/office',
-          element: <EvaluationList/>
+          element: <EvaluationList/>,
         },
         {
           name: '村(社)考评',
           path: '/fr/pz/performance/village',
-          element: <EvaluationList/>
+          element: <EvaluationList/>,
         },
-      ]
+      ],
     },
     {
       name: '督责',
@@ -238,7 +238,7 @@ export const router = {
           path: '/fr/dz/todo',
           disabled: true,
         },
-      ]
+      ],
     },
     {
       name: '追责',
@@ -250,7 +250,7 @@ export const router = {
           path: '/fr/zz/todo',
           disabled: true,
         },
-      ]
+      ],
     },
     {
       name: '系统设置',
@@ -352,13 +352,13 @@ export const router = {
       hideInMenu: true,
       name: '学习记录',
       path: '/fr/mz/learning/:id',
-      element: <Learn/>
+      element: <Learn/>,
     },
     {
       hideInMenu: true,
       name: '履责约谈记录',
       path: '/fr/dz/question/:id',
-      element: <Question/>
+      element: <Question/>,
     },
     {
       hideInMenu: true,
@@ -394,7 +394,7 @@ export const router = {
       hideInMenu: true,
       name: '述责述廉评议详情',
       path: '/fr/lz/comment/:id',
-      element: <Comment/>
+      element: <Comment/>,
     },
     {
       hideInMenu: true,
@@ -417,9 +417,9 @@ export const router = {
     {
       hideInMenu: true,
       name: '个人中心',
-      path: '/fr/setting/center',
+      path: '/fr/center',
       element: <Settings/>,
-    }
+    },
   ],
 };
 
