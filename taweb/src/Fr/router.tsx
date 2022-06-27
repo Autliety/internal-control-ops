@@ -32,7 +32,7 @@ import Report from './Report';
 import ReportList from './ReportList';
 import Disposal from './Disposal';
 import Progress from './Progress';
-import Permission from '../pages/Permission';
+import Permission from './Permission';
 import InspectList from './InspectList';
 import Important from './Important';
 import Question from './Question';
@@ -260,12 +260,12 @@ export const router = {
         {
           name: '部门及岗位',
           path: '/fr/setting/department',
-          element: <Department/>,
+          element: <Department systemType='Fr'/>,
         },
         {
           name: '人员组成',
           path: '/fr/setting/user',
-          element: <Department withUser/>,
+          element: <Department withUser systemType='Fr'/>,
         },
         {
           name: '权限管理',
