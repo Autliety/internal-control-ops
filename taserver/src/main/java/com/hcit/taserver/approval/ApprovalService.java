@@ -79,7 +79,7 @@ public class ApprovalService {
     var approval = approvalRepository.findById(id).orElseThrow();
     var step = approval.getStep().get(0);
     if (!authService.isCurrentUser(step.getApproveUser())) {
-      throw new IllegalStateException("非正确的审核人");
+      throw new IllegalStateException("不正确的审核人");
     }
     if (content == null) {
       step.setStatus(Status.REVIEWED);
