@@ -6,9 +6,11 @@ import { host } from '../utils/request';
 function FileUpload({ isInEdit, onChange, value }: any) {
 
   return <Upload
+      disabled={!isInEdit}
+
       action={host + '/attach'}
       withCredentials
-      disabled={!isInEdit}
+      multiple={true}
 
       fileList={value?.map(a => ({
         uid: a.id,
@@ -18,7 +20,7 @@ function FileUpload({ isInEdit, onChange, value }: any) {
       }))}
       onChange={({ file, fileList }) => {
         if (file.status !== 'uploading') {
-          onChange(fileList.map(f => f?.response))
+          onChange(fileList.map(f => f.response ? f.response : f))
         }
       }}
   >

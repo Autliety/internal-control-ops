@@ -74,6 +74,8 @@ INSERT INTO `approval_step` (`id`, `content`, `status`, `update_time`, `approval
 ALTER TABLE `approval_step` ENABLE KEYS;
 
 ALTER TABLE `attach` DISABLE KEYS;
+INSERT INTO `attach` (`id`, `file_name`, `fs_file_name`, `update_time`, `upload_user_id`, `source_ordinal_form_id`) VALUES
+	(1, '监督检查.jpg', '监督检查_20220628_155309.jpg', '2022-06-28 15:53:09.127789', 999, 1);
 ALTER TABLE `attach` ENABLE KEYS;
 
 ALTER TABLE `department` DISABLE KEYS;
@@ -135,16 +137,16 @@ ALTER TABLE `fr_inform` DISABLE KEYS;
 ALTER TABLE `fr_inform` ENABLE KEYS;
 
 ALTER TABLE `fr_matter` DISABLE KEYS;
-INSERT INTO `fr_matter` (`id`, `code`, `content`, `end_date`, `measure_status`, `origin`, `update_time`, `user_id`, `source_inform_id`) VALUES
-	(1, '1', '“非粮化”整治推进不力', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 执行上级重大决策部署方面问题或风险', '2022-06-16 14:01:07.510173', 21, NULL),
-	(2, '2', '农村人居环境整治推进不力', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 履职方面的风险或问题', '2022-06-16 14:03:04.445081', 21, NULL),
-	(3, '3', '相关农田水利工程等方面利用职权谋取私利风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 廉洁用权履职方面的问题或风险', '2022-06-16 14:03:52.824138', 21, NULL),
-	(4, '4', '与相关农业市场化主体交往过程中权力寻租的风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 廉洁用权履职方面的问题或风险', '2022-06-16 14:04:27.406135', 21, NULL),
-	(5, '5', '存在违规接受管理服务对象吃请等“四风”问题风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 执行落实中央八项规定精神等方面的问题风险', '2022-06-16 14:05:02.359230', 21, NULL),
-	(6, '6', '作风不够实，自律不够严的问题', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 作风建设方面的问题或风险', '2022-06-16 14:05:31.845099', 21, NULL),
-	(7, '7', '存在违法违纪风险', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 严守国家法律法规和党的纪律方面的问题或风险', '2022-06-16 14:06:04.601392', 21, NULL),
-	(8, '8', '（重大督查问题）桃北村蔡张丽反映台风期间人员未安置问题', '2021-12-31', 'AWAITING_REVIEW', '上级反馈、移交、交办 / 纳入上级“七张问题清单”的移交、交办问题', '2022-06-16 15:09:03.242952', 21, NULL),
-	(9, '9', '反映百步三和印刷公司违法建造五千多平方米的房子、百步镇横港村程小唤无审批手续建造村旁单门独户。', '2022-07-15', 'AWAITING_REVIEW', '区(镇)反馈、交办 / 本级纪检监察部门监督检查、信访调查、审查调查、问题线索处置等发现、暴露的各类问题', '2022-06-16 15:10:15.407846', 17, NULL);
+INSERT INTO `fr_matter` (`id`, `code`, `content`, `end_date`, `measure_status`, `origin`, `update_time`, `user_id`, `source_ordinal_form_id`, `source_inform_id`) VALUES
+	(1, '1', '“非粮化”整治推进不力', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 执行上级重大决策部署方面问题或风险', '2022-06-16 14:01:07.510173', 21, NULL, NULL),
+	(2, '2', '农村人居环境整治推进不力', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 履职方面的风险或问题', '2022-06-16 14:03:04.445081', 21, NULL, NULL),
+	(3, '3', '相关农田水利工程等方面利用职权谋取私利风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 廉洁用权履职方面的问题或风险', '2022-06-16 14:03:52.824138', 21, NULL, NULL),
+	(4, '4', '与相关农业市场化主体交往过程中权力寻租的风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 廉洁用权履职方面的问题或风险', '2022-06-16 14:04:27.406135', 21, NULL, NULL),
+	(5, '5', '存在违规接受管理服务对象吃请等“四风”问题风险', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 执行落实中央八项规定精神等方面的问题风险', '2022-06-16 14:05:02.359230', 21, NULL, NULL),
+	(6, '6', '作风不够实，自律不够严的问题', '2022-07-31', 'AWAITING_REVIEW', '责任主体排查发现 / 作风建设方面的问题或风险', '2022-06-16 14:05:31.845099', 21, NULL, NULL),
+	(7, '7', '存在违法违纪风险', '2022-12-31', 'AWAITING_REVIEW', '责任主体排查发现 / 严守国家法律法规和党的纪律方面的问题或风险', '2022-06-16 14:06:04.601392', 21, NULL, NULL),
+	(8, '8', '（重大督查问题）桃北村蔡张丽反映台风期间人员未安置问题', '2021-12-31', 'AWAITING_REVIEW', '上级反馈、移交、交办 / 纳入上级“七张问题清单”的移交、交办问题', '2022-06-16 15:09:03.242952', 21, NULL, NULL),
+	(9, '9', '反映百步三和印刷公司违法建造五千多平方米的房子、百步镇横港村程小唤无审批手续建造村旁单门独户。', '2022-07-15', 'AWAITING_REVIEW', '区(镇)反馈、交办 / 本级纪检监察部门监督检查、信访调查、审查调查、问题线索处置等发现、暴露的各类问题', '2022-06-16 15:10:15.407846', 17, NULL, NULL);
 ALTER TABLE `fr_matter` ENABLE KEYS;
 
 ALTER TABLE `fr_measure` DISABLE KEYS;
@@ -382,6 +384,8 @@ INSERT INTO `fr_meeting_topic_task` (`id`, `content`, `is_matter`, `topic_id`) V
 ALTER TABLE `fr_meeting_topic_task` ENABLE KEYS;
 
 ALTER TABLE `fr_ordinal_form` DISABLE KEYS;
+INSERT INTO `fr_ordinal_form` (`id`, `content1`, `content2`, `content3`, `content4`, `content5`, `content6`, `content7`, `content8`, `content9`, `create_time`, `form_type`, `long_content1`, `long_content2`, `time1`, `time2`, `time3`, `update_time`, `dest_user_id`, `request_user_id`, `single_user1_id`, `single_user2_id`) VALUES
+	(1, '农民建房领域', '村建办、相关行政村', '农村危房解危监督检查', NULL, NULL, NULL, NULL, NULL, NULL, '2022-06-28 15:53:48.085664', 'INSPECT', '4月19日至20日，带领村建办主任金文彬、副主任盛秀锋及2名工作人员，采取实地踏勘、检查台账等方式，对鉴定为C、D级危房的农房及解危情况进行检查。共计检查农房35幢。', '1、部分村存在危房排查、鉴定不全面、村里对危房底子不清的问题（整改措施：由村建办协同各相关村进一步抓好排查等工作，摸清底子，确保9月底前整改处置到位）；\n2、部分村已解危的D级危房场地硬化等设施配套没跟上（整改措施：由村建办协同属地村及时跟进配套硬化建设，确保6月底前整改到位）\n', '2022-04-19 00:00:00.000000', NULL, NULL, '2022-06-28 15:53:48.085664', NULL, 999, 17, NULL);
 ALTER TABLE `fr_ordinal_form` ENABLE KEYS;
 
 ALTER TABLE `fr_progress` DISABLE KEYS;

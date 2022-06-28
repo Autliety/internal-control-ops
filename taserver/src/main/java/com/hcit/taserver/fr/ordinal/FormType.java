@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum FormType {
 
+  INSPECT("监督检查"),
   TALKING("5+1谈话"),
   THREE("三重一大"),
   PERSONAL("个人事项报告");

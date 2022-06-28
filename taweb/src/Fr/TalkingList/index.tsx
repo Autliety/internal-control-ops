@@ -42,7 +42,7 @@ export const talkingColumns: ProColumns[] = [
   { title: '谈话发起人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '谈话对象', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '谈话事由', dataIndex: 'content4' },
-  { title: '谈话内容', dataIndex: 'longContent2' , valueType: 'textarea', hideInTable: true},
+  { title: '谈话内容', dataIndex: 'longContent1' , valueType: 'textarea', hideInTable: true},
   { title: '谈话对象表态', dataIndex: 'content5', hideInTable: true },
   { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInTable: true, hideInDescriptions: true },
 ];
@@ -65,7 +65,7 @@ function TalkingList() {
           dataIndex: 'operation',
           width: 100,
           align: 'center',
-          render: (_, record: any) => <Tooltip title={'谈话详情'}>
+          render: (_, record: any) => <Tooltip title={'详情'}>
             <Button
                 type={'primary'}
                 icon={<FileTextOutlined/>}

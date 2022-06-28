@@ -39,8 +39,8 @@ public class OrdinalFormService {
         m.setOrigin(formType.getRemark());
         m.setUser(f.getDestUser());
       });
+      matterService.create(matters);
     }
-    matterService.create(matters);
 
     return ordinalFormRepository.save(f);
   }

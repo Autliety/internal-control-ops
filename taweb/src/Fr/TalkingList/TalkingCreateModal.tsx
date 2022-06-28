@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { talkingColumns } from './index';
 import { useHttp } from '../../utils/request';
+import moment from 'moment';
 
 export default function TalkingCreateModal() {
 
@@ -18,6 +19,7 @@ export default function TalkingCreateModal() {
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
         columns={talkingColumns}
         onFinish={async data => {
+          data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
           navigate('/fr/lz/talking/' + res.id);
         }}

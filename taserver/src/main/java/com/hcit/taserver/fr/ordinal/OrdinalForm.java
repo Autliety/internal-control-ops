@@ -85,4 +85,6 @@ public class OrdinalForm {
   private User singleUser2;
 
   private LocalDateTime time1;
+  private LocalDateTime time2;
+  private LocalDateTime time3;
 }
