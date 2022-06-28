@@ -9,7 +9,7 @@ export default function AssessmentImportModal() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   return <>
-    <Button disabled={user.id !== 29} type={'primary'} onClick={() => setIsVisible(true)}><ImportOutlined/>批量导入</Button>
+    <Button disabled={user?.id !== 29} type={'primary'} onClick={() => setIsVisible(true)}><ImportOutlined/>批量导入</Button>
 
     <Modal
         title={'指标导入'}

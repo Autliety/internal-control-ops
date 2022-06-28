@@ -8,6 +8,7 @@ export default function AssessmentInfo({ data }) {
     <BaseDescriptions
         columns={assessmentColumns}
         dataSource={data}
+        column={1}
     />
   </>;
 }

@@ -2,10 +2,11 @@ import React from 'react';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { meetingStatusEnum } from '../../utils/nameMapFr';
 import { ProColumns } from '@ant-design/pro-table';
+import moment from "moment";
 
 export const meetingColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code' },
-  { title: '会议类型', dataIndex: 'type', valueType: 'select', fieldProps: {options: ['1专题会议', 'X专门会议', '纪委动议']} },
+  { title: '会议类型', dataIndex: 'type', valueType: 'select', fieldProps: { options: ['1专题会议', 'X专门会议', '纪委动议'] } },
   { title: '责任主体', dataIndex: ['department', 'name'] },
   { title: '经办人', dataIndex: ['user', 'name'] },
   {
@@ -13,7 +14,7 @@ export const meetingColumns: ProColumns[] = [
     dataIndex: 'status',
     valueEnum: meetingStatusEnum,
   },
-  { title: '会议时间', dataIndex: 'startTime', valueType: 'dateTime' },
+  { title: '会议时间', dataIndex: 'startTime', renderText: t => moment(t).format('YYYY-MM-DD HH:mm') },
   { title: '会议地点', dataIndex: 'placement' },
   { title: '会议议题', dataIndex: 'content', valueType: 'textarea', hideInTable: true, hideInSearch: true },
 ];

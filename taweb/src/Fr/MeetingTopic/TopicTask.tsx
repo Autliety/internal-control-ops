@@ -14,11 +14,19 @@ export default function TopicTask(
       isInEdit = false,
       withMatter = false,
       value = [],
-      onChange = () => {},
+      onChange = () => {
+      },
     }: Props,
 ) {
 
   const columns: ProColumns[] = [
+    {
+      title: '序号',
+      dataIndex: 'id',
+      renderText: (_, r, index) => index + 1,
+      fixed: 'left',
+      width: 50,
+    },
     {
       title: '职责任务概述',
       dataIndex: 'content',

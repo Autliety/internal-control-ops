@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Divider, Space, Statistic } from 'antd';
+import { Divider, Space, Statistic, Tooltip } from 'antd';
 import { useParams } from 'react-router-dom';
 import ProCard from '@ant-design/pro-card';
 import { useHttp } from '../../utils/request';
@@ -40,7 +40,9 @@ export default function Assessment() {
           <Divider type={'vertical'}/>
           {i.department?.name}
           <Divider type={'vertical'}/>
-          {i.station?.name}
+          <Tooltip title={i.station?.name}>
+            {i.station?.name.length > 8 ? i.station?.name.substring(0, 7) + '...' : i.station?.name}
+          </Tooltip>
         </ProCard>)}
       </ProCard>
 
