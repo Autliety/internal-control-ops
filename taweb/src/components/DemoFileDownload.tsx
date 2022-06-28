@@ -7,15 +7,13 @@ import { ProColumns } from '@ant-design/pro-table';
 export default function DemoFileDownload() {
 
   const attachmentColumns: ProColumns[] = [
-    { title: '名称（类别）', dataIndex: 'name' },
-    { title: '文件名', dataIndex: 'code' },
+    { title: '文件名', dataIndex: 'fileName' },
     { title: '更新时间', dataIndex: 'updatedTime' },
+    { title: '上传人', dataIndex: ['uploadUser', 'name'] },
     {
       title: '操作',
       dataIndex: 'operation',
-      render: (_, record: any) => record.type === 'file'
-          ? <Button type={'primary'} icon={<DownloadOutlined/>}>下载</Button>
-          : <Button type={'link'}>{record.name}</Button>,
+      render: () => <Button type={'primary'} icon={<DownloadOutlined/>}>下载</Button>,
     },
   ];
 

@@ -7,7 +7,7 @@ import PlanInfo from '../Plan/PlanInfo';
 import { useHttp } from '../../utils/request';
 import AssessmentTable from '../AssessmentList/AssessmentTable';
 import TaskInfo from './TaskInfo';
-import DemoFileUpload from '../../components/DemoFileUpload';
+import FileUpload from '../../components/FileUpload';
 
 export default function Task() {
 
@@ -32,7 +32,7 @@ export default function Task() {
     <AssessmentTable value={[state.planDetail?.plan?.assessment]}/>
 
     <Divider orientation={'left'}>{'相关附件'}</Divider>
-    <DemoFileUpload isEdit={false}/>
+    <FileUpload/>
 
   </PageContainer>;
 }
