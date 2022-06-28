@@ -8,6 +8,7 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import TalkingCreateModal from './TalkingCreateModal';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import FileUpload from '../../components/FileUpload';
 
 export const talkingColumns: ProColumns[] = [
   {
@@ -38,11 +39,12 @@ export const talkingColumns: ProColumns[] = [
   { title: '谈话时间', dataIndex: 'time1', valueType: 'dateTime' },
   { title: '谈话地点', dataIndex: 'content3' },
   { title: '谈话记录人', dataIndex: ['requestUser', 'name'], hideInTable: true, hideInForm: true },
-  { title: '谈话实施人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
-  { title: '谈话对象', dataIndex: 'singleUser2', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '谈话发起人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '谈话对象', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '谈话事由', dataIndex: 'content4' },
   { title: '谈话内容', dataIndex: 'longContent2' , valueType: 'textarea', hideInTable: true},
   { title: '谈话对象表态', dataIndex: 'content5', hideInTable: true },
+  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInTable: true, hideInDescriptions: true },
 ];
 
 function TalkingList() {

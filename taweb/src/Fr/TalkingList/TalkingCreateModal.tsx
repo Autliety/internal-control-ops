@@ -19,7 +19,7 @@ export default function TalkingCreateModal() {
         columns={talkingColumns}
         onFinish={async data => {
           let res = await http(null, null, data);
-          navigate('/fr/talking/' + res.id);
+          navigate('/fr/lz/talking/' + res.id);
         }}
     />
   </>;

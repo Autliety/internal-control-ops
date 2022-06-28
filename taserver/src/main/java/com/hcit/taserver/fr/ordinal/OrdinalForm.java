@@ -2,9 +2,11 @@ package com.hcit.taserver.fr.ordinal;
 
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,6 +25,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("常规表单")
@@ -42,12 +47,20 @@ public class OrdinalForm {
     return formType == null ? null : formType.getRemark();
   }
 
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+  @Fetch(FetchMode.SUBSELECT)
+  @JoinColumn(name = "source_ordinal_form_id")
+  private List<Matter> matter;
 
   @OneToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  @JoinColumn(name = "source_ordinal_form_id")
   private List<Attach> attach;
 
   @ManyToOne
   private User requestUser;
+  @ManyToOne
+  private User destUser;
   @CreationTimestamp
   private LocalDateTime createTime;
   @UpdateTimestamp
@@ -66,16 +79,10 @@ public class OrdinalForm {
   private String longContent1;
   @Column(columnDefinition = "LONGTEXT")
   private String longContent2;
-  @Column(columnDefinition = "LONGTEXT")
-  private String longContent3;
-  @Column(columnDefinition = "LONGTEXT")
-  private String longContent4;
   @ManyToOne
   private User singleUser1;
   @ManyToOne
   private User singleUser2;
-  @ManyToOne
-  private User singleUser3;
 
   private LocalDateTime time1;
 }

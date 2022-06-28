@@ -3,9 +3,9 @@ import { PageContainer } from '@ant-design/pro-layout';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { talkingColumns } from '../TalkingList';
 import BaseDivider from '../../components/BaseDivider';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import { useHttp } from '../../utils/request';
 import { useParams } from 'react-router-dom';
+import FileUpload from '../../components/FileUpload';
 
 function Talking() {
 
@@ -20,7 +20,7 @@ function Talking() {
     />
 
     <BaseDivider title={'附件资料'} />
-    <DemoFileDownload />
+    <FileUpload value={state?.attach || []}/>
 
   </PageContainer>;
 }
