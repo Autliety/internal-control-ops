@@ -5,12 +5,14 @@ import { Avatar, Button, Checkbox, Col, Divider, List, Modal, Row, Tabs } from '
 
 import { useHttp } from '../../utils/request';
 import DepartmentList from './DepartmentList';
-import { permissionType } from '../../utils/nameMapTa';
-import { getPermission, permission } from '../Permission';
+import { permissionTypeFr } from '../../utils/nameMapFr';
+import { permissionTypeTa } from '../../utils/nameMapTa';
+import { getPermissionFr, permissionFr } from '../../Fr/Permission';
+import { getPermissionTa, permissionTa } from '../../Ta/Permission';
 
 const { TabPane } = Tabs;
 
-export default function Department({ withUser = false }) {
+export default function Department({ withUser = false, systemType }) {
   // 存放部门id和名称
   const [deptId, setDeptId] = React.useState('');
   const [deptName, setDeptName] = React.useState('');
@@ -35,7 +37,7 @@ export default function Department({ withUser = false }) {
         <List
             header={<p>{deptName || '部门岗位（人员）信息'}</p>}
             dataSource={withUser ? userState : stationState}
-            locale={{ emptyText: '暂无数据，点击左侧部门名称查看详细信息'}}
+            locale={{ emptyText: '暂无数据，点击左侧部门名称查看详细信息' }}
             renderItem={(item: any) => (
                 <List.Item
                     actions={withUser ? [] : [<Button type={'link'} onClick={() => {
@@ -68,15 +70,27 @@ export default function Department({ withUser = false }) {
           <p>部门：{initData.department?.name}</p>
           <p>岗位：{initData.name}</p>
           <Divider/>
-          <Row>
-            {
-              Object.keys(getPermission(permission)).map((item, index) => <Col key={item} span={12}>
-                <p>{index + 1 + '、' + permissionType[item]}</p>
-                <Checkbox.Group options={getPermission(permission)[item]} defaultValue={existPermission}/>
-                <Divider/>
-              </Col>)
-            }
-          </Row>
+          {
+            systemType === 'Fr'
+                ? <Row>
+                  {
+                    Object.keys(getPermissionFr(permissionFr)).map((item, index) => <Col key={item} span={12}>
+                      <p>{index + 1 + '、' + permissionTypeFr[item]}</p>
+                      <Checkbox.Group options={getPermissionFr(permissionFr)[item]} defaultValue={existPermission}/>
+                      <Divider/>
+                    </Col>)
+                  }
+                </Row>
+                : <Row>
+                  {
+                    Object.keys(getPermissionTa(permissionTa)).map((item, index) => <Col key={item} span={12}>
+                      <p>{index + 1 + '、' + permissionTypeTa[item]}</p>
+                      <Checkbox.Group options={getPermissionTa(permissionTa)[item]} defaultValue={existPermission}/>
+                      <Divider/>
+                    </Col>)
+                  }
+                </Row>
+          }
         </TabPane>
         <TabPane tab='分管站办和村社' key='2'>
           <p>部门：{initData.department?.name}</p>

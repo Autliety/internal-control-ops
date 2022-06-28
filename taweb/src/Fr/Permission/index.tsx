@@ -1,11 +1,11 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Collapse } from 'antd';
-import { permissionType } from "../../utils/nameMapFr";
+import { permissionTypeFr } from "../../utils/nameMapFr";
 
 const { Panel } = Collapse;
 
-export const permission = {
+export const permissionFr = {
   MEETING_CREATE: '会议新建',
   MEETING_UPDATE: '会议修改',
 
@@ -56,7 +56,8 @@ export const permission = {
 };
 
 
-export function getPermission(data) {
+export function getPermissionFr(data) {
+
   const permission = {
     MEETING: [],
     MATTER: [],
@@ -81,17 +82,17 @@ export function getPermission(data) {
   return permission;
 }
 
-export default function Permission() {
+export default function PermissionFr() {
 
   return <PageContainer>
     <Collapse defaultActiveKey={['MEETING']} bordered={false}>
       {
-        Object.keys(getPermission(permission)).map(item => <Panel
+        Object.keys(getPermissionFr(permissionFr)).map(item => <Panel
             key={item}
-            header={permissionType[item]}
+            header={permissionTypeFr[item]}
         >
           {
-            getPermission(permission)[item].map((i, index) => <p
+            getPermissionFr(permissionFr)[item].map((i, index) => <p
                 key={index}
                 style={{ textIndent: 40 }}>
               {i.label}
