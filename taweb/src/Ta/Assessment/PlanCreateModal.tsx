@@ -16,6 +16,7 @@ export default function PlanCreateModal({ title = '制定计划' }) {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [detailData, setDetailData] = React.useState([]);
+  const [approveId,setApproveId] = React.useState(0);
   const { http } = useHttp('/plan', { method: 'POST', isManual: true });
 
   return <>
@@ -32,12 +33,15 @@ export default function PlanCreateModal({ title = '制定计划' }) {
           user,
           department: user.department,
           detail: detailData,
+          approval: {approveUser:{id:approveId}},
         }).then(res => navigate(`/ta/plan/${res.id}`))}
     >
-
       <Space size={'large'}>
         计划负责人:
         <UserSelectCascader value={user} disabled/>
+        审批人:
+        <UserSelectCascader onChange={v=>setApproveId(v.id)}/>
+
       </Space>
       <Divider />
 

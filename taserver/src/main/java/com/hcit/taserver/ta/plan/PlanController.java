@@ -53,7 +53,7 @@ public class PlanController {
             .build());
       });
     }
-    plan.setApproval(approvalService.generate(Approval.builder().approveUser(User.builder().id(29L).build()).build(), plan));
+    plan.setApproval(approvalService.generate(Approval.builder().approveUser(User.builder().id(plan.getApproval().getApproveUser().getId()).build()).build(), plan));
     return planService.create(plan);
   }
 }

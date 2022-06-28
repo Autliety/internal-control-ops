@@ -45,7 +45,7 @@ export default function AssessmentTable({ value = [] }) {
                   type={'primary'}
                   icon={<ContainerOutlined/>}
                   size={'small'}
-                  onClick={() => navigate(`/ta/assessment/basic/${record?.id}`)}
+                  onClick={() => navigate(`/ta/assessment/basic/${record.id}`)}
               />
             </Tooltip>
             }
