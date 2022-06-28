@@ -51,8 +51,8 @@ import RemindList from './RemindList';
 import Remind from './Remind';
 import DemocracyList from './DemocracyList';
 import Democracy from './Democracy';
-import TalkList from './TalkList';
-import Talk from './Talk';
+import TalkingList from './TalkingList';
+import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
 
@@ -120,8 +120,8 @@ export const router = {
         },
         {
           name: '5+1谈话机制',
-          path: '/fr/lz/talk',
-          element: <TalkList/>,
+          path: '/fr/lz/talking',
+          element: <TalkingList/>,
         },
         {
           name: '监督检查工作',
@@ -411,8 +411,8 @@ export const router = {
     {
       hideInMenu: true,
       name: '5+1 谈话内容详情',
-      path: '/fr/lz/talk/:id',
-      element: <Talk/>,
+      path: '/fr/lz/talking/:id',
+      element: <Talking/>,
     },
     {
       hideInMenu: true,

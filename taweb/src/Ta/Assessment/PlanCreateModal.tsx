@@ -32,7 +32,7 @@ export default function PlanCreateModal({ title = '制定计划' }) {
           user,
           department: user.department,
           detail: detailData,
-        }).then(res => navigate(`/plan/${res.id}`))}
+        }).then(res => navigate(`/ta/plan/${res.id}`))}
     >
 
       <Space size={'large'}>
