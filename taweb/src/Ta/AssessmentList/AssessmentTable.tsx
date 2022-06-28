@@ -23,9 +23,10 @@ export const assessmentColumns: ProColumns[] = [
     title: '考核标准',
     dataIndex: 'standard',
     renderText: text => <>
-          {text?.substring(0, 30)}
-          {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[更多]</Button>}
-        </>},
+      {text?.substring(0, 30)}
+      {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
+    </>
+  },
   { title: '创建日期', dataIndex: 'createDate', valueType: 'date' },
 ];
 
@@ -40,14 +41,14 @@ export default function AssessmentTable({ value = [] }) {
           dataIndex: 'operation',
           render: (_, record: any) => <Space>
             {!record.children &&
-            <Tooltip title={'查看详情'}>
-              <Button
-                  type={'primary'}
-                  icon={<ContainerOutlined/>}
-                  size={'small'}
-                  onClick={() => navigate(`/assessment/basic/${record?.id}`)}
-              />
-            </Tooltip>
+                <Tooltip title={'查看详情'}>
+                  <Button
+                      type={'primary'}
+                      icon={<ContainerOutlined/>}
+                      size={'small'}
+                      onClick={() => navigate(`/ta/assessment/basic/${record?.id}`)}
+                  />
+                </Tooltip>
             }
           </Space>,
           fixed: 'right',
