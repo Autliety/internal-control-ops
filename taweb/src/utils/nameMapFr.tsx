@@ -47,7 +47,7 @@ export const statusEnum = {
 };
 
 // 权限类别
-export const permissionType = {
+export const permissionTypeFr = {
   MEETING: '会议权限',
   MATTER: '问题权限',
   RESPONSIBILITY: '职责任务权限',

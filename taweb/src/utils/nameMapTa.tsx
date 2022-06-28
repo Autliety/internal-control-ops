@@ -16,7 +16,7 @@ export const statusEnum = {
 };
 
 // 权限类别
-export const permissionType = {
+export const permissionTypeTa = {
   ASSESSMENT: '考核指标相关权限',
   PLAN: '工作计划相关权限',
   TASK: '工作进度相关权限',

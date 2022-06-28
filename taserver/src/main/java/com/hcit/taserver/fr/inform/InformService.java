@@ -27,7 +27,9 @@ public class InformService {
       throw new IllegalArgumentException("Matter is required");
     }
     matters.forEach(m -> {
+      m.setId(null);
       m.setUser(inform.getDestUser());
+      m.setOrigin("一单三书");
     });
     matterService.create(matters);
     return informRepository.saveAndFlush(inform);

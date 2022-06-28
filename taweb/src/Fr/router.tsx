@@ -32,7 +32,7 @@ import Report from './Report';
 import ReportList from './ReportList';
 import Disposal from './Disposal';
 import Progress from './Progress';
-import Permission from '../pages/Permission';
+import Permission from './Permission';
 import InspectList from './InspectList';
 import Important from './Important';
 import Question from './Question';
@@ -51,8 +51,8 @@ import RemindList from './RemindList';
 import Remind from './Remind';
 import DemocracyList from './DemocracyList';
 import Democracy from './Democracy';
-import TalkList from './TalkList';
-import Talk from './Talk';
+import TalkingList from './TalkingList';
+import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
 
@@ -120,8 +120,8 @@ export const router = {
         },
         {
           name: '5+1谈话机制',
-          path: '/fr/lz/talk',
-          element: <TalkList/>,
+          path: '/fr/lz/talking',
+          element: <TalkingList/>,
         },
         {
           name: '监督检查工作',
@@ -260,12 +260,12 @@ export const router = {
         {
           name: '部门及岗位',
           path: '/fr/setting/department',
-          element: <Department/>,
+          element: <Department systemType='Fr'/>,
         },
         {
           name: '人员组成',
           path: '/fr/setting/user',
-          element: <Department withUser/>,
+          element: <Department withUser systemType='Fr'/>,
         },
         {
           name: '权限管理',
@@ -411,8 +411,8 @@ export const router = {
     {
       hideInMenu: true,
       name: '5+1 谈话内容详情',
-      path: '/fr/lz/talk/:id',
-      element: <Talk/>,
+      path: '/fr/lz/talking/:id',
+      element: <Talking/>,
     },
     {
       hideInMenu: true,

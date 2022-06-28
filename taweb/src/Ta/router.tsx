@@ -22,7 +22,7 @@ import Complaint from './Wall/Complaint';
 import AssessmentAddition from './AssessmentAddition';
 import Evaluate from './Evaluate';
 import EvaluateDetail from './Evaluate/EvaluateDetail';
-import Permission from '../pages/Permission';
+import Permission from './Permission';
 import Settings from '../pages/Settings';
 
 export const router = {
@@ -110,12 +110,12 @@ export const router = {
         {
           name: '组织架构',
           path: '/ta/setting/department',
-          element: <Department/>,
+          element: <Department systemType='Ta'/>,
         },
         {
           name: '员工档案',
           path: '/ta/setting/user',
-          element: <Department withUser/>,
+          element: <Department withUser systemType='Ta'/>,
         },
         {
           name: '权限管理',

@@ -28,7 +28,7 @@ export default function ApprovalTable({ value }) {
 
     {value?.step?.[0]?.status === 'AWAITING_REVIEW' &&
     <FooterToolbar>
-      {value?.step?.[0]?.approveUser?.id === user.id ?
+      {value?.step?.[0]?.approveUser?.id === user?.id ?
           <Space>
             <Button
                 danger
