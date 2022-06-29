@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, DatePicker, Form, Input, Modal, Select, Upload } from 'antd';
+import { Button, DatePicker, Form, Input, Modal, Select, Space, Upload } from 'antd';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
@@ -41,9 +41,15 @@ function CommentCreateModal() {
           name='form_in_modal'
       >
 
-        <Form.Item name='singleUser1' label='报告人'>
-          <UserSelectCascader/>
-        </Form.Item>
+        <Space>
+          <Form.Item name='singleUser1' label='报告人'>
+            <UserSelectCascader/>
+          </Form.Item>
+
+          <Form.Item name='time1' label='会议时间'>
+            <DatePicker/>
+          </Form.Item>
+        </Space>
 
         <Form.Item name='content1' label='报告人类别'>
           <Select placeholder={'请选择'}>
@@ -62,10 +68,6 @@ function CommentCreateModal() {
           </Select>
         </Form.Item>
 
-        <Form.Item name='time1' label='会议时间'>
-          <DatePicker/>
-        </Form.Item>
-
         <Form.Item name='content3' label='述职述廉方式'>
           <Select placeholder={'请选择'}>
             <Select.Option value={'口头方式'}>口头方式</Select.Option>
@@ -75,6 +77,14 @@ function CommentCreateModal() {
 
         <Form.Item name='longContent1' label='相关内容'>
           <Input.TextArea placeholder='内容' rows={4}/>
+        </Form.Item>
+
+        <Form.Item name='content4' label='评议结果'>
+          <Input placeholder='评议结果'/>
+        </Form.Item>
+
+        <Form.Item name='content5' label='纳入廉政档案情况'>
+          <Input placeholder='纳入廉政档案情况'/>
         </Form.Item>
 
         <Form.Item name='attach' label='上传附件'>

@@ -37,15 +37,19 @@ export default function Progress() {
 
     <Divider orientation={'left'}>协调配合</Divider>
     {/*todo 协调配合*/}
-    <UserSelectCascader disabled/>
+    <div className='content'>
+      <UserSelectCascader disabled/>
+    </div>
 
     <Divider orientation={'left'}>后续措施</Divider>
     {/*todo 后续措施*/}
-    {state.continueMeasure ?
-        <MeasureTable dataSource={[state.continueMeasure]}/>
-        :
-        <Button type={'primary'} disabled>添加后续措施</Button>
-    }
+    <div className='content'>
+      {state.continueMeasure ?
+          <MeasureTable dataSource={[state.continueMeasure]}/>
+          :
+          <Button type={'primary'} disabled>添加后续措施</Button>
+      }
+    </div>
 
     {state.status !== 'NONE_REVIEW' ?
         <>
@@ -60,7 +64,7 @@ export default function Progress() {
               <Button
                   type={'primary'}
                   onClick={() => patch(null, null, progress)
-                  .then(() => window.location.reload())}
+                      .then(() => window.location.reload())}
               >
                 更新
               </Button>
@@ -70,7 +74,7 @@ export default function Progress() {
               <Button onClick={start}>更新进度</Button>
               <ApproveAndCopyModal
                   onSubmit={approval => patch(null, null, { ...state, status: 'AWAITING_REVIEW', approval })
-                  .then(() => window.location.reload())}
+                      .then(() => window.location.reload())}
               />
             </FooterToolbar>)
     }
