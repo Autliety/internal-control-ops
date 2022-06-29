@@ -8,57 +8,66 @@ import { FileTextOutlined } from '@ant-design/icons';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import { statusEnum } from '../../utils/nameMapTa';
 import ThreeCreateModal from './ThreeCreateModal';
+import { useHttp } from '../../utils/request';
 
 
 export const threeColumns: ProColumns[] = [
-  { title: '序号', dataIndex: 'code', hideInForm: true },
-  { title: '拟提交事项', dataIndex: 'title' },
-  { title: '拟提交事项内容', dataIndex: 'content', valueType: 'textarea', hideInTable: true },
+  {
+    title: '序号',
+    dataIndex: 'code',
+    hideInForm: true,
+    renderText: (_, r, index) => index + 1,
+    hideInDescriptions: true,
+  },
+  { title: '拟提交事项', dataIndex: 'content1' },
+  { title: '拟提交事项内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
   {
     title: '议题来源',
-    dataIndex: 'source',
+    dataIndex: 'content2',
     renderFormItem: () => <Select placeholder={'请选择'}>
-      <Select.Option value={0}>主管、分管条线自行研究（商议）提出</Select.Option>
-      <Select.Option value={1}>相关工作领导小组专题会议研究商议提出</Select.Option>
-      <Select.Option value={2}>镇长办公会议商议提交</Select.Option>
-      <Select.Option value={3}>书记专题会议酝酿提交</Select.Option>
-      <Select.Option value={4}>其他情形</Select.Option>
+      <Select.Option value={'主管、分管条线自行研究（商议）提出'}>主管、分管条线自行研究（商议）提出</Select.Option>
+      <Select.Option value={'相关工作领导小组专题会议研究商议提出'}>相关工作领导小组专题会议研究商议提出</Select.Option>
+      <Select.Option value={'镇长办公会议商议提交'}>镇长办公会议商议提交</Select.Option>
+      <Select.Option value={'书记专题会议酝酿提交'}>书记专题会议酝酿提交</Select.Option>
+      <Select.Option value={'其他情形'}>其他情形</Select.Option>
     </Select>,
   },
-  { title: '提交人', dataIndex: 'user', renderFormItem: () => <UserSelectCascader/> },
-  { title: '审核状态', dataIndex: 'status', valueEnum: statusEnum, hideInForm: true },
-  { title: '决策时间', dataIndex: 'date', valueType: 'date' },
+  { title: '提交人', dataIndex: ['requestUser', 'name'], renderFormItem: () => <UserSelectCascader/> },
+  { title: '审核状态', dataIndex: 'content3', valueEnum: statusEnum, hideInForm: true },
+  { title: '决策时间', dataIndex: 'time1', valueType: 'date' },
   {
     title: '决策方式',
-    dataIndex: 'method',
+    dataIndex: 'content4',
     renderFormItem: () => <Select placeholder={'请选择'}>
-      <Select.Option value={0}>口头表决</Select.Option>
-      <Select.Option value={1}>举手表决</Select.Option>
-      <Select.Option value={2}>书面投票</Select.Option>
-      <Select.Option value={3}>其他</Select.Option>
+      <Select.Option value={'口头表决'}>口头表决</Select.Option>
+      <Select.Option value={'举手表决'}>举手表决</Select.Option>
+      <Select.Option value={'书面投票'}>书面投票</Select.Option>
+      <Select.Option value={'其他'}>其他</Select.Option>
     </Select>,
   },
-  { title: '决策过程描述', dataIndex: 'process', valueType: 'textarea', hideInTable: true },
+  { title: '决策过程描述', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   {
     title: '决策结果',
-    dataIndex: 'result',
+    dataIndex: 'content5',
     renderFormItem: () => <Select placeholder={'请选择'}>
-      <Select.Option value={0}>同意按提交方案、意见等执行</Select.Option>
-      <Select.Option value={1}>同意按讨论确定的修改方案、意见等执行</Select.Option>
-      <Select.Option value={2}>退回重新拟定方案、意见等再行决策</Select.Option>
-      <Select.Option value={3}>终止提交方案、意见等不再执行</Select.Option>
-      <Select.Option value={4}>其他情况</Select.Option>
+      <Select.Option value={'同意按提交方案、意见等执行'}>同意按提交方案、意见等执行</Select.Option>
+      <Select.Option value={'同意按讨论确定的修改方案、意见等执行'}>同意按讨论确定的修改方案、意见等执行</Select.Option>
+      <Select.Option value={'退回重新拟定方案、意见等再行决策'}>退回重新拟定方案、意见等再行决策</Select.Option>
+      <Select.Option value={'终止提交方案、意见等不再执行'}>终止提交方案、意见等不再执行</Select.Option>
+      <Select.Option value={'其他情况'}>其他情况</Select.Option>
     </Select>,
   },
-  { title: '纪委监督意见', dataIndex: 'result', hideInForm: true },
+  { title: '纪委监督意见', dataIndex: 'content6', hideInForm: true },
 ];
 
 export default function ThreeList() {
 
+  const { state, loading } = useHttp('/ordinal/three', { initState: [] });
   const navigate = useNavigate();
 
   return <PageContainer
       extra={<ThreeCreateModal/>}
+      loading={loading}
   >
     <BaseEditableTable
         columns={threeColumns.concat({
@@ -75,7 +84,7 @@ export default function ThreeList() {
             />
           </Tooltip>,
         })}
-        value={[]}
+        value={state}
     />
   </PageContainer>;
 }

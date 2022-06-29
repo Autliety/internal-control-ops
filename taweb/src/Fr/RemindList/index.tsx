@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import RemindCreateModal from './RemindCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import { useHttp } from '../../utils/request';
 
 export const remindColumns: ProColumns[] = [
-  { title: '监督提醒人', dataIndex: 'requestUser', renderFormItem: () => <UserSelectCascader/> },
+  { title: '监督提醒人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
   {
-    title: '监督提醒人类别', dataIndex: 'requestUserType', valueType: 'select', fieldProps: {
+    title: '监督提醒人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
       options: [
         '镇（街道）“一把手”',
         '镇（街道）班子成员',
@@ -20,9 +21,9 @@ export const remindColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '被监督提醒人', dataIndex: 'targetUser', renderFormItem: () => <UserSelectCascader/> },
+  { title: '被监督提醒人', dataIndex: 'singleUser2', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
   {
-    title: '被监督提醒人类别', dataIndex: 'targetUserType', valueType: 'select', fieldProps: {
+    title: '被监督提醒人类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
       options: [
         '镇（街道）“一把手”',
         '镇（街道）班子成员',
@@ -33,9 +34,9 @@ export const remindColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '监督提醒内容', dataIndex: 'content', valueType: 'textarea' },
+  { title: '监督提醒内容', dataIndex: 'longContent1', valueType: 'textarea' },
   {
-    title: '监督提醒方式', dataIndex: 'method', valueType: 'select', fieldProps: {
+    title: '监督提醒方式', dataIndex: 'content3', valueType: 'select', fieldProps: {
       options: [
         '当面沟通交流',
         '系统平台交流',
@@ -43,22 +44,14 @@ export const remindColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '监督提醒时间', dataIndex: 'createTime', valueType: 'dateTime' },
-  { title: '情况反馈', dataIndex: 'feedback', valueType: 'textarea' },
+  { title: '监督提醒时间', dataIndex: 'time1', valueType: 'date' },
+  { title: '情况反馈', dataIndex: 'content4', valueType: 'textarea' },
 ];
-
-export const remindData = {
-  requestUser: '王哲',
-  requestUserType: '镇（街道）班子成员',
-  targetUser: '沈潇雅',
-  targetUserType: '镇（街道）班子成员',
-  content: '测试数据',
-  method: '当面沟通交流',
-};
 
 function RemindList() {
 
   const navigate = useNavigate();
+  const { state, loading } = useHttp('/ordinal/remind', { initState: [] });
 
   return <PageContainer
       extra={
@@ -66,6 +59,7 @@ function RemindList() {
           <RemindCreateModal/>
         </Space>
       }
+      loading={loading}
   >
     <BaseEditableTable
         columns={remindColumns.slice(0, 4).concat({
@@ -83,7 +77,7 @@ function RemindList() {
           width: 120,
           align: 'center',
         })}
-        value={[remindData]}
+        value={state}
     />
   </PageContainer>;
 }

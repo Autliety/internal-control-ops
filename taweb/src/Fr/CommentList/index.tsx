@@ -6,23 +6,26 @@ import { Button, Space, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import CommentCreateModal from './CommentCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import UserSelectCascader from '../../components/UserSelectCascader';
+import { useHttp } from '../../utils/request';
 
 export const baseColumns: ProColumns[] = [
-  { title: '报告人', dataIndex: 'user' },
-  { title: '报告人类别', dataIndex: 'userType' },
-  { title: '会议类别', dataIndex: 'meetingType' },
-  { title: '会议时间', dataIndex: 'time' },
-  { title: '述职方式', dataIndex: 'way' },
-  { title: '述职内容', dataIndex: 'content' },
-  { title: '评议结果', dataIndex: 'result' },
-  { title: '纳入廉政档案情况', dataIndex: 'situation' },
+  { title: '报告人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '报告人类别', dataIndex: 'content1' },
+  { title: '会议类别', dataIndex: 'content2' },
+  { title: '会议时间', dataIndex: 'time1', valueType: 'date' },
+  { title: '述职方式', dataIndex: 'content3' },
+  { title: '述职内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  { title: '评议结果', dataIndex: 'content4', hideInTable: true },
+  { title: '纳入廉政档案情况', dataIndex: 'content5', hideInTable: true },
 ];
 
 function CommentList() {
 
   const navigate = useNavigate();
-  const columns = baseColumns.slice(0, 4).concat([
-    { title: '评议结果', dataIndex: 'result' },
+  const { state, loading } = useHttp('/ordinal/comment', { initState: [] });
+
+  const columns = baseColumns.concat([
     {
       title: '详情',
       hideInSearch: true,
@@ -40,25 +43,15 @@ function CommentList() {
     }
   ]);
 
-  const data = [
-    {
-      id: 1,
-      user: '王哲',
-      userType: '镇（街道）一把手',
-      meetingType: '县委常委会（扩大）会议',
-      time: '2022-02-25',
-      result: '情况属实',
-    }
-  ];
-
   return <PageContainer
       extra={
         <Space>
           <CommentCreateModal/>
         </Space>
       }
+      loading={loading}
   >
-    <BaseEditableTable columns={columns} value={data}/>
+    <BaseEditableTable columns={columns} value={state}/>
   </PageContainer>;
 }
 

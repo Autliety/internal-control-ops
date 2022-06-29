@@ -1,12 +1,20 @@
 import React from 'react';
 import { Button, Cascader, DatePicker, Form, Input, Modal, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import { useHttp } from '../../utils/request';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../utils/auth';
 
 function PersonCreateModal() {
   const [form] = Form.useForm();
 
   const [isVisible, setIsVisible] = React.useState(false);
+
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { http } = useHttp('/ordinal/personal', { method: 'POST', isManual: true });
 
   const typeOptions = [
     {
@@ -93,48 +101,49 @@ function PersonCreateModal() {
               .validateFields()
               .then(values => {
                 form.resetFields();
-                console.log(values);
+                values.time1 = moment(values.time1).valueOf();
+                values.content2 = values.content2.join('/');
+                http(null, null, values).then(data => navigate(`/fr/lz/person/${data.id}`));
               })
               .catch(info => {
                 console.log('Validate Failed:', info);
               });
         }}
     >
+      <div style={{ marginBottom: 20 }}>
+        <p>报告人</p>
+        <UserSelectCascader value={{ id: user.id }} disabled/>
+      </div>
       <Form
           form={form}
           layout='vertical'
           name='form_in_modal'
       >
-
-        <Form.Item name='user' label='报告人'>
-          <UserSelectCascader/>
-        </Form.Item>
-
-        <Form.Item name='userType' label='报告人类别'>
+        <Form.Item name='content1' label='报告人类别'>
           <Select placeholder={'请选择'}>
-            <Select.Option value={0}>领导干部</Select.Option>
-            <Select.Option value={1}>中层干部</Select.Option>
-            <Select.Option value={2}>村社书记</Select.Option>
+            <Select.Option value='领导干部'>领导干部</Select.Option>
+            <Select.Option value='中层干部'>中层干部</Select.Option>
+            <Select.Option value='村社书记'>村社书记</Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name='type' label='报告类别'>
+        <Form.Item name='content2' label='报告类别'>
           <Cascader options={typeOptions} placeholder='请选择'/>
         </Form.Item>
 
-        <Form.Item name='content' label='报告内容简述'>
-          <Input.TextArea placeholder={'内容简述'} rows={4}/>
+        <Form.Item name='longContent1' label='报告内容简述'>
+          <Input.TextArea placeholder='内容简述' rows={4}/>
         </Form.Item>
 
-        <Form.Item name='time' label='报告时间'>
+        <Form.Item name='time1' label='报告时间'>
           <DatePicker/>
         </Form.Item>
 
-        <Form.Item name='public' label='内部公开情况'>
+        <Form.Item name='content3' label='内部公开情况'>
           <Select placeholder={'请选择'}>
-            <Select.Option value={0}>不公开</Select.Option>
-            <Select.Option value={1}>任职公开</Select.Option>
-            <Select.Option value={2}>年度民主（组织）生活会书面公开</Select.Option>
+            <Select.Option value='不公开'>不公开</Select.Option>
+            <Select.Option value='任职公开'>任职公开</Select.Option>
+            <Select.Option value='年度民主（组织）生活会书面公开'>年度民主（组织）生活会书面公开</Select.Option>
           </Select>
         </Form.Item>
       </Form>

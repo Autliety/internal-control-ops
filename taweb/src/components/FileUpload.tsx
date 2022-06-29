@@ -6,7 +6,6 @@ import { host } from '../utils/request';
 function FileUpload({ isInEdit, onChange, value }: any) {
 
   return <Upload
-      disabled={!isInEdit}
 
       action={host + '/attach'}
       withCredentials
@@ -24,7 +23,7 @@ function FileUpload({ isInEdit, onChange, value }: any) {
         }
       }}
   >
-    <Button icon={<UploadOutlined/>}>上传文件</Button>
+    <Button icon={<UploadOutlined/>} disabled={!isInEdit}>上传文件</Button>
   </Upload>;
 }
 
