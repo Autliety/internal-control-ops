@@ -11,7 +11,7 @@ import InformCreateModal from './InformCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
 export const informColumns: ProColumns[] = [
-  { title: '序号', dataIndex: 'code', width: 100 },
+  { title: '编号', dataIndex: 'code', width: 100 },
   { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
   { title: '签发主体', dataIndex: ['fromUser', 'department' , 'name'] },
   { title: '签发人', dataIndex: ['fromUser', 'name'] },

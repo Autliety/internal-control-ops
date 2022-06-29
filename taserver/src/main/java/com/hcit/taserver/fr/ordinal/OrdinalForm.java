@@ -41,6 +41,8 @@ public class OrdinalForm {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String code;
+
   @Enumerated(EnumType.STRING)
   private FormType formType;
   public String getFormTypeRemark() {
