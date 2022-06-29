@@ -2,19 +2,22 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { questionColumns } from '../QuestionList';
 import BaseDescriptions from '../../components/BaseDescriptions';
+import { useHttp } from '../../utils/request';
+import { useParams } from 'react-router-dom';
+import BaseDivider from '../../components/BaseDivider';
+import FileUpload from '../../components/FileUpload';
 
 export default function Question() {
-  const data = {
-    id: 1,
-    leader: '王哲',
-    user: '李勤根',
-    type: '个别约谈',
-    date: '2022-04-23',
-    station: '工作不到位',
-  }
+
+  const { id } = useParams();
+  const { state } = useHttp(`/ordinal/question/${id}`);
 
   return <PageContainer>
-    <BaseDescriptions columns={questionColumns} dataSource={data}/>
+    <BaseDivider title={'基本信息'}/>
+    <BaseDescriptions columns={questionColumns} dataSource={state}/>
+
+    <BaseDivider title={'附件资料'}/>
+    <FileUpload value={state?.attach}/>
   </PageContainer>;
 }
 

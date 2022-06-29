@@ -10,7 +10,7 @@ import { leaderColumns } from './index';
 function LeaderCreateModal() {
 
   const navigate = useNavigate();
-  const { http } = useHttp('/ordinal/leader', {method: 'POST', isManual: true})
+  const { http } = useHttp('/ordinal/leader', { method: 'POST', isManual: true });
 
   return <>
     <BetaSchemaForm
@@ -19,7 +19,8 @@ function LeaderCreateModal() {
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
         columns={leaderColumns}
         onFinish={async data => {
-          data.time1 = moment(data.time1).valueOf();
+          if (data.time1)
+            data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
           navigate('/fr/lz/leader/' + res.id);
         }}

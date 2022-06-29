@@ -21,8 +21,10 @@ export default function ReportCreateModal() {
         columns={reportColumns}
         onFinish={
           async data => {
-            data.time1 = moment(data.time1).valueOf();
-            data.time2 = moment(data.time2).valueOf();
+            if (data.time1)
+              data.time1 = moment(data.time1).valueOf();
+            if (data.time2)
+              data.time2 = moment(data.time2).valueOf();
             let res = await http(null, null, data);
             navigate('/fr/lz/report/' + res.id);
           }}

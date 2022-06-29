@@ -20,6 +20,7 @@ public enum FormType {
   COMMENT("述责述廉评议"),
   REMIND("相互监督提醒"),
   CLUB("生活会"),
+  QUESTION("履责约谈")
   ;
 
   private final String remark;

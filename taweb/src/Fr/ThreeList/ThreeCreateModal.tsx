@@ -21,7 +21,8 @@ export default function ThreeCreateModal() {
 
         columns={threeColumns}
         onFinish={async data => {
-          data.time1 = moment(data.time1).valueOf();
+          if (data.time1)
+            data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
           navigate('/fr/lz/three/' + res.id);
         }}

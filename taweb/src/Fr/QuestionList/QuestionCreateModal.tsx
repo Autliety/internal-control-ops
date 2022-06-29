@@ -1,61 +1,31 @@
 import React from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Form, Input, Modal, Select } from 'antd';
-import SelectUser from '../../components/SelectUser';
+import { PlusSquareOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useHttp } from '../../utils/request';
+import { BetaSchemaForm } from '@ant-design/pro-form';
+import moment from 'moment';
+import { questionColumns } from './index';
 
 function QuestionCreateModal() {
 
-  const [form] = Form.useForm();
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const navigate = useNavigate();
+  const { http } = useHttp('/ordinal/question', { method: 'POST', isManual: true });
 
   return <>
-    <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>新建约谈</Button>
-    <Modal
-        title={'履责约谈新建'}
-        visible={isVisible}
-        width={800}
-        onCancel={() => setIsVisible(false)}
-        onOk={() => {
-          form
-              .validateFields()
-              .then(values => {
-                form.resetFields();
-                console.log(values);
-              })
-              .catch(info => {
-                console.log('Validate Failed:', info);
-              });
+    <BetaSchemaForm
+        title={'履责约谈'}
+        layoutType={'ModalForm'}
+        trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
+        columns={questionColumns}
+        onFinish={async data => {
+          if (data.time1)
+            data.time1 = moment(data.time1).valueOf();
+          let res = await http(null, null, data);
+          navigate('/fr/lz/leader/' + res.id);
         }}
-    >
-      <Form
-          form={form}
-          layout='vertical'
-          name='form_in_modal'
-      >
-        <Form.Item name='type' label='约谈方式'>
-          <Select placeholder={'请选择'}>
-            <Select.Option value={0}>集体约谈</Select.Option>
-            <Select.Option value={1}>个别约谈</Select.Option>
-          </Select>
-        </Form.Item>
+    />
 
-        <Form.Item name='leader' label='约谈人'>
-          <SelectUser withUser/>
-        </Form.Item>
-
-        <Form.Item name='user' label='约谈对象'>
-          <SelectUser withUser/>
-        </Form.Item>
-
-        <Form.Item name='date' label='约谈时间'>
-          <DatePicker/>
-        </Form.Item>
-
-        <Form.Item name='station' label='约谈内容'>
-          <Input.TextArea placeholder={'内容'}/>
-        </Form.Item>
-      </Form>
-    </Modal>
   </>;
 }
 

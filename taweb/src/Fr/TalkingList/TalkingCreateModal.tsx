@@ -19,7 +19,8 @@ export default function TalkingCreateModal() {
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
         columns={talkingColumns}
         onFinish={async data => {
-          data.time1 = moment(data.time1).valueOf();
+          if (data.time1)
+            data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
           navigate('/fr/lz/talking/' + res.id);
         }}

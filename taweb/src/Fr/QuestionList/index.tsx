@@ -6,35 +6,42 @@ import { FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import QuestionCreateModal from './QuestionCreateModal';
+import UserSelectCascader from '../../components/UserSelectCascader';
+import { useHttp } from '../../utils/request';
+import FileUpload from '../../components/FileUpload';
 
 export const questionColumns: ProColumns[] = [
-  { title: '约谈人', dataIndex: 'leader' },
-  { title: '约谈对象', dataIndex: 'user' },
-  { title: '约谈方式', dataIndex: 'type' },
-  { title: '时间', dataIndex: 'time', valueType: 'dateTime' },
-  { title: '约谈内容', dataIndex: 'content', valueType: 'textarea' },
-];
-
-export const questionData = [
+  { title: '约谈人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '约谈对象', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   {
-    id: 1,
-    user: '王哲',
-    leader: '李勤根',
-    type: '个别约谈',
-    time: '2022-04-23 12:00:00',
-  }
-]
+    title: '约谈方式', dataIndex: 'content1', fieldProps: {
+      options: [
+        '集体约谈', '个别约谈',
+      ],
+    },
+  },
+  { title: '约谈时间', dataIndex: 'time1', valueType: 'dateTime' },
+  { title: '约谈内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  {
+    title: '上传附件',
+    dataIndex: 'attach',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    hideInDescriptions: true,
+  },
+];
 
 export default function QuestionList() {
 
   const navigate = useNavigate();
+  const { state } = useHttp('/ordinal/question', { initState: [] });
 
   const columns: ProColumns[] = questionColumns.concat({
     title: '详情',
     dataIndex: 'operation',
     width: 100,
     align: 'center',
-    render: (_, record: any) => <Tooltip title={'详情'}>
+    render: (_, record: any) => <Tooltip title={'查看详情'}>
       <Button
           type={'primary'}
           icon={<FileTextOutlined/>}
@@ -49,6 +56,6 @@ export default function QuestionList() {
         <QuestionCreateModal/>
       </Space>}
   >
-    <BaseEditableTable columns={columns} value={questionData}/>
+    <BaseEditableTable columns={columns} value={state}/>
   </PageContainer>;
 }
