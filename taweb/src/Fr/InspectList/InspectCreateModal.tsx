@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+import moment from 'moment';
+import { BetaSchemaForm } from '@ant-design/pro-form';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
-import { BetaSchemaForm } from '@ant-design/pro-form';
 import { inspectColumns } from './index';
-import moment from 'moment';
 
 export default function InspectCreateModal() {
 

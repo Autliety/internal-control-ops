@@ -17,7 +17,9 @@ function Leader() {
     <BaseDescriptions columns={leaderColumns} dataSource={state}/>
 
     <BaseDivider title={'附件资料'}/>
-    <FileUpload value={state?.attach}/>
+    <div className='content'>
+      <FileUpload value={state?.attach}/>
+    </div>
   </PageContainer>;
 }
 

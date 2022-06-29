@@ -32,7 +32,7 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={'其他情形'}>其他情形</Select.Option>
     </Select>,
   },
-  { title: '提交人', dataIndex: ['requestUser', 'name'], renderFormItem: () => <UserSelectCascader/> },
+  { title: '提交人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '审核状态', dataIndex: 'content3', valueEnum: statusEnum, hideInForm: true },
   { title: '决策时间', dataIndex: 'time1', valueType: 'date' },
   {
@@ -57,7 +57,7 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={'其他情况'}>其他情况</Select.Option>
     </Select>,
   },
-  { title: '纪委监督意见', dataIndex: 'content6', hideInForm: true },
+  { title: '纪委监督意见', dataIndex: 'content6' },
 ];
 
 export default function ThreeList() {

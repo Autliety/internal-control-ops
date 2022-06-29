@@ -1,9 +1,10 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
-import { Button, Space, Tooltip } from 'antd';
+import { Button, DatePicker, Space, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import TalkingCreateModal from './TalkingCreateModal';
@@ -36,15 +37,26 @@ export const talkingColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '谈话时间', dataIndex: 'time1', valueType: 'dateTime' },
+  {
+    title: '谈话时间',
+    dataIndex: 'time1',
+    renderFormItem: () => <DatePicker showTime={{ format: 'YYYY-MM-DD HH:mm' }} format={'YYYY-MM-DD HH:mm'}/>,
+    renderText: t => moment(t).format('YYYY-MM-DD HH:mm'),
+  },
   { title: '谈话地点', dataIndex: 'content3' },
   { title: '谈话记录人', dataIndex: ['requestUser', 'name'], hideInTable: true, hideInForm: true },
   { title: '谈话发起人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '谈话对象', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '谈话事由', dataIndex: 'content4' },
-  { title: '谈话内容', dataIndex: 'longContent1' , valueType: 'textarea', hideInTable: true},
+  { title: '谈话内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
   { title: '谈话对象表态', dataIndex: 'content5', hideInTable: true },
-  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInTable: true, hideInDescriptions: true },
+  {
+    title: '上传附件',
+    dataIndex: 'attach',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    hideInDescriptions: true
+  },
 ];
 
 function TalkingList() {

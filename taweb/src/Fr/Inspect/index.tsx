@@ -17,7 +17,9 @@ export default function Inspect() {
     <BaseDescriptions columns={inspectColumns} dataSource={state}/>
 
     <BaseDivider title={'附件资料'}/>
-    <FileUpload isInEdit value={state?.attach || []}/>
+    <div className='content'>
+      <FileUpload value={state?.attach || []}/>
+    </div>
 
   </PageContainer>;
 }

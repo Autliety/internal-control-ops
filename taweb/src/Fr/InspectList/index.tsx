@@ -1,12 +1,13 @@
 import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
-import BaseEditableTable from '../../components/BaseEditableTable';
 import { PageContainer } from '@ant-design/pro-layout';
-import InspectCreateModal from './InspectCreateModal';
-import { useHttp } from '../../utils/request';
 import { useNavigate } from 'react-router-dom';
 import { Button, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
+
+import InspectCreateModal from './InspectCreateModal';
+import BaseEditableTable from '../../components/BaseEditableTable';
+import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import FileUpload from '../../components/FileUpload';
 

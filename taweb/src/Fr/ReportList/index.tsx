@@ -23,10 +23,10 @@ export const reportColumns: ProColumns[] = [
       <Select.Option value={'向区（镇）分管领导报告'}>向区（镇）分管领导报告</Select.Option>
     </Select>
   },
-  { title: '履责情况报告', dataIndex: 'longContent1', valueType: 'textarea' },
+  { title: '履责情况报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
   { title: '报告日期', dataIndex: 'time1', valueType: 'date' },
   { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
-  { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea' },
+  { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },
 
 ];

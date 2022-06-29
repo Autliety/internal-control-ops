@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Cascader, DatePicker, Form, Input, Modal, Select } from 'antd';
+import { Button, Cascader, DatePicker, Form, Input, Modal, Select, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import UserSelectCascader from '../../components/UserSelectCascader';
@@ -71,14 +71,12 @@ function PersonCreateModal() {
           value: '配偶、子女及其配偶参与民间借贷数额50万元以上，或者数额在10万元以上且持续时间超过1年等情况',
         },
         {
-          label: `配偶、子女及其配偶涉及民事诉讼、行政诉讼、刑事诉讼等情况，或被纪检监察机关、检察机关、公安机关、审判机关等立案审查、行政处
-          罚、追究刑事责任等情况`,
-          value: `配偶、子女及其配偶涉及民事诉讼、行政诉讼、刑事诉讼等情况，或被纪检监察机关、检察机关、公安机关、审判机关等立案审查、行政处
-          罚、追究刑事责任等情况`,
+          label: `配偶、子女及其配偶涉及民事诉讼、行政诉讼、刑事诉讼等情况，或被纪检监察机关、检察机关、公安机关、审判机关等...`,
+          value: `配偶、子女及其配偶涉及民事诉讼、行政诉讼、刑事诉讼等情况，或被纪检监察机关、检察机关、公安机关、审判机关等立案审查、行政处罚、追究刑事责任等情况`,
         },
         {
           label: '配偶、子女及其配偶录用或调入党政机关、事业单位、国有或国有控股企业工作等情况',
-          value: '配偶、子女及其配偶录用或调入党政机关、事业单位、国有或国有控股企业工作等情况',
+          value: '配偶、子女及其配偶录用或调入党政机关事业单位、国有或国有控股企业工作等情况',
         },
         {
           label: '配偶、子女及其配偶提拔为党政机关、事业单位副科级（或同等职级）、国有或国有控股企业中层副职及以上领导职务',
@@ -128,7 +126,11 @@ function PersonCreateModal() {
         </Form.Item>
 
         <Form.Item name='content2' label='报告类别'>
-          <Cascader options={typeOptions} placeholder='请选择'/>
+          <Cascader
+              options={typeOptions}
+              placeholder='请选择'
+              // dropdownMenuColumnStyle={{ textOverflow: 'ellipsis', width: 400 }}
+          />
         </Form.Item>
 
         <Form.Item name='longContent1' label='报告内容简述'>

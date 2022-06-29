@@ -24,7 +24,7 @@ export default function Assessment() {
           <PlanCreateModal/>,
         ]}
     >
-      <Divider orientation="left">基本信息</Divider>
+      <Divider orientation='left'>基本信息</Divider>
       <AssessmentInfo data={state}/>
 
       <Divider orientation={'left'}>指标责任领导</Divider>
@@ -46,7 +46,7 @@ export default function Assessment() {
         </ProCard>)}
       </ProCard>
 
-      <Divider orientation="left">指标责任部门</Divider>
+      <Divider orientation='left'>指标责任部门</Divider>
       <BaseEditableTable
           columns={[
             { title: '部门', dataIndex: 'dName' },
