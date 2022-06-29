@@ -17,28 +17,7 @@ export default function StatisticNotes() {
     {},
     { title: '待办事项', data: state['AWAITING_REVIEW']?.reverse() || [] },
     { title: '已处理待办事项', data: state['REVIEWED'] || [] },
-    {
-      title: '未读提醒事项', data: [
-        {
-          id: 26,
-          title: '填写/修改措施清单',
-          content: '收到一份问题清单，请尽快填写/修改措施清单',
-          link: '/fr/mz/list/matter',
-        },
-        {
-          id: 22,
-          title: '已审会议通知',
-          content: '会议通知【HY001】已审核完成，需发送',
-          link: '/fr/mz/meeting/1/notice',
-        },
-        {
-          id: 23,
-          title: '会议通知',
-          content: '收到会议通知【HY001】，请尽快填写会议议题',
-          link: '/fr/mz/meeting/1',
-        },
-      ]
-    },
+    { title: '未读提醒事项', data: [] },
     { title: '已读提醒事项', data: [] },
     { title: '动态跟踪', data: [] },
     { title: '已完成动态跟踪', data: [] },
@@ -151,21 +130,22 @@ export default function StatisticNotes() {
                 <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} style={{ marginLeft: '45%' }}/>
               </List.Item>
               : pageInfo[onPage].data
-                  ?.map(o => getApprovalNotes(o))
-                  .map(item =>
-                      <List.Item
-                          key={item.key}
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => navigate(item.link)}
-                      >
-                        <List.Item.Meta
-                            avatar={<Avatar
-                                src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"/>}
-                            title={item.title}
-                            description={item.content}
-                        />
-                        <div>{item.time}</div>
-                      </List.Item>)
+              ?.map(o => getApprovalNotes(o))
+              .map(item =>
+                  <List.Item
+                      key={item.key}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => navigate(item.link)}
+                  >
+                    <List.Item.Meta
+                        avatar={<Avatar
+                            src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"
+                        />}
+                        title={item.title}
+                        description={item.content}
+                    />
+                    <div>{item.time}</div>
+                  </List.Item>)
         }
       </List>
     </Modal>

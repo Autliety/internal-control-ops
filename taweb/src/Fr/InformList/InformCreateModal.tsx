@@ -40,8 +40,6 @@ export default function InformCreateModal({ isDisposal }: Props) {
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
             {isDisposal ?
                 <>
-                  <Select.Option value={'1'}>约谈</Select.Option>
-                  <Select.Option value={'2'}>提醒谈话</Select.Option>
                 </>
                 :
                 <>

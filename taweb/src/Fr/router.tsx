@@ -93,6 +93,7 @@ export const router = {
         {
           name: '第一议题制度',
           path: '/fr/mz/learn',
+          disabled: true,
           element: <LearnList/>,
         },
       ],
