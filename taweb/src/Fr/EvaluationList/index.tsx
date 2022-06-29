@@ -6,7 +6,7 @@ import { FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default function EvaluationList() {
+export default function EvaluationList({ page }) {
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export default function EvaluationList() {
             type={'primary'}
             icon={<FileTextOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/fr/pz/evaluation/leader/${record.year}`)}
+            onClick={() => navigate(`/fr/pz/evaluation/${page}/${record.year}`)}
         />
       </Tooltip>,
     },

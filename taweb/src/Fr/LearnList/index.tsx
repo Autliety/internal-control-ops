@@ -41,7 +41,7 @@ export default function LearnList() {
           type={'primary'}
           icon={<EditOutlined/>}
           size={'small'}
-          onClick={() => navigate(`/fr/mz/learning/${record.id}`)}
+          onClick={() => navigate(`/fr/mz/learn/${record.id}`)}
       />
     </Tooltip>,
     fixed: 'right',

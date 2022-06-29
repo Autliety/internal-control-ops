@@ -43,4 +43,6 @@ public class Evaluation implements BasicPersistable {
 
   private BigDecimal value;
 
+  private Integer page;
+
 }

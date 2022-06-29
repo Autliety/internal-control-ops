@@ -92,7 +92,7 @@ export const router = {
         },
         {
           name: '第一议题制度',
-          path: '/fr/mz/learning',
+          path: '/fr/mz/learn',
           element: <LearnList/>,
         },
       ],
@@ -188,18 +188,18 @@ export const router = {
       routes: [
         {
           name: '班子成员考评',
-          path: '/fr/pz/evaluation/leader',
-          element: <EvaluationList/>,
+          path: '/fr/pz/evaluation/1',
+          element: <EvaluationList page={1}/>,
         },
         {
           name: '基层站所考评',
-          path: '/fr/pz/evaluation/office',
-          element: <EvaluationList/>,
+          path: '/fr/pz/evaluation/2',
+          element: <EvaluationList page={2}/>,
         },
         {
           name: '村(社)考评',
-          path: '/fr/pz/performance/village',
-          element: <EvaluationList/>,
+          path: '/fr/pz/performance/3',
+          element: <EvaluationList page={3}/>,
         },
       ],
     },
@@ -341,7 +341,7 @@ export const router = {
     {
       hideInMenu: true,
       name: '学习记录',
-      path: '/fr/mz/learning/:id',
+      path: '/fr/mz/learn/:id',
       element: <Learn/>,
     },
     {

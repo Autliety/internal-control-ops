@@ -22,7 +22,7 @@ function QuestionCreateModal() {
           if (data.time1)
             data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
-          navigate('/fr/lz/leader/' + res.id);
+          navigate('/fr/lz/question/' + res.id);
         }}
     />
 

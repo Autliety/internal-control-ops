@@ -14,4 +14,8 @@ public class EvaluationService {
   public List<Evaluation> findAll() {
     return evaluationRepository.findAll();
   }
+
+  public List<Evaluation> findAllByPage(Integer page) {
+    return evaluationRepository.findAllByPage(page);
+  }
 }
