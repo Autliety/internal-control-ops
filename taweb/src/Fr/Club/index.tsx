@@ -1,24 +1,25 @@
 import React from 'react';
+import { Divider } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
-import { leaderColumns } from '../LeaderList';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { useParams } from 'react-router-dom';
+import { clubColumns } from '../ClubList';
 import { useHttp } from '../../utils/request';
+import { useParams } from 'react-router-dom';
 import BaseDivider from '../../components/BaseDivider';
 import FileUpload from '../../components/FileUpload';
 
-function Leader() {
+function Club() {
 
   const { id } = useParams();
-  const { state } = useHttp(`/ordinal/leader/${id}`);
+  const { state } = useHttp(`/ordinal/club/${id}`);
 
   return <PageContainer>
     <BaseDivider title={'基本信息'}/>
-    <BaseDescriptions columns={leaderColumns} dataSource={state}/>
+    <BaseDescriptions columns={clubColumns} dataSource={state}/>
 
-    <BaseDivider title={'附件资料'}/>
+    <Divider orientation={'left'}>相关附件</Divider>
     <FileUpload value={state?.attach}/>
   </PageContainer>;
 }
 
-export default Leader;
+export default Club;

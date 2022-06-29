@@ -75,7 +75,7 @@ ALTER TABLE `approval_step` ENABLE KEYS;
 
 ALTER TABLE `attach` DISABLE KEYS;
 INSERT INTO `attach` (`id`, `file_name`, `fs_file_name`, `update_time`, `upload_user_id`, `source_ordinal_form_id`) VALUES
-	(1, '监督检查.jpg', '监督检查_20220628_155309.jpg', '2022-06-28 15:53:09.127789', 999, 1);
+	(1, '监督检查.jpg', '1_监督检查.jpg', '2022-06-28 15:53:09.127789', 999, 1);
 ALTER TABLE `attach` ENABLE KEYS;
 
 ALTER TABLE `department` DISABLE KEYS;

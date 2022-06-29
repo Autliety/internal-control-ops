@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,10 +16,11 @@ public enum FormType {
   THREE("三重一大"),
   PERSONAL("个人事项报告"),
   REPORT("年度履责报告"),
-  DEMOCRACY("民主（组织）生活会督导"),
   LEADER("领导干部插手干预重大事项记录报告"),
   COMMENT("述责述廉评议"),
-  REMIND("相互监督提醒");
+  REMIND("相互监督提醒"),
+  CLUB("生活会"),
+  ;
 
   private final String remark;
 
