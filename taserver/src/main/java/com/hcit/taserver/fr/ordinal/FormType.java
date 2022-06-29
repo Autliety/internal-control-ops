@@ -14,7 +14,10 @@ public enum FormType {
   INSPECT("监督检查"),
   TALKING("5+1谈话"),
   THREE("三重一大"),
-  PERSONAL("个人事项报告");
+  PERSONAL("个人事项报告"),
+  LEADER("领导干部插手重大事项"),
+  CLUB("生活会"),
+  ;
 
   private final String remark;
 

@@ -49,8 +49,8 @@ import CommentList from './CommentList';
 import Comment from './Comment';
 import RemindList from './RemindList';
 import Remind from './Remind';
-import DemocracyList from './DemocracyList';
-import Democracy from './Democracy';
+import ClubList from './ClubList';
+import Club from './Club';
 import TalkingList from './TalkingList';
 import Talking from './Talking';
 import Department from '../pages/Department';
@@ -166,8 +166,8 @@ export const router = {
         },
         {
           name: '民主（组织）生活会督导',
-          path: '/fr/lz/democracy',
-          element: <DemocracyList/>,
+          path: '/fr/lz/club',
+          element: <ClubList/>,
         },
         {
           name: '领导干部插手干预重大事项记录报告',
@@ -179,16 +179,6 @@ export const router = {
           path: '/fr/lz/political',
           disabled: true,
         },
-        // {
-        //   name: '廉政风险排查防控',
-        //   path: '/fr/lz/risk',
-        //   element: <RiskList/>,
-        // },
-        // {
-        //   name: '纪委监察工作联络站',
-        //   path: '/fr/lz/contact',
-        //   disabled: true,
-        // },
       ],
     },
     {
@@ -405,8 +395,8 @@ export const router = {
     {
       hideInMenu: true,
       name: '民主（组织）生活会督导详情',
-      path: '/fr/lz/democracy/:id',
-      element: <Democracy/>,
+      path: '/fr/lz/club/:id',
+      element: <Club/>,
     },
     {
       hideInMenu: true,

@@ -1,31 +1,30 @@
 import React from 'react';
-import { BetaSchemaForm } from '@ant-design/pro-form';
 import { Button } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import { leaderColumns } from './index';
+import { BetaSchemaForm } from '@ant-design/pro-form';
+import moment from 'moment';
+import { clubColumns } from './index';
 
-function LeaderCreateModal() {
-
+function ClubCreateModal() {
   const navigate = useNavigate();
-  const { http } = useHttp('/ordinal/leader', {method: 'POST', isManual: true})
+  const { http } = useHttp('/ordinal/club', {method: 'POST', isManual: true})
 
   return <>
     <BetaSchemaForm
-        title={'领导插手干预重大事项记录'}
+        title={'民主（组织）生活会'}
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
-        columns={leaderColumns}
+        columns={clubColumns}
         onFinish={async data => {
           data.time1 = moment(data.time1).valueOf();
           let res = await http(null, null, data);
-          navigate('/fr/lz/leader/' + res.id);
+          navigate('/fr/lz/club/' + res.id);
         }}
     />
 
   </>;
 }
 
-export default LeaderCreateModal;
+export default ClubCreateModal;
