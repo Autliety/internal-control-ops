@@ -4,6 +4,7 @@ import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.MatterService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,7 +28,7 @@ public class OrdinalFormService {
     return form;
   }
 
-  public OrdinalForm create(FormType formType, OrdinalForm f) {
+  public OrdinalForm create(FormType formType, @NotNull OrdinalForm f) {
     f.setId(null);
     f.setFormType(formType);
     f.setRequestUser(authService.getCurrentUser());
@@ -43,5 +44,13 @@ public class OrdinalFormService {
     }
 
     return ordinalFormRepository.save(f);
+  }
+
+  public OrdinalForm update(Long id, OrdinalForm ordinalForm) {
+    if (!ordinalForm.getId().equals(id)) {
+      throw new IllegalArgumentException("OrdinalForm is empty");
+    } else {
+      return ordinalFormRepository.save(ordinalForm);
+    }
   }
 }

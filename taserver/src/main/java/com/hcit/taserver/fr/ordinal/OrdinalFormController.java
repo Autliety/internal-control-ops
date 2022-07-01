@@ -36,4 +36,9 @@ public class OrdinalFormController {
     var formType = FormType.valueOf(typeString.toUpperCase());
     return ordinalFormService.create(formType, ordinalForm);
   }
+
+  @PostMapping("/{typeString}/{id}")
+  public OrdinalForm update(@PathVariable String typeString, @PathVariable Long id,@RequestBody OrdinalForm ordinalForm){
+    return ordinalFormService.update(id,ordinalForm);
+  }
 }
