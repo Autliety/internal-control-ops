@@ -11,17 +11,41 @@ import { useHttp } from '../../utils/request';
 import FileUpload from '../../components/FileUpload';
 
 export const questionColumns: ProColumns[] = [
-  { title: '约谈人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
-  { title: '约谈对象', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '约谈人',
+    dataIndex: 'singleUser1',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
+    title: '约谈对象',
+    dataIndex: 'destUser',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '约谈方式', dataIndex: 'content1', fieldProps: {
       options: [
         '集体约谈', '个别约谈',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '约谈时间', dataIndex: 'time1', valueType: 'dateTime' },
-  { title: '约谈内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  {
+    title: '约谈时间',
+    dataIndex: 'time1',
+    valueType: 'dateTime',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
+    title: '约谈内容',
+    dataIndex: 'longContent1',
+    valueType: 'textarea',
+    hideInTable: true,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '上传附件',
     dataIndex: 'attach',

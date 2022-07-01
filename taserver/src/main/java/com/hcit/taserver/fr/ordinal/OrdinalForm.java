@@ -49,7 +49,7 @@ public class OrdinalForm {
     return formType == null ? null : formType.getRemark();
   }
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+  @OneToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   @JoinColumn(name = "source_ordinal_form_id")
   private List<Matter> matter;

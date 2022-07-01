@@ -31,7 +31,7 @@ public class MatterService {
       m.setMeasureStatus(Status.AWAITING_REVIEW);
       m.setId(null);
     });
-    return matterRepository.saveAllAndFlush(matters);
+    return matterRepository.saveAll(matters);
   }
 
   public List<Matter> updateAll(List<Matter> matters) {

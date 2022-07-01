@@ -16,11 +16,16 @@ export default function InspectCreateModal() {
     <BetaSchemaForm
         title={'监督检查'}
         layoutType={'ModalForm'}
+        width={1000}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
         columns={inspectColumns}
         onFinish={async data => {
-          if (data.time1)
+          if (data.time1) {
             data.time1 = moment(data.time1).valueOf();
+          }
+          if (data.matter) {
+            data.matter.map(i => i.endDate = moment(i.endDate).format('YYYY-MM-DD'));
+          }
           let res = await http(null, null, data);
           navigate('/fr/lz/inspect/' + res.id);
         }}

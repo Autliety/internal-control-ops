@@ -10,7 +10,13 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import { useHttp } from '../../utils/request';
 
 export const remindColumns: ProColumns[] = [
-  { title: '监督提醒人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '监督提醒人',
+    dataIndex: 'singleUser1',
+    renderText: t => t.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '监督提醒人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
       options: [
@@ -20,8 +26,15 @@ export const remindColumns: ProColumns[] = [
         '村（社区）班子成员',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '被监督提醒人', dataIndex: 'singleUser2', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '被监督提醒人',
+    dataIndex: 'singleUser2',
+    renderText: t => t.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '被监督提醒人类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
       options: [
@@ -33,8 +46,14 @@ export const remindColumns: ProColumns[] = [
         '镇（街道）纪（工）委书记',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '监督提醒内容', dataIndex: 'longContent1', valueType: 'textarea' },
+  {
+    title: '监督提醒内容',
+    dataIndex: 'longContent1',
+    valueType: 'textarea',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] }
+  },
   {
     title: '监督提醒方式', dataIndex: 'content3', valueType: 'select', fieldProps: {
       options: [
@@ -43,8 +62,14 @@ export const remindColumns: ProColumns[] = [
         '其他方式',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '监督提醒时间', dataIndex: 'time1', valueType: 'date' },
+  {
+    title: '监督提醒时间',
+    dataIndex: 'time1',
+    valueType: 'date',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   { title: '情况反馈', dataIndex: 'content4', valueType: 'textarea' },
 ];
 

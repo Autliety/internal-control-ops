@@ -42,16 +42,16 @@ function CommentCreateModal() {
       >
 
         <Space>
-          <Form.Item name='singleUser1' label='报告人'>
+          <Form.Item name='singleUser1' label='报告人' rules={[{ required: true, message: '此项必填' }]}>
             <UserSelectCascader/>
           </Form.Item>
 
-          <Form.Item name='time1' label='会议时间'>
+          <Form.Item name='time1' label='会议时间' rules={[{ required: true, message: '此项必填' }]}>
             <DatePicker/>
           </Form.Item>
         </Space>
 
-        <Form.Item name='content1' label='报告人类别'>
+        <Form.Item name='content1' label='报告人类别' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value={'镇（街道）“一把手”'}>镇（街道）“一把手”</Select.Option>
             <Select.Option value={'镇（街道）班子成员'}>镇（街道）班子成员</Select.Option>
@@ -60,7 +60,7 @@ function CommentCreateModal() {
           </Select>
         </Form.Item>
 
-        <Form.Item name='content2' label='会议类别'>
+        <Form.Item name='content2' label='会议类别' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value={'县委常委会（扩大）会议'}>县委常委会（扩大）会议</Select.Option>
             <Select.Option value={'镇（街道）党（工）委专题会议'}>镇（街道）党（工）委专题会议</Select.Option>
@@ -68,14 +68,14 @@ function CommentCreateModal() {
           </Select>
         </Form.Item>
 
-        <Form.Item name='content3' label='述职述廉方式'>
+        <Form.Item name='content3' label='述职述廉方式' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value={'口头方式'}>口头方式</Select.Option>
             <Select.Option value={'书面方式'}>书面方式</Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name='longContent1' label='相关内容'>
+        <Form.Item name='longContent1' label='相关内容' rules={[{ required: true, message: '此项必填' }]}>
           <Input.TextArea placeholder='内容' rows={4}/>
         </Form.Item>
 

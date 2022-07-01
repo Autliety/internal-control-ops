@@ -19,11 +19,18 @@ export const threeColumns: ProColumns[] = [
     renderText: (_, r, index) => index + 1,
     hideInDescriptions: true,
   },
-  { title: '拟提交事项', dataIndex: 'content1' },
-  { title: '拟提交事项内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  { title: '拟提交事项', dataIndex: 'content1', formItemProps: { rules: [{ required: true, message: '此项必填' }] } },
+  {
+    title: '拟提交事项内容',
+    dataIndex: 'longContent1',
+    valueType: 'textarea',
+    hideInTable: true,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '议题来源',
     dataIndex: 'content2',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     renderFormItem: () => <Select placeholder={'请选择'}>
       <Select.Option value={'主管、分管条线自行研究（商议）提出'}>主管、分管条线自行研究（商议）提出</Select.Option>
       <Select.Option value={'相关工作领导小组专题会议研究商议提出'}>相关工作领导小组专题会议研究商议提出</Select.Option>
@@ -32,9 +39,20 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={'其他情形'}>其他情形</Select.Option>
     </Select>,
   },
-  { title: '提交人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '提交人',
+    dataIndex: 'singleUser1',
+    renderText: t => t.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   { title: '审核状态', dataIndex: 'content3', valueEnum: statusEnum, hideInForm: true },
-  { title: '决策时间', dataIndex: 'time1', valueType: 'date' },
+  {
+    title: '决策时间',
+    dataIndex: 'time1',
+    valueType: 'date',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '决策方式',
     dataIndex: 'content4',
@@ -57,7 +75,7 @@ export const threeColumns: ProColumns[] = [
       <Select.Option value={'其他情况'}>其他情况</Select.Option>
     </Select>,
   },
-  { title: '纪委监督意见', dataIndex: 'content6' },
+  { title: '纪委监督意见', dataIndex: 'content6', hideInTable: true },
 ];
 
 export default function ThreeList() {

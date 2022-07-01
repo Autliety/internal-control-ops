@@ -10,7 +10,13 @@ import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 
 export const reportColumns: ProColumns[] = [
-  { title: '报告人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '报告人',
+    dataIndex: 'singleUser1',
+    renderText: t => t.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '报告类型',
     dataIndex: 'content1',
@@ -21,10 +27,22 @@ export const reportColumns: ProColumns[] = [
       <Select.Option value={'向区（镇）党委、纪委书面报告'}>向区（镇）党委、纪委书面报告</Select.Option>
       <Select.Option value={'向县委、县纪委书面报告'}>向县委、县纪委书面报告</Select.Option>
       <Select.Option value={'向区（镇）分管领导报告'}>向区（镇）分管领导报告</Select.Option>
-    </Select>
+    </Select>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '履责情况报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
-  { title: '报告日期', dataIndex: 'time1', valueType: 'date' },
+  {
+    title: '履责情况报告',
+    dataIndex: 'longContent1',
+    valueType: 'textarea',
+    hideInTable: true,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
+    title: '报告日期',
+    dataIndex: 'time1',
+    valueType: 'date',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },

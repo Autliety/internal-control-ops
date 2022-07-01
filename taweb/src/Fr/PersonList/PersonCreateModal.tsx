@@ -117,7 +117,7 @@ function PersonCreateModal() {
           layout='vertical'
           name='form_in_modal'
       >
-        <Form.Item name='content1' label='报告人类别'>
+        <Form.Item name='content1' label='报告人类别' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value='领导干部'>领导干部</Select.Option>
             <Select.Option value='中层干部'>中层干部</Select.Option>
@@ -125,7 +125,7 @@ function PersonCreateModal() {
           </Select>
         </Form.Item>
 
-        <Form.Item name='content2' label='报告类别'>
+        <Form.Item name='content2' label='报告类别' rules={[{ required: true, message: '此项必填' }]}>
           <Cascader
               options={typeOptions}
               placeholder='请选择'
@@ -133,15 +133,15 @@ function PersonCreateModal() {
           />
         </Form.Item>
 
-        <Form.Item name='longContent1' label='报告内容简述'>
+        <Form.Item name='longContent1' label='报告内容简述' rules={[{ required: true, message: '此项必填' }]}>
           <Input.TextArea placeholder='内容简述' rows={4}/>
         </Form.Item>
 
-        <Form.Item name='time1' label='报告时间'>
+        <Form.Item name='time1' label='报告时间' rules={[{ required: true, message: '此项必填' }]}>
           <DatePicker/>
         </Form.Item>
 
-        <Form.Item name='content3' label='内部公开情况'>
+        <Form.Item name='content3' label='内部公开情况' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value='不公开'>不公开</Select.Option>
             <Select.Option value='任职公开'>任职公开</Select.Option>

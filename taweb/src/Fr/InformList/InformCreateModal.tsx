@@ -33,10 +33,10 @@ export default function InformCreateModal({ isDisposal }: Props) {
           name="inform"
           onFinish={values => {
             http(null, null, values)
-            .then(() => window.location.reload());
+                .then(() => window.location.reload());
           }}
       >
-        <Form.Item name="type" label="类型">
+        <Form.Item name="type" label="类型" rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
             {isDisposal ?
                 <>
@@ -60,15 +60,15 @@ export default function InformCreateModal({ isDisposal }: Props) {
               <br/>
               <Space size={'large'}>
 
-                <Form.Item name="createDate" label="下达日期">
+                <Form.Item name="createDate" label="下达日期" rules={[{ required: true, message: '此项必填' }]}>
                   <DatePicker/>
                 </Form.Item>
 
-                <Form.Item name="fromUser" label="签发人">
+                <Form.Item name="fromUser" label="签发人" rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
 
-                <Form.Item name="destUser" label="接收对象">
+                <Form.Item name="destUser" label="接收对象" rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
               </Space>

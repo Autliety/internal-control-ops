@@ -21,9 +21,21 @@ export const leaderColumns: ProColumns[] = [
         '村（社区）班子成员',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '受请托人', dataIndex: 'singleUser1', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
-  { title: '请托日期', dataIndex: 'time1', valueType: 'date' },
+  {
+    title: '受请托人',
+    dataIndex: 'singleUser1',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
+    title: '请托日期',
+    dataIndex: 'time1',
+    valueType: 'date',
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
   {
     title: '干预事项类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
       options: [
@@ -35,6 +47,7 @@ export const leaderColumns: ProColumns[] = [
         '其他事项',
       ],
     },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   { title: '事项记录', dataIndex: 'content3' },
   { title: '事项报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },

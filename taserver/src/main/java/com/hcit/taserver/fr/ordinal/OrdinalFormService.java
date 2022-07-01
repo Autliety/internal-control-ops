@@ -33,13 +33,15 @@ public class OrdinalFormService {
     f.setRequestUser(authService.getCurrentUser());
 
     var matters = f.getMatter();
+    f.setMatter(null);
     if (!CollectionUtils.isEmpty(matters)) {
       matters.forEach(m -> {
         m.setId(null);
         m.setOrigin(formType.getRemark());
         m.setUser(f.getDestUser());
       });
-      matterService.create(matters);
+      var m = matterService.create(matters);
+      f.setMatter(m);
     }
 
     return ordinalFormRepository.save(f);
