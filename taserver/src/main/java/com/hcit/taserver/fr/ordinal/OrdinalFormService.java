@@ -27,7 +27,7 @@ public class OrdinalFormService {
     return form;
   }
 
-  public OrdinalForm create(FormType formType, OrdinalForm f) {
+  public OrdinalForm create(FormType formType,OrdinalForm f) {
     f.setId(null);
     f.setFormType(formType);
     f.setRequestUser(authService.getCurrentUser());
@@ -45,5 +45,13 @@ public class OrdinalFormService {
     }
 
     return ordinalFormRepository.save(f);
+  }
+
+  public OrdinalForm update(Long id, OrdinalForm ordinalForm) {
+    if (!ordinalForm.getId().equals(id)) {
+      throw new IllegalArgumentException("OrdinalForm is empty");
+    } else {
+      return ordinalFormRepository.save(ordinalForm);
+    }
   }
 }
