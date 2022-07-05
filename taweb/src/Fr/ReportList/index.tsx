@@ -1,11 +1,11 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
-import { Link } from 'react-router-dom';
-import { ContainerOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { MailOutlined } from '@ant-design/icons';
+import { Button, Select, Space, Tooltip } from 'antd';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import ReportCreateModal from './ReportCreateModal';
-import { Select } from 'antd';
 import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 
@@ -13,7 +13,7 @@ export const reportColumns: ProColumns[] = [
   {
     title: '报告人',
     dataIndex: 'singleUser1',
-    renderText: t => t.name,
+    renderText: t => t?.name,
     renderFormItem: () => <UserSelectCascader/>,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
@@ -43,19 +43,19 @@ export const reportColumns: ProColumns[] = [
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },
-
 ];
 
 export default function ReportList() {
 
+  const navigate = useNavigate();
   const { state, loading } = useHttp('/ordinal/report', { initState: [] });
 
   return <PageContainer
       extra={
-        <ReportCreateModal/>
+        <ReportCreateModal isFirstEdit/>
       }
       loading={loading}
   >
@@ -66,7 +66,17 @@ export default function ReportList() {
               width: '5%',
               align: 'center',
               fixed: 'right',
-              render: (_, record: any) => <Link to={`/fr/lz/report/${record.id}`}><ContainerOutlined/></Link>,
+              render: (_, record: any) => <Space>
+                <Tooltip title={'查看详情'}>
+                  <Button
+                      type={'primary'}
+                      icon={<MailOutlined/>}
+                      size={'small'}
+                      onClick={() => navigate(`/fr/lz/report/${record.id}`)}
+                  />
+                </Tooltip>
+                <ReportCreateModal isFirstEdit={false} id={record.id}/>
+              </Space>,
             },
         )}
         value={state}

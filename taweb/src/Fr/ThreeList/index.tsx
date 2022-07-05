@@ -2,14 +2,13 @@ import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
 import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
-import BaseEditableTable from '../../components/BaseEditableTable';
-import { Button, Select, Tooltip } from 'antd';
+import { Button, Select, Space, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import { statusEnum } from '../../utils/nameMapTa';
 import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
-
+import BaseEditableTable from '../../components/BaseEditableTable';
 
 export const threeColumns: ProColumns[] = [
   {
@@ -19,7 +18,12 @@ export const threeColumns: ProColumns[] = [
     renderText: (_, r, index) => index + 1,
     hideInDescriptions: true,
   },
-  { title: '拟提交事项', dataIndex: 'content1', formItemProps: { rules: [{ required: true, message: '此项必填' }] } },
+  {
+    title: '拟提交事项',
+    dataIndex: 'content1',
+    hideInTable: true,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] }
+  },
   {
     title: '拟提交事项内容',
     dataIndex: 'longContent1',
@@ -84,7 +88,7 @@ export default function ThreeList() {
   const navigate = useNavigate();
 
   return <PageContainer
-      extra={<ThreeCreateModal/>}
+      extra={<ThreeCreateModal isFirstEdit/>}
       loading={loading}
   >
     <BaseEditableTable
@@ -93,14 +97,17 @@ export default function ThreeList() {
           dataIndex: 'operation',
           width: 100,
           align: 'center',
-          render: (_, record: any) => <Tooltip title={'详情'}>
-            <Button
-                type={'primary'}
-                icon={<FileTextOutlined/>}
-                size={'small'}
-                onClick={() => navigate(`/fr/lz/three/${record.id}`)}
-            />
-          </Tooltip>,
+          render: (_, record: any) => <Space>
+            <Tooltip title={'详情'}>
+              <Button
+                  type={'primary'}
+                  icon={<FileTextOutlined/>}
+                  size={'small'}
+                  onClick={() => navigate(`/fr/lz/three/${record.id}`)}
+              />
+            </Tooltip>
+            <ThreeCreateModal isFirstEdit={false} id={record.id}/>
+          </Space>,
         })}
         value={state}
     />

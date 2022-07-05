@@ -22,8 +22,8 @@ export default function MatterList() {
         </Space>
       }
   >
-    {isInEdit ?
-        <>
+    {isInEdit
+        ? <>
           <MatterTable value={editValue} onChange={setEditValue} loading={loading} isSearch isInEdit/>
           <FooterToolbar>
             <Button onClick={() => setIsInEdit(false)}>取消</Button>
@@ -36,9 +36,7 @@ export default function MatterList() {
                 .then(() => window.location.reload())}>保存</Button>
           </FooterToolbar>
         </>
-        :
-
-        <MatterTable value={state} loading={loading} isSearch/>
+        : <MatterTable value={state} loading={loading} isSearch/>
     }
 
   </PageContainer>;

@@ -55,6 +55,7 @@ import TalkingList from './TalkingList';
 import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
+import MotionList from "./MotionList";
 
 export const router = {
   routes: [
@@ -217,7 +218,7 @@ export const router = {
         {
           name: '纪委动议',
           path: '/fr/dz/motion',
-          element: <Motion/>,
+          element: <MotionList/>,
         },
         {
           name: '履责约谈',
@@ -404,6 +405,12 @@ export const router = {
       name: '5+1 谈话内容详情',
       path: '/fr/lz/talking/:id',
       element: <Talking/>,
+    },
+    {
+      hideInMenu: true,
+      name: '纪委动议详情',
+      path: '/fr/dz/motion/:id',
+      element: <Motion/>,
     },
     {
       hideInMenu: true,
