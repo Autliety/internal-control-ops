@@ -36,6 +36,8 @@ public class User implements BasicPersistable {
   @ManyToOne
   private Station station;
 
+  private Integer userOrder;
+
   @Transient
   public Department getDepartment() {
     return Optional.ofNullable(station).map(Station::getDepartment).orElse(null);

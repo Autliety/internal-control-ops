@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   List<User> findAllByIdNot(Long l);
 
-  List<User> findAllByStationIn(Collection<Station> stationIds);
+  List<User> findAllByStationInOrderByUserOrderDesc(Collection<Station> stationIds);
 
   Optional<User> findByName(String username);
 

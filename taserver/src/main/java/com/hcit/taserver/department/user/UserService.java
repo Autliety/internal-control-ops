@@ -19,7 +19,7 @@ public class UserService {
 
   public Collection<User> findAllByDeptId(Long deptId) {
     var stations = stationRepository.findAllByDepartmentId(deptId);
-    return userRepository.findAllByStationIn(stations);
+    return userRepository.findAllByStationInOrderByUserOrderDesc(stations);
   }
 
   public User findById(Long id) {
