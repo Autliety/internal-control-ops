@@ -189,7 +189,7 @@ ALTER TABLE `fr_evaluation` ENABLE KEYS;
 
 ALTER TABLE `fr_inform` DISABLE KEYS;
 INSERT INTO `fr_inform` (`id`, `code`, `content`, `create_date`, `type`, `dest_department_id`, `dest_user_id`, `from_department_id`, `from_user_id`) VALUES
-	(4, NULL, '指导、监督横港村做好海盐县百步镇常青家庭农场历年欠缴流转土地租金及水费工作，有效挽回经济损失和不良影响。', NULL, 'ADVICE', NULL, 279, NULL, 1),
+	(4, NULL, '指导、监督横港村做好海盐县百步镇常青家庭农场历年欠缴流转土地租金及水费工作，有效挽回经济损失和不良影响。', NULL, 'ADVICE', NULL, 155, NULL, 1),
 	(5, NULL, '海盐县百步镇常青家庭农场（法定代表人卜年兴）2013年以来在租赁横港村农户委托流转土地的过程中，存在长期、大量欠缴土地租金及水费问题，造成了村集体资产的较大损失和不良社会影响。', NULL, 'OPINION', NULL, 279, NULL, 1),
 	(6, NULL, '针对横港村土地流转工作中存在的突出问题业务指导、监督管理不到位，导致海盐县百步镇常青家庭农场2013年以来在租赁横港村农户委托流转土地的过程中，存在长期、大量欠缴土地租金及水费问题，造成了村集体资产的较大损失和不良社会影响。', NULL, 'ANNOUNCE', NULL, 21, NULL, 1);
 ALTER TABLE `fr_inform` ENABLE KEYS;
