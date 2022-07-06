@@ -1,7 +1,9 @@
 package com.hcit.taserver.fr.inform;
 
 import com.hcit.taserver.fr.matter.MatterService;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -29,7 +31,8 @@ public class InformService {
     matters.forEach(m -> {
       m.setId(null);
       m.setUser(inform.getDestUser());
-      m.setOrigin("一单三书");
+      m.setOrigin("区（镇）反馈、交办/一单三书");
+      m.setContent(inform.getContent());
     });
     matterService.create(matters);
     return informRepository.saveAndFlush(inform);

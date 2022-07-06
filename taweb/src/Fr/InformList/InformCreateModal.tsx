@@ -29,20 +29,19 @@ export default function InformCreateModal({ isDisposal }: Props) {
     >
       <Form
           form={form}
-          layout="vertical"
-          name="inform"
+          layout='vertical'
+          name='inform'
           onFinish={values => {
-            http(null, null, values)
+            http(null, null, { ...values, matter: [{ ...values.matter, endDate: values.endDate }] })
+                .then(d => console.log(d))
                 .then(() => window.location.reload());
           }}
       >
-        <Form.Item name="type" label="类型" rules={[{ required: true, message: '此项必填' }]}>
+        <Form.Item name='type' label='类型' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
-            {isDisposal ?
-                <>
-                </>
-                :
-                <>
+            {isDisposal
+                ? <></>
+                : <>
                   <Select.Option value={'COPY'} disabled={isDisposal}>抄告单</Select.Option>
                   <Select.Option value={'OPINION'} disabled={isDisposal}>意见书</Select.Option>
                   <Select.Option value={'ADVICE'} disabled={isDisposal}>建议书</Select.Option>
@@ -60,52 +59,42 @@ export default function InformCreateModal({ isDisposal }: Props) {
               <br/>
               <Space size={'large'}>
 
-                <Form.Item name="createDate" label="下达日期" rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name='endDate' label='截止日期' rules={[{ required: true, message: '此项必填' }]}>
                   <DatePicker/>
                 </Form.Item>
 
-                <Form.Item name="fromUser" label="签发人" rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name='fromUser' label='签发人' rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
 
-                <Form.Item name="destUser" label="接收对象" rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name='destUser' label='接收对象' rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
               </Space>
 
-              <Form.Item label={'相关问题'}>
-                <Form.List name="matter">
+              <Form.Item name='content' label='相关问题'>
+                <Input.TextArea placeholder='问题内容' rows={4}/>
+              </Form.Item>
+
+              <Form.Item label={'相关措施'}>
+                <Form.List name={['matter', 'measure']}>
                   {(fields, { add, remove }) => (
                       <>
                         {fields.map(({ key, name, ...restField }) => (
                             <Space key={key} style={{ display: 'flex', marginBottom: 8 }}>
                               <Form.Item
                                   {...restField}
-                                  label={'涉及部门/党员干部'}
-                                  name={[name, 'user']}
-                              >
-                                <UserSelectCascader/>
-                              </Form.Item>
-                              <Form.Item
-                                  {...restField}
-                                  label={'问题内容'}
+                                  label={'措施内容'}
                                   name={[name, 'content']}
-                                  style={{ width: 700 }}
+                                  style={{ width: 900 }}
                               >
-                                <Input.TextArea rows={1} placeholder="问题内容"/>
-                              </Form.Item>
-                              <Form.Item
-                                  {...restField}
-                                  label={'反馈报告时限'}
-                                  name={[name, 'endDate']}
-                              >
-                                <DatePicker/>
+                                <Input.TextArea rows={2} placeholder='措施内容'/>
                               </Form.Item>
                               <MinusCircleOutlined onClick={() => remove(name)}/>
                             </Space>
                         ))}
                         <Form.Item>
-                          <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
+                          <Button type='dashed' onClick={() => add()} block icon={<PlusOutlined/>}>
                             添加一项
                           </Button>
                         </Form.Item>
@@ -114,7 +103,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
                 </Form.List>
               </Form.Item>
 
-              <Form.Item name="upload" label="附件上传">
+              <Form.Item name='upload' label='附件上传'>
                 <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
               </Form.Item>
             </>

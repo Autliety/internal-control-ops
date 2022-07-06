@@ -7,8 +7,11 @@ import com.hcit.taserver.department.user.User;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.hcit.taserver.fr.progress.ProgressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 @Service
@@ -16,6 +19,7 @@ public class MatterService {
 
   private final MatterRepository matterRepository;
   private final ApprovalService approvalService;
+  private final ProgressService progressService;
 
   public List<Matter> findAll() {
     return matterRepository.findAll();
@@ -30,6 +34,12 @@ public class MatterService {
       // todo generate code
       m.setMeasureStatus(Status.AWAITING_REVIEW);
       m.setId(null);
+      if (!CollectionUtils.isEmpty(m.getMeasure())) {
+        m.getMeasure().forEach(s -> {
+          s.setMatter(m);
+          s.setProgress(progressService.create(s));
+        });
+      }
     });
     return matterRepository.saveAll(matters);
   }

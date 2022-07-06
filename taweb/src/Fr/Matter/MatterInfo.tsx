@@ -1,12 +1,13 @@
 import React from 'react';
-import BaseDescriptions from '../../components/BaseDescriptions';
-import { Space, Switch } from 'antd';
+import { Button, Space, Switch } from 'antd';
+import moment from 'moment';
 import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import moment from 'moment';
+import showInfo from '../../utils/showInfo';
+import BaseDescriptions from '../../components/BaseDescriptions';
 
 export const matterColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code' },
+  { title: '编号', dataIndex: 'code', hideInForm: true, renderText: ((_, r, i) => i + 1) },
   {
     title: '来源及类型',
     dataIndex: 'origin',
@@ -51,7 +52,15 @@ export const matterColumns: ProColumns[] = [
       ],
     },
   },
-  { title: '问题内容', dataIndex: 'content', valueType: 'textarea' },
+  {
+    title: '问题内容',
+    dataIndex: 'content',
+    valueType: 'textarea',
+    renderText: t => <>
+      {t?.substring(0, 30)}
+      {t?.length > 30 && <Button type={'link'} onClick={() => showInfo(t)}>...[详情]</Button>}
+    </>
+  },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   { title: '责任主体', dataIndex: ['department', 'name'], editable: false },
   { title: '负责人', dataIndex: 'user', render: (u: any) => u.name, renderFormItem: () => <UserSelectCascader/> },
