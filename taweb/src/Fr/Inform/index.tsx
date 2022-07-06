@@ -24,7 +24,7 @@ export default function Inform() {
         </Space>
       }
       extra={state.type === 'ANNOUNCE' && [
-        <Button type='primary' onClick={() => navigate('/fr/dz/inform')}><DeliveredProcedureOutlined/>创建第一种形态运用</Button>
+        <Button type='primary' onClick={() => navigate(`/fr/lz/disposal?informId=${id}`)}><DeliveredProcedureOutlined/>创建第一种形态运用</Button>
       ]}
       loading={loading}
   >

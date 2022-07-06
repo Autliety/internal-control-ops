@@ -20,7 +20,7 @@ export const informColumns: ProColumns[] = [
   { title: '接收人', dataIndex: ['destUser', 'name'] },
   { title: '截至日期', dataIndex: 'endDate', renderText: ((_, r) => r.matter[0].endDate) },
   {
-    title: '问题内容',
+    title: '概述',
     dataIndex: 'content',
     renderText: ((_, r) => <>
       {r.matter[0].content.substring(0, 50)}
@@ -58,7 +58,7 @@ export default function InformList() {
   return <PageContainer
       extra={
         <Space>
-          <InformCreateModal httpPath={'inform'}/>
+          <InformCreateModal/>
         </Space>
       }
   >

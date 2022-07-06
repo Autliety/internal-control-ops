@@ -23,6 +23,7 @@ public enum FormType {
   CLUB("生活会"),
   QUESTION("履责约谈"),
   MOTION("纪委动议"),
+  DISPOSAL("第一种形态处置运用"),
   ;
 
   private final String remark;

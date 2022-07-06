@@ -7,7 +7,6 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 
 type Props = {
   isDisposal?: boolean,
-  httpPath: string,
 }
 
 export default function InformCreateModal({ isDisposal }: Props) {
@@ -15,7 +14,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
   const [form] = Form.useForm();
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [type, setType] = React.useState<string>('');
-  const { http } = useHttp(`/inform`, { method: 'POST', isManual: true });
+  const { http } = useHttp('/inform', { method: 'POST', isManual: true });
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>添加</Button>
@@ -29,22 +28,28 @@ export default function InformCreateModal({ isDisposal }: Props) {
     >
       <Form
           form={form}
-          layout='vertical'
-          name='inform'
+          layout="vertical"
+          name="inform"
           onFinish={values => {
             http(null, null, { ...values, matter: [{ ...values.matter, endDate: values.endDate }] })
-                .then(d => console.log(d))
-                .then(() => window.location.reload());
+            .then(d => console.log(d))
+            .then(() => window.location.reload());
           }}
       >
-        <Form.Item name='type' label='类型' rules={[{ required: true, message: '此项必填' }]}>
+        <Form.Item name="type" label="类型" rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'} onChange={v => setType(v)}>
-            {isDisposal
-                ? <></>
-                : <>
-                  <Select.Option value={'COPY'} disabled={isDisposal}>抄告单</Select.Option>
-                  <Select.Option value={'OPINION'} disabled={isDisposal}>意见书</Select.Option>
-                  <Select.Option value={'ADVICE'} disabled={isDisposal}>建议书</Select.Option>
+            {isDisposal ?
+                <>
+                  <Select.Option>通报批评</Select.Option>
+                  <Select.Option>责令检查</Select.Option>
+                  <Select.Option>批评教育</Select.Option>
+                  <Select.Option>提醒谈话</Select.Option>
+                </>
+                :
+                <>
+                  <Select.Option value={'COPY'}>抄告单</Select.Option>
+                  <Select.Option value={'OPINION'}>意见书</Select.Option>
+                  <Select.Option value={'ADVICE'}>建议书</Select.Option>
                   <Select.Option value={'ANNOUNCE'}>第一种形态告知书</Select.Option>
                 </>
             }
@@ -59,21 +64,21 @@ export default function InformCreateModal({ isDisposal }: Props) {
               <br/>
               <Space size={'large'}>
 
-                <Form.Item name='endDate' label='截止日期' rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name="endDate" label="截止日期" rules={[{ required: true, message: '此项必填' }]}>
                   <DatePicker/>
                 </Form.Item>
 
-                <Form.Item name='fromUser' label='签发人' rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name="fromUser" label="签发人" rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
 
-                <Form.Item name='destUser' label='接收对象' rules={[{ required: true, message: '此项必填' }]}>
+                <Form.Item name="destUser" label="接收对象" rules={[{ required: true, message: '此项必填' }]}>
                   <UserSelectCascader/>
                 </Form.Item>
               </Space>
 
-              <Form.Item name='content' label='相关问题'>
-                <Input.TextArea placeholder='问题内容' rows={4}/>
+              <Form.Item name="content" label="问题概述">
+                <Input.TextArea placeholder="问题内容" rows={4}/>
               </Form.Item>
 
               <Form.Item label={'相关措施'}>
@@ -88,13 +93,13 @@ export default function InformCreateModal({ isDisposal }: Props) {
                                   name={[name, 'content']}
                                   style={{ width: 900 }}
                               >
-                                <Input.TextArea rows={2} placeholder='措施内容'/>
+                                <Input.TextArea rows={2} placeholder="措施内容"/>
                               </Form.Item>
                               <MinusCircleOutlined onClick={() => remove(name)}/>
                             </Space>
                         ))}
                         <Form.Item>
-                          <Button type='dashed' onClick={() => add()} block icon={<PlusOutlined/>}>
+                          <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
                             添加一项
                           </Button>
                         </Form.Item>
@@ -103,7 +108,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
                 </Form.List>
               </Form.Item>
 
-              <Form.Item name='upload' label='附件上传'>
+              <Form.Item name="upload" label="附件上传">
                 <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
               </Form.Item>
             </>
