@@ -6,7 +6,7 @@ import {Button, Divider, Space} from 'antd';
 import showInfo from '../../utils/showInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import {useHttp} from '../../utils/request';
-import AdviceCreate from "../WallList/AdviceCreate";
+import AdviceCreate from "./AdviceCreate";
 
 export default function AssessmentAddition() {
 
