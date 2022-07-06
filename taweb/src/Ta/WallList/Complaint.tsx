@@ -1,9 +1,9 @@
 import React from 'react';
-import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Col, DatePicker, Divider, Form, Input, Modal, Row, Select } from 'antd';
+import {PageContainer} from '@ant-design/pro-layout';
+import {Button, Col, DatePicker, Divider, Form, Input, Modal, Row, Select} from 'antd';
 import moment from 'moment';
 
-export default function Complaint() {
+ function Complaint() {
 
   const [type, setType] = React.useState<string>('complaint');
 
@@ -29,12 +29,12 @@ export default function Complaint() {
     <div className={'content'}>
       <Row>
         <Col span={6}/>
-        <Col span={12} style={{ marginTop: 30 }}>
+        <Col span={12} style={{marginTop: 30}}>
           <Form
               name='basic'
-              labelCol={{ span: 2 }}
-              wrapperCol={{ span: 20 }}
-              initialValues={{ type: 'complaint', date: moment() }}
+              labelCol={{span: 2}}
+              wrapperCol={{span: 20}}
+              initialValues={{type: 'complaint', date: moment()}}
               onFinish={v => console.log(v)}
           >
 
@@ -56,7 +56,7 @@ export default function Complaint() {
             <Form.Item
                 label='标题'
                 name='title'
-                rules={[{ required: true, message: '必填项' }]}
+                rules={[{required: true, message: '必填项'}]}
             >
               <Input placeholder={`简述${type === 'complaint' ? '投诉' : '意见'}内容`}/>
             </Form.Item>
@@ -72,12 +72,12 @@ export default function Complaint() {
             <Form.Item
                 label='内容'
                 name='content'
-                rules={[{ required: true, message: '必填项' }]}
+                rules={[{required: true, message: '必填项'}]}
             >
               <Input.TextArea placeholder={`${type === 'complaint' ? '投诉' : '意见'}内容`} rows={3} showCount/>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 2 }}>
+            <Form.Item wrapperCol={{offset: 2}}>
               <Button type='primary' htmlType='submit'>
                 提交
               </Button>

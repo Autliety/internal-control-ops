@@ -18,12 +18,12 @@ import Plan from './Plan';
 import TaskList from './TaskList';
 import Task from './Task';
 import Department from '../pages/Department';
-import Complaint from './Wall/Complaint';
 import AssessmentAddition from './AssessmentAddition';
 import Evaluate from './Evaluate';
 import EvaluateDetail from './Evaluate/EvaluateDetail';
 import Permission from './Permission';
 import Settings from '../pages/Settings';
+import Advice from '../Ta/Wall/index';
 
 export const router = {
   routes: [
@@ -93,7 +93,7 @@ export const router = {
         {
           name: '投诉建议',
           path: '/ta/wall/complaint',
-          element: <Complaint/>,
+          element: <Advice/>,
         },
         {
           name: '工作回复',
