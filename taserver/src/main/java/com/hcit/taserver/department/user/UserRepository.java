@@ -1,6 +1,5 @@
 package com.hcit.taserver.department.user;
 
-import com.hcit.taserver.department.Station;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   List<User> findAllByIdNot(Long l);
 
-  List<User> findAllByStationInOrderByUserOrderDesc(Collection<Station> stationIds);
+  List<User> findAllByDepartmentId(Long id);
 
   Optional<User> findByName(String username);
 

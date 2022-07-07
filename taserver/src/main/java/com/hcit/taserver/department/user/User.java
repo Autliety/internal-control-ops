@@ -1,16 +1,12 @@
 package com.hcit.taserver.department.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
-import com.hcit.taserver.department.Station;
-import java.util.Optional;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,19 +24,13 @@ public class User implements BasicPersistable {
 
   private String name;
 
-  private String gender;
+  private String role;
 
-  private String phone;
+  private String station;
 
-  @JsonIgnoreProperties({"users"})
   @ManyToOne
-  private Station station;
+  private Department department;
 
   private Integer userOrder;
-
-  @Transient
-  public Department getDepartment() {
-    return Optional.ofNullable(station).map(Station::getDepartment).orElse(null);
-  }
 
 }
