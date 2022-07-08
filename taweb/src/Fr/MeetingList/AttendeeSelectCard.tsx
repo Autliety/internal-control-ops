@@ -1,7 +1,7 @@
 import React from 'react';
-import SelectUser from '../../components/SelectUser';
 import { Divider, Tooltip } from 'antd';
 import { CheckCard } from '@ant-design/pro-card';
+import SelectUser from '../../components/SelectUser';
 
 type Props = {
   onChange?: (v: object[]) => {},
@@ -26,14 +26,16 @@ export default (
         value?.map((u: any) => <CheckCard
             key={u.id}
             value={u.id}
-            title={<div style={{ color: '#000' }}>
-              {u.name}
-              <Divider type={'vertical'}/>
-              <Tooltip title={u.station?.name}>
-                {u.station?.name.length > 8 ? u.station?.name.substring(0, 8) + '...' : u.station?.name}
-              </Tooltip>
-            </div>}
-            description={u.department?.name}
+            title={
+              <div style={{ color: '#000' }}>
+                {u.name}
+                <Divider type='vertical'/>
+                <Tooltip title={u.department?.name}>
+                  {u.department?.name.length > 8 ? u.department?.name.substring(0, 8) + '...' : u.department?.name}
+                </Tooltip>
+              </div>
+            }
+            // description={u.department?.name}
         />)
       }
     </CheckCard.Group>

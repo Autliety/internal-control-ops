@@ -93,8 +93,7 @@ export const router = {
         },
         {
           name: '第一议题制度',
-          path: '/fr/mz/learn',
-          disabled: true,
+          path: '/fr/mz/learning',
           element: <LearnList/>,
         },
       ],
@@ -297,6 +296,12 @@ export const router = {
       name: '措施详情',
       path: '/fr/mz/list/measure/:id',
       element: <Measure/>,
+    },
+    {
+      hideInMenu: true,
+      name: '第一议题制度',
+      path: '/fr/mz/learning/:id',
+      element: <Learn/>,
     },
     {
       hideInMenu: true,
