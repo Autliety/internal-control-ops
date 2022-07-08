@@ -4,6 +4,7 @@ import BaseDescriptions from '../../components/BaseDescriptions';
 import { threeColumns } from '../ThreeList';
 import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
+import ThreeCreateModal from '../ThreeList/ThreeCreateModal';
 
 export default function Three() {
 
@@ -11,6 +12,7 @@ export default function Three() {
   const { state, loading } = useHttp(`/ordinal/three/${id}`, { initState: {} });
 
   return <PageContainer
+      extra={[<ThreeCreateModal isFirstEdit={false} id={parseInt(id)} size='middle'/>]}
       loading={loading}
   >
     <BaseDescriptions

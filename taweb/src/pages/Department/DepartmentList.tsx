@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from 'antd';
 import { useHttp } from '../../utils/request';
-import DepartmentEditModal from "./DepartmentEditModal";
+import DepartmentEditModal from './DepartmentEditModal';
 
 type Props = {
   isEdit?: boolean,

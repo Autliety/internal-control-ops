@@ -16,16 +16,16 @@ export const motionColumns: ProColumns[] = [
     hideInDescriptions: true,
     render: (_, r, index) => index + 1,
   },
-  { title: '会议时间', dataIndex: 'time1', renderText: t => moment(t).format('YYYY-MM-DD HH:mm') },
-  { title: '会议地点', dataIndex: 'content1' },
-  { title: '会议议题', dataIndex: 'longContent1', hideInSearch: true, hideInTable: true },
+  { title: '动议时间', dataIndex: 'time1', renderText: t => moment(t).format('YYYY-MM-DD HH:mm') },
+  { title: '动议地点', dataIndex: 'content1' },
+  { title: '动议议题', dataIndex: 'longContent1', hideInSearch: true, hideInTable: true },
   {
-    title: '参会人数',
+    title: '动议人数',
     dataIndex: 'multiUser1',
     renderText: (t => t?.length),
   },
   {
-    title: '相关问题',
+    title: '概述问题',
     dataIndex: 'matter',
     renderText: (t: any) => t?.map((item, index) => <div>
       <p>{`${index + 1}、内容：${item.content}`}</p>

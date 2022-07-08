@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCard } from '@ant-design/pro-card';
+import { Divider, Tooltip } from "antd";
 
 type Props = {
   data: any,
@@ -20,8 +21,16 @@ function MeetingAttendee(props: Props) {
         props.data?.map((u: any, index) => <CheckCard
             value={u.id}
             key={index}
-            title={<div style={{ color: '#000' }}>{u.name}</div>}
-            description={u.department?.name}
+            title={
+              <div style={{ color: '#000' }}>
+                {u.name}
+                <Divider type='vertical'/>
+                <Tooltip title={u.department?.name}>
+                  {u.department?.name.length > 8 ? u.department?.name.substring(0, 8) + '...' : u.department?.name}
+                </Tooltip>
+              </div>
+            }
+            // description={u.department?.name}
         />)
       }
     </CheckCard.Group>

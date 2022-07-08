@@ -68,7 +68,7 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
               name={'startTime'}
               rules={[{ required: true, message: '请输入' }]}
           >
-            <DatePicker showTime/>
+            <DatePicker/>
           </Form.Item>
 
           <Form.Item
@@ -90,7 +90,7 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
           <Input.TextArea placeholder={'请填写会议议题'} rows={6}/>
         </Form.Item>
 
-        { isMotion ||  <Form.Item label={'相关问题'}>
+        {isMotion || <Form.Item label={'相关问题'}>
           <Form.List name='matter'>
             {(fields, { add, remove }) => (
                 <>

@@ -35,11 +35,8 @@ export default function TopicTask(
       title: '责任主体',
       dataIndex: ['user', 'name'],
       editable: false,
-    },
-    {
-      title: '添加到问题清单',
-      dataIndex: 'isMatter',
-      valueType: 'switch',
+      fixed: 'right',
+      width: 80,
     },
   ];
 
