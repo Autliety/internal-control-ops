@@ -10,6 +10,7 @@ type Props = {
   onFinish: any,
   formConfig: any,
   value?: any,
+  size?: string,
 }
 
 function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
@@ -27,12 +28,23 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
       isFirstEdit
           ? <Button type={'primary'} onClick={() => setIsVisible(true)}>{props.title}新建</Button>
           : <Tooltip title={'编辑'}>
-            <Button
-                type={'primary'}
-                onClick={() => setIsVisible(true)}
-                icon={<EditOutlined/>}
-                size={'small'}
-            />
+            {
+              props.size
+                  ? <Button
+                      type={'primary'}
+                      onClick={() => setIsVisible(true)}
+                      icon={<EditOutlined/>}
+                      size={'middle'}
+                  >
+                    编辑
+                  </Button>
+                  : <Button
+                      type={'primary'}
+                      onClick={() => setIsVisible(true)}
+                      icon={<EditOutlined/>}
+                      size={'small'}
+                  />
+            }
           </Tooltip>
     }
     <Modal
@@ -55,7 +67,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
               Object.values(props.formConfig)?.map((item: any, index) => <Step
                   key={index}
                   title={item.title}
-                  disabled={index > currentStep}
+                  // disabled={index > currentStep}
               />)
             }
           </Steps>

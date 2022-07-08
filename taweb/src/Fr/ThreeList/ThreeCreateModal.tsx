@@ -9,9 +9,10 @@ import { threeColumns } from './index';
 type Props = {
   isFirstEdit: boolean,
   id?: number,
+  size?: string
 }
 
-export default function ThreeCreateModal({ isFirstEdit, id }: Props) {
+export default function ThreeCreateModal({ isFirstEdit, id, size }: Props) {
 
   const navigate = useNavigate();
   const { http } = useHttp('/ordinal/three', { method: 'POST', isManual: true });
@@ -32,9 +33,10 @@ export default function ThreeCreateModal({ isFirstEdit, id }: Props) {
           navigate('/fr/lz/three/' + res.id);
         }}
         formConfig={{
-          0: { title: '基本信息', columns: threeColumns.slice(0, 5) },
-          1: { title: '决策信息', columns: threeColumns.slice(5) },
+          0: { title: '基本信息', columns: threeColumns.slice(0, 6) },
+          1: { title: '决策信息', columns: threeColumns.slice(6) },
         }}
+        size={size}
     />
   </>;
 }

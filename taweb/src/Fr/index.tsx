@@ -35,7 +35,7 @@ function Pages() {
 
           rightContentRender={() => <HeaderRight/>}
 
-          title="区(镇)村(社)一体全面从严治党责任落实应用系统"
+          title="区(镇)、村(社)一体全面从严治党责任落实应用系统"
           route={router}
           location={{ pathname }}
           menuItemRender={(item, dom) => <Link to={item.path}> {dom} </Link>}

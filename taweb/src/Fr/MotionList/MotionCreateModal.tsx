@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
+import { useAuth } from '../../utils/auth';
 
 function MotionCreateModal() {
 
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { http } = useHttp('/ordinal/motion', { method: 'POST', isManual: true });
 
@@ -17,7 +19,8 @@ function MotionCreateModal() {
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}>
-      <PlusSquareOutlined/> 会议召开通知
+      <PlusSquareOutlined/>
+      动议召开通知
     </Button>
 
     <Modal
@@ -29,6 +32,11 @@ function MotionCreateModal() {
         onCancel={() => setIsVisible(false)}
         onOk={form.submit}
     >
+      <>
+        <p>动议人</p>
+        <UserSelectCascader value={user} disabled/>
+      </>
+      <br/><br/>
       <Form
           form={form}
           layout='vertical'
@@ -36,13 +44,13 @@ function MotionCreateModal() {
 
           onFinish={async values => {
             values.time1 = moment(values.time1).valueOf();
-            let data = await http(null, null, values);
+            let data = await http(null, null, { ...values, destUser: user.id });
             navigate(`/fr/dz/motion/${data.id}`);
           }}
       >
         <Space size={'large'}>
           <Form.Item
-              label='会议时间'
+              label='动议时间'
               name='time1'
               rules={[{ required: true, message: '请输入' }]}
           >
@@ -51,18 +59,18 @@ function MotionCreateModal() {
 
           <Form.Item
               name='content1'
-              label='会议地点'
+              label='动议地点'
               rules={[{ required: true, message: '请输入' }]}
           >
-            <Input placeholder='会议地点'/>
+            <Input placeholder='动议地点'/>
           </Form.Item>
         </Space>
 
-        <Form.Item name='longContent1' label='会议议题'>
-          <Input.TextArea placeholder={'请填写会议议题'} rows={6}/>
+        <Form.Item name='longContent1' label='动议情形'>
+          <Input.TextArea placeholder={'请填写动议情形'} rows={6}/>
         </Form.Item>
 
-        <Form.Item label='相关问题'>
+        <Form.Item label='动议内容及研究确实事项概述'>
           <Form.List name='matter'>
             {(fields, { add, remove }) => (
                 <>
@@ -77,11 +85,11 @@ function MotionCreateModal() {
                         </Form.Item>
                         <Form.Item
                             {...restField}
-                            label={'问题内容'}
+                            label={'概述内容'}
                             name={[name, 'content']}
                             style={{ width: 700 }}
                         >
-                          <Input.TextArea rows={1} placeholder='问题内容'/>
+                          <Input.TextArea rows={1} placeholder='概述内容'/>
                         </Form.Item>
                         <Form.Item
                             {...restField}
@@ -117,7 +125,8 @@ function MotionCreateModal() {
 
       </Form>
     </Modal>
-  </>;
+  </>
+      ;
 }
 
 export default MotionCreateModal;

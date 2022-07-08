@@ -4,7 +4,6 @@ import { Button, Modal } from 'antd';
 import MeetingInfo from './MeetingInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import MeetingAttendee from './MeetingAttendee';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
@@ -29,9 +28,6 @@ export default function MeetingNotice() {
 
     <BaseDivider title={'列席人员'}/>
     <MeetingAttendee data={state.subUser} isOptional={false}/>
-
-    <BaseDivider title={'相关附件'}/>
-    <DemoFileDownload/>
 
     <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>

@@ -9,6 +9,7 @@ import { permissionTypeFr } from '../../utils/nameMapFr';
 import { permissionTypeTa } from '../../utils/nameMapTa';
 import { getPermissionFr, permissionFr } from '../../Fr/Permission';
 import { getPermissionTa, permissionTa } from '../../Ta/Permission';
+import InformAddModal from './InformAddModal';
 
 const { TabPane } = Tabs;
 
@@ -25,8 +26,15 @@ export default function Department({ withUser = false, systemType }) {
   // 该岗位已被赋予的权限
   const existPermission = ['PLAN_CREATE', 'TASK_VIEW', 'WALL_VIEW', 'WALL_CREATE'];
 
-  return <PageContainer>
+  return <PageContainer
+      extra={[
+        <InformAddModal
+            isUserAdd={withUser}
+            onFinish={async data => console.log(data)}
+        />
+      ]}>
     <Row>
+
       <Col span={10}>
         <DepartmentList isEdit onChange={setDeptId} onNameChange={setDeptName}/>
       </Col>
