@@ -24,6 +24,7 @@ public enum FormType {
   QUESTION("履责约谈"),
   MOTION("纪委动议"),
   DISPOSAL("第一种形态处置运用"),
+  LEARNING("第一议题制度"),
   ;
 
   private final String remark;

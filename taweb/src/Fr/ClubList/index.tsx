@@ -13,7 +13,7 @@ export const clubColumns: ProColumns[] = [
   {
     title: '生活会类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
       options: [
-        '镇（街道）领导班子民主生活会',
+        '区（镇）领导班子民主生活会',
         '村（社区）班子组织生活会',
       ],
     },
@@ -24,7 +24,7 @@ export const clubColumns: ProColumns[] = [
       options: [
         '根据县委安排开展/接受巡察或所辖区域',
         '单位遇到重要或普遍性问题',
-        '根据镇（街道）党（工）委安排开展/接受巡察或所辖区域',
+        '根据区（镇）党委安排开展/接受巡察或所辖区域',
         '单位遇到重要或普遍性问题',
       ],
     },

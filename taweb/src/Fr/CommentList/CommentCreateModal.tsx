@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, DatePicker, Form, Input, Modal, Select, Space, Upload } from 'antd';
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Modal, Select, Space } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import UserSelectCascader from '../../components/UserSelectCascader';
@@ -53,8 +53,8 @@ function CommentCreateModal() {
 
         <Form.Item name='content1' label='报告人类别' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
-            <Select.Option value={'镇（街道）“一把手”'}>镇（街道）“一把手”</Select.Option>
-            <Select.Option value={'镇（街道）班子成员'}>镇（街道）班子成员</Select.Option>
+            <Select.Option value={'区（镇）“一把手”'}>区（镇）“一把手”</Select.Option>
+            <Select.Option value={'区（镇）班子成员'}>区（镇）班子成员</Select.Option>
             <Select.Option value={'村（社区）“一把手”'}>村（社区）“一把手”</Select.Option>
             <Select.Option value={'村（社区）班子成员'}>村（社区）班子成员</Select.Option>
           </Select>
@@ -63,7 +63,7 @@ function CommentCreateModal() {
         <Form.Item name='content2' label='会议类别' rules={[{ required: true, message: '此项必填' }]}>
           <Select placeholder={'请选择'}>
             <Select.Option value={'县委常委会（扩大）会议'}>县委常委会（扩大）会议</Select.Option>
-            <Select.Option value={'镇（街道）党（工）委专题会议'}>镇（街道）党（工）委专题会议</Select.Option>
+            <Select.Option value={'区（镇）党委专题会议'}>区（镇）党委专题会议</Select.Option>
             <Select.Option value={'村（社区）党组织专题会议'}>村（社区）党组织专题会议</Select.Option>
           </Select>
         </Form.Item>

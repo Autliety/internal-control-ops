@@ -45,7 +45,7 @@ export default function Login() {
           <ProFormSelect
               name={'system'}
               valueEnum={{
-                ta: '督考系统',
+                ta: '区(镇)督查考核系统',
                 fr: '区(镇)村(社)一体全面从严治党责任落实应用系统'
               }}
               fieldProps={{

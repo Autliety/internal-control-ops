@@ -11,6 +11,17 @@ import { useHttp } from '../../utils/request';
 
 export const remindColumns: ProColumns[] = [
   {
+    title: '监督提醒人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
+      options: [
+        '区（镇）“一把手”',
+        '区（镇）班子成员',
+        '村（社区）“一把手”',
+        '村（社区）班子成员',
+      ],
+    },
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
     title: '监督提醒人',
     dataIndex: 'singleUser1',
     renderText: t => t.name,
@@ -18,12 +29,14 @@ export const remindColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '监督提醒人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
+    title: '被监督提醒人类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
       options: [
-        '镇（街道）“一把手”',
-        '镇（街道）班子成员',
+        '区（镇）“一把手”',
+        '区（镇）班子成员',
         '村（社区）“一把手”',
         '村（社区）班子成员',
+        '村（社区）纪检监察组织负责人',
+        '区（镇）纪（工）委书记',
       ],
     },
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
@@ -36,23 +49,10 @@ export const remindColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '被监督提醒人类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
-      options: [
-        '镇（街道）“一把手”',
-        '镇（街道）班子成员',
-        '村（社区）“一把手”',
-        '村（社区）班子成员',
-        '村（社区）纪检监察组织负责人',
-        '镇（街道）纪（工）委书记',
-      ],
-    },
-    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
-  },
-  {
     title: '监督提醒内容',
     dataIndex: 'longContent1',
     valueType: 'textarea',
-    formItemProps: { rules: [{ required: true, message: '此项必填' }] }
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
     title: '监督提醒方式', dataIndex: 'content3', valueType: 'select', fieldProps: {

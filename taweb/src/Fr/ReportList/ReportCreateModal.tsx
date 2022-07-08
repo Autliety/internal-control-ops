@@ -22,8 +22,8 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
         title='履责报告'
         isFirstEdit={isFirstEdit}
         formConfig={{
-          0: { title: '基本信息', columns: reportColumns.slice(0, 4) },
-          1: { title: '监督评议', columns: reportColumns.slice(4) },
+          0: { title: '基本信息', columns: reportColumns.slice(0, 5) },
+          1: { title: '监督评议', columns: reportColumns.slice(5) },
         }}
         value={state}
         onFinish={async (data: any) => {

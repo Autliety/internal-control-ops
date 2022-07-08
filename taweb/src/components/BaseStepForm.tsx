@@ -82,6 +82,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
                       onFinish={async (values) => props.onFinish(values)}
                   >
                     <BetaSchemaForm
+                        initialValues={props.value}
                         layoutType='Embed'
                         columns={props.formConfig[currentStep]?.columns}
                     />

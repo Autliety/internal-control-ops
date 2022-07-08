@@ -14,8 +14,8 @@ export const leaderColumns: ProColumns[] = [
   {
     title: '受请托人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
       options: [
-        '镇（街道）“一把手”',
-        '镇（街道）班子成员',
+        '区（镇）“一把手”',
+        '区（镇）班子成员',
         '职能站所负责人',
         '村（社区）“一把手”',
         '村（社区）班子成员',
@@ -37,7 +37,7 @@ export const leaderColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '干预事项类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
+    title: '插手干预事项类别', dataIndex: 'content2', valueType: 'select', fieldProps: {
       options: [
         '干部选拔任用',
         '土地使用权出让',
@@ -49,8 +49,8 @@ export const leaderColumns: ProColumns[] = [
     },
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '事项记录', dataIndex: 'content3' },
-  { title: '事项报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  { title: '插手干预重大事项记录', dataIndex: 'content3' },
+  { title: '插手干预重大事项报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
   { title: '核查处置', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   {
     title: '附件上传',
