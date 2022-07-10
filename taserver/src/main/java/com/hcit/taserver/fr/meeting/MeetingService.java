@@ -19,7 +19,11 @@ public class MeetingService {
   private final MatterService matterService;
 
   public List<Meeting> findAll() {
-    return meetingRepository.findAll();
+    return meetingRepository.findAll(((root, query, cb) ->
+        query.where(cb.or(
+            cb.equal(root.joinList("meetingUser").get("id"), authService.getCurrentUser().getId()),
+            authService.getPrivilegePredicate(root, cb))
+        ).getRestriction()));
   }
 
   public Meeting findById(Long id) {

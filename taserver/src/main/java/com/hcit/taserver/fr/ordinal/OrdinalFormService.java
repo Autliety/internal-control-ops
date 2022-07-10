@@ -30,7 +30,7 @@ public class OrdinalFormService {
   public OrdinalForm create(FormType formType,OrdinalForm f) {
     f.setId(null);
     f.setFormType(formType);
-    f.setRequestUser(authService.getCurrentUser());
+    f.setUser(authService.getCurrentUser());
 
     var matters = f.getMatter();
     f.setMatter(null);

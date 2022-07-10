@@ -7,8 +7,7 @@ export default function BaseEditableTable(
       columns,
       isInEdit = false,
       isSearch = false,
-      disableAdd = false,
-      //  编辑模式下只存在删除按钮
+      disableAdd = false, // 编辑模式下不允许新增数据
       isOnlyDelete = false,
       value = [],
       onChange = (_: any[]) => {
@@ -17,7 +16,6 @@ export default function BaseEditableTable(
     }) {
 
   const [editableKeys, setEditableKeys] = React.useState([]);
-  const [collapsed, setCollapsed] = React.useState(true);
 
   return <EditableProTable
       bordered
@@ -51,10 +49,10 @@ export default function BaseEditableTable(
       })}
       onChange={onChange}
 
-      search={isSearch && {
+      search={false/*isSearch && {
         collapsed,
         onCollapse: setCollapsed,
-      }}
+      }*/}
       onSubmit={v => console.log(v)}
 
       editable={{

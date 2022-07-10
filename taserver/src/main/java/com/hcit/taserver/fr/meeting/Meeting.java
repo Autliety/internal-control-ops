@@ -3,7 +3,6 @@ package com.hcit.taserver.fr.meeting;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,10 +56,6 @@ public class Meeting implements BasicPersistable {
   private String placement;
 
   @ApiModelProperty("责任主体")
-  @ManyToOne
-  private Department department;
-
-  @ApiModelProperty("经办人")
   @ManyToOne
   private User user;
 
