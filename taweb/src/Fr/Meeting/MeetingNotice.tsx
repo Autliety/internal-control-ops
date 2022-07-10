@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingAttendee from './MeetingAttendee';
 import BaseDivider from '../../components/BaseDivider';
-import ApprovalTable from '../../components/ApprovalTable';
 import { useAuth } from '../../utils/auth';
 
 export default function MeetingNotice() {
@@ -28,9 +27,6 @@ export default function MeetingNotice() {
 
     <BaseDivider title={'列席人员'}/>
     <MeetingAttendee data={state.subUser} isOptional={false}/>
-
-    <BaseDivider title={'审核流程'}/>
-    <ApprovalTable value={state.approval}/>
 
     <FooterToolbar>
       {state.status === 'REVIEWED' &&
