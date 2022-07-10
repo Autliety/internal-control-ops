@@ -115,7 +115,7 @@ export const router = {
         {
           name: '员工档案',
           path: '/ta/setting/user',
-          element: <Department withUser systemType='Ta'/>,
+          element: <Department systemType='Ta'/>,
         },
         {
           name: '权限管理',

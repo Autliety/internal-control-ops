@@ -1,5 +1,6 @@
 package com.hcit.taserver.department.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
 import javax.persistence.Entity;
@@ -23,6 +24,15 @@ public class User implements BasicPersistable {
   private Long id;
 
   private String name;
+
+  @JsonProperty("name")
+  private String getFrName() {
+    if (role == null) {
+      return name;
+    } else {
+      return name + "(" + role + ")";
+    }
+  }
 
   private String role;
 
