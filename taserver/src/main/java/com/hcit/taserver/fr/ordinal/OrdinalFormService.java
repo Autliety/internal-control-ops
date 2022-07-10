@@ -16,7 +16,10 @@ public class OrdinalFormService {
   private final MatterService matterService;
 
   public List<OrdinalForm> findAllByFormType(FormType formType) {
-    return ordinalFormRepository.findAllByFormType(formType);
+    return ordinalFormRepository.findAll(((root, query, cb) -> query.where(cb.and(
+        authService.getPrivilegePredicate(root, cb, null, root.get("destUser")),
+        cb.equal(root.get("formType"), formType)
+    )).getRestriction()));
   }
 
   public OrdinalForm findByFormTypeAndId(FormType formType, Long id) {
@@ -30,7 +33,9 @@ public class OrdinalFormService {
   public OrdinalForm create(FormType formType,OrdinalForm f) {
     f.setId(null);
     f.setFormType(formType);
-    f.setUser(authService.getCurrentUser());
+    if (f.getDestUser() == null) {
+      f.setDestUser(authService.getCurrentUser());
+    }
 
     var matters = f.getMatter();
     f.setMatter(null);
@@ -38,7 +43,9 @@ public class OrdinalFormService {
       matters.forEach(m -> {
         m.setId(null);
         m.setOrigin(formType.getRemark());
-        m.setUser(f.getDestUser());
+        if (m.getUser() == null) {
+          m.setUser(f.getDestUser());
+        }
       });
       var m = matterService.create(matters);
       f.setMatter(m);

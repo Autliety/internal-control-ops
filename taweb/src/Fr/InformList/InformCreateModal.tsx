@@ -1,9 +1,10 @@
 import React from 'react';
-import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { Alert, Button, DatePicker, Divider, Form, Input, Modal, Select, Space, Typography, Upload } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Alert, Button, DatePicker, Divider, Form, Input, Modal, Select, Space, Typography } from 'antd';
 import { useHttp } from '../../utils/request';
 import { informType } from '../../utils/nameMapFr';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import FileUpload from '../../components/FileUpload';
 
 type Props = {
   isDisposal?: boolean,
@@ -108,8 +109,8 @@ export default function InformCreateModal({ isDisposal }: Props) {
                 </Form.List>
               </Form.Item>
 
-              <Form.Item name="upload" label="附件上传">
-                <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
+              <Form.Item name="attach" label="附件上传">
+                <FileUpload isInEdit/>
               </Form.Item>
             </>
         }

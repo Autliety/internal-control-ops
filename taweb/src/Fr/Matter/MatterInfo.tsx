@@ -56,8 +56,8 @@ export const matterColumns: ProColumns[] = [
     title: '问题内容',
     dataIndex: 'content',
     renderText: text => <>
-      {text?.substring(0, 20)}
-      {text?.length > 20 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
+      {text?.substring(0, 30)}
+      {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
     renderFormItem: () => <Input.TextArea placeholder="问题内容"/>,
   },

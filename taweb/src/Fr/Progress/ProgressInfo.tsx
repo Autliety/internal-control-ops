@@ -5,8 +5,9 @@ import { statusEnum } from '../../utils/nameMapTa';
 import moment from "moment";
 
 export const progressColumns: ProColumns[] = [
+  { title: '问题编号', dataIndex: ['measure', 'matter', 'code'], hideInDescriptions: true, editable: false },
   { title: '措施编号', dataIndex: ['measure', 'code'], hideInDescriptions: true, editable: false },
-  { title: '负责人', dataIndex: ['measure', 'user', 'name'], editable: false },
+  { title: '责任主体', dataIndex: ['measure', 'matter', 'user', 'name'], editable: false },
   { title: '开始日期', dataIndex: ['measure', 'startDate'], valueType: 'date', editable: false },
   { title: '结束日期', dataIndex: ['measure', 'endDate'], valueType: 'date', hideInTable: true, editable: false },
   { title: '状态', dataIndex: 'status', valueEnum: statusEnum, editable: false },

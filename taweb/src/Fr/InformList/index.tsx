@@ -14,21 +14,18 @@ import showInfo from '../../utils/showInfo';
 export const informColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code', width: 100 },
   { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
-  { title: '签发主体', dataIndex: ['fromUser', 'department', 'name'] },
-  { title: '签发人', dataIndex: ['fromUser', 'name'] },
-  { title: '接收部门', dataIndex: ['destUser', 'department', 'name'] },
-  { title: '接收人', dataIndex: ['destUser', 'name'] },
-  { title: '截至日期', dataIndex: 'endDate', renderText: ((_, r) => r.matter[0].endDate) },
+  { title: '签发主体', dataIndex: ['fromUser', 'name'] },
+  { title: '接收主体', dataIndex: ['destUser', 'name'] },
+  { title: '截至日期', dataIndex: 'endDate', renderText: ((_, r) => r.matter?.[0]?.endDate) },
   {
     title: '概述',
     dataIndex: 'content',
-    renderText: ((_, r) => <>
-      {r.matter[0].content.substring(0, 50)}
-      {r.matter[0].content.length > 50 &&
-          <Button type='link' onClick={() => showInfo(r.matter[0].content)}>...[详情]</Button>}
+    renderText: (t => <>
+      {t.substring(0, 30)}
+      {t.length > 30 && <Button type='link' onClick={() => showInfo(t)}>...[详情]</Button>}
     </>),
     hideInDescriptions: true,
-  }
+  },
 ];
 
 export default function InformList() {

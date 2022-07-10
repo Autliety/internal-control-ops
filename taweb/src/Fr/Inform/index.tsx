@@ -5,11 +5,11 @@ import { DeliveredProcedureOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useHttp } from '../../utils/request';
 import { informType } from '../../utils/nameMapFr';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { informColumns } from '../InformList';
 import BaseDivider from '../../components/BaseDivider';
 import MatterTable from '../MatterList/MatterTable';
+import FileUpload from '../../components/FileUpload';
 
 export default function Inform() {
   const { id } = useParams();
@@ -35,7 +35,7 @@ export default function Inform() {
     <MatterTable value={state.matter}/>
 
     <BaseDivider title={'相关附件'}/>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach} isInEdit />
 
   </PageContainer>;
 

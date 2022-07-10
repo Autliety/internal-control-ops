@@ -76,7 +76,7 @@ public class AuthService implements UserDetailsService {
         );
         break;
       default:
-        predicate = cb.disjunction();
+        predicate = cb.equal(userPath.get("id"), u.getId());
     }
     return cb.or(predicate, or);
   }
