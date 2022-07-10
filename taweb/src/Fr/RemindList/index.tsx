@@ -10,14 +10,10 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import { useHttp } from '../../utils/request';
 
 export const remindColumns: ProColumns[] = [
+  { title: '序号', renderText: (_, r, index) => index + 1, hideInDescriptions: true, hideInForm: true },
   {
     title: '监督提醒人类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
-      options: [
-        '区（镇）“一把手”',
-        '区（镇）班子成员',
-        '村（社区）“一把手”',
-        '村（社区）班子成员',
-      ],
+      options: ['区（镇）“一把手”', '区（镇）班子成员', '村（社区）“一把手”', '村（社区）班子成员'],
     },
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
@@ -70,7 +66,7 @@ export const remindColumns: ProColumns[] = [
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '情况反馈', dataIndex: 'content4', valueType: 'textarea' },
+  { title: '情况反馈', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
 ];
 
 function RemindList() {
@@ -79,25 +75,24 @@ function RemindList() {
   const { state, loading } = useHttp('/ordinal/remind', { initState: [] });
 
   return <PageContainer
-      extra={
-        <Space>
-          <RemindCreateModal/>
-        </Space>
-      }
+      extra={[<RemindCreateModal isFirstEdit size='middle'/>]}
       loading={loading}
   >
     <BaseEditableTable
-        columns={remindColumns.slice(0, 4).concat({
+        columns={remindColumns.concat({
           title: '详情',
           hideInSearch: true,
           dataIndex: 'operation',
-          render: (_, record: any) => <Tooltip title={'查看详情'}><Button
-              type={'primary'}
-              icon={<FileTextOutlined/>}
-              size={'small'}
-              onClick={() => navigate(`/fr/lz/remind/${record.id}`)}
-          />
-          </Tooltip>,
+          render: (_, record: any) => <Space>
+            <Tooltip title={'查看详情'}><Button
+                type={'primary'}
+                icon={<FileTextOutlined/>}
+                size={'small'}
+                onClick={() => navigate(`/fr/lz/remind/${record.id}`)}
+            />
+            </Tooltip>
+            <RemindCreateModal isFirstEdit={false} id={record.id}/>
+          </Space>,
           fixed: 'right',
           width: 120,
           align: 'center',

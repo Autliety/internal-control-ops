@@ -9,7 +9,7 @@ import { threeColumns } from './index';
 type Props = {
   isFirstEdit: boolean,
   id?: number,
-  size?: string
+  size?: 'small' | 'middle' | 'large',
 }
 
 export default function ThreeCreateModal({ isFirstEdit, id, size }: Props) {

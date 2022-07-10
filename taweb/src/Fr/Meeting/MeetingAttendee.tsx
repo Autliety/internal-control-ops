@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCard } from '@ant-design/pro-card';
-import { Divider, Tooltip } from "antd";
+import { Divider, Tooltip } from 'antd';
 
 type Props = {
   data: any,

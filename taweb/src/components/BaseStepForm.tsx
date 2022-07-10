@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Modal, Row, Steps, Tooltip, Typography } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { BetaSchemaForm, ProForm } from '@ant-design/pro-components';
 import BaseDescriptions from './BaseDescriptions';
 
@@ -10,7 +10,7 @@ type Props = {
   onFinish: any,
   formConfig: any,
   value?: any,
-  size?: string,
+  size?: 'small' | 'middle' | 'large',
 }
 
 function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
@@ -26,7 +26,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
   return <>
     {
       isFirstEdit
-          ? <Button type={'primary'} onClick={() => setIsVisible(true)}>{props.title}新建</Button>
+          ? <Button type={'primary'} onClick={() => setIsVisible(true)} icon={<PlusOutlined/>}>{props.title}新建</Button>
           : <Tooltip title={'编辑'}>
             {
               props.size

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Button, Input, Space, Switch } from 'antd';
+import { Input, Space, Switch } from 'antd';
 import moment from 'moment';
 import { ProColumns } from '@ant-design/pro-table';
-import UserSelectCascader from '../../components/UserSelectCascader';
-import showInfo from '../../utils/showInfo';
 import BaseDescriptions from '../../components/BaseDescriptions';
 
 export const matterColumns: ProColumns[] = [
@@ -59,7 +57,7 @@ export const matterColumns: ProColumns[] = [
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date', },
   { title: '责任主体', dataIndex: ['department', 'name'], editable: false },
-  { title: '负责人', dataIndex: 'user', render: (u: any) => u.name, editable: false },
+  { title: '责任人', dataIndex: 'user', render: (u: any) => u.name, editable: false },
 ];
 
 export default function MatterInfo({ dataSource }) {

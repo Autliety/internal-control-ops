@@ -8,6 +8,7 @@ type Props = {
   withUser?: boolean,
   filtered?: number,
   placeholder?: string,
+  multiple?: 'multiple' | 'tags',
 }
 
 function SelectUser(props: Props) {
@@ -23,6 +24,7 @@ function SelectUser(props: Props) {
           placeholder={props.placeholder || '选择部门'}
           style={{ width: 140 }}
           dropdownMatchSelectWidth={200}
+          mode={props.multiple}
           onChange={(v1, v2) => props.withUser ? setDeptId(v1) : props.onChange(v1, v2)}
       >
         {

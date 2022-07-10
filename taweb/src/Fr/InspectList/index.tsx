@@ -2,7 +2,7 @@ import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useNavigate } from 'react-router-dom';
-import { Button, Comment, Divider, Input, Tooltip } from 'antd';
+import { Button, Comment, Input, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 
 import InspectCreateModal from './InspectCreateModal';
@@ -10,6 +10,7 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import FileUpload from '../../components/FileUpload';
+import SelectUser from '../../components/SelectUser';
 
 
 export const matterColumns: ProColumns[] = [
@@ -25,11 +26,13 @@ export const inspectColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   { title: '监督检查领域', dataIndex: 'content1', formItemProps: { rules: [{ required: true, message: '此项必填' }] } },
+  //  todo 部门id数组
   {
-    title: '涉及部门',
+    title: '涉及站办/村社',
     dataIndex: 'content2',
     hideInTable: true,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+    renderFormItem: () => <SelectUser multiple='multiple' placeholder='请选择'/>,
   },
   {
     title: '监督检查日期',
@@ -48,6 +51,7 @@ export const inspectColumns: ProColumns[] = [
   {
     title: '发现问题',
     dataIndex: 'matter',
+    tooltip: '确定提交后自动纳入问题清单',
     renderFormItem: () => <BaseEditableTable columns={matterColumns} isInEdit/>,
     renderText: r => r?.map((item, index) => <Comment
         key={index}
@@ -56,7 +60,7 @@ export const inspectColumns: ProColumns[] = [
     />),
     hideInTable: true,
   },
-  { title: '问题派发', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '问题交办', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '处置及整改情况', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   {
     title: '上传附件',

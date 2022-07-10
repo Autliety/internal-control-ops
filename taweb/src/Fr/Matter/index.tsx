@@ -11,7 +11,6 @@ import ApprovalTable from '../../components/ApprovalTable';
 export default function Matter() {
 
   const { id } = useParams();
-
   const { state, loading } = useHttp(`/matter/${id}`);
 
   return <PageContainer
