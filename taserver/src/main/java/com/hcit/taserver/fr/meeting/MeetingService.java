@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.Matter;
@@ -17,11 +16,15 @@ public class MeetingService {
 
   private final MeetingRepository meetingRepository;
   private final AuthService authService;
-  private final ApprovalService approvalService;
   private final MatterService matterService;
 
   public List<Meeting> findAll() {
-    return meetingRepository.findAll();
+    return meetingRepository.findAll(((root, query, cb) ->
+        query.where(cb.or(
+                cb.equal(root.joinList("meetingUser").get("id"), authService.getCurrentUser().getId()),
+                authService.getPrivilegePredicate(root, cb)))
+            .distinct(true)
+            .getRestriction()));
   }
 
   public Meeting findById(Long id) {
@@ -31,9 +34,8 @@ public class MeetingService {
   public Meeting create(Meeting meeting) {
     // todo generate code
     meeting.setCode("HY001");
-    meeting.setStatus(Status.AWAITING_REVIEW);
+    meeting.setStatus(Status.REVIEWED);
     meeting.setUser(authService.getCurrentUser());
-    approvalService.generate(meeting.getApproval(), meeting);
     return meeting;
   }
 
@@ -58,11 +60,6 @@ public class MeetingService {
       matterService.create(matters);
     }
     return meeting;
-  }
-
-  public void onReviewed(Meeting meeting) {
-    meeting.setStatus(Status.REVIEWED);
-    meetingRepository.save(meeting);
   }
 
 }

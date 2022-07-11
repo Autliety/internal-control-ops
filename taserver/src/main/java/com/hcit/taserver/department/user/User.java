@@ -1,8 +1,11 @@
 package com.hcit.taserver.department.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +27,17 @@ public class User implements BasicPersistable {
 
   private String name;
 
-  private String role;
+  @JsonProperty("name")
+  private String getFrName() {
+    if (privilege == null) {
+      return name;
+    } else {
+      return name + "(" + privilege.getRole() + ")";
+    }
+  }
+
+  @Enumerated(EnumType.STRING)
+  private Privilege privilege;
 
   private String station;
 

@@ -3,7 +3,6 @@ package com.hcit.taserver.approval;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.ta.plan.Plan;
@@ -38,13 +37,6 @@ public class ApprovalService {
     approval.setStep(List.of(step));
     approval.setId(null);
     return approval;
-  }
-
-  public Approval generate(Approval input, Meeting meeting) {
-    var approval = generate(input);
-    approval.setMeeting(meeting);
-    meeting.setApproval(approval);
-    return approvalRepository.save(approval);
   }
 
   public Approval generate(Approval input, Topic topic) {

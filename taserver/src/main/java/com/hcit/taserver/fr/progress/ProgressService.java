@@ -2,7 +2,6 @@ package com.hcit.taserver.fr.progress;
 
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.measure.Measure;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +10,6 @@ import org.springframework.stereotype.Service;
 public class ProgressService {
 
   private final ProgressRepository progressRepository;
-
-  public List<Progress> findAll() {
-    return progressRepository.findAll();
-  }
 
   public Progress findById(Long id) {
     return progressRepository.findById(id).orElseThrow();

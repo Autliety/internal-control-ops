@@ -4,6 +4,7 @@ package com.hcit.taserver.fr.measure;
 import com.hcit.taserver.fr.matter.MatterService;
 import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ public class MeasureService {
   private final ProgressService progressService;
 
   public List<Measure> findAll() {
-    return measureRepository.findAll();
+    return matterService.findAll().stream().flatMap(matter -> matter.getMeasure().stream())
+        .collect(Collectors.toList());
   }
 
   public Measure findById(Long id) {

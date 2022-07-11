@@ -1,7 +1,6 @@
 package com.hcit.taserver.approval;
 
 import com.hcit.taserver.fr.matter.MatterService;
-import com.hcit.taserver.fr.meeting.MeetingService;
 import com.hcit.taserver.fr.meeting.TopicService;
 import com.hcit.taserver.fr.progress.ProgressService;
 import com.hcit.taserver.ta.plan.PlanService;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApprovalController {
 
   private final ApprovalService approvalService;
-  private final MeetingService meetingService;
   private final TopicService topicService;
   private final MatterService matterService;
   private final ProgressService progressService;
@@ -42,9 +40,7 @@ public class ApprovalController {
     var approval = approvalService.stepIn(id, content);
 
     // todo: move onReviewed to better place
-    if (approval.getMeeting() != null) {
-      meetingService.onReviewed(approval.getMeeting());
-    } else if (approval.getMeetingTopic() != null) {
+    if (approval.getMeetingTopic() != null) {
       topicService.onReviewed(approval.getMeetingTopic());
     } else if (approval.getMatter() != null) {
       matterService.onReviewed(approval.getMatter());

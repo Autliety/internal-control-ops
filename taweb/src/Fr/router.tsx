@@ -256,7 +256,7 @@ export const router = {
         {
           name: '人员组成',
           path: '/fr/setting/user',
-          element: <Department withUser systemType='Fr'/>,
+          element: <Department systemType='Fr'/>,
         },
         {
           name: '权限管理',

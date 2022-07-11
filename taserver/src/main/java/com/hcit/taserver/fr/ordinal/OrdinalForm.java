@@ -49,8 +49,6 @@ public class OrdinalForm {
   private List<Attach> attach;
 
   @ManyToOne
-  private User requestUser;
-  @ManyToOne
   private User destUser;
   @CreationTimestamp
   private LocalDateTime createTime;

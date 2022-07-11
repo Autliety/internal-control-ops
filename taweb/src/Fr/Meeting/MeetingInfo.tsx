@@ -6,8 +6,7 @@ import { meetingStatusEnum } from '../../utils/nameMapFr';
 export const meetingColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code' },
   { title: '会议类型', dataIndex: 'type', valueType: 'select', fieldProps: { options: ['1专题会议', 'X专门会议', '纪委动议'] } },
-  { title: '责任主体', dataIndex: ['department', 'name'] },
-  { title: '经办人', dataIndex: ['user', 'name'] },
+  { title: '责任主体', dataIndex: ['user', 'name'] },
   {
     title: '会议状态',
     dataIndex: 'status',

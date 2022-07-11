@@ -1,6 +1,5 @@
 import React from 'react';
 import { CheckCard } from '@ant-design/pro-card';
-import { Divider, Tooltip } from 'antd';
 
 type Props = {
   data: any,
@@ -24,10 +23,10 @@ function MeetingAttendee(props: Props) {
             title={
               <div style={{ color: '#000' }}>
                 {u.name}
-                <Divider type='vertical'/>
+                {/*<Divider type="vertical"/>
                 <Tooltip title={u.department?.name}>
                   {u.department?.name.length > 8 ? u.department?.name.substring(0, 8) + '...' : u.department?.name}
-                </Tooltip>
+                </Tooltip>*/}
               </div>
             }
             // description={u.department?.name}

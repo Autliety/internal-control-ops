@@ -1,10 +1,8 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,10 +57,6 @@ public class Meeting implements BasicPersistable {
 
   @ApiModelProperty("责任主体")
   @ManyToOne
-  private Department department;
-
-  @ApiModelProperty("经办人")
-  @ManyToOne
   private User user;
 
   @ApiModelProperty("参会人员")
@@ -82,10 +75,6 @@ public class Meeting implements BasicPersistable {
 
   @ApiModelProperty("会议议题")
   private String content;
-
-  @JsonIgnoreProperties(value = {"meeting"}, allowSetters = true)
-  @OneToOne(mappedBy = "meeting")
-  private Approval approval;
 
   @ApiModelProperty("会议职责任务")
   @JsonIgnoreProperties(value = {"meeting"}, allowSetters = true)

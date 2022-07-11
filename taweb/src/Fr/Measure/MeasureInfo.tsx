@@ -20,8 +20,7 @@ export const measureColumns: ProColumns[] = [
       {text?.length > 40 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
   },
-  { title: '责任主体', dataIndex: ['user', 'department', 'name'] },
-  { title: '负责人', dataIndex: ['user', 'name'] },
+  { title: '责任主体', dataIndex: ['matter', 'user', 'name'] },
   { title: '开始时间', dataIndex: 'startDate', valueType: 'date' },
 ];
 

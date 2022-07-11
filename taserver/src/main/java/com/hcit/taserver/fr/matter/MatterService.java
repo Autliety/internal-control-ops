@@ -3,6 +3,7 @@ package com.hcit.taserver.fr.matter;
 import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
 import java.util.Collection;
 import java.util.List;
@@ -20,9 +21,11 @@ public class MatterService {
   private final MatterRepository matterRepository;
   private final ApprovalService approvalService;
   private final ProgressService progressService;
+  private final AuthService authService;
 
   public List<Matter> findAll() {
-    return matterRepository.findAll();
+    return matterRepository.findAll(
+        (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb)).getRestriction());
   }
 
   public Matter findById(Long id) {
