@@ -20,12 +20,12 @@ function MotionCreateModal() {
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}>
       <PlusSquareOutlined/>
-      动议召开通知
+      动议通知
     </Button>
 
     <Modal
         width={1190}
-        title='纪委动议新建'
+        title='纪委动议通知'
         okText='提交'
         destroyOnClose
         visible={isVisible}
@@ -117,12 +117,15 @@ function MotionCreateModal() {
 
         <Form.Item
             name='multiUser1'
-            label='参会人员'
+            label='参加人员'
             rules={[{ required: true, message: '请选择' }]}
         >
           <AttendeeSelectCard/>
         </Form.Item>
 
+        <Form.Item label={'选择审核人'}> {/*todo api*/}
+          <UserSelectCascader value={{id: 2}}/>
+        </Form.Item>
       </Form>
     </Modal>
   </>
