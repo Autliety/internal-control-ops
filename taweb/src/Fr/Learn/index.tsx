@@ -2,11 +2,11 @@ import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Divider } from 'antd';
 import { useParams } from 'react-router-dom';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { learningColumns } from '../LearnList';
 import { useHttp } from '../../utils/request';
 import MeetingAttendee from '../Meeting/MeetingAttendee';
+import FileUpload from '../../components/FileUpload';
 
 export default function Learn() {
 
@@ -22,7 +22,7 @@ export default function Learn() {
     </div>
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach || []}/>
 
   </PageContainer>;
 }

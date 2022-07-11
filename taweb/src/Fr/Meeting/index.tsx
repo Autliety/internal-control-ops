@@ -5,10 +5,10 @@ import { FileAddOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import TopicTask from '../MeetingTopic/TopicTask';
 import MeetingAttendee from './MeetingAttendee';
 import { useAuth } from '../../utils/auth';
+import FileUpload from '../../components/FileUpload';
 
 export default function Meeting() {
 
@@ -65,7 +65,7 @@ export default function Meeting() {
     />
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach || []}/>
 
     <FooterToolbar>
       {state.status === 'REVIEWED' &&

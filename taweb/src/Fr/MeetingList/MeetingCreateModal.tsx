@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, DatePicker, Form, Input, Modal, Radio, Space, Upload } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Modal, Radio, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../utils/request';
 import AttendeeSelectCard from './AttendeeSelectCard';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import FileUpload from '../../components/FileUpload';
 
 export default function MeetingCreateModal({ typesLimit = null, isMotion = true }) {
 
@@ -37,7 +38,7 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
     <Modal
         width={1190}
         title={'新建会议'}
-        okText="提交审核"
+        okText="发送会议通知"
         destroyOnClose
         visible={isVisible}
         onCancel={() => setIsVisible(false)}
@@ -131,8 +132,8 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
           </Form.List>
         </Form.Item>}
 
-        <Form.Item name="upload" label="附件上传">
-          <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
+        <Form.Item name="attach" label="相关附件">
+          <FileUpload isInEdit/>
         </Form.Item>
 
         <Form.Item
@@ -148,14 +149,6 @@ export default function MeetingCreateModal({ typesLimit = null, isMotion = true 
               <AttendeeSelectCard/>
             </Form.Item>
         }
-
-        <Form.Item
-            label="选择审核人"
-            name={['approval', 'approveUser']}
-            rules={[{ required: true, message: '请选择' }]}
-        >
-          <UserSelectCascader/>
-        </Form.Item>
 
       </Form>
     </Modal>

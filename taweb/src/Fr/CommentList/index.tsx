@@ -48,7 +48,7 @@ export const baseColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInTable: true,
+    title: '相关附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInTable: true,
     hideInDescriptions: true,
   },
   {

@@ -52,7 +52,7 @@ function ImportantCreateModal() {
           <Input.TextArea placeholder={'简要介绍'}/>
         </Form.Item>
       </Form>
-      <Form.Item name="upload" label="附件上传">
+      <Form.Item name="upload" label="相关附件">
         <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
       </Form.Item>
 

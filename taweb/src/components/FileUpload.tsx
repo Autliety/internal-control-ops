@@ -29,7 +29,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
         }
       }}
   >
-    <Button icon={<UploadOutlined/>} disabled={!isInEdit}>上传文件</Button>
+    <Button icon={<UploadOutlined/>} disabled={!isInEdit}>选择文件</Button>
   </Upload>;
 }
 

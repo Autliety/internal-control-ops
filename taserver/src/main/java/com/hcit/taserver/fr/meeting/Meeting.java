@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
@@ -16,6 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -81,5 +83,10 @@ public class Meeting implements BasicPersistable {
   @OneToMany(mappedBy = "meeting", fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<Topic> topic;
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  @JoinColumn(name = "source_meeting_id")
+  private List<Attach> attach;
 
 }
