@@ -20,7 +20,7 @@ function Person() {
     <BaseDescriptions columns={baseColumns} dataSource={state}/>
 
     <Divider orientation={'left'}>个人事项报告资料</Divider>
-    <FileUpload value={state.attach || []}/>
+    <FileUpload value={state.attach || []} />
 
   </PageContainer>;
 }
