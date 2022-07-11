@@ -7,11 +7,14 @@ import valueTypeMap from '../../utils/valueTypeMap';
 import ApproveAndCopyModal from '../../components/ApproveAndCopyModal';
 import { ProColumns } from '@ant-design/pro-table';
 import BaseDescriptions from '../../components/BaseDescriptions';
+import { useParams } from 'react-router-dom';
 
-export default function TaskInfo({ data, pathname }) {
+export default function TaskInfo({ data }) {
+
+  const { id } = useParams();
 
   const [isEdit, setIsEdit] = React.useState(false);
-  const { http } = useHttp(pathname, { method: 'PATCH', isManual: true });
+  const { http } = useHttp(`/task/${id}`, { method: 'PATCH', isManual: true });
   const [update, setUpdate] = React.useState({});
 
   const taskInfoColumns: ProColumns[] = [
@@ -21,7 +24,7 @@ export default function TaskInfo({ data, pathname }) {
       valueEnum: statusEnum,
       editable: false,
     },
-    { title: '执行人', dataIndex: ['user', 'name'], editable: false },
+    { title: '执行人', dataIndex: ['planDetail', 'user', 'name'], editable: false },
     {
       title: '总体进度', dataIndex: 'progress', valueType: 'progress',
     },
