@@ -5,7 +5,7 @@ import { Divider } from 'antd';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { disposalColumns } from '../DisposalList';
 import { useHttp } from '../../utils/request';
-import DemoFileDownload from '../../components/DemoFileDownload';
+import FileUpload from '../../components/FileUpload';
 
 export default function Disposal() {
 
@@ -16,7 +16,7 @@ export default function Disposal() {
     <BaseDescriptions columns={disposalColumns} dataSource={state}/>
 
     <Divider orientation='left'>相关附件</Divider>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach || []}/>
   </PageContainer>;
 }
 

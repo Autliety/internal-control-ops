@@ -123,7 +123,7 @@ function MotionCreateModal() {
           <AttendeeSelectCard/>
         </Form.Item>
 
-        <Form.Item label={'选择审核人'}> {/*todo api*/}
+        <Form.Item label={'动议审核人'}> {/*todo api*/}
           <UserSelectCascader value={{id: 2}}/>
         </Form.Item>
       </Form>

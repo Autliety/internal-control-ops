@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-  List<Department> findAllByIdNot(Long id);
+  List<Department> findAllByIdNotOrderByDeptOrder(Long id);
 
   List<Department> findAllByNameInOrShortNameIn(Collection<String> names, Collection<String> shortNames);
 }
