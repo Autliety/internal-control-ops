@@ -28,6 +28,8 @@ public class Department implements BasicPersistable {
     return shortName == null ? name : shortName;
   }
 
+  public Integer deptOrder;
+
   private Long parentId;
 
 }

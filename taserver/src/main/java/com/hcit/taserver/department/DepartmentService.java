@@ -12,7 +12,7 @@ public class DepartmentService {
   private final DepartmentRepository departmentRepository;
 
   public List<Department> findAll() {
-    return departmentRepository.findAllByIdNot(999L);
+    return departmentRepository.findAllByIdNotOrderByDeptOrder(999L);
   }
 
 }

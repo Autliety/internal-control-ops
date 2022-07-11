@@ -30,8 +30,10 @@ export default function MeetingTopic() {
     if (!isCreate) {
       setInfo(state);
       setTask(state.task);
+    } else {
+      setApproveUser(meetingState.user);
     }
-  }, [isCreate, state]);
+  }, [isCreate, state, meetingState]);
 
   const { http } = useHttp('/topic', { method: 'POST', isManual: true });
 
@@ -57,7 +59,6 @@ export default function MeetingTopic() {
     <Divider orientation={'left'}>审核流程</Divider>
     {isCreate ?
         <Form.Item label="选择审核人"
-                   name={['approval', 'approveUser']}
                    rules={[{ required: true, message: '请选择' }]}
         >
           <UserSelectCascader value={approveUser} onChange={setApproveUser}/>

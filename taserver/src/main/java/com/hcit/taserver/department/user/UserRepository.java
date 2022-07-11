@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-  List<User> findAllByIdNot(Long l);
+  List<User> findAllByIdNotOrderByUserOrderDesc(Long l);
 
-  List<User> findAllByDepartmentId(Long id);
+  List<User> findAllByDepartmentIdOrderByUserOrderDesc(Long id);
 
   Optional<User> findByName(String username);
 

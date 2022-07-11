@@ -1,16 +1,14 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 import MeetingInfo from './MeetingInfo';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingAttendee from './MeetingAttendee';
 import BaseDivider from '../../components/BaseDivider';
-import { useAuth } from '../../utils/auth';
 
 export default function MeetingNotice() {
 
-  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -32,13 +30,8 @@ export default function MeetingNotice() {
       {state.status === 'REVIEWED' &&
           <Button
               type={'primary'}
-              disabled={state.user?.id !== user.id}
-              onClick={() => Modal.confirm({
-                title: '发送会议通知',
-                content: '发送会议通知所有参会人员',
-                onOk: () => navigate(`/fr/mz/meeting/${id}`),
-              })}
-          >发送通知</Button>
+              onClick={() =>  navigate(`/fr/mz/meeting/${id}`)}
+          >会前准备</Button>
       }
     </FooterToolbar>
 

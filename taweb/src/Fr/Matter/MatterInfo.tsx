@@ -7,7 +7,7 @@ import showInfo from '../../utils/showInfo';
 import BaseDescriptions from '../../components/BaseDescriptions';
 
 export const matterColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code', hideInForm: true, renderText: ((_, r, i) => i + 1) },
+  { title: '编号', dataIndex: 'code', hideInForm: true, editable: false },
   {
     title: '来源及类型',
     dataIndex: 'origin',
@@ -55,14 +55,14 @@ export const matterColumns: ProColumns[] = [
   {
     title: '问题内容',
     dataIndex: 'content',
-    renderText: text => <>
+    render: (text:any) => <>
       {text?.substring(0, 30)}
       {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
     renderFormItem: () => <Input.TextArea placeholder="问题内容"/>,
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
-  { title: '责任主体', dataIndex: 'user', renderText: u => u.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '责任主体', dataIndex: 'user', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
 ];
 
 export default function MatterInfo({ dataSource }) {

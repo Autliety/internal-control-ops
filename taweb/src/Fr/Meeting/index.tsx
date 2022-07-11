@@ -1,14 +1,14 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Modal, Space, Statistic } from 'antd';
-import { FileAddOutlined } from '@ant-design/icons';
+import { FileAddOutlined, PauseOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import TopicTask from '../MeetingTopic/TopicTask';
 import MeetingAttendee from './MeetingAttendee';
 import { useAuth } from '../../utils/auth';
+import FileUpload from '../../components/FileUpload';
 
 export default function Meeting() {
 
@@ -21,25 +21,13 @@ export default function Meeting() {
 
   const [tasks, setTasks] = React.useState([]);
   React.useEffect(() => {
-    setTasks(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task.map(ta => ({ topic: t, ...ta }))));
+    setTasks(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta }))));
   }, [state]);
 
   const { http } = useHttp('/topic/task', { isManual: true, method: 'POST' });
   const { http: meetingHttp } = useHttp(`/meeting/${id}`, { isManual: true, method: 'PATCH' });
 
   return <PageContainer
-      extra={<Space>
-        {state.status === 'REVIEWED' &&
-            <Button
-                type={'primary'}
-                disabled={!state.meetingUser.find(u => u.id === user.id)}
-                onClick={() => navigate(`/fr/topic/0?create=true`)}
-            >
-              <FileAddOutlined/>会前准备
-            </Button>
-        }
-      </Space>
-      }
       content={<Space size={'large'}>
         <Statistic title={'会议编号'} value={state.code}/>
         <Statistic title={'会议类型'} value={state.type}/>
@@ -65,11 +53,25 @@ export default function Meeting() {
     />
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach || []}/>
 
     <FooterToolbar>
-      {state.status === 'REVIEWED' &&
-          <Button type={'primary'} onClick={() => setIsVisible(true)}>结束会议</Button>
+      {state.status === 'REVIEWED' && <Space>
+        <Button
+            type={'primary'}
+            disabled={!state.meetingUser.find(u => u.id === user.id)}
+            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/0?create=true`)}
+        >
+          <FileAddOutlined/>会前准备
+        </Button>
+        <Button
+            type={'primary'}
+            disabled={user.id !== state.user.id}
+            onClick={() => setIsVisible(true)}
+        >
+          <PauseOutlined/>结束会议
+        </Button>
+      </Space>
       }
     </FooterToolbar>
 
@@ -81,8 +83,8 @@ export default function Meeting() {
         onOk={() => {
           setIsVisible(false);
           http(null, null, tasks)
-              .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
-              .then(() => window.location.reload());
+          .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
+          .then(() => window.location.reload());
         }}
         onCancel={() => setIsVisible(false)}
     >

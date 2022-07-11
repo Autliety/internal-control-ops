@@ -12,11 +12,11 @@ public class UserService {
   private final UserRepository userRepository;
 
   public Collection<User> findAll() {
-    return userRepository.findAllByIdNot(999L);
+    return userRepository.findAllByIdNotOrderByUserOrderDesc(999L);
   }
 
   public Collection<User> findAllByDeptId(Long deptId) {
-    return userRepository.findAllByDepartmentId(deptId);
+    return userRepository.findAllByDepartmentIdOrderByUserOrderDesc(deptId);
   }
 
   public User findById(Long id) {

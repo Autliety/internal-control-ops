@@ -23,7 +23,9 @@ export default function UserSelectCascader({ onChange, value, filter = (_) => tr
           r.push({ ...i.department, children: [i] });
         }
         return r;
-      }, []);
+      }, [])
+      .sort((a,b) => a.deptOrder - b.deptOrder)
+  ;
 
   return <>
     <Cascader

@@ -36,7 +36,7 @@ public class MeetingService {
     meeting.setCode("HY001");
     meeting.setStatus(Status.REVIEWED);
     meeting.setUser(authService.getCurrentUser());
-    return meeting;
+    return meetingRepository.saveAndFlush(meeting);
   }
 
   public Meeting patch(Long id, Status status) {

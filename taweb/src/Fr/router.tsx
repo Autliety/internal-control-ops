@@ -146,7 +146,7 @@ export const router = {
           element: <RemindList/>,
         },
         {
-          name: '年度履责报告',
+          name: '履责情况报告',
           path: '/fr/lz/report',
           element: <ReportList/>,
         },
