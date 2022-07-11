@@ -1,30 +1,46 @@
 import React from 'react';
-import { Button } from 'antd';
-import { PlusSquareOutlined } from '@ant-design/icons';
-import { BetaSchemaForm } from '@ant-design/pro-form';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { useHttp } from '../../utils/request';
+import BaseStepForm from '../../components/BaseStepForm';
 import { remindColumns } from './index';
 
-function RemindCreateModal() {
+type Props = {
+  isFirstEdit: boolean,
+  id?: number,
+  size?: 'small' | 'middle' | 'large',
+}
+
+function RemindCreateModal({ isFirstEdit, id, size }: Props) {
 
   const navigate = useNavigate();
   const { http } = useHttp('/ordinal/remind', { method: 'POST', isManual: true });
+  const { state } = useHttp(`/ordinal/remind/${id}`, { initState: {}, isManual: !id });
+  const { http: updateHttp } = useHttp(`/ordinal/remind/${id}`, { method: 'POST', isManual: true });
 
   return <>
-    <BetaSchemaForm
-        title={'互相监督提醒'}
-        width={1000}
-        layoutType={'ModalForm'}
-        trigger={<Button type={'primary'}><PlusSquareOutlined/>新建</Button>}
 
-        columns={remindColumns}
+    <BaseStepForm
+        title='互相监督提醒'
+        isFirstEdit={isFirstEdit}
+        size={size}
+        value={state}
         onFinish={async data => {
-          if (data.time1)
+          if (data.time1) {
             data.time1 = moment(data.time1).valueOf();
-          let res = await http(null, null, data);
+          }
+          let res = isFirstEdit
+              ? await http(null, null, { ...data, integer1: 1 })
+              : await updateHttp(null, null, {
+                ...state, ...data,
+                integer1: parseInt(state.integer1) + 1
+              }).then(() => window.location.reload());
           navigate('/fr/lz/remind/' + res.id);
+        }}
+
+        formConfig={{
+          0: { title: '基本信息', columns: remindColumns.slice(0, 8) },
+          1: { title: '评议结果', columns: remindColumns.slice(8) },
         }}
     />
   </>;

@@ -3,8 +3,8 @@ import { Button, Input, Space, Switch } from 'antd';
 import moment from 'moment';
 import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import BaseDescriptions from '../../components/BaseDescriptions';
 import showInfo from '../../utils/showInfo';
+import BaseDescriptions from '../../components/BaseDescriptions';
 
 export const matterColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code', hideInForm: true, renderText: ((_, r, i) => i + 1) },

@@ -49,9 +49,19 @@ export const leaderColumns: ProColumns[] = [
     },
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '插手干预重大事项记录', dataIndex: 'content3' },
-  { title: '插手干预重大事项报告', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
-  { title: '核查处置', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
+  { title: '插手干预重大事项记录', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
+  {
+    title: '插手干预重大事项报告',
+    dataIndex: 'content3',
+    valueType: 'select',
+    fieldProps: {
+      options: [
+        '向上级党委报告（插手干预人不属于本级管理）',
+        '向相关党组织通报（属于本镇（街）外其他党组织管理）',
+        '向镇（街道）党（工）委报告（属于本级管理）',
+      ]
+    }
+  },
   {
     title: '附件上传',
     dataIndex: 'attach',
@@ -59,6 +69,7 @@ export const leaderColumns: ProColumns[] = [
     hideInDescriptions: true,
     hideInTable: true,
   },
+  { title: '核查处置', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
 ];
 
 function LeaderList() {
@@ -70,22 +81,24 @@ function LeaderList() {
     title: '详情',
     hideInSearch: true,
     dataIndex: 'operation',
-    render: (_, record: any) => <Tooltip title={'查看详情'}><Button
-        type={'primary'}
-        icon={<FileTextOutlined/>}
-        size={'small'}
-        onClick={() => navigate(`/fr/lz/leader/${record.id}`)}
-    />
-    </Tooltip>,
+    render: (_, record: any) => <Space>
+      <Tooltip title={'查看详情'}>
+        <Button
+            type={'primary'}
+            icon={<FileTextOutlined/>}
+            size={'small'}
+            onClick={() => navigate(`/fr/lz/leader/${record.id}`)}
+        />
+      </Tooltip>
+      <LeaderCreateModal isFirstEdit={false} id={record.id}/>
+    </Space>,
     fixed: 'right',
     width: 120,
     align: 'center',
   });
 
   return <PageContainer
-      extra={<Space>
-        <LeaderCreateModal/>
-      </Space>}
+      extra={[<LeaderCreateModal isFirstEdit size='middle'/>]}
   >
     <BaseEditableTable columns={columns} value={state}/>
   </PageContainer>;

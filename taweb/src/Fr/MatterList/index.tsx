@@ -3,6 +3,7 @@ import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Button, Space } from 'antd';
 import { useHttp } from '../../utils/request';
 import MatterTable from './MatterTable';
+import MatterAssignModal from './MatterAssignModal';
 
 export default function MatterList() {
 
@@ -18,6 +19,7 @@ export default function MatterList() {
   return <PageContainer
       extra={
         <Space size={'middle'}>
+          <MatterAssignModal/>
           <Button type={'primary'} onClick={() => setIsInEdit(true)}>修改问题清单</Button>
         </Space>
       }
@@ -32,8 +34,7 @@ export default function MatterList() {
                 o.origin = o.origin.join(' / ');
               }
               return o;
-            }))
-                .then(() => window.location.reload())}>保存</Button>
+            })).then(() => window.location.reload())}>保存</Button>
           </FooterToolbar>
         </>
         : <MatterTable value={state} loading={loading} isSearch/>
