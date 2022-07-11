@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.ordinal;
 
 import com.hcit.taserver.attach.Attach;
+import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
@@ -74,7 +75,11 @@ public class OrdinalForm {
   @ManyToOne
   private User singleUser2;
   @ManyToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
   private List<User> multiUser1;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<Department> multiDepartment1;
 
   private LocalDateTime time1;
   private LocalDateTime time2;

@@ -8,6 +8,7 @@ import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import FileUpload from '../../components/FileUpload';
+import { useAuth } from "../../utils/auth";
 
 export const threeColumns: ProColumns[] = [
   {
@@ -89,6 +90,7 @@ export const threeColumns: ProColumns[] = [
 
 export default function ThreeList() {
 
+  const { user } = useAuth();
   const { state, loading } = useHttp('/ordinal/three', { initState: [] });
   const navigate = useNavigate();
 
@@ -111,7 +113,8 @@ export default function ThreeList() {
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            {record.integer1 < 3 && <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
+            {((user?.id !== 1 && record.integer1 === 1) || (user?.id !== 28 && record.integer1 === 2)) ||
+                <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
           </Space>,
         })}
         value={state}

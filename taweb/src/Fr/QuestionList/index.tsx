@@ -36,7 +36,7 @@ export const questionColumns: ProColumns[] = [
   {
     title: '约谈时间',
     dataIndex: 'time1',
-    valueType: 'dateTime',
+    valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {

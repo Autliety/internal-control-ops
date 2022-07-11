@@ -26,7 +26,7 @@ export default function InspectCreateModal() {
           if (data.matter) {
             data.matter.map(i => i.endDate = moment(i.endDate).format('YYYY-MM-DD'));
           }
-          let res = await http(null, null, data);
+          let res = await http(null, null, { ...data, multiDepartment1: data.multiDepartment1?.map(i => ({ id: i })) });
           navigate('/fr/lz/inspect/' + res.id);
         }}
     />

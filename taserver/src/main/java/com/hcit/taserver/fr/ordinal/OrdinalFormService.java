@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.ordinal;
 
 import com.hcit.taserver.department.user.AuthService;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.MatterService;
 import java.util.List;
 import javax.persistence.criteria.Predicate;
@@ -17,18 +18,24 @@ public class OrdinalFormService {
   private final MatterService matterService;
 
   public List<OrdinalForm> findAllByFormType(FormType formType) {
+    User u = authService.getCurrentUser();
     return ordinalFormRepository.findAll((root, query, cb) -> {
           Predicate or = null;
           if (formType == FormType.LEARNING) {
-            or = authService.getCurrentUser().getId().intValue() < 30
+            or = u.getId().intValue() < 30
                 ? cb.lessThan(root.get("destUser").get("id"), 30)
                 : cb.equal(root.get("destUser").get("department").get("id"),
-                    authService.getCurrentUser().getDepartment().getId());
+                    u.getDepartment().getId());
+          }
+          else if (formType == FormType.INSPECT) {
+            or = cb.equal(root.joinList("multiDepartment1").get("id"), u.getDepartment().getId());
           }
           return query.where(cb.and(
               authService.getPrivilegePredicate(root, cb, or, root.get("destUser")),
               cb.equal(root.get("formType"), formType)
-          )).getRestriction();
+          ))
+              .distinct(true)
+              .getRestriction();
         }
     );
   }
