@@ -6,8 +6,8 @@ import { useHttp } from '../../utils/request';
 import MeasureInfo from './MeasureInfo';
 import MatterInfo from '../Matter/MatterInfo';
 import BaseDivider from '../../components/BaseDivider';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import ProgressTable from '../ProgressList/ProgressTable';
+import FileUpload from '../../components/FileUpload';
 
 export default function Measure() {
 
@@ -31,7 +31,7 @@ export default function Measure() {
       <MeasureInfo dataSource={state}/>
 
       <BaseDivider title={'相关附件'}/>
-      <DemoFileDownload/>
+      <FileUpload value={state.attach || []}/>
 
       <Divider orientation={'left'}>履责情况</Divider>
       <ProgressTable data={state.progress ? [{ measure: state, ...state.progress }] : []}/>

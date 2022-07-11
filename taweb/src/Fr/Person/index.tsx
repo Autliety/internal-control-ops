@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { baseColumns } from '../PersonList';
-import DemoFileDownload from '../../components/DemoFileDownload';
 import { useHttp } from '../../utils/request';
+import FileUpload from '../../components/FileUpload';
 
 function Person() {
 
@@ -20,7 +20,7 @@ function Person() {
     <BaseDescriptions columns={baseColumns} dataSource={state}/>
 
     <Divider orientation={'left'}>个人事项报告资料</Divider>
-    <DemoFileDownload/>
+    <FileUpload value={state.attach || []}/>
 
   </PageContainer>;
 }
