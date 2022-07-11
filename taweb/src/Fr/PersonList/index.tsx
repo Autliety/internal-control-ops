@@ -9,7 +9,7 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 
 export const baseColumns: ProColumns[] = [
-  { title: '报告人姓名', dataIndex: ['user', 'name'] },
+  { title: '报告人', dataIndex: ['destUser', 'name'] },
   { title: '报告人类别', dataIndex: 'content1' },
   { title: '报告类别', dataIndex: 'content2' },
   { title: '报告时间', dataIndex: 'time1', valueType: 'date' },

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Select, Space, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
-import UserSelectCascader from '../../components/UserSelectCascader';
 import { statusEnum } from '../../utils/nameMapTa';
 import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
@@ -46,10 +45,9 @@ export const threeColumns: ProColumns[] = [
   },
   {
     title: '提交人',
-    dataIndex: 'singleUser1',
+    dataIndex: 'destUser',
     renderText: t => t.name,
-    renderFormItem: () => <UserSelectCascader/>,
-    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+    hideInForm: true,
   },
   {
     title: '上传附件',
