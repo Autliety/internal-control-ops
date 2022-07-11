@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { UserOutlined } from '@ant-design/icons';
+import { BuildOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Checkbox, Col, Divider, List, Modal, Row, Tabs } from 'antd';
 
 import { useHttp } from '../../utils/request';
@@ -13,7 +13,7 @@ import InformAddModal from './InformAddModal';
 
 const { TabPane } = Tabs;
 
-export default function Department({ systemType }) {
+export default function Department({ systemType, isUser = true }) {
   // 存放部门id和名称
   const [deptId, setDeptId] = React.useState('');
   const [deptName, setDeptName] = React.useState('');
@@ -27,7 +27,7 @@ export default function Department({ systemType }) {
   return <PageContainer
       extra={[
         <InformAddModal
-            isUserAdd
+            isUserAdd={isUser}
             onFinish={async data => console.log(data)}
         />,
       ]}
@@ -48,11 +48,13 @@ export default function Department({ systemType }) {
             renderItem={(item: any) => (
                 <List.Item>
                   <List.Item.Meta
-                      avatar={<Avatar style={{ backgroundColor: '#1890ff' }}
-                                      icon={<UserOutlined/>}
-                      />}
-                      title={item.name}
-                      description={item?.station}
+                      avatar={
+                        isUser
+                            ? <Avatar style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined/>}/>
+                            : <Avatar style={{ backgroundColor: '#1890ff' }} icon={<BuildOutlined/>}/>
+                      }
+                      title={isUser ? item.name : item.station}
+                      description={isUser && item?.station}
                   />
                 </List.Item>
             )}

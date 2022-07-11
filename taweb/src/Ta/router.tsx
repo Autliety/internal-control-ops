@@ -110,7 +110,7 @@ export const router = {
         {
           name: '组织架构',
           path: '/ta/setting/department',
-          element: <Department systemType='Ta'/>,
+          element: <Department systemType='Ta' isUser={false}/>,
         },
         {
           name: '员工档案',

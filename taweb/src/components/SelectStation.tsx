@@ -14,7 +14,7 @@ function SelectStation(props: Props) {
   // todo filtered for demo only
   const { state: deptState } = useHttp('/department?filtered=' + (props.filtered || 0), { initState: [] });
   const [deptId, setDeptId] = React.useState('');
-  const { state: stationState } = useHttp(`/station?deptId=${deptId}`, { initState: [] });
+  const { state: stationState } = useHttp(`/user?deptId=${deptId}`, { initState: [], isManual: deptId === '' });
 
   return <>
     <Space size={'small'}>
@@ -48,7 +48,7 @@ function SelectStation(props: Props) {
                     value={item.id}
                     data={item}
                 >
-                  {item.name}
+                  {item.station}
                 </Select.Option>)
           }
         </Select>

@@ -251,7 +251,7 @@ export const router = {
         {
           name: '部门及岗位',
           path: '/fr/setting/department',
-          element: <Department systemType='Fr'/>,
+          element: <Department systemType='Fr' isUser={false}/>,
         },
         {
           name: '人员组成',
