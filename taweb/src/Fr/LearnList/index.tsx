@@ -8,6 +8,7 @@ import LearningCreateModal from './LearningCreateModal';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import FileUpload from "../../components/FileUpload";
 
 export const learningColumns: ProColumns[] = [
   {
@@ -42,6 +43,13 @@ export const learningColumns: ProColumns[] = [
     valueType: 'textarea',
     hideInTable: true,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
+    title: '上传附件',
+    dataIndex: 'attach',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    hideInDescriptions: true
   },
 ];
 
