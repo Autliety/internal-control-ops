@@ -12,7 +12,9 @@ export default function Three() {
   const { state, loading } = useHttp(`/ordinal/three/${id}`, { initState: {} });
 
   return <PageContainer
-      extra={[<ThreeCreateModal isFirstEdit={false} id={parseInt(id)} size='middle'/>]}
+      extra={[
+          state.integer1 < 3 && <ThreeCreateModal isFirstEdit={false} id={parseInt(id)} size='middle'/>
+      ]}
       loading={loading}
   >
     <BaseDescriptions

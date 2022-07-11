@@ -1,14 +1,14 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ContainerOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import FileUpload from '../../components/FileUpload';
-import DisposalCreateModal from "./DisposalCreateModal";
+import DisposalCreateModal from './DisposalCreateModal';
 
 export const disposalColumns: ProColumns[] = [
   {
@@ -50,7 +50,7 @@ export const disposalColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '处置运用地点',
+    title: '处置运用地点（范围）',
     dataIndex: 'content2',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },

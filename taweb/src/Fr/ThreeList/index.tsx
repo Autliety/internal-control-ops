@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Select, Space, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
-import { statusEnum } from '../../utils/nameMapTa';
 import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
@@ -56,7 +55,7 @@ export const threeColumns: ProColumns[] = [
     hideInTable: true,
     hideInDescriptions: true,
   },
-  { title: '审核状态', dataIndex: 'content3', valueEnum: statusEnum, hideInForm: true },
+  { title: '决策状态', dataIndex: 'integer1', hideInForm: true, renderText: i => ['党委决策', '纪委监督', '已完成'][parseInt(i) - 1] },
   {
     title: '决策时间',
     dataIndex: 'time1',
@@ -99,7 +98,7 @@ export default function ThreeList() {
   >
     <BaseEditableTable
         columns={threeColumns.concat({
-          title: '详情',
+          title: '操作',
           dataIndex: 'operation',
           width: 100,
           align: 'center',
@@ -112,7 +111,7 @@ export default function ThreeList() {
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            <ThreeCreateModal isFirstEdit={false} id={record.id}/>
+            {record.integer1 < 3 && <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
           </Space>,
         })}
         value={state}

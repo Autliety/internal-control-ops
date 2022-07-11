@@ -22,12 +22,15 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
   const currentStep = props.value?.integer1 ?? 0;
   // 查看已填写信息的步骤
   const [step, setStep] = React.useState<number>(props.value?.integer1 ?? 0);
+  React.useEffect(() => {
+    setStep(props.value?.integer1 ?? 0);
+  }, [props.value]);
 
   return <>
     {
       isFirstEdit
           ? <Button type={'primary'} onClick={() => setIsVisible(true)} icon={<PlusOutlined/>}>{props.title}新建</Button>
-          : <Tooltip title={'编辑'}>
+          : <Tooltip title={'继续填写'}>
             {
               props.size
                   ? <Button
@@ -36,7 +39,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
                       icon={<EditOutlined/>}
                       size={'middle'}
                   >
-                    编辑
+                    继续填写
                   </Button>
                   : <Button
                       type={'primary'}

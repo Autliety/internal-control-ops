@@ -21,7 +21,7 @@ export default function ThreeCreateModal({ isFirstEdit, id, size }: Props) {
 
   return <>
     <BaseStepForm
-        title='三重一大'
+        title="三重一大"
         isFirstEdit={isFirstEdit}
         value={state}
         onFinish={async data => {
@@ -36,6 +36,7 @@ export default function ThreeCreateModal({ isFirstEdit, id, size }: Props) {
           0: { title: '基本信息', columns: threeColumns.slice(0, 6) },
           1: { title: '党委决策', columns: threeColumns.slice(6, -1) },
           2: { title: '纪委监督', columns: threeColumns.slice(-1) },
+          3: { title: '已完成', columns: [] },
         }}
         size={size}
     />
