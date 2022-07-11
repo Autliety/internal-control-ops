@@ -3,6 +3,7 @@ package com.hcit.taserver.fr.ordinal;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.MatterService;
 import java.util.List;
+import javax.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,10 +17,20 @@ public class OrdinalFormService {
   private final MatterService matterService;
 
   public List<OrdinalForm> findAllByFormType(FormType formType) {
-    return ordinalFormRepository.findAll(((root, query, cb) -> query.where(cb.and(
-        authService.getPrivilegePredicate(root, cb, null, root.get("destUser")),
-        cb.equal(root.get("formType"), formType)
-    )).getRestriction()));
+    return ordinalFormRepository.findAll((root, query, cb) -> {
+          Predicate or = null;
+          if (formType == FormType.LEARNING) {
+            or = authService.getCurrentUser().getId().intValue() < 30
+                ? cb.lessThan(root.get("destUser").get("id"), 30)
+                : cb.equal(root.get("destUser").get("department").get("id"),
+                    authService.getCurrentUser().getDepartment().getId());
+          }
+          return query.where(cb.and(
+              authService.getPrivilegePredicate(root, cb, or, root.get("destUser")),
+              cb.equal(root.get("formType"), formType)
+          )).getRestriction();
+        }
+    );
   }
 
   public OrdinalForm findByFormTypeAndId(FormType formType, Long id) {
@@ -30,7 +41,7 @@ public class OrdinalFormService {
     return form;
   }
 
-  public OrdinalForm create(FormType formType,OrdinalForm f) {
+  public OrdinalForm create(FormType formType, OrdinalForm f) {
     f.setId(null);
     f.setFormType(formType);
     if (f.getDestUser() == null) {

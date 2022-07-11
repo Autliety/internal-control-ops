@@ -29,6 +29,7 @@ export const learningColumns: ProColumns[] = [
     </Select>,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
+  { title: '负责人', dataIndex: 'destUser', hideInForm: true, renderText: u => u.name},
   {
     title: '参加对象',
     dataIndex: 'multiUser1',
