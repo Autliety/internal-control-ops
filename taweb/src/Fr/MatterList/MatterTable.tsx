@@ -1,9 +1,9 @@
 import React from 'react';
-import BaseEditableTable from '../../components/BaseEditableTable';
-import { matterColumns } from '../Matter/MatterInfo';
 import { Button, Space, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import BaseEditableTable from '../../components/BaseEditableTable';
+import { matterColumns } from '../Matter/MatterInfo';
 
 export default function MatterTable({ value, ...rest }) {
 

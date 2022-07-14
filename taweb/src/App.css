@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.variable.min.css';
 @import '~@ant-design/pro-layout/dist/layout.css';
 @import '~@ant-design/pro-form/dist/form.css';
 @import '~@ant-design/pro-descriptions/dist/descriptions.css';
@@ -49,9 +49,15 @@
   padding: 0;
 }
 
-.ant-pro-global-header-layout-mix{
-  background-color: #288CE3;
+.ant-pro-global-header-layout-mix {
+  background-color: #2FA9B8;
 }
+
+/* button css */
+/*.ant-btn-primary {*/
+/*  border-color: #2FA9B8;*/
+/*  background: #2FA9B8;*/
+/*}*/
 
 .homepage-icon {
   font-size: 60px;

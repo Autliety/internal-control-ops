@@ -14,6 +14,7 @@ export const threeColumns: ProColumns[] = [
   {
     title: '序号',
     dataIndex: 'code',
+    width: 50,
     hideInForm: true,
     renderText: (_, r, index) => index + 1,
     hideInDescriptions: true,

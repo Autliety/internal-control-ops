@@ -22,7 +22,9 @@ export default function Learn() {
     </div>
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <FileUpload value={state.attach || []}/>
+    <div className='content'>
+      <FileUpload value={state.attach || []}/>
+    </div>
 
   </PageContainer>;
 }

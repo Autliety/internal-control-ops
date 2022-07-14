@@ -3,6 +3,9 @@ import { Button, Modal } from 'antd';
 import { FunnelPlotOutlined } from '@ant-design/icons';
 import MatterTable from './MatterTable';
 import { useHttp } from '../../utils/request';
+import { matterColumns } from '../Matter/MatterInfo';
+import UserSelectCascader from '../../components/UserSelectCascader';
+import { useAuth } from '../../utils/auth';
 
 function MatterAssignModal() {
 
@@ -10,12 +13,30 @@ function MatterAssignModal() {
   const [value, setValue] = React.useState([]);
 
   const { http } = useHttp('/matter', { method: 'POST', isManual: true });
+  const { user } = useAuth();
+
+  const userFilter = (v: any) => {
+    if (user.id === 1) {
+      return v.id < 30;
+    } else if (user.privilege === 'DEPT') {
+      return v.department?.id === user.department.id;
+    } else {
+      return false;
+    }
+  }
 
   return <>
-    <Button type={'dashed'} icon={<FunnelPlotOutlined/>} onClick={() => {
-      setValue([]);
-      setIsVisible(true);
-    }}>问题交办</Button>
+    <Button
+        type={'dashed'}
+        icon={<FunnelPlotOutlined/>}
+        disabled={user.privilege !== 'DEPT'}
+        onClick={() => {
+          setValue([]);
+          setIsVisible(true);
+        }}
+    >
+      问题交办
+    </Button>
 
     <Modal
         title='问题交办'
@@ -29,7 +50,19 @@ function MatterAssignModal() {
         })).then(() => window.location.reload())}
         onCancel={() => setIsVisible(false)}
     >
-      <MatterTable value={value} onChange={setValue} isInEdit={isVisible}/>
+      <MatterTable
+          columns={matterColumns.slice(0, -2).concat([
+            {
+              title: '责任主体',
+              dataIndex: 'user',
+              renderText: u => u?.name,
+              renderFormItem: () => <UserSelectCascader filter={userFilter}/>,
+            }
+          ])}
+          value={value}
+          onChange={setValue}
+          isInEdit={isVisible}
+      />
     </Modal>
   </>;
 }

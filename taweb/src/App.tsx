@@ -15,6 +15,13 @@ import PagesFr from './Fr/index';
 moment.locale('zh-cn');
 
 function App() {
+
+  ConfigProvider.config({
+    theme: {
+      primaryColor: '#2FA9B8',
+    },
+  });
+
   return <div className="App">
     <ConfigProvider
         locale={zhCN}

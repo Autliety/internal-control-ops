@@ -5,6 +5,7 @@ import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import showInfo from '../../utils/showInfo';
 import BaseDescriptions from '../../components/BaseDescriptions';
+import { statusEnum } from "../../utils/nameMapTa";
 
 export const matterColumns: ProColumns[] = [
   { title: '编号', dataIndex: 'code', hideInForm: true, editable: false },
@@ -55,14 +56,26 @@ export const matterColumns: ProColumns[] = [
   {
     title: '问题内容',
     dataIndex: 'content',
-    render: (text:any) => <>
+    render: (text: any) => <>
       {text?.substring(0, 30)}
       {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
     renderFormItem: () => <Input.TextArea placeholder="问题内容"/>,
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
-  { title: '责任主体', dataIndex: 'user', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '责任主体',
+    dataIndex: 'user',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader/>,
+    editable: false,
+  },
+  {
+    title: '状态',
+    dataIndex: 'measureStatus',
+    valueEnum: statusEnum,
+    editable: false,
+  },
 ];
 
 export default function MatterInfo({ dataSource }) {

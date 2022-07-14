@@ -36,6 +36,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
     {
         isInEdit && <Button icon={<UploadOutlined/>}>选择文件</Button>
     }
+
   </Upload>;
 }
 

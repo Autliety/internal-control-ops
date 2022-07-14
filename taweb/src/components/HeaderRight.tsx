@@ -19,13 +19,13 @@ export default function HeaderRight() {
     <Space size={'middle'}>
 
       <Dropdown
-          placement="bottomLeft"
+          placement='bottomLeft'
           overlay={
             <Menu>
-              <Menu.Item key="1" onClick={() => navigate('/ta/')} disabled={pathname.substring(1, 3) === 'ta'}>
+              <Menu.Item key='1' onClick={() => navigate('/ta/')} disabled={pathname.substring(1, 3) === 'ta'}>
                 督考平台
               </Menu.Item>
-              <Menu.Item key="2" onClick={() => navigate('/fr/')} disabled={pathname.substring(1, 3) === 'fr'}>
+              <Menu.Item key='2' onClick={() => navigate('/fr/')} disabled={pathname.substring(1, 3) === 'fr'}>
                 区(镇)村(社)一体全面从严治党责任落实应用系统
               </Menu.Item>
             </Menu>
@@ -38,21 +38,21 @@ export default function HeaderRight() {
       </Dropdown>
 
       <Dropdown
-          placement="bottomLeft"
+          placement='bottomLeft'
           overlay={
             <Menu>
-              <Menu.Item key="2" icon={<UserOutlined/>} onClick={() => navigate('./center')}>
+              <Menu.Item key='1' icon={<UserOutlined/>} onClick={() => navigate('./center')}>
                 个人中心
               </Menu.Item>
               <Menu.Divider/>
-              <Menu.Item key="2" icon={<LoginOutlined/>} onClick={() => navigate('/logout')}>
+              <Menu.Item key='2' icon={<LoginOutlined/>} onClick={() => navigate('/logout')}>
                 退出登录
               </Menu.Item>
             </Menu>
           }
       >
         <Space>
-          <span style={{ marginLeft: 10 }}>{user.name}</span>
+          <span style={{ marginLeft: 10 }}>{user.name}，你好！</span>
           <UserOutlined style={{ fontSize: 16 }}/>
         </Space>
       </Dropdown>
