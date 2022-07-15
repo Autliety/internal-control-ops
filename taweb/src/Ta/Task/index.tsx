@@ -1,18 +1,18 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Divider, Space, Statistic } from 'antd';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import PlanInfo from '../Plan/PlanInfo';
 import { useHttp } from '../../utils/request';
 import AssessmentTable from '../AssessmentList/AssessmentTable';
 import TaskInfo from './TaskInfo';
 import FileUpload from '../../components/FileUpload';
+import PlanDetailTable from '../Plan/PlanDetailTable';
 
 export default function Task() {
 
   const { id } = useParams();
-  const { pathname } = useLocation();
   const { state } = useHttp(`/task/${id}`);
 
   return <PageContainer
@@ -23,16 +23,17 @@ export default function Task() {
   >
 
     <Divider orientation={'left'}>{'基本信息'}</Divider>
-    <TaskInfo data={state} pathname={pathname}/>
+    <TaskInfo data={state} />
 
     <Divider orientation={'left'}>{'相关计划详情'}</Divider>
-    <PlanInfo data={state.planDetail}/>
+    <PlanInfo data={state.planDetail?.plan}/>
+    <PlanDetailTable value={[state.planDetail]}/>
 
     <Divider orientation={'left'}>{'关联指标详情'}</Divider>
     <AssessmentTable value={[state.planDetail?.plan?.assessment]}/>
 
     <Divider orientation={'left'}>{'相关附件'}</Divider>
-    <FileUpload/>
+    <FileUpload isInEdit/>
 
   </PageContainer>;
 }

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 @RequiredArgsConstructor
-@Getter
+@Getter public
 enum Privilege implements GrantedAuthority {
 
   ADMIN("系统管理员"),

@@ -1,5 +1,6 @@
 package com.hcit.taserver.department.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
@@ -46,4 +47,7 @@ public class User implements BasicPersistable {
 
   private Integer userOrder;
 
+  @JsonIgnore
+  @ManyToOne
+  private User parent;
 }

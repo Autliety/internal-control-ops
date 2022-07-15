@@ -6,6 +6,7 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import { useHttp } from '../../utils/request';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
+import FileUpload from '../../components/FileUpload';
 
 function PersonCreateModal() {
   const [form] = Form.useForm();
@@ -77,6 +78,10 @@ function PersonCreateModal() {
             <Select.Option value='任职公开'>任职公开</Select.Option>
             <Select.Option value='年度民主（组织）生活会书面公开'>年度民主（组织）生活会书面公开</Select.Option>
           </Select>
+        </Form.Item>
+
+        <Form.Item name='attach' label={'相关附件'}>
+          <FileUpload isInEdit/>
         </Form.Item>
       </Form>
 

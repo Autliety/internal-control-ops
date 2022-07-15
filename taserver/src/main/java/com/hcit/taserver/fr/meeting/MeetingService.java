@@ -1,13 +1,15 @@
 package com.hcit.taserver.fr.meeting;
 
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.fr.matter.MatterService;
-import java.util.ArrayList;
+import com.hcit.taserver.department.user.Privilege;
+import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -16,7 +18,8 @@ public class MeetingService {
 
   private final MeetingRepository meetingRepository;
   private final AuthService authService;
-  private final MatterService matterService;
+  private final ApprovalService approvalService;
+  private final UserRepository userRepository;
 
   public List<Meeting> findAll() {
     return meetingRepository.findAll(((root, query, cb) ->
@@ -34,7 +37,7 @@ public class MeetingService {
   public Meeting create(Meeting meeting) {
     // todo generate code
     meeting.setCode("HY001");
-    meeting.setStatus(Status.REVIEWED);
+    meeting.setStatus(Status.NONE_REVIEW);
     meeting.setUser(authService.getCurrentUser());
     return meetingRepository.saveAndFlush(meeting);
   }
@@ -42,24 +45,19 @@ public class MeetingService {
   public Meeting patch(Long id, Status status) {
     var meeting = meetingRepository.findById(id).orElseThrow();
     meeting.setStatus(status);
-    meetingRepository.save(meeting);
 
-    if (status == Status.FINISHED) {
-      var matters = new ArrayList<Matter>();
-      for (var t : meeting.getTopic()) {
-        for (var ta : t.getTask()) {
-          if (BooleanUtils.isTrue(ta.getIsMatter())) {
-            Matter m = Matter.builder()
-                .content(ta.getContent())
-                .user(t.getUser())
-                .build();
-            matters.add(m);
-          }
-        }
-      }
-      matterService.create(matters);
+    if (status == Status.AWAITING_REVIEW) {
+      User user = meeting.getUser();
+      approvalService.generate(Approval.builder()
+          .approveUser(Optional.ofNullable(user.getParent())
+              .orElseGet(() -> userRepository.findByDepartmentAndPrivilege(user.getDepartment(), Privilege.DEPT)))
+          .build(), meeting);
     }
     return meeting;
   }
 
+  public void onReviewed(Meeting meeting) {
+    meeting.setStatus(Status.REVIEWED);
+    meetingRepository.save(meeting);
+  }
 }

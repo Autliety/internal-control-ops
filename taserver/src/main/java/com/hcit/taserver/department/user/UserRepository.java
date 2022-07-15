@@ -1,5 +1,6 @@
 package com.hcit.taserver.department.user;
 
+import com.hcit.taserver.department.Department;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByName(String username);
 
   List<User> findAllByNameIn(Collection<String> names);
+
+  User findByDepartmentAndPrivilege(Department department, Privilege privilege);
 }
