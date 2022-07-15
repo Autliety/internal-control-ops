@@ -34,14 +34,15 @@ export const informType = {
 };
 
 export const meetingStatusEnum = {
-  AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
-  REVIEWED: <Tag color={'processing'}>会前准备</Tag>,
-  FINISHED: <Tag color={'success'}>已结束</Tag>,
+  NONE_REVIEW: <Tag color={'default'}>会前准备</Tag>,
+  AWAITING_REVIEW: <Tag color={'warning'}>待审核</Tag>,
+  REVIEWED: <Tag color={'processing'}>已审核</Tag>,
+  FINISHED: <Tag color={'success'}>已完成</Tag>,
 };
 
 export const statusEnum = {
   NONE_REVIEW: <Tag color={'default'}>未完成</Tag>,
-  AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
+  AWAITING_REVIEW: <Tag color={'warning'}>待审核</Tag>,
   REVIEWED: <Tag color={'processing'}>已审核</Tag>,
   FINISHED: <Tag color={'success'}>已完成</Tag>,
 };

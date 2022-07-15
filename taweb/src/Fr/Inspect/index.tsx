@@ -21,9 +21,7 @@ export default function Inspect() {
     <BaseEditableTable value={state?.matter} columns={matterColumns}/>
 
     <BaseDivider title={'相关附件'}/>
-    <div className='content'>
-      <FileUpload value={state?.attach || []}/>
-    </div>
+    <FileUpload value={state?.attach || []}/>
 
   </PageContainer>;
 }

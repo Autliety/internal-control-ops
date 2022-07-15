@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Tooltip } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons';
 
 type Props = {
@@ -11,7 +11,8 @@ export default function BaseDivider({ title, onLink }: Props) {
   return <>
     <Divider orientation={'left'}>
       {title}
-      {onLink && <Button type="link" onClick={onLink}><ContainerOutlined /></Button>}
+      {onLink &&
+          <Tooltip title={'点击跳转到该问题详情页'}><Button type="link" onClick={onLink}><ContainerOutlined/></Button></Tooltip>}
     </Divider>
   </>;
 }

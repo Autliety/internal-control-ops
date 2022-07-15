@@ -72,7 +72,7 @@ export default function MatterList() {
     }
 
     {
-        state.some(i => i.measureStatus === 'REVIEWED')
+        state.some(i => i.measureStatus === 'NONE_REVIEW')
         && <FooterToolbar>
           <Button type='primary' onClick={() => setIsVisible(true)}>提交审核</Button>
         </FooterToolbar>

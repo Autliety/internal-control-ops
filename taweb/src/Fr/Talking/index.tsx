@@ -20,9 +20,7 @@ function Talking() {
     />
 
     <BaseDivider title={'相关附件'}/>
-    <div className='content'>
-      <FileUpload value={state?.attach || []}/>
-    </div>
+    <FileUpload value={state?.attach || []}/>
 
   </PageContainer>;
 }

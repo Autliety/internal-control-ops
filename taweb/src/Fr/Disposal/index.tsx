@@ -16,9 +16,7 @@ export default function Disposal() {
     <BaseDescriptions columns={disposalColumns} dataSource={state}/>
 
     <Divider orientation='left'>相关附件</Divider>
-    <div className='content'>
-      <FileUpload value={state.attach || []}/>
-    </div>
+    <FileUpload value={state.attach || []}/>
   </PageContainer>;
 }
 

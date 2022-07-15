@@ -13,9 +13,7 @@ function Person() {
   const { id } = useParams();
   const { state, loading } = useHttp(`/ordinal/personal/${id}`)
 
-  return <PageContainer
-      loading={loading}
-  >
+  return <PageContainer loading={loading}>
 
     <BaseDescriptions columns={baseColumns} dataSource={state}/>
 

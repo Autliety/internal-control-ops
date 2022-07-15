@@ -7,10 +7,12 @@ import { meetingColumns } from '../Meeting/MeetingInfo';
 import { useHttp } from '../../utils/request';
 import MeetingCreateModal from './MeetingCreateModal';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import { useAuth } from '../../utils/auth';
 
 export default function MeetingList() {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { state, loading } = useHttp('/meeting', { initState: [] });
 
   const columns = meetingColumns.concat({
@@ -20,7 +22,7 @@ export default function MeetingList() {
       <Tooltip title={'会议通知'}>
         <Button
             type={'primary'}
-            icon={<MailOutlined />}
+            icon={<MailOutlined/>}
             size={'small'}
             onClick={() => navigate(`/fr/mz/meeting/${record.id}/notice`)}
         />
@@ -29,7 +31,7 @@ export default function MeetingList() {
         <Button
             type={'primary'}
             disabled={record.status === 'AWAITING_REVIEW'}
-            icon={<ContainerOutlined />}
+            icon={<ContainerOutlined/>}
             size={'small'}
             onClick={() => navigate(`/fr/mz/meeting/${record.id}`)}
         />
@@ -42,7 +44,7 @@ export default function MeetingList() {
 
   return <PageContainer
       extra={<Space size={'middle'}>
-        <MeetingCreateModal />
+        {user.privilege === 'DEPT' && <MeetingCreateModal/>}
       </Space>}
   >
 

@@ -17,14 +17,10 @@ export default function Learn() {
     <BaseDescriptions columns={learningColumns} dataSource={state}/>
 
     <Divider orientation='left'>参加对象</Divider>
-    <div className='content'>
-      <MeetingAttendee data={state?.multiUser1} isOptional={false}/>
-    </div>
+    <MeetingAttendee data={state?.multiUser1} isOptional={false}/>
 
     <Divider orientation={'left'}>相关附件</Divider>
-    <div className='content'>
-      <FileUpload value={state.attach || []}/>
-    </div>
+    <FileUpload value={state.attach || []}/>
 
   </PageContainer>;
 }
