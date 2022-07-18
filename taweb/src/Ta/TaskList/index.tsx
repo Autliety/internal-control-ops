@@ -28,7 +28,7 @@ export default function TaskList() {
             type={'primary'}
             icon={<ContainerOutlined/>}
             size={'small'}
-            onClick={() => navigate(`/task/${record.id}`)}
+            onClick={() => navigate(`/ta/task/${record.id}`)}
             disabled={record?.parentId}
         />
         <Button

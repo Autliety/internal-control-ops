@@ -1,6 +1,7 @@
 package com.hcit.taserver.approval;
 
 import com.hcit.taserver.fr.matter.MatterService;
+import com.hcit.taserver.fr.meeting.MeetingService;
 import com.hcit.taserver.fr.meeting.TopicService;
 import com.hcit.taserver.fr.progress.ProgressService;
 import com.hcit.taserver.ta.plan.PlanService;
@@ -26,6 +27,7 @@ public class ApprovalController {
   private final MatterService matterService;
   private final ProgressService progressService;
   private final PlanService planService;
+  private final MeetingService meetingService;
 
   @GetMapping(params = {"current"})
   public List<Approval> fetchCurrent(@RequestParam boolean current) {
@@ -48,6 +50,8 @@ public class ApprovalController {
       progressService.onReviewed(approval.getProgress());
     } else if (approval.getPlan() != null) {
       planService.onReviewed(approval.getPlan());
+    } else if (approval.getMeeting() != null) {
+      meetingService.onReviewed(approval.getMeeting());
     }
     return approval;
   }

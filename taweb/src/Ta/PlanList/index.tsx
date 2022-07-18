@@ -38,7 +38,7 @@ export default function PlanList() {
                     type={'primary'}
                     icon={<ContainerOutlined/>}
                     size={'small'}
-                    onClick={() => navigate(`/plan/${record.id}`)}
+                    onClick={() => navigate(`/ta/plan/${record.id}`)}
                 />
               </Space>,
               fixed: 'right',

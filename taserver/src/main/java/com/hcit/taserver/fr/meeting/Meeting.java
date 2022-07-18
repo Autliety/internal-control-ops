@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
@@ -21,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -89,4 +91,7 @@ public class Meeting implements BasicPersistable {
   @JoinColumn(name = "source_meeting_id")
   private List<Attach> attach;
 
+  @JsonIgnoreProperties(value = {"meeting"}, allowSetters = true)
+  @OneToOne(mappedBy = "meeting")
+  private Approval approval;
 }
