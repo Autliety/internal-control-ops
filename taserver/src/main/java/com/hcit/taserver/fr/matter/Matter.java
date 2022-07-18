@@ -66,9 +66,13 @@ public class Matter implements BasicPersistable {
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
-  @ApiModelProperty("问题的措施清单审批状态")
+  @ApiModelProperty("问题审批状态")
   @Enumerated(EnumType.STRING)
   private Status status;
+
+  @ApiModelProperty("问题二次审批状态")
+  @Enumerated(EnumType.STRING)
+  private Status stepTwoStatus;
 
   @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
   @ManyToOne

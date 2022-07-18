@@ -11,6 +11,7 @@ import com.hcit.taserver.fr.meeting.Topic;
 import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.ta.plan.Plan;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,7 @@ public class ApprovalService {
         .build();
     approval.setStep(List.of(step));
     approval.setId(null);
+    approval.setRequestUser(authService.getCurrentUser());
     return approval;
   }
 
@@ -68,6 +70,8 @@ public class ApprovalService {
   }
 
   public Approval generate(Approval input, List<Matter> matter) {
+    approvalRepository.deleteAll(
+        matter.stream().map(Matter::getApproval).filter(Objects::nonNull).collect(Collectors.toList()));
     var approval = generate(input);
     approval.setMatter(matter);
     matter.forEach(m -> m.setApproval(approval));

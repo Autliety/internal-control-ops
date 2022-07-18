@@ -44,6 +44,10 @@ public class Approval implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @ApiModelProperty("申请人")
+  @ManyToOne
+  private User requestUser;
+
   @ApiModelProperty("审核人")
   @ManyToOne
   private User approveUser;

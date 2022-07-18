@@ -37,12 +37,10 @@ export default function Matter() {
         dataSource={state.measure || []}
     />
 
-    {!state.measure || state.measure.length === 0 ||
     <>
-      <Divider orientation={'left'}>措施清单审核流程</Divider>
+      <Divider orientation={'left'}>审核流程</Divider>
       <ApprovalTable value={state.approval} />
     </>
-    }
 
   </PageContainer>;
 

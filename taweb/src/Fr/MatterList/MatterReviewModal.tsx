@@ -15,7 +15,10 @@ export default function MatterReviewModal({ data }) {
   const [checker, setChecker] = React.useState({id: 1});
   const { http } = useHttp('/matter/approval', { method: 'POST', isManual: true})
 
-  const result = data.filter(i => i.status === 'NONE_REVIEW').filter(i => i.user?.id === user?.id);
+  let result = data.filter(i => i.status === 'NONE_REVIEW').filter(i => i.user?.id === user?.id);
+  if (result.length === 0 && user.privilege === 'DEPT') {
+    result = data.filter(i => i.stepTwoStatus === 'NONE_REVIEW');
+  }
 
   return <>
     {result.length > 0 &&
@@ -37,7 +40,7 @@ export default function MatterReviewModal({ data }) {
       <MatterTable columns={matterColumns} value={result}/>
       <Divider dashed/>
       <p>审核人</p>
-      <UserSelectCascader value={checker} onChange={v => setChecker(v)}/>
+      <UserSelectCascader disabled onChange={v => setChecker(v)}/>
 
     </Modal>
   </>;

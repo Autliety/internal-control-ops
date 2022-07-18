@@ -71,8 +71,14 @@ export const matterColumns: ProColumns[] = [
     editable: false,
   },
   {
-    title: '状态',
+    title: '审核状态',
     dataIndex: 'status',
+    valueEnum: statusEnum,
+    editable: false,
+  },
+  {
+    title: '二审状态',
+    dataIndex: 'stepTwoStatus',
     valueEnum: statusEnum,
     editable: false,
   },

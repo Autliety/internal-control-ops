@@ -4,6 +4,8 @@ import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
+import com.hcit.taserver.department.user.Privilege;
+import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +21,7 @@ public class MatterService {
   private final ApprovalService approvalService;
   private final ProgressService progressService;
   private final AuthService authService;
+  private final UserRepository userRepository;
 
   public List<Matter> findAll() {
     return matterRepository.findAll(
@@ -43,6 +46,7 @@ public class MatterService {
     matters.forEach(m -> {
       // todo generate code
       m.setStatus(Status.REVIEWED);
+      m.setStepTwoStatus(Status.REVIEWED);
       m.setId(null);
       if (!CollectionUtils.isEmpty(m.getMeasure())) {
         m.getMeasure().forEach(s -> {
@@ -56,13 +60,32 @@ public class MatterService {
 
   public Approval submitApproval() {
     var matters = matterRepository.findAllByUserAndStatus(authService.getCurrentUser(), Status.NONE_REVIEW);
-    matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+    if (CollectionUtils.isEmpty(matters)) {
+      if (authService.getCurrentUser().getPrivilege() != Privilege.DEPT) {
+        throw new IllegalArgumentException("需要审批的问题清单为空");
+      }
+      matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
+          userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
+          ,
+          List.of(Status.NONE_REVIEW)
+      );
+      matters.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
+    } else {
+      matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+    }
     return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
         matters);
   }
 
   public void onReviewed(List<Matter> matter) {
-    matter.forEach(m -> m.setStatus(Status.REVIEWED));
+    if (matter.get(0).getStatus() == Status.REVIEWED) {
+      matter.forEach(m -> m.setStepTwoStatus(Status.REVIEWED));
+    } else {
+      matter.forEach(m -> {
+        m.setStatus(Status.REVIEWED);
+        m.setStepTwoStatus(Status.NONE_REVIEW);
+      });
+    }
     matterRepository.saveAll(matter);
   }
 

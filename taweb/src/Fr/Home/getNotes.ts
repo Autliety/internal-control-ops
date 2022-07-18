@@ -21,7 +21,7 @@ export function getApprovalNotes(input: any) {
     result = {
       link: `/fr/mz/list/matter/approval/${input.id}`,
       title: '措施清单审核',
-      content: `【${input.matter?.[0].user.name}】更新了措施清单，正在等待您审核`,
+      content: `【${input.requestUser?.name}】更新了措施清单，正在等待您审核`,
     }
 
   } else if (input.progress) {
