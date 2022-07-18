@@ -8,7 +8,7 @@ import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import FileUpload from '../../components/FileUpload';
-import { useAuth } from "../../utils/auth";
+import { useAuth } from '../../utils/auth';
 
 export const threeColumns: ProColumns[] = [
   {
@@ -114,7 +114,7 @@ export default function ThreeList() {
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            {((user?.id !== 1 && record.integer1 === 1) || (user?.id !== 28 && record.integer1 === 2)) ||
+            {((user?.id === 1 && record.integer1 === 1) || (user?.id === 28 && record.integer1 === 2)) &&
                 <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
           </Space>,
         })}
