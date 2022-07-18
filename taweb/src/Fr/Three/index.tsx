@@ -15,7 +15,7 @@ export default function Three() {
 
   return <PageContainer
       extra={[
-        ((user?.id !== 1 && state.integer1 === 1) || (user?.id !== 28 && state.integer1 === 2)) ||
+        ((user?.id === 1 && state.integer1 === 1) || (user?.id === 28 && state.integer1 === 2)) &&
         <ThreeCreateModal isFirstEdit={false} id={parseInt(id)} size='middle'/>
       ]}
       loading={loading}

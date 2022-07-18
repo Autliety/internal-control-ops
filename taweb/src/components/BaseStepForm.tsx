@@ -69,7 +69,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
             {
               Object.values(props.formConfig)?.map((item: any, index) => <Step
                   key={index}
-                  title={item.title}
+                  title={item?.title}
                   // disabled={index > currentStep}
               />)
             }
@@ -79,7 +79,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
           {
             step === currentStep
                 ? <>
-                  <Typography.Title level={5}>{props.formConfig[currentStep].title + '填写'}</Typography.Title>
+                  <Typography.Title level={5}>{props.formConfig[currentStep]?.title + '填写'}</Typography.Title>
                   <br/>
                   <ProForm
                       onFinish={async (values) => props.onFinish(values)}
