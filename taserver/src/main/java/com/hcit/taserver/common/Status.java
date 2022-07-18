@@ -8,6 +8,9 @@ public enum Status {
   // 待审核
   AWAITING_REVIEW,
 
+  // 部分审核完成
+  PART_REVIEW,
+
   // 审核完成
   REVIEWED,
 

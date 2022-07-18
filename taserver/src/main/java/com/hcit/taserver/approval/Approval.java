@@ -65,6 +65,7 @@ public class Approval implements BasicPersistable {
 
   @Transient
   public Status getStatus() {
+    // todo the last step status
     return Optional.ofNullable(step).map(l -> l.get(0)).map(ApprovalStep::getStatus).orElse(null);
   }
 
@@ -78,8 +79,9 @@ public class Approval implements BasicPersistable {
   private Topic meetingTopic;
 
   @JsonIgnoreProperties({"approval"})
-  @OneToOne(cascade = CascadeType.PERSIST)
-  private Matter matter;
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<Matter> matter;
 
   @JsonIgnoreProperties({"approval"})
   @OneToOne(cascade = CascadeType.PERSIST)

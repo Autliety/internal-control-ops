@@ -22,6 +22,7 @@ public class OrdinalFormService {
     return ordinalFormRepository.findAll((root, query, cb) -> {
           Predicate or = null;
           if (formType == FormType.LEARNING) {
+            //noinspection ConstantConditions
             or = u.getId().intValue() < 30
                 ? cb.lessThan(root.get("destUser").get("id"), 30)
                 : cb.equal(root.get("destUser").get("department").get("id"),
@@ -65,7 +66,7 @@ public class OrdinalFormService {
           m.setUser(f.getDestUser());
         }
       });
-      var m = matterService.create(matters);
+      var m = matterService.createAllWithoutApprove(matters);
       f.setMatter(m);
     }
 

@@ -30,7 +30,6 @@ export default function MeetingList() {
       <Tooltip title={'会议详情'}>
         <Button
             type={'primary'}
-            disabled={record.status === 'AWAITING_REVIEW'}
             icon={<ContainerOutlined/>}
             size={'small'}
             onClick={() => navigate(`/fr/mz/meeting/${record.id}`)}

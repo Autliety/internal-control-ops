@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   List<User> findAllByNameIn(Collection<String> names);
 
-  User findByDepartmentAndPrivilege(Department department, Privilege privilege);
+  Optional<User> findByDepartmentAndPrivilege(Department department, Privilege privilege);
 }

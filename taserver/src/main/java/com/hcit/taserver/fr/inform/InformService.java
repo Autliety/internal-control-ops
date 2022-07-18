@@ -41,7 +41,7 @@ public class InformService {
         m.setOrigin("区（镇）反馈、交办/一单三书");
         m.setContent(inform.getContent());
       });
-      matterService.create(matters);
+      matterService.createAllWithoutApprove(matters);
     }
     return informRepository.saveAndFlush(inform);
   }

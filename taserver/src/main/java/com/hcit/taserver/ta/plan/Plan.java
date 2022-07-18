@@ -25,6 +25,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.util.CollectionUtils;
 
@@ -64,6 +66,7 @@ public class Plan {
 
   @JsonIgnoreProperties(value = {"plan"}, allowSetters = true)
   @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
   private List<Detail> detail;
 
   public Integer getDetailCount() {

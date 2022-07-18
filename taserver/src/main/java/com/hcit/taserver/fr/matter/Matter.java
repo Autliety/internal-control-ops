@@ -68,9 +68,9 @@ public class Matter implements BasicPersistable {
 
   @ApiModelProperty("问题的措施清单审批状态")
   @Enumerated(EnumType.STRING)
-  private Status measureStatus;
+  private Status status;
 
   @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
-  @OneToOne(mappedBy = "matter")
+  @ManyToOne
   private Approval approval;
 }

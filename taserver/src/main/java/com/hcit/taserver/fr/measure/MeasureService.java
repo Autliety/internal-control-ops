@@ -30,7 +30,6 @@ public class MeasureService {
     m.setId(null);
     m.setProgress(progressService.create(m));
     measureRepository.saveAndFlush(m);
-    matterService.updateMeasure(m.getMatter().getId());
     return m;
   }
 

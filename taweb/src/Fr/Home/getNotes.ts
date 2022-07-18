@@ -5,7 +5,7 @@ export function getApprovalNotes(input: any) {
 
   if (input.meeting) {
     result = {
-      link: `/fr/mz/meeting/${input.meeting.id}/notice`,
+      link: `/fr/mz/meeting/${input.meeting.id}`,
       title: '会议通知审核',
       content: `会议【${input.meeting.code}】正在等待您审核`,
     }
@@ -19,9 +19,9 @@ export function getApprovalNotes(input: any) {
 
   } else if (input.matter) {
     result = {
-      link: `/fr/mz/list/matter/${input.matter.id}`,
+      link: `/fr/mz/list/matter/approval/${input.id}`,
       title: '措施清单审核',
-      content: `问题【${input.matter.code}】更新了措施清单，正在等待您审核`,
+      content: `【${input.matter?.[0].user.name}】更新了措施清单，正在等待您审核`,
     }
 
   } else if (input.progress) {

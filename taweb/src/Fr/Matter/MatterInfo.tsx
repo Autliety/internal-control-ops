@@ -72,7 +72,7 @@ export const matterColumns: ProColumns[] = [
   },
   {
     title: '状态',
-    dataIndex: 'measureStatus',
+    dataIndex: 'status',
     valueEnum: statusEnum,
     editable: false,
   },

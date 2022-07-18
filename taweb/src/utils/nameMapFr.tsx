@@ -36,7 +36,7 @@ export const informType = {
 export const meetingStatusEnum = {
   NONE_REVIEW: <Tag color={'default'}>会前准备</Tag>,
   AWAITING_REVIEW: <Tag color={'warning'}>待审核</Tag>,
-  REVIEWED: <Tag color={'processing'}>已审核</Tag>,
+  REVIEWED: <Tag color={'processing'}>等待会议完成</Tag>,
   FINISHED: <Tag color={'success'}>已完成</Tag>,
 };
 

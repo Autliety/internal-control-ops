@@ -4,12 +4,9 @@ import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import com.hcit.taserver.fr.progress.ProgressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -32,10 +29,20 @@ public class MatterService {
     return matterRepository.findById(id).orElseThrow();
   }
 
-  public List<Matter> create(Collection<Matter> matters) {
+  public List<Matter> createAll(Collection<Matter> matters) {
     matters.forEach(m -> {
       // todo generate code
-      m.setMeasureStatus(Status.AWAITING_REVIEW);
+      m.setStatus(Status.NONE_REVIEW);
+      m.setId(null);
+      m.setUser(authService.getCurrentUser());
+    });
+    return matterRepository.saveAll(matters);
+  }
+
+  public List<Matter> createAllWithoutApprove(Collection<Matter> matters) {
+    matters.forEach(m -> {
+      // todo generate code
+      m.setStatus(Status.REVIEWED);
       m.setId(null);
       if (!CollectionUtils.isEmpty(m.getMeasure())) {
         m.getMeasure().forEach(s -> {
@@ -47,25 +54,16 @@ public class MatterService {
     return matterRepository.saveAll(matters);
   }
 
-  public List<Matter> updateAll(List<Matter> matters) {
-    // has a better way
-    create(matters.stream().filter(m -> m.getId() == null).collect(Collectors.toList()));
-    return matterRepository.saveAll(matters.stream().filter(m -> m.getId() != null).collect(Collectors.toList()));
+  public Approval submitApproval() {
+    var matters = matterRepository.findAllByUserAndStatus(authService.getCurrentUser(), Status.NONE_REVIEW);
+    matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+    return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
+        matters);
   }
 
-  public void onReviewed(Matter matter) {
-    matter.setMeasureStatus(Status.REVIEWED);
-    matterRepository.save(matter);
+  public void onReviewed(List<Matter> matter) {
+    matter.forEach(m -> m.setStatus(Status.REVIEWED));
+    matterRepository.saveAll(matter);
   }
 
-  public Matter updateMeasure(Long id) {
-    var matter = matterRepository.findById(id).orElseThrow();
-    matter.setMeasureStatus(Status.AWAITING_REVIEW);
-    if (matter.getApproval() == null) {
-      approvalService.generate(Approval.builder().approveUser(User.builder().id(1L).build()).build(), matter); // todo get the right approve user
-    } else {
-      approvalService.reset(matter.getApproval());
-    }
-    return matterRepository.save(matter);
-  }
 }

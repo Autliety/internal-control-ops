@@ -48,7 +48,7 @@ public class Measure implements BasicPersistable {
   }
 
   public Status getStatus() {
-    return Optional.ofNullable(matter).map(Matter::getMeasureStatus).orElse(null);
+    return Optional.ofNullable(matter).map(Matter::getStatus).orElse(null);
   }
 
   @ApiModelProperty("工作措施详情")

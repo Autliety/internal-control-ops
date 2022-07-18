@@ -35,6 +35,11 @@ public class ApprovalController {
     return null;
   }
 
+  @GetMapping("/{id}")
+  public Approval fetch(@PathVariable Long id) {
+    return approvalService.findById(id);
+  }
+
   @PatchMapping("/{id}")
   @Transactional
   public Approval updateStep(@PathVariable Long id, @RequestBody(required = false) ApprovalStep body) {

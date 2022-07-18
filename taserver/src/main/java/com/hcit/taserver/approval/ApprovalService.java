@@ -2,12 +2,16 @@ package com.hcit.taserver.approval;
 
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
+import com.hcit.taserver.department.user.Privilege;
+import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.Topic;
 import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.ta.plan.Plan;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ public class ApprovalService {
   private final ApprovalRepository approvalRepository;
   private final ApprovalStepRepository approvalStepRepository;
   private final AuthService authService;
+  private final UserRepository userRepository;
 
   public List<Approval> getCurrentUserApproved() {
     var user = authService.getCurrentUser();
@@ -27,6 +32,14 @@ public class ApprovalService {
         .map(ApprovalStep::getApproval)
         .distinct()
         .collect(Collectors.toList());
+  }
+
+  public User getDefaultApproveUser() {
+    User user = authService.getCurrentUser();
+    return Optional.ofNullable(user.getParent())
+        .orElseGet(() -> userRepository.findByDepartmentAndPrivilege(user.getDepartment(), Privilege.DEPT)
+            .orElseGet(() -> userRepository.findById(1L)
+                .orElseThrow()));
   }
 
   private Approval generate(Approval approval) {
@@ -54,10 +67,10 @@ public class ApprovalService {
     return approvalRepository.save(approval);
   }
 
-  public Approval generate(Approval input, Matter matter) {
+  public Approval generate(Approval input, List<Matter> matter) {
     var approval = generate(input);
     approval.setMatter(matter);
-    matter.setApproval(approval);
+    matter.forEach(m -> m.setApproval(approval));
     return approvalRepository.save(approval);
   }
 
@@ -98,4 +111,7 @@ public class ApprovalService {
     return approval;
   }
 
+  public Approval findById(Long id) {
+    return approvalRepository.findById(id).orElseThrow();
+  }
 }

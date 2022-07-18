@@ -1,8 +1,8 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Modal, Space, Statistic } from 'antd';
-import { AuditOutlined, PauseOutlined } from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
+import { AuditOutlined, FileAddOutlined, PauseOutlined } from '@ant-design/icons';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
 import TopicTask from '../MeetingTopic/TopicTask';
@@ -10,11 +10,14 @@ import MeetingAttendee from './MeetingAttendee';
 import { useAuth } from '../../utils/auth';
 import FileUpload from '../../components/FileUpload';
 import UserSelectCascader from '../../components/UserSelectCascader';
+import BaseDivider from '../../components/BaseDivider';
+import ApprovalTable from '../../components/ApprovalTable';
 
 export default function Meeting() {
 
   const { user } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = React.useState(false);
 
   const { state, loading } = useHttp(`/meeting/${id}`);
@@ -58,12 +61,27 @@ export default function Meeting() {
     <Divider orientation={'left'}>相关附件</Divider>
     <FileUpload value={state.attach || []}/>
 
+    <BaseDivider title={'审核流程'}/>
+    <ApprovalTable value={state.approval}/>
+
     <FooterToolbar>
-      {
-          (state.user?.id === user.id && state.status === 'NONE_REVIEW')
-          && <Button type='primary' onClick={() => setIsVisible(true)}>
-            <AuditOutlined/>提交审核
-          </Button>
+      {state.status === 'NONE_REVIEW' &&
+      <Space>
+        <Button
+            type={'primary'}
+            disabled={!state.meetingUser.find(u => u.id === user.id)}
+            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/0?create=true`)}
+        >
+          <FileAddOutlined/>会前准备
+        </Button>
+        <Button
+            type="primary"
+            disabled={state.user?.id !== user.id}
+            onClick={() => setIsVisible(true)}
+        >
+          <AuditOutlined/>提交审核
+        </Button>
+      </Space>
       }
 
       {state.status === 'REVIEWED' && <Button
@@ -86,10 +104,10 @@ export default function Meeting() {
             {
               state.status === 'NONE_REVIEW'
                   ? meetingHttp(null, null, { ...approval, status: 'AWAITING_REVIEW' })
-                      .then(() => window.location.reload())
+                  .then(() => window.location.reload())
                   : http(null, null, tasks)
-                      .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
-                      .then(() => window.location.reload())
+                  .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
+                  .then(() => window.location.reload());
             }
           }
         }

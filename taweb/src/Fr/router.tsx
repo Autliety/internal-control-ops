@@ -56,6 +56,7 @@ import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
 import MotionList from "./MotionList";
+import MatterListApproval from './MatterList/MatterListApproval';
 
 export const router = {
   routes: [
@@ -284,6 +285,12 @@ export const router = {
       name: '会前准备',
       path: '/fr/mz/meeting/:id/topic/:tid',
       element: <MeetingTopic/>,
+    },
+    {
+      hideInMenu: true,
+      name: '问题清单审核',
+      path: '/fr/mz/list/matter/approval/:id',
+      element: <MatterListApproval/>
     },
     {
       hideInMenu: true,

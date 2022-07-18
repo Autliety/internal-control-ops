@@ -4,11 +4,9 @@ import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +35,14 @@ public class MeetingService {
   public Meeting create(Meeting meeting) {
     // todo generate code
     meeting.setCode("HY001");
-    meeting.setStatus(Status.NONE_REVIEW);
-    meeting.setUser(authService.getCurrentUser());
+    User user = authService.getCurrentUser();
+    meeting.setUser(user);
+    //noinspection ConstantConditions
+    if (user.getId().equals(1L)) {
+      meeting.setStatus(Status.REVIEWED);
+    } else {
+      meeting.setStatus(Status.NONE_REVIEW);
+    }
     return meetingRepository.saveAndFlush(meeting);
   }
 
@@ -47,10 +51,8 @@ public class MeetingService {
     meeting.setStatus(status);
 
     if (status == Status.AWAITING_REVIEW) {
-      User user = meeting.getUser();
       approvalService.generate(Approval.builder()
-          .approveUser(Optional.ofNullable(user.getParent())
-              .orElseGet(() -> userRepository.findByDepartmentAndPrivilege(user.getDepartment(), Privilege.DEPT)))
+          .approveUser(approvalService.getDefaultApproveUser())
           .build(), meeting);
     }
     return meeting;
