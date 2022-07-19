@@ -80,10 +80,16 @@ public class MatterService {
   public void onReviewed(List<Matter> matter) {
     if (matter.get(0).getStatus() == Status.REVIEWED) {
       matter.forEach(m -> m.setStepTwoStatus(Status.REVIEWED));
+
     } else {
       matter.forEach(m -> {
         m.setStatus(Status.REVIEWED);
-        m.setStepTwoStatus(Status.NONE_REVIEW);
+        //noinspection ConstantConditions
+        if (m.getUser().getId().intValue() < 30) {
+          m.setStepTwoStatus(Status.REVIEWED);
+        } else {
+          m.setStepTwoStatus(Status.NONE_REVIEW);
+        }
       });
     }
     matterRepository.saveAll(matter);

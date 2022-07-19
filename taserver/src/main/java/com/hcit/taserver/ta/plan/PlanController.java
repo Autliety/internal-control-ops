@@ -48,6 +48,7 @@ public class PlanController {
         d.setPlan(plan);
         d.setTask(Task.builder()
             .planDetail(d)
+            .progress(0)
             .status(Status.NONE_REVIEW)
             .valueType(d.getValueType())
             .build());

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +50,7 @@ public class ApprovalController {
     // todo: move onReviewed to better place
     if (approval.getMeetingTopic() != null) {
       topicService.onReviewed(approval.getMeetingTopic());
-    } else if (approval.getMatter() != null) {
+    } else if (!CollectionUtils.isEmpty(approval.getMatter())) {
       matterService.onReviewed(approval.getMatter());
     } else if (approval.getProgress() != null) {
       progressService.onReviewed(approval.getProgress());
