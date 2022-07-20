@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 @Service
@@ -30,8 +32,14 @@ public class AssessmentService {
     return l1Map;
   }
 
-  public List<Assessment> demoFilteredFindAll() {
-    return filterByUser(assessmentRepository.findAll(), authService.getCurrentUser());
+  public List<Assessment> demoFilteredFindAll(Boolean plan) {
+    if (BooleanUtils.isFalse(plan)) {
+      return filterByUser(assessmentRepository.findAll(), authService.getCurrentUser()).stream()
+          .filter(a -> CollectionUtils.isEmpty(a.getPlan())).collect(
+              Collectors.toList());
+    } else {
+      return filterByUser(assessmentRepository.findAll(), authService.getCurrentUser());
+    }
   }
 
   // todo better filter
@@ -46,7 +54,8 @@ public class AssessmentService {
       return list;
     } else {
       return list.stream()
-          .filter(a -> a.getRespDepartment().stream().map(Department::getId).anyMatch(i -> i.equals(user.getDepartment().getId())))
+          .filter(a -> a.getRespDepartment().stream().map(Department::getId)
+              .anyMatch(i -> i.equals(user.getDepartment().getId())))
           .collect(Collectors.toList());
     }
   }

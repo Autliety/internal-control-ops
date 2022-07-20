@@ -29,7 +29,7 @@ public class PlanController {
   /*具体计划CRUD*/
   @GetMapping
   public List<Plan> fetchAll() {
-    return assessmentService.demoFilteredFindAll().stream().flatMap(a -> a.getPlan().stream()).collect(Collectors.toList());
+    return assessmentService.demoFilteredFindAll(true).stream().flatMap(a -> a.getPlan().stream()).collect(Collectors.toList());
   }
 
   /*具体查询一条计划by计划id*/

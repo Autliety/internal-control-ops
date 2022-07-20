@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -25,8 +26,8 @@ public class AssessmentController {
    * 和没有计划的指标
    * */
   @GetMapping
-  public Collection<?> fetchAll() {
-    return assessmentService.toTree(assessmentService.demoFilteredFindAll())
+  public Collection<?> fetchAll(@RequestParam(required = false) Boolean plan) {
+    return assessmentService.toTree(assessmentService.demoFilteredFindAll(plan))
         .entrySet()
         .stream()
         .map(e1 ->
