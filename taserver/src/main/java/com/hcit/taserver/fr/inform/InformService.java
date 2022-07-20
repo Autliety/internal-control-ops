@@ -38,7 +38,7 @@ public class InformService {
       matters.forEach(m -> {
         m.setId(null);
         m.setUser(inform.getDestUser());
-        m.setOrigin("区（镇）反馈、交办/一单三书");
+        m.setOrigin("镇本级/区（镇）反馈、交办/一单三书");
         m.setContent(inform.getContent());
       });
       matterService.createAllWithoutApprove(matters);
