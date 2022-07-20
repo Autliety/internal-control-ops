@@ -55,7 +55,7 @@ import TalkingList from './TalkingList';
 import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
-import MotionList from "./MotionList";
+import MotionList from './MotionList';
 import MatterListApproval from './MatterList/MatterListApproval';
 
 export const router = {

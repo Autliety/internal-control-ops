@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,15 +22,17 @@ class Auth implements UserDetails {
   @Override
   @JsonIgnore
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    // todo privileges
-    return List.of(Privilege.ADMIN);
+    return List.of(user.getPrivilege());
   }
 
   @Override
   @JsonIgnore
   public String getPassword() {
-    // todo password
-    return "1";
+    String s = user.getPassword();
+    if (StringUtils.isBlank(s)) {
+      return "1";
+    }
+    return user.getPassword();
   }
 
   @Override

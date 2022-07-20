@@ -1,12 +1,11 @@
 import React from 'react';
 import { LoginForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, Image, Layout, message, Row, Typography } from 'antd';
+import { Col, Divider, Image, Layout, message, Modal, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
 import title from '../../image/title.jpg';
-
 import { useHttp } from '../../utils/request';
 
 export default function Login() {
@@ -89,12 +88,18 @@ export default function Login() {
           />
 
           <div>
-            <a style={{ float: 'right' }} onClick={() => {
-            }}
+            <a
+                style={{ float: 'right' }}
+                onClick={() => Modal.warning({
+                  title: '忘记密码',
+                  content: <p style={{ marginTop: 20 }}>请联系系统管理员：0573-86116553</p>,
+                  okText: '确定',
+                })}
             >
               忘记密码
             </a>
           </div>
+          <br/><br/>
         </LoginForm>
       </Col>
       <Col span={4}/>

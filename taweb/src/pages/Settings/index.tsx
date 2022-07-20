@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Avatar, Col, Descriptions, Divider, Row, Tabs } from 'antd';
 import Password from './Password';
 import { useAuth } from '../../utils/auth';
+import avatar from '../../image/user.png';
 
 export default function Settings() {
   const { user } = useAuth();
@@ -15,7 +16,7 @@ export default function Settings() {
           <Descriptions column={1}>
             <Descriptions.Item>
               <Avatar
-                  src={'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg'}
+                  src={avatar}
                   size={{ xs: 40, sm: 40, md: 40, lg: 64, xl: 80, xxl: 100 }}
               />
             </Descriptions.Item>
