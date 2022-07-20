@@ -2,6 +2,7 @@ package com.hcit.taserver.department.user;
 
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -25,5 +26,13 @@ public class UserService {
 
   public User findByName(String username) {
     return userRepository.findByName(username).orElseThrow();
+  }
+
+  public User update(Long id, User user) {
+    User u = userRepository.findById(id).orElseThrow();
+    if (StringUtils.isNotBlank(user.getPassword())) {
+      u.setPassword(user.getPassword());
+    }
+    return userRepository.save(u);
   }
 }

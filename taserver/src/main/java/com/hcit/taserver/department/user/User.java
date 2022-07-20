@@ -2,6 +2,7 @@ package com.hcit.taserver.department.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
 import javax.persistence.Entity;
@@ -27,6 +28,9 @@ public class User implements BasicPersistable {
   private Long id;
 
   private String name;
+
+  @JsonProperty(access = Access.WRITE_ONLY)
+  private String password;
 
   @JsonProperty("name")
   private String getFrName() {
