@@ -34,7 +34,7 @@ public class UserController {
 
   @PostMapping("/{id}")
   public User update(@PathVariable Long id, @RequestBody User user) {
-    if (id.equals(authService.getCurrentUser().getId()) && id.equals(user.getId())) {
+    if (id.equals(authService.getCurrentUser().getId())) {
       return userService.update(id, user);
     } else {
       throw new IllegalArgumentException("非当前用户");
