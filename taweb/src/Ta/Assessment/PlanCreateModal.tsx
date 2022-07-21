@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button, Divider, Modal, Space } from 'antd';
+import { Button, Cascader, Divider, Modal, Space } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import { useNavigate, useParams } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { detailColumns } from '../Plan/PlanDetailTable';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
-import { useNavigate, useParams } from 'react-router-dom';
 
-export default function PlanCreateModal({ title = '制定计划' }) {
+export default function PlanCreateModal({ title = '制定计划', isSelectAssessment = false }) {
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -16,34 +16,48 @@ export default function PlanCreateModal({ title = '制定计划' }) {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [detailData, setDetailData] = React.useState([]);
-  const [approveId,setApproveId] = React.useState(0);
+  const [approveId, setApproveId] = React.useState<number>(0);
+  const [assessmentId, setAssessmentId] = React.useState<number>(0);
+
+  const { state } = useHttp('/assessment?plan=false', { initState: [] });
   const { http } = useHttp('/plan', { method: 'POST', isManual: true });
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusCircleOutlined/>{title}</Button>
 
     <Modal
-        width={1400}
+        width={1500}
         title={title}
         visible={isVisible}
         closable
         onCancel={() => setIsVisible(false)}
         onOk={() => http(null, null, {
-          assessment: { id },
+          assessment: isSelectAssessment ? { id: assessmentId } : { id },
           user,
           department: user.department,
           detail: detailData,
-          approval: {approveUser:{id:approveId}},
+          approval: { approveUser: { id: approveId } },
         }).then(res => navigate(`/ta/plan/${res.id}`))}
     >
       <Space size={'large'}>
+        {
+            isSelectAssessment && <>
+              选择指标：
+              <Cascader
+                  dropdownMenuColumnStyle={{ width: 400, overflow: 'hidden' }}
+                  fieldNames={{ label: 'name', value: 'id' }}
+                  options={state}
+                  placeholder='请选择'
+                  onChange={v => setAssessmentId(v.at(-1))}
+              />
+            </>
+        }
         计划负责人:
         <UserSelectCascader value={user} disabled/>
         审批人:
-        <UserSelectCascader onChange={v=>setApproveId(v.id)}/>
-
+        <UserSelectCascader onChange={v => setApproveId(v.id)}/>
       </Space>
-      <Divider />
+      <Divider/>
 
       <BaseEditableTable
           columns={detailColumns}

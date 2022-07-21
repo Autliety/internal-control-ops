@@ -40,7 +40,7 @@ export default function Assessment() {
           <Divider type={'vertical'}/>
           {i.department?.name}
           <Divider type={'vertical'}/>
-          <Tooltip title={i.station?.name}>
+          <Tooltip title={i.station}>
             {i.station?.length > 8 ? i.station?.substring(0, 7) + '...' : i.station}
           </Tooltip>
         </ProCard>)}
