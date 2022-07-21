@@ -22,13 +22,13 @@ export default function Settings() {
             </Descriptions.Item>
             <Divider dashed/>
             <Descriptions.Item label='用户姓名'>
-              {user.name}
+              {user?.name}
             </Descriptions.Item>
             <Descriptions.Item label='岗位名称'>
-              {user.station?.name}
+              {user?.station}
             </Descriptions.Item>
             <Descriptions.Item label='所在单位'>
-              {user.department?.name}
+              {user?.department?.name}
             </Descriptions.Item>
           </Descriptions>
         </div>

@@ -24,9 +24,10 @@ export default function Login() {
       }}
   >
     <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent' }}>
-      <Typography.Title style={{ marginTop: 20, color: '#fff' }}><Image src={logo} width={70}
-                                                                        preview={false}
-      /> 浙江百步经济开发区(百步镇)</Typography.Title>
+      <Typography.Title style={{ marginTop: 20, color: '#fff' }}>
+        <Image src={logo} width={70} preview={false}/>
+        浙江百步经济开发区(百步镇)
+      </Typography.Title>
     </Layout.Header>
     <Row>
       <Col span={16}/>
@@ -34,7 +35,7 @@ export default function Login() {
         <LoginForm
             onFinish={async (values: any) => {
               await http(null, null, qs.stringify(values));
-              if (values.password === '1' ) {
+              if (values.password === '1') {
                 message.success('登录成功，请尽快修改初始密码');
                 navigate(`/${values.system}/center`)
               } else {

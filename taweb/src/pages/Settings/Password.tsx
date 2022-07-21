@@ -10,7 +10,7 @@ export default function Password() {
   const { user } = useAuth();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { http } = useHttp(`/user/${user.id}`, { method: 'POST', isManual: true });
+  const { http } = useHttp(`/user/${user?.id}`, { method: 'POST', isManual: true });
 
   const onFinish = values => {
     if (values.password !== values.p_password) {
@@ -33,7 +33,7 @@ export default function Password() {
         name='reset_password'
         onFinish={onFinish}
         style={{ backgroundColor: '#fff', padding: 20 }}
-        initialValues={{ username: user.name }}
+        initialValues={{ username: user?.name }}
     >
 
       <Form.Item label='当前用户' name='username'>
