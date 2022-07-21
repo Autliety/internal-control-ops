@@ -109,7 +109,7 @@ export default function InformCreateModal({ isDisposal }: Props) {
                 </Form.List>
               </Form.Item>
 
-              <Form.Item name="attach" label="相关附件">
+              <Form.Item name="attach" label="上传附件">
                 <FileUpload isInEdit/>
               </Form.Item>
             </>

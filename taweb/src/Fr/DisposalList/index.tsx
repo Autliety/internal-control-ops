@@ -62,22 +62,12 @@ export const disposalColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
-    title: '相关附件',
+    title: '上传附件',
     dataIndex: 'attach',
     renderFormItem: () => <FileUpload isInEdit/>,
     hideInTable: true,
     hideInDescriptions: true,
   },
-  {
-    title: '详情',
-    key: 'operation',
-    width: '5%',
-    align: 'center',
-    fixed: 'right',
-    render: (_, record: any) => <Link to={`/fr/lz/disposal/${record.id}`}><ContainerOutlined/></Link>,
-    hideInDescriptions: true,
-    hideInForm: true,
-  }
 ];
 
 
@@ -97,7 +87,14 @@ export default function DisposalList() {
       }
   >
     <BaseEditableTable
-        columns={disposalColumns}
+        columns={disposalColumns.concat({
+          title: '详情',
+          key: 'operation',
+          width: '5%',
+          align: 'center',
+          fixed: 'right',
+          render: (_, record: any) => <Link to={`/fr/lz/disposal/${record.id}`}><ContainerOutlined/></Link>,
+        })}
         value={state}
     />
   </PageContainer>;

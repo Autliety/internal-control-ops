@@ -16,6 +16,7 @@ function PersonCreateModal() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { http } = useHttp('/ordinal/personal', { method: 'POST', isManual: true });
+  const { state: temps } = useHttp('/attach?id=20&id=21', { initState: []});
 
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>添加</Button>
@@ -80,7 +81,11 @@ function PersonCreateModal() {
           </Select>
         </Form.Item>
 
-        <Form.Item name='attach' label={'相关附件'}>
+        <Form.Item label='相关资料' tooltip='点击下载相关资料,查看具体制度要求'>
+          <FileUpload isInEdit={false} value={temps}/>
+        </Form.Item>
+
+        <Form.Item name='attach' label={'上传附件'}>
           <FileUpload isInEdit/>
         </Form.Item>
       </Form>

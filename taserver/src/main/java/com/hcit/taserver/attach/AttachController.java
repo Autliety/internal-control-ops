@@ -2,6 +2,7 @@ package com.hcit.taserver.attach;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -26,6 +27,11 @@ public class AttachController {
   @PostMapping
   public Attach upload(@RequestParam("file") MultipartFile file) {
     return attachService.upload(file);
+  }
+
+  @GetMapping(params = {"id"})
+  public List<Attach> fetchAllById(@RequestParam List<Long> id) {
+    return attachService.findAllById(id);
   }
 
   @GetMapping("/{id}") /*下载文件*/

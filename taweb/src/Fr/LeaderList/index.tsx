@@ -63,7 +63,7 @@ export const leaderColumns: ProColumns[] = [
     }
   },
   {
-    title: '相关附件',
+    title: '上传附件',
     dataIndex: 'attach',
     renderFormItem: () => <FileUpload isInEdit/>,
     hideInDescriptions: true,
