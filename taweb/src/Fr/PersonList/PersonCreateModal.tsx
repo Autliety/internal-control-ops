@@ -17,6 +17,21 @@ function PersonCreateModal() {
   const navigate = useNavigate();
   const { http } = useHttp('/ordinal/personal', { method: 'POST', isManual: true });
 
+  // 测试数据
+  const value = [
+    {
+      id: 1,
+      fsFileName: "个人有关事项报告及公开模板一.docx",
+      fileName: "个人有关事项报告及公开模板一.docx",
+    },
+    {
+      id: 2,
+      fsFileName: "个人有关事项报告及公开模板二.docx",
+      fileName: "个人有关事项报告及公开模板二.docx",
+    }
+  ]
+
+
   return <>
     <Button type={'primary'} onClick={() => setIsVisible(true)}><PlusOutlined/>添加</Button>
     <Modal
@@ -78,6 +93,10 @@ function PersonCreateModal() {
             <Select.Option value='任职公开'>任职公开</Select.Option>
             <Select.Option value='年度民主（组织）生活会书面公开'>年度民主（组织）生活会书面公开</Select.Option>
           </Select>
+        </Form.Item>
+
+        <Form.Item label='模板下载' tooltip='选择下载'>
+          <FileUpload isInEdit={false} value={value}/>
         </Form.Item>
 
         <Form.Item name='attach' label={'相关附件'}>

@@ -22,7 +22,6 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
               multiple={true}
               listType={'picture'}
 
-
               fileList={value?.map(a => ({
                 uid: a.id,
                 name: a.fileName,
@@ -35,6 +34,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
                   onChange(fileList.map(f => f.response ? f.response : f));
                 }
               }}
+              showUploadList={{ showRemoveIcon: isInEdit }}
           >
             {
                 isInEdit && <Button icon={<UploadOutlined/>}>选择文件</Button>

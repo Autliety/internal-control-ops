@@ -62,6 +62,24 @@ export const disposalColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
+    title: '模板下载',
+    tooltip: '选择下载',
+    renderFormItem: () => <FileUpload isInEdit={false} value={[
+      {
+        id: 1,
+        fsFileName: "个人有关事项报告及公开模板一.docx",
+        fileName: "个人有关事项报告及公开模板一.docx",
+      },
+      {
+        id: 2,
+        fsFileName: "个人有关事项报告及公开模板二.docx",
+        fileName: "个人有关事项报告及公开模板二.docx",
+      }
+    ]}/>,
+    hideInTable: true,
+    hideInDescriptions: true,
+  },
+  {
     title: '相关附件',
     dataIndex: 'attach',
     renderFormItem: () => <FileUpload isInEdit/>,
