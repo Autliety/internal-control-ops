@@ -111,7 +111,7 @@ function MotionCreateModal() {
           </Form.List>
         </Form.Item>
 
-        <Form.Item name='attach' label='相关附件'>
+        <Form.Item name='attach' label='上传附件'>
           <Upload><Button icon={<UploadOutlined/>}>点击上传</Button></Upload>
         </Form.Item>
 

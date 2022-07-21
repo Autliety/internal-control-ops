@@ -330,7 +330,7 @@ export const router = {
     },
     {
       hideInMenu: true,
-      name: '第一种形态告知书',
+      name: '第一种形态运用',
       path: '/fr/lz/disposal/:id',
       element: <Disposal/>,
     },

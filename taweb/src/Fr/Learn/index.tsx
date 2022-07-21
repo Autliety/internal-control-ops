@@ -19,7 +19,7 @@ export default function Learn() {
     <Divider orientation='left'>参加对象</Divider>
     <MeetingAttendee data={state?.multiUser1} isOptional={false}/>
 
-    <Divider orientation={'left'}>相关附件</Divider>
+    <Divider orientation={'left'}>上传附件</Divider>
     <FileUpload value={state.attach || []}/>
 
   </PageContainer>;

@@ -50,7 +50,7 @@ export const clubColumns: ProColumns[] = [
   { title: '督导组会后评估', dataIndex: 'content7' },
   { title: '整改情况', dataIndex: 'longContent2', valueType: 'textarea' },
   { title: '结果运用', dataIndex: 'longContent3', valueType: 'textarea' },
-  { title: '相关附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInDescriptions: true },
+  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInDescriptions: true },
 ];
 
 

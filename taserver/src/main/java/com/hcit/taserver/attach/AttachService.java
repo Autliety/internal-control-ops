@@ -7,8 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AttachService {
 
   private final static Path ATT_PATH = Paths.get("fs/attach");
+  private final static Path TMP_PATH = Paths.get("fs/template");
 
   private final AttachRepository attachRepository;
   private final AuthService authService;
@@ -47,10 +50,17 @@ public class AttachService {
   public Attach download(Long id) {
     Attach attach = attachRepository.findById(id).orElseThrow(FileNotFoundException::new);
     Path path = ATT_PATH.resolve(attach.getFsFileName());
+    if (BooleanUtils.isTrue(attach.getIsTemplate())) {
+      path = TMP_PATH.resolve(attach.getFsFileName());
+    }
     if (!Files.isRegularFile(path)) {
       throw new FileNotFoundException();
     }
     attach.setPath(path);
     return attach;
+  }
+
+  public List<Attach> findAllById(List<Long> id) {
+    return attachRepository.findAllById(id);
   }
 }

@@ -58,7 +58,7 @@ export default function Meeting() {
         }}
     />
 
-    <Divider orientation={'left'}>相关附件</Divider>
+    <Divider orientation={'left'}>上传附件</Divider>
     <FileUpload value={state.attach || []}/>
 
     <BaseDivider title={'审核流程'}/>

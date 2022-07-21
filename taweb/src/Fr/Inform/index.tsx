@@ -34,7 +34,7 @@ export default function Inform() {
     <BaseDivider title={'相关问题'}/>
     <MatterTable value={state.matter}/>
 
-    <BaseDivider title={'相关附件'}/>
+    <BaseDivider title={'上传附件'}/>
     <FileUpload value={state.attach} isInEdit={false}/>
 
   </PageContainer>;

@@ -64,7 +64,7 @@ export const inspectColumns: ProColumns[] = [
   { title: '问题交办', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
   { title: '处置及整改情况', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   {
-    title: '相关附件',
+    title: '上传附件',
     dataIndex: 'attach',
     renderFormItem: () => <FileUpload isInEdit/>,
     hideInTable: true,

@@ -15,7 +15,7 @@ export default function Disposal() {
   return <PageContainer loading={loading}>
     <BaseDescriptions columns={disposalColumns} dataSource={state}/>
 
-    <Divider orientation='left'>相关附件</Divider>
+    <Divider orientation='left'>上传附件</Divider>
     <FileUpload value={state.attach || []}/>
   </PageContainer>;
 }

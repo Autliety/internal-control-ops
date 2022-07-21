@@ -19,7 +19,7 @@ function Talking() {
         dataSource={state}
     />
 
-    <BaseDivider title={'相关附件'}/>
+    <BaseDivider title={'上传附件'}/>
     <FileUpload value={state?.attach || []}/>
 
   </PageContainer>;

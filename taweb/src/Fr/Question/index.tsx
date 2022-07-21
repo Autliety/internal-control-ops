@@ -16,7 +16,7 @@ export default function Question() {
     <BaseDivider title={'基本信息'}/>
     <BaseDescriptions columns={questionColumns} dataSource={state}/>
 
-    <BaseDivider title={'相关附件'}/>
+    <BaseDivider title={'上传附件'}/>
     <FileUpload value={state?.attach}/>
   </PageContainer>;
 }
