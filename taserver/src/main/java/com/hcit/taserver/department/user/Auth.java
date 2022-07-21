@@ -22,7 +22,12 @@ class Auth implements UserDetails {
   @Override
   @JsonIgnore
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(user.getPrivilege());
+    var v = user.getPrivilege();
+    if (v == null) {
+      return List.of(Privilege.NORMAL);
+    } else {
+      return List.of(user.getPrivilege());
+    }
   }
 
   @Override

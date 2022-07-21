@@ -34,11 +34,16 @@ public class User implements BasicPersistable {
 
   @JsonProperty("name")
   private String getFrName() {
-    if (privilege == null) {
+    if (privilege == null || privilege == Privilege.NORMAL) {
       return name;
     } else {
       return name + "(" + privilege.getRole() + ")";
     }
+  }
+
+  @JsonProperty("taName")
+  private String getTaName() {
+    return name;
   }
 
   @Enumerated(EnumType.STRING)

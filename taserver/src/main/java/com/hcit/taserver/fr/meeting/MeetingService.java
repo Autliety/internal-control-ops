@@ -5,7 +5,6 @@ import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
-import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ public class MeetingService {
   private final MeetingRepository meetingRepository;
   private final AuthService authService;
   private final ApprovalService approvalService;
-  private final UserRepository userRepository;
 
   public List<Meeting> findAll() {
     return meetingRepository.findAll(((root, query, cb) ->

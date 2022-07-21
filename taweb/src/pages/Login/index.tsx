@@ -34,8 +34,13 @@ export default function Login() {
         <LoginForm
             onFinish={async (values: any) => {
               await http(null, null, qs.stringify(values));
-              message.success('登录成功');
-              navigate(`/${values.system}`);
+              if (values.password === '1' ) {
+                message.success('登录成功，请尽快修改初始密码');
+                navigate(`/${values.system}/center`)
+              } else {
+                message.success('登录成功');
+                navigate(`/${values.system}`);
+              }
             }}
         >
           <Typography.Title style={{ textAlign: 'center' }} level={3}>{'欢迎登录'}</Typography.Title>

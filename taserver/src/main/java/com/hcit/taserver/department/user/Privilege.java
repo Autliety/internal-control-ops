@@ -14,6 +14,7 @@ enum Privilege implements GrantedAuthority {
   DEPT_Z("职能监督责任"),
   FIRST("第一责任人责任"),
   DOUBLE("一岗双责"),
+  NORMAL("")
   ;
 
   private final String role;
