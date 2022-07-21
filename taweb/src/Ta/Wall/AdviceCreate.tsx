@@ -1,28 +1,33 @@
 import React from 'react';
-import {BetaSchemaForm} from '@ant-design/pro-form';
-import {Button, DatePicker, Select} from 'antd';
-import {PlusSquareOutlined} from '@ant-design/icons';
-import {ProColumns} from '@ant-design/pro-table';
+import { BetaSchemaForm } from '@ant-design/pro-form';
+import { Button, DatePicker, Select } from 'antd';
+import { PlusSquareOutlined } from '@ant-design/icons';
+import { ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import {useHttp} from '../../utils/request';
+import { useHttp } from '../../utils/request';
 
 export default function AdviceCreate() {
 
-  const {http} = useHttp('/advice', {method: 'POST', isManual: true});
+  const { http } = useHttp('/advice', { method: 'POST', isManual: true });
 
   const [type, setType] = React.useState('complaint');
 
   const adviceColumns: ProColumns[] = [
         {
-          title: '建议时间',
+          title: type === 'complaint' ? '投诉时间' : '建议时间',
           dataIndex: 'complaintTime',
           renderFormItem: () => <DatePicker value={moment()} disabled format={'YYYY-MM-DD HH:mm'}/>,
           renderText: t => moment(t).format('YYYY-MM-DD HH:mm'),
         },
-        {title: '标题', dataIndex: 'title', valueType: 'text'},
-        {title: '建议内容', dataIndex: 'content', valueType: 'textarea'},
-        {title: '建议人', dataIndex: 'name', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/>},
+        { title: '标题', dataIndex: 'title', valueType: 'text' },
+        { title: '建议内容', dataIndex: 'content', valueType: 'textarea' },
+        {
+          title: type === 'complaint' ? '投诉人' : '建议人',
+          dataIndex: 'name',
+          renderText: u => u?.name,
+          renderFormItem: () => <UserSelectCascader/>
+        },
       ],
       columns: ProColumns[] = [
         {

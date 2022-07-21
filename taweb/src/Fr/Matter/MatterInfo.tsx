@@ -129,7 +129,7 @@ export const matterColumns: ProColumns[] = [
       {text?.substring(0, 30)}
       {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
-    renderFormItem: () => <Input.TextArea placeholder="问题内容"/>,
+    renderFormItem: () => <Input.TextArea placeholder="问题内容" rows={1}/>,
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   {

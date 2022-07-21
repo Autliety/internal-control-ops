@@ -8,6 +8,7 @@ import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { ProColumns } from '@ant-design/pro-table';
 import { statusEnum } from '../../utils/nameMapTa';
+import PlanCreateModal from "../Assessment/PlanCreateModal";
 
 export const planColumns: ProColumns[] = [
   { title: '指标编号', dataIndex: ['assessment', 'code'], hideInDescriptions: true },
@@ -27,7 +28,9 @@ export default function PlanList() {
   const navigate = useNavigate();
   const { state } = useHttp('/plan', { initState: [] });
 
-  return <PageContainer>
+  return <PageContainer
+      extra={[<PlanCreateModal isSelectAssessment={true}/>]}
+  >
 
     <BaseEditableTable
         columns={planColumns.concat({
