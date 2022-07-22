@@ -51,7 +51,7 @@ export const talkingColumns: ProColumns[] = [
   { title: '谈话内容', dataIndex: 'longContent1', valueType: 'textarea', hideInTable: true },
   { title: '谈话对象表态', dataIndex: 'content5', hideInTable: true },
   {
-    title: '相关附件',
+    title: '上传附件',
     dataIndex: 'attach',
     renderFormItem: () => <FileUpload isInEdit/>,
     hideInTable: true,

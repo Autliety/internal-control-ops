@@ -37,4 +37,6 @@ public class Attach {
 
   @Transient
   private Path path;
+
+  private Boolean isTemplate;
 }

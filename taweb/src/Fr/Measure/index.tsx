@@ -30,7 +30,7 @@ export default function Measure() {
       <Divider orientation={'left'}>措施详情</Divider>
       <MeasureInfo dataSource={state}/>
 
-      <BaseDivider title={'相关附件'}/>
+      <BaseDivider title={'上传附件'}/>
       <FileUpload value={state.attach || []}/>
 
       <Divider orientation={'left'}>履责情况</Divider>

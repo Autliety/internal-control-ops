@@ -17,7 +17,7 @@ function Club() {
     <BaseDivider title={'基本信息'}/>
     <BaseDescriptions columns={clubColumns} dataSource={state}/>
 
-    <Divider orientation={'left'}>相关附件</Divider>
+    <Divider orientation={'left'}>上传附件</Divider>
     <FileUpload value={state?.attach}/>
   </PageContainer>;
 }

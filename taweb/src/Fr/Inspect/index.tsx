@@ -20,7 +20,7 @@ export default function Inspect() {
     <BaseDivider title={'相关问题'}/>
     <BaseEditableTable value={state?.matter} columns={matterColumns}/>
 
-    <BaseDivider title={'相关附件'}/>
+    <BaseDivider title={'上传附件'}/>
     <FileUpload value={state?.attach || []}/>
 
   </PageContainer>;

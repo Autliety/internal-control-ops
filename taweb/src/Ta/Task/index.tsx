@@ -32,7 +32,7 @@ export default function Task() {
     <Divider orientation={'left'}>{'关联指标详情'}</Divider>
     <AssessmentTable value={[state.planDetail?.plan?.assessment]}/>
 
-    <Divider orientation={'left'}>{'相关附件'}</Divider>
+    <Divider orientation={'left'}>{'上传附件'}</Divider>
     <FileUpload isInEdit/>
 
   </PageContainer>;
