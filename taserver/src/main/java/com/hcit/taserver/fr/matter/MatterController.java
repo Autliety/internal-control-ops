@@ -26,7 +26,7 @@ public class MatterController {
 
   @GetMapping
   public List<Matter> findByStatus(Matter matter) {
-    return matterService.findByStatus(matter);
+    return matterService.findByCondition(matter);
   }
 
   @GetMapping("/{id}")

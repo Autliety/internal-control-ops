@@ -33,17 +33,17 @@ public class MatterService {
             query.where(authService.getPrivilegePredicate(root, cb)).getRestriction());
   }
 
-  public List<Matter> findByStatus(Matter matter) {     //,Integer code
+  public List<Matter> findByCondition(Matter matter) {     //,Integer code
     Specification<Matter> spec = ((root, query, cb) -> {
       var code = matter.getCode() == null ? cb.conjunction() : cb.like(root.get("code"), "%" + matter.getCode() + "%");
       var status = matter.getStatus() == null ? cb.conjunction() : cb.equal(root.get("status"), matter.getStatus());
-      return query.where(cb.and(code, status))
+      return query.where(cb.and(authService.getPrivilegePredicate(root,cb),code,status))
           .distinct(true)
           .getRestriction();
     });
     return  matterRepository.findAll(spec);
   }
-
+//cb.and(code, status)
   public Matter findById(Long id) {
     return matterRepository.findById(id).orElseThrow();
   }
