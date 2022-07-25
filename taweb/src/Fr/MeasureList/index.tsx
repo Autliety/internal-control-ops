@@ -1,6 +1,6 @@
 import React from 'react';
-import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { Button, message, Space } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Button, Space } from 'antd';
 import { PrinterOutlined } from '@ant-design/icons';
 import MeasureTable from './MeasureTable';
 import { useHttp } from '../../utils/request';
@@ -19,14 +19,5 @@ export default function MeasureList() {
   >
 
     <MeasureTable isSearch dataSource={state}/>
-
-    <FooterToolbar>
-      <Button
-          type={'primary'}
-          onClick={() => message.success('领导审批')}
-      >
-        领导审批
-      </Button>
-    </FooterToolbar>
   </PageContainer>;
 }

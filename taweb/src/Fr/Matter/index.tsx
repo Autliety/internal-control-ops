@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Space, Statistic } from 'antd';
-import { PageContainer } from '@ant-design/pro-layout';
+import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
@@ -14,23 +14,15 @@ export default function Matter() {
   const { state, loading } = useHttp(`/matter/${id}`);
 
   return <PageContainer
-      extra={
-        <Space>
-          <MeasureCreateModal
-              measures={state.measures}
-              matter={state}
-          />
-        </Space>
-      }
       content={<Space size={'large'}>
-        <Statistic title={'编号'} value={state.code} />
-        <Statistic title={'责任主体'} value={state.department?.name} />
+        <Statistic title={'编号'} value={state.code}/>
+        <Statistic title={'责任主体'} value={state.department?.name}/>
       </Space>}
       loading={loading}
   >
 
     <Divider orientation={'left'}>问题详情</Divider>
-    <MatterInfo dataSource={state} />
+    <MatterInfo dataSource={state}/>
 
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
@@ -39,8 +31,15 @@ export default function Matter() {
 
     <>
       <Divider orientation={'left'}>审核流程</Divider>
-      <ApprovalTable value={state.approval} />
+      <ApprovalTable value={state.approval}/>
     </>
+
+    <FooterToolbar>
+      <MeasureCreateModal
+          measures={state.measures}
+          matter={state}
+      />
+    </FooterToolbar>
 
   </PageContainer>;
 
