@@ -72,6 +72,7 @@ public class AuthService implements UserDetailsService {
       case DOUBLE:
         predicate = cb.or(
             cb.equal(userPath.get("id"), u.getId()),
+            cb.equal(userPath.get("parent").get("id"), u.getId()), // 主要分管
             userPath.get("department").get("id").in() // todo 分管站办
         );
         break;
