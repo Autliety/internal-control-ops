@@ -40,8 +40,8 @@ export const talkingColumns: ProColumns[] = [
   {
     title: '谈话时间',
     dataIndex: 'time1',
-    renderFormItem: () => <DatePicker showTime={{ format: 'YYYY-MM-DD HH:mm' }} format={'YYYY-MM-DD HH:mm'}/>,
-    renderText: t => moment(t).format('YYYY-MM-DD HH:mm'),
+    valueType: 'date',
+    renderText: t => moment(t).format('YYYY-MM-DD'),
   },
   { title: '谈话地点', dataIndex: 'content3' },
   { title: '谈话记录人', dataIndex: ['requestUser', 'name'], hideInTable: true, hideInForm: true },
