@@ -23,9 +23,10 @@ public class MatterController {
 
   private final MatterService matterService;
 
+
   @GetMapping
-  public List<Matter> filter() {
-    return matterService.findAll();
+  public List<Matter> findByStatus(Matter matter) {
+    return matterService.findByCondition(matter);
   }
 
   @GetMapping("/{id}")

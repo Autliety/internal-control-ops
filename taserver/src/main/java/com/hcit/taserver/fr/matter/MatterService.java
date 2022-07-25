@@ -7,11 +7,15 @@ import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.progress.ProgressService;
+
 import java.util.Collection;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
 
 @RequiredArgsConstructor
 @Service
@@ -25,9 +29,21 @@ public class MatterService {
 
   public List<Matter> findAll() {
     return matterRepository.findAll(
-        (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb)).getRestriction());
+        (root, query, cb) ->
+            query.where(authService.getPrivilegePredicate(root, cb)).getRestriction());
   }
 
+  public List<Matter> findByCondition(Matter matter) {     //,Integer code
+    Specification<Matter> spec = ((root, query, cb) -> {
+      var code = matter.getCode() == null ? cb.conjunction() : cb.like(root.get("code"), "%" + matter.getCode() + "%");
+      var status = matter.getStatus() == null ? cb.conjunction() : cb.equal(root.get("status"), matter.getStatus());
+      return query.where(cb.and(authService.getPrivilegePredicate(root,cb),code,status))
+          .distinct(true)
+          .getRestriction();
+    });
+    return  matterRepository.findAll(spec);
+  }
+//cb.and(code, status)
   public Matter findById(Long id) {
     return matterRepository.findById(id).orElseThrow();
   }
