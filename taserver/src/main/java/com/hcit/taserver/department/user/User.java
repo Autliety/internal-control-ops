@@ -44,6 +44,10 @@ public class User implements BasicPersistable {
   @Enumerated(EnumType.STRING)
   private Privilege privilege;
 
+  private String gender;
+
+  private Integer phone;
+
   private String station;
 
   @ManyToOne
@@ -54,4 +58,6 @@ public class User implements BasicPersistable {
   @JsonIgnore
   @ManyToOne
   private User parent;
+
+  private Boolean isDeleted;
 }
