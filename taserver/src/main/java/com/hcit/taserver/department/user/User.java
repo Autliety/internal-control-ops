@@ -51,7 +51,7 @@ public class User implements BasicPersistable {
 
   private String gender;
 
-  private Integer phone;
+  private String phone;
 
   private String station;
 

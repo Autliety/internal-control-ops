@@ -35,6 +35,7 @@ public class MatterController {
   }
 
   @PostMapping
+  @Transactional
   public List<Matter> create(@RequestParam(required = false) Boolean self, @RequestBody List<Matter> matters) {
     return BooleanUtils.isTrue(self) ? matterService.createAll(matters) : matterService.createAllWithoutApprove(matters);
   }

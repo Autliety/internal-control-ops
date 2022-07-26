@@ -2,9 +2,12 @@ package com.hcit.taserver.department.user;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -20,9 +23,9 @@ public class UserController {
   @GetMapping
   public Collection<User> getUsers(@RequestParam(required = false) Long deptId) {
     if (deptId == null) {
-      return userService.findAll();
+      return userService.findAll().stream().filter(user -> BooleanUtils.isNotTrue(user.getIsDeleted())).collect(Collectors.toList());
     } else {
-      return userService.findAllByDeptId(deptId);
+      return userService.findAllByDeptId(deptId).stream().filter(user -> BooleanUtils.isNotTrue(user.getIsDeleted())).collect(Collectors.toList());
     }
   }
 
@@ -32,16 +35,14 @@ public class UserController {
   }
 
   @PostMapping("/{id}")
+  @Transactional
   public User update(@PathVariable Long id, @RequestBody User user) {
-    if (id.equals(authService.getCurrentUser().getId())) {
-      return userService.update(id, user);
-    } else {
-      throw new IllegalArgumentException("非当前用户");
-    }
+    return userService.update(id, user);
   }
 
   @ApiOperation("创建人员")
   @PostMapping
+  @Transactional
   public User create(@RequestBody User userCreate) {
     userCreate.setId(null);
     userRepository.save(userCreate);
@@ -50,6 +51,7 @@ public class UserController {
 
   @ApiOperation("删除人员")
   @DeleteMapping("/{id}")
+  @Transactional
   public List<User> delete(@PathVariable Long id) throws Exception {
     return userService.delete(id);
   }

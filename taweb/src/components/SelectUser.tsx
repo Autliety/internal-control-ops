@@ -15,7 +15,7 @@ function SelectUser(props: Props) {
 
   // todo filtered for demo only
   const { state: deptState } = useHttp('/department?filtered=' + (props.filtered || 0), { initState: [] });
-  const [deptId, setDeptId] = React.useState('');
+  const [deptId, setDeptId] = React.useState<number>(0);
   const { state: userState } = useHttp(`/user?deptId=${deptId}`, { initState: [] });
 
   return <>
@@ -25,6 +25,7 @@ function SelectUser(props: Props) {
           style={{ width: 140 }}
           dropdownMatchSelectWidth={200}
           mode={props.multiple}
+          value={props.value}
           onChange={(v1, v2) => props.withUser ? setDeptId(v1) : props.onChange(v1, v2)}
       >
         {

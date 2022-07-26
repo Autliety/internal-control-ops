@@ -23,7 +23,7 @@ export default function HeaderRight() {
           overlay={
             <Menu>
               <Menu.Item key='1' onClick={() => navigate('/ta/')} disabled={pathname.substring(1, 3) === 'ta'}>
-                督考平台
+                区(镇)督查考核系统
               </Menu.Item>
               <Menu.Item key='2' onClick={() => navigate('/fr/')} disabled={pathname.substring(1, 3) === 'fr'}>
                 区(镇)村(社)一体全面从严治党责任落实应用系统
