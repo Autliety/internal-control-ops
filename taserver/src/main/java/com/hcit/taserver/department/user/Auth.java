@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,7 +64,7 @@ class Auth implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return !getAuthorities().isEmpty();
+    return BooleanUtils.isNotTrue(user.getIsDeleted())  && !getAuthorities().isEmpty();
   }
 
 }

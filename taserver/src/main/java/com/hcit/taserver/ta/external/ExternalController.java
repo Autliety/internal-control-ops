@@ -2,6 +2,7 @@ package com.hcit.taserver.ta.external;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +28,13 @@ public class ExternalController {
   }
 
   @PostMapping
+  @Transactional
   public External create(@RequestBody External external) {
     return externalService.create(external);
   }
 
   @PostMapping("/usage")
+  @Transactional
   public ExternalUsage createUsage(@RequestBody ExternalUsage usage) {
     usage.setId(null);
     return externalService.save(usage);

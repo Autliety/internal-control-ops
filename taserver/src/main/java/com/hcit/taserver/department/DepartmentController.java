@@ -31,6 +31,7 @@ public class DepartmentController {
   }
 
   @ApiOperation("新建部门岗位")
+  @Transactional
   @PostMapping
   public List<Department> create(@RequestBody Department department) {
     department.setId(null);

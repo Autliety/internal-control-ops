@@ -2,6 +2,7 @@ package com.hcit.taserver.ta.task;
 
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class TaskController {
   }
 
   @PatchMapping("/{id}")
+  @Transactional
   public Task update(@RequestBody Task task) {
     return taskService.update(task);
   }

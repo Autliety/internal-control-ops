@@ -34,12 +34,14 @@ export default function Matter() {
       <ApprovalTable value={state.approval}/>
     </>
 
-    <FooterToolbar>
-      <MeasureCreateModal
-          measures={state.measures}
-          matter={state}
-      />
-    </FooterToolbar>
+    {
+        state.status === 'REVIEWED' || <FooterToolbar>
+          <MeasureCreateModal
+              measures={state.measures}
+              matter={state}
+          />
+        </FooterToolbar>
+    }
 
   </PageContainer>;
 

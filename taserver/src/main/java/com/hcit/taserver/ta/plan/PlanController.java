@@ -9,6 +9,7 @@ import com.hcit.taserver.ta.task.Task;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ public class PlanController {
   }
 
   @PostMapping
+  @Transactional
   public Plan create(@RequestBody Plan plan) {
     plan.setId(null);
     plan.setCode("JH2022-0001"); // todo generate code

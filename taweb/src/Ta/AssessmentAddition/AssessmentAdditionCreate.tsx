@@ -16,7 +16,7 @@ export default function AssessmentAdditionCreate() {
         layoutType={'ModalForm'}
         trigger={<Button type={'primary'}><PlusSquareOutlined/>新建</Button>}
 
-        columns={externalColumns.slice(1, 4)}
+        columns={externalColumns.slice(1, 5)}
         onFinish={async (v) => http(null, null, v).then(() => window.location.reload())}
     />
   </>;
