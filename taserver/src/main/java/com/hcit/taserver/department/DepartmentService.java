@@ -15,4 +15,8 @@ public class DepartmentService {
     return departmentRepository.findAllByIdNotOrderByDeptOrder(999L);
   }
 
+  public Department create(Department department){
+    return departmentRepository.save(department);
+  }
+
 }
