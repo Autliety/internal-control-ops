@@ -15,13 +15,13 @@ export default function MeetingTopic() {
 
   const navigate = useNavigate();
   const { user } = useAuth();
-
   const [search] = useSearchParams();
   let isCreate = search.get('create') === 'true';
 
   const { tid: id, id: meetingId } = useParams();
   const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
+  let isUpdate = state.status === 'AWAITING_REVIEW' && state.user?.id === user.id;
 
   const [info, setInfo] = React.useState<any>({ user });
   const [task, setTask] = React.useState([]);
@@ -36,6 +36,7 @@ export default function MeetingTopic() {
   }, [isCreate, state, meetingState]);
 
   const { http } = useHttp('/topic', { method: 'POST', isManual: true });
+  const { http: update} = useHttp('/topic/task', {method: 'POST', isManual: true});
 
   return <PageContainer
       content={isCreate || <Space size={'large'}>
@@ -53,7 +54,7 @@ export default function MeetingTopic() {
     <TopicTask
         value={task}
         onChange={setTask}
-        isInEdit={isCreate}
+        isInEdit={isCreate || isUpdate}
     />
 
     <Divider orientation={'left'}>审核流程</Divider>
@@ -68,20 +69,33 @@ export default function MeetingTopic() {
     }
 
     <FooterToolbar>
-      {
-        isCreate && <Button
-            type={'primary'}
-            onClick={() => http(null, null, {
-              ...info,
-              meeting: { id: parseInt(meetingId) },
-              task,
-              approval: { approveUser },
-            })
-            .then(res => navigate(`/fr/mz/meeting/${meetingId}/topic/${res.id}`))}
-        >
-          提交审核
-        </Button>
-      }
+      <Space>
+        {
+          isCreate && <Button
+              type={'primary'}
+              onClick={() => http(null, null, {
+                ...info,
+                meeting: { id: parseInt(meetingId) },
+                task,
+                approval: { approveUser },
+              })
+              .then(res => navigate(`/fr/mz/meeting/${meetingId}/topic/${res.id}`))}
+          >
+            提交审核
+          </Button>
+        }
+        {
+          isUpdate && <Button
+              type={'primary'}
+              onClick={() => update(null, null,
+                task.map(t => ({...t, topic: {id}}))
+              )
+              .then(() => window.location.reload())}
+          >
+            保存更新
+          </Button>
+        }
+      </Space>
     </FooterToolbar>
 
   </PageContainer>;

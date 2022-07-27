@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { message } from 'antd';
 
 // noinspection HttpUrlsUsage
-export const host = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : 'api'
+export const host = `http://${process.env.NODE_ENV === 'development' ? 'localhost:8080' : window.location.host}/api`;
 
 interface Config extends AxiosRequestConfig {
   initState?: any,

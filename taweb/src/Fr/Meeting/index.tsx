@@ -23,8 +23,10 @@ export default function Meeting() {
   const { state, loading } = useHttp(`/meeting/${id}`);
 
   const [tasks, setTasks] = React.useState([]);
+  const [myTopic, setMyTopic] = React.useState(null);
   React.useEffect(() => {
     setTasks(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta }))));
+    setMyTopic(state.topic?.find(t => t.user?.id === user.id)?.id);
   }, [state]);
 
   const { http } = useHttp('/topic/task', { isManual: true, method: 'POST' });
@@ -70,7 +72,7 @@ export default function Meeting() {
         <Button
             type={'primary'}
             disabled={!state.meetingUser.find(u => u.id === user.id)}
-            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/0?create=true`)}
+            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
         >
           <FileAddOutlined/>会前准备
         </Button>
@@ -86,7 +88,7 @@ export default function Meeting() {
 
       {state.status === 'REVIEWED' && <Button
           type={'primary'}
-          // disabled={user.id !== state.user.id}
+          disabled={user.id !== state.user.id}
           onClick={() => setIsVisible(true)}
       >
         <PauseOutlined/>结束会议
