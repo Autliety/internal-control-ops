@@ -21,7 +21,7 @@ export default function MeetingTopic() {
   const { tid: id, id: meetingId } = useParams();
   const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
-  let isUpdate = state.status === 'AWAITING_REVIEW' && state.user?.id === user.id;
+  let isUpdate = state.status === 'AWAITING_FIX' && state.user?.id === user.id;
 
   const [info, setInfo] = React.useState<any>({ user });
   const [task, setTask] = React.useState([]);
