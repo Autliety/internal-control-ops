@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Tooltip } from 'antd';
+import { Button, Divider, Tooltip } from 'antd';
 import { CheckCard } from '@ant-design/pro-card';
 import SelectUser from '../../components/SelectUser';
 
@@ -28,14 +28,19 @@ export default (
             value={u.id}
             title={
               <div style={{ color: '#000' }}>
-                {u.name}
-                <Divider type='vertical'/>
-                <Tooltip title={u.department?.name}>
-                  {u.department?.name.length > 8 ? u.department?.name.substring(0, 8) + '...' : u.department?.name}
+                <Tooltip title={u.name}>
+                  {u.name.length > 9 ? u.name.slice(0, 8) + '...' : u.name}
                 </Tooltip>
+                <Divider type='vertical'/>
               </div>
             }
-            // description={u.department?.name}
+            extra={<Button
+                type='link'
+                danger
+                onClick={() => onChange(value.filter((i: any) => i.id !== u.id))}
+            >
+              移除
+            </Button>}
         />)
       }
     </CheckCard.Group>

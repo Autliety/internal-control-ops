@@ -34,6 +34,11 @@ export default function Login() {
       <Col span={4} className={'bgStyle'} style={{ minWidth: 360, marginTop: 100 }}>
         <LoginForm
             onFinish={async (values: any) => {
+
+              if (values.username.includes('（')) {
+                message.warning('用户名无需携带责任名称');
+                return true;
+              }
               await http(null, null, qs.stringify(values));
               if (values.password === '1') {
                 message.success('登录成功，请尽快修改初始密码');
