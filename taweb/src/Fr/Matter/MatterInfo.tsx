@@ -153,7 +153,7 @@ export const matterColumns: ProColumns[] = [
   },
 ];
 
-export default function MatterInfo({ dataSource }) {
+export default function MatterInfo({ dataSource, editable = null }) {
 
   return <>
     <BaseDescriptions
@@ -161,11 +161,13 @@ export default function MatterInfo({ dataSource }) {
           {
             title: '更新时间',
             dataIndex: 'updateTime',
+            editable: false,
             renderText: text => moment(text).format('YYYY-MM-DD HH:mm'),
           },
-          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch/> 开启动态跟踪</Space> },
+          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch/> 开启动态跟踪</Space>, editable: false },
         ])}
         dataSource={dataSource}
+        editable={editable}
     />
   </>;
 }

@@ -1,17 +1,33 @@
 import React from 'react';
-import { Divider, Space, Statistic } from 'antd';
+import { Button, Divider, Modal, Space, Statistic } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
-import MeasureCreateModal from './MeasureCreateModal';
 import ApprovalTable from '../../components/ApprovalTable';
+import { useAuth } from '../../utils/auth';
+import moment from 'moment';
 
 export default function Matter() {
 
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { id } = useParams();
+
   const { state, loading } = useHttp(`/matter/${id}`);
+  const { http: updateHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'POST' });
+  const { http: deleteHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'DELETE' });
+
+  const editable = state.status === 'NONE_REVIEW' && user.id === state.user?.id;
+
+  const [info, setInfo] = React.useState<any>({});
+  const [measure, setMeasure] = React.useState([]);
+  React.useEffect(() => {
+    setInfo(state);
+    setMeasure(state.measure);
+  }, [state]);
 
   return <PageContainer
       content={<Space size={'large'}>
@@ -22,11 +38,18 @@ export default function Matter() {
   >
 
     <Divider orientation={'left'}>问题详情</Divider>
-    <MatterInfo dataSource={state}/>
+    <MatterInfo
+        dataSource={info}
+        editable={editable ? {
+          onSave: async (_, newInfo) => setInfo(newInfo),
+        } : null}
+    />
 
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
-        dataSource={state.measure || []}
+        dataSource={measure}
+        onChange={setMeasure}
+        isInEdit={editable}
     />
 
     <>
@@ -34,13 +57,36 @@ export default function Matter() {
       <ApprovalTable value={state.approval}/>
     </>
 
-    {
-        state.status === 'REVIEWED' || <FooterToolbar>
-          <MeasureCreateModal
-              measures={state.measures}
-              matter={state}
-          />
-        </FooterToolbar>
+    {editable &&
+    <FooterToolbar>
+      {
+        <Space>
+          <Button
+              type="primary"
+              icon={<EditOutlined/>}
+              onClick={() => updateHttp(null, null, {
+                ...info,
+                endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
+                measure,
+              }).then(() => window.location.reload())}
+          >
+            保存更新
+          </Button>
+          <Button danger icon={<DeleteOutlined/>} onClick={() => {
+            Modal.confirm({
+              title: '是否删除该问题',
+              icon: <ExclamationCircleOutlined/>,
+              okType: 'danger',
+              onOk() {
+                deleteHttp().then(() => navigate('/fr/mz/list/matter'));
+              },
+            });
+          }}
+          >删除问题</Button>
+        </Space>
+      }
+
+    </FooterToolbar>
     }
 
   </PageContainer>;
