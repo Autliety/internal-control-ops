@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { measureColumns } from '../Measure/MeasureInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
-export default function MeasureTable({ isSearch = false, dataSource } ) {
+export default function MeasureTable({ isSearch = false, isInEdit = false, dataSource }) {
 
   const navigate = useNavigate();
 
@@ -34,6 +34,7 @@ export default function MeasureTable({ isSearch = false, dataSource } ) {
         columns={columns}
         value={dataSource}
         isSearch={isSearch}
+        isInEdit={isInEdit}
     />
   </>;
 }
