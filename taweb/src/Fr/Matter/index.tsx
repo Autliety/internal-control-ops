@@ -1,42 +1,33 @@
 import React from 'react';
 import { Button, Divider, Modal, Space, Statistic } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
-import MeasureCreateModal from './MeasureCreateModal';
 import ApprovalTable from '../../components/ApprovalTable';
 import { useAuth } from '../../utils/auth';
+import moment from 'moment';
 
 export default function Matter() {
 
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { id } = useParams();
-  const { state, loading } = useHttp(`/matter/${id}`);
-  console.log(state);
 
-  const [isInEdit, setIsInEdit] = React.useState(false);
-  const [info, setInfo] = React.useState({});
+  const { state, loading } = useHttp(`/matter/${id}`);
+  const { http: updateHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'POST' });
+  const { http: deleteHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'DELETE' });
+
+  const editable = state.status === 'NONE_REVIEW' && user.id === state.user?.id;
+
+  const [info, setInfo] = React.useState<any>({});
   const [measure, setMeasure] = React.useState([]);
   React.useEffect(() => {
     setInfo(state);
     setMeasure(state.measure);
   }, [state]);
-
-  // 是否删除该问题
-  const isDelete = () => {
-    Modal.confirm({
-      title: '是否删除该问题',
-      icon: <ExclamationCircleOutlined/>,
-      okType: 'danger',
-      onOk() {
-        // todo delete api
-        console.log('OK');
-      },
-    });
-  };
 
   return <PageContainer
       content={<Space size={'large'}>
@@ -47,12 +38,18 @@ export default function Matter() {
   >
 
     <Divider orientation={'left'}>问题详情</Divider>
-    <MatterInfo dataSource={info} isInEdit={isInEdit}/>
+    <MatterInfo
+        dataSource={info}
+        editable={editable ? {
+          onSave: async (_, newInfo) => setInfo(newInfo),
+        } : null}
+    />
 
     <Divider orientation={'left'}>措施清单</Divider>
     <MeasureTable
         dataSource={measure}
-        isInEdit={isInEdit}
+        onChange={setMeasure}
+        isInEdit={editable}
     />
 
     <>
@@ -60,37 +57,36 @@ export default function Matter() {
       <ApprovalTable value={state.approval}/>
     </>
 
-    {/*{*/}
-    {/*    state.status === 'REVIEWED' || <FooterToolbar>*/}
-    {/*      <MeasureCreateModal*/}
-    {/*          measures={state.measures}*/}
-    {/*          matter={state}*/}
-    {/*      />*/}
-    {/*    </FooterToolbar>*/}
-    {/*}*/}
+    {editable &&
+    <FooterToolbar>
+      {
+        <Space>
+          <Button
+              type="primary"
+              icon={<EditOutlined/>}
+              onClick={() => updateHttp(null, null, {
+                ...info,
+                endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
+                measure,
+              }).then(() => window.location.reload())}
+          >
+            保存更新
+          </Button>
+          <Button danger icon={<DeleteOutlined/>} onClick={() => {
+            Modal.confirm({
+              title: '是否删除该问题',
+              icon: <ExclamationCircleOutlined/>,
+              okType: 'danger',
+              onOk() {
+                deleteHttp().then(() => navigate('/fr/mz/list/matter'));
+              },
+            });
+          }}
+          >删除问题</Button>
+        </Space>
+      }
 
-    {
-        state.status === 'NONE_REVIEW' && user.id === state.user?.id &&
-        <FooterToolbar>
-          {
-            isInEdit
-                ? <Space>
-                  <Button onClick={() => setIsInEdit(false)}>取消</Button>
-                  <Button type='primary'>确定</Button>
-                </Space>
-                : <Space>
-                  <Button danger icon={<DeleteOutlined/>} onClick={isDelete}>删除问题</Button>
-                  <Button
-                      type='primary'
-                      icon={<EditOutlined/>}
-                      onClick={() => setIsInEdit(true)}
-                  >
-                    问题编辑
-                  </Button>
-                </Space>
-          }
-
-        </FooterToolbar>
+    </FooterToolbar>
     }
 
   </PageContainer>;

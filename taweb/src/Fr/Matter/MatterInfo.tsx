@@ -153,7 +153,7 @@ export const matterColumns: ProColumns[] = [
   },
 ];
 
-export default function MatterInfo({ dataSource, isInEdit = false }) {
+export default function MatterInfo({ dataSource, editable = null }) {
 
   return <>
     <BaseDescriptions
@@ -167,7 +167,7 @@ export default function MatterInfo({ dataSource, isInEdit = false }) {
           { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch/> 开启动态跟踪</Space>, editable: false },
         ])}
         dataSource={dataSource}
-        isInEdit={isInEdit}
+        editable={editable}
     />
   </>;
 }

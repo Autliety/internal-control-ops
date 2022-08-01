@@ -37,13 +37,14 @@ public class MatterService {
     Specification<Matter> spec = ((root, query, cb) -> {
       var code = matter.getCode() == null ? cb.conjunction() : cb.like(root.get("code"), "%" + matter.getCode() + "%");
       var status = matter.getStatus() == null ? cb.conjunction() : cb.equal(root.get("status"), matter.getStatus());
-      return query.where(cb.and(authService.getPrivilegePredicate(root,cb),code,status))
+      return query.where(cb.and(authService.getPrivilegePredicate(root, cb), code, status))
           .distinct(true)
           .getRestriction();
     });
-    return  matterRepository.findAll(spec);
+    return matterRepository.findAll(spec);
   }
-//cb.and(code, status)
+
+  //cb.and(code, status)
   public Matter findById(Long id) {
     return matterRepository.findById(id).orElseThrow();
   }
@@ -111,4 +112,20 @@ public class MatterService {
     matterRepository.saveAll(matter);
   }
 
+  public Matter update(Matter matter) {
+    if (!CollectionUtils.isEmpty(matter.getMeasure())) {
+      matter.getMeasure().forEach(ms -> {
+        // todo generate code
+        ms.setMatter(matter);
+        if (ms.getProgress() == null) {
+          ms.setProgress(progressService.create(ms));
+        }
+      });
+    }
+    return matterRepository.save(matter);
+  }
+
+  public void delete(Long id) {
+    matterRepository.deleteById(id);
+  }
 }
