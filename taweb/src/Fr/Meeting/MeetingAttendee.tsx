@@ -26,13 +26,8 @@ function MeetingAttendee(props: Props) {
                   title={
                     <div style={{ color: '#000' }}>
                       {u.name}
-                      {/*<Divider type='vertical'/>
-                <Tooltip title={u.department?.name}>
-                  {u.department?.name.length > 8 ? u.department?.name.substring(0, 8) + '...' : u.department?.name}
-                </Tooltip>*/}
                     </div>
                   }
-                  // description={u.department?.name}
               />)
             }
           </CheckCard.Group>

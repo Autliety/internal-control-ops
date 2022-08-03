@@ -12,6 +12,8 @@ import FileUpload from '../../components/FileUpload';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
+import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
+import MeetingFoterToolbar from './MeetingFoterToolbar';
 
 export default function Meeting() {
 
@@ -35,6 +37,17 @@ export default function Meeting() {
   // 会议审核
   const [approval, setApproval] = React.useState({ approvalUser: 1, copyUser: 28 });
 
+  // 编辑
+  const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
+  const [meetingUser, setMeetingUser] = React.useState([]);
+  const [info, setInfo] = React.useState({});
+  const [subUser, setSubUser] = React.useState([]);
+  React.useEffect(() => {
+    setMeetingUser(state.meetingUser);
+    setSubUser(state.subUser);
+    setInfo(state);
+  }, [state]);
+
   return <PageContainer
       content={<Space size={'large'}>
         <Statistic title={'会议编号'} value={state.code}/>
@@ -44,13 +57,30 @@ export default function Meeting() {
   >
 
     <Divider orientation={'left'}>会议信息</Divider>
-    <MeetingInfo dataSource={state}/>
+    <MeetingInfo
+        dataSource={info}
+        editable={isUpdate ? {
+          onSave: async (_, newInfo) => setInfo(newInfo),
+        } : null}
+    />
 
     <Divider orientation={'left'}>参会人员</Divider>
-    <MeetingAttendee data={state.meetingUser} isOptional={false}/>
+    {
+      isUpdate
+          ? <div className='content'>
+            <AttendeeSelectCard value={meetingUser} onChange={setMeetingUser}/>
+          </div>
+          : <MeetingAttendee data={meetingUser} isOptional={false}/>
+    }
 
     <Divider orientation={'left'}>列席人员</Divider>
-    <MeetingAttendee data={state.subUser} isOptional/>
+    {
+      isUpdate
+          ? <div className='content'>
+            <AttendeeSelectCard value={subUser} onChange={setSubUser}/>
+          </div>
+          : <MeetingAttendee data={subUser} isOptional/>
+    }
 
     <Divider orientation={'left'}>职责任务</Divider>
     <TopicTask
@@ -66,37 +96,46 @@ export default function Meeting() {
     <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
 
+    <MeetingFoterToolbar
+        value={state.approval}
+        onSave={() => meetingHttp(null, null, {
+          ...info,
+          meetingUser: meetingUser,
+          subUser: subUser
+        })}
+    />
+
     {state.status === 'NONE_REVIEW' &&
-    <FooterToolbar>
-      <Space>
-        <Button
-            type={'primary'}
-            disabled={!state.meetingUser.find(u => u.id === user.id)}
-            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
-        >
-          <FileAddOutlined/>会前准备
-        </Button>
-        <Button
-            type="primary"
-            disabled={state.user?.id !== user.id}
-            onClick={() => setIsVisible(true)}
-        >
-          <AuditOutlined/>提交审核
-        </Button>
-      </Space>
-    </FooterToolbar>
+        <FooterToolbar>
+          <Space>
+            <Button
+                type={'primary'}
+                disabled={!state.meetingUser.find(u => u.id === user.id)}
+                onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
+            >
+              <FileAddOutlined/>会前准备
+            </Button>
+            <Button
+                type='primary'
+                disabled={state.user?.id !== user.id}
+                onClick={() => setIsVisible(true)}
+            >
+              <AuditOutlined/>提交审核
+            </Button>
+          </Space>
+        </FooterToolbar>
     }
 
     {state.status === 'REVIEWED' &&
-    <FooterToolbar>
-      <Button
-          type={'primary'}
-          disabled={user.id !== state.user.id}
-          onClick={() => setIsVisible(true)}
-      >
-        <PauseOutlined/>结束会议
-      </Button>
-    </FooterToolbar>
+        <FooterToolbar>
+          <Button
+              type={'primary'}
+              disabled={user.id !== state.user.id}
+              onClick={() => setIsVisible(true)}
+          >
+            <PauseOutlined/>结束会议
+          </Button>
+        </FooterToolbar>
     }
 
     <Modal
@@ -110,10 +149,10 @@ export default function Meeting() {
             {
               state.status === 'NONE_REVIEW'
                   ? meetingHttp(null, null, { ...approval, status: 'AWAITING_REVIEW' })
-                  .then(() => window.location.reload())
+                      .then(() => window.location.reload())
                   : http(null, null, tasks)
-                  .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
-                  .then(() => window.location.reload());
+                      .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
+                      .then(() => window.location.reload());
             }
           }
         }

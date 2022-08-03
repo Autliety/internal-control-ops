@@ -4,7 +4,7 @@ import { CheckCard } from '@ant-design/pro-card';
 import SelectUser from '../../components/SelectUser';
 
 type Props = {
-  onChange?: (v: object[]) => {},
+  onChange?: any,
   value?: object[],
 }
 export default (
