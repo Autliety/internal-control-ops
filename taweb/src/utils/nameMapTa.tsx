@@ -1,17 +1,12 @@
 import { Tag } from 'antd';
 
-export const statusEnumOrigin = {
-  NONE_REVIEW: { label: '未提交', tag: 'default' },
-  AWAITING_REVIEW: { label: '待审核', tag: 'warning' },
-  REVIEWED: { label: '审核完成', tag: 'processing' },
-  REVIEW_DENIED: { label: '退回修改', tag: 'error' },
-  FINISHED: { label: '已完成', tag: 'success' },
-};
-
 export const statusEnum = {
   NONE_REVIEW: <Tag color={'default'}>未完成</Tag>,
   AWAITING_REVIEW: <Tag color={'warning'}>待审</Tag>,
-  REVIEWED: <Tag color={'processing'}>已审核</Tag>,
+  REVIEW_DENIED: <Tag color={'error'}>已退回</Tag>,
+  AWAITING_FIX: <Tag color={'processing'}>修改中</Tag>,
+  FIXED: <Tag color={'success'}>已修改</Tag>,
+  REVIEWED: <Tag color={'success'}>已审核</Tag>,
   FINISHED: <Tag color={'success'}>已完成</Tag>,
 };
 

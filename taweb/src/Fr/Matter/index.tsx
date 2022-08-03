@@ -20,7 +20,7 @@ export default function Matter() {
   const { http: updateHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'POST' });
   const { http: deleteHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'DELETE' });
 
-  const editable = state.status === 'NONE_REVIEW' && user.id === state.user?.id;
+  const editable = user.id === state.user?.id && ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status);
 
   const [info, setInfo] = React.useState<any>({});
   const [measure, setMeasure] = React.useState([]);

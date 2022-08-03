@@ -7,8 +7,14 @@ import BaseEditableTable from './BaseEditableTable';
 import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../utils/request';
 import { useAuth } from '../utils/auth';
+import UserSelectCascader from './UserSelectCascader';
 
-export default function ApprovalTable({ value }) {
+type Props = {
+  value: any,
+  onSave?: () => {},
+}
+
+export default function ApprovalTable({ value, onSave }: Props) {
 
   const columns: ProColumns[] = [
     { title: '审核主体', dataIndex: ['approveUser', 'department', 'name'] },
@@ -18,12 +24,14 @@ export default function ApprovalTable({ value }) {
     {
       title: '更新时间',
       dataIndex: 'updateTime',
-      renderText: t => moment(t).format('YYYY-MM-DD HH:mm')
+      renderText: t => moment(t).format('YYYY-MM-DD HH:mm'),
     },
   ];
 
   const { user } = useAuth();
   const { http } = useHttp('/approval', { method: 'PATCH', isManual: true });
+
+  const [content, setContent] = React.useState<string>('');
 
   return <>
     <BaseEditableTable
@@ -31,34 +39,63 @@ export default function ApprovalTable({ value }) {
         value={value?.step ?? []}
     />
 
-    {value?.step?.[0]?.status === 'AWAITING_REVIEW' &&
-        <FooterToolbar>
-          {value?.step?.[0]?.approveUser?.id === user?.id ?
-              <Space>
-                <Button
-                    danger
-                    onClick={() => Modal.confirm({
-                      title: '审核不通过',
-                      content: <>审核不通过，退回申请人重新修改。<br/><br/><Input placeholder={'修改意见'}/></>,
-                    })}
-                >退回修改</Button>
-                <Button
-                    type={'primary'}
-                    onClick={() => Modal.confirm({
-                      title: '确认审核通过',
-                      content: '审核完成后将自动发回申请人',
-                      onOk: () => {
-                        http(value.id, null, { content: null })
-                            .then(() => window.location.reload());
-                      },
-                    })}
-                >审核通过</Button>
-              </Space>
-              :
-              <Button disabled>等待审核</Button>
-          }
-        </FooterToolbar>
+    {value?.status === 'AWAITING_REVIEW' &&
+    <FooterToolbar>
+      {value?.approveUser?.id === user?.id ?
+          <Space>
+            <Button
+                danger
+                onClick={() => Modal.confirm({
+                  title: '审核不通过',
+                  content: <>审核不通过，退回申请人重新修改。<br/><br/>
+                    <Input placeholder={'修改意见'} onChange={e => setContent(e.target.value)}/></>,
+                  onOk: () =>
+                      http(value.id, null, { status: 'REVIEW_DENIED', content })
+                      .then(() => window.location.reload()),
+                })}
+            >退回修改</Button>
+            <Button
+                type={'primary'}
+                onClick={() => Modal.confirm({
+                  title: '确认审核通过',
+                  content: '审核完成后将自动发回申请人',
+                  onOk: () =>
+                      http(value.id, null, { status: 'REVIEWED', content: null })
+                      .then(() => window.location.reload()),
+                })}
+            >审核通过</Button>
+          </Space>
+          :
+          <Button disabled>等待审核</Button>
+      }
+    </FooterToolbar>
     }
+
+    {value?.status === 'AWAITING_FIX' &&
+    <FooterToolbar>
+      {value?.requestUser?.id === user?.id ?
+          <Space>
+            <Button
+                disabled={!onSave}
+                onClick={() => onSave()}
+            />
+            <Button
+                type={'primary'}
+                onClick={() => Modal.confirm({
+                  title: '确认提交审核',
+                  content: <>审核人：<UserSelectCascader disabled value={value.approveUser}/></>,
+                  onOk: () =>
+                      http(value.id, null, { status: 'FIXED', content: null })
+                      .then(() => window.location.reload()),
+                })}
+            >重新提交</Button>
+          </Space>
+          :
+          <Button disabled>等待退回修改</Button>
+      }
+    </FooterToolbar>
+    }
+
 
   </>;
 }

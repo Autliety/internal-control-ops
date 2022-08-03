@@ -4,10 +4,11 @@ import { useBoolean } from 'ahooks';
 import UserSelectCascader from './UserSelectCascader';
 
 type Props = {
+  approveUserId?: number,
   onSubmit: (approval: any) => void,
 }
 
-export default function ApproveAndCopyModal({ onSubmit }: Props) {
+export default function ApproveAndCopyModal({ approveUserId, onSubmit }: Props) {
 
   const [isOpen, { setTrue: open, setFalse: close }] = useBoolean(false);
   const [form] = Form.useForm();
@@ -33,12 +34,18 @@ export default function ApproveAndCopyModal({ onSubmit }: Props) {
           onFinish={async values => onSubmit(values)}
       >
         <Form.Item label={'选择审核人'} name={'approveUser'}>
-          <UserSelectCascader/>
+          {!approveUserId ?
+              <UserSelectCascader/>
+              :
+              <UserSelectCascader value={{ id: approveUserId }} disabled/>
+          }
         </Form.Item>
         <Divider/>
-        <Form.Item label={'抄送'} name={'copyUser'}>
+        {/*
+         <Form.Item label={'抄送'} name={'copyUser'}>
           <UserSelectCascader/>
         </Form.Item>
+        */}
       </Form>
     </Modal>
   </>;

@@ -1,5 +1,7 @@
 package com.hcit.taserver.fr.meeting;
 
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class TopicService {
+public class TopicService implements ApprovalAdaptor {
 
   private final TopicRepository topicRepository;
   private final AuthService authService;
@@ -26,9 +28,24 @@ public class TopicService {
     return topic;
   }
 
-  public void onReviewed(Topic topic) {
+  @Override
+  public void onReview(Approval approval) {
+    var topic = approval.getMeetingTopic();
     topic.setStatus(Status.REVIEWED);
     topicRepository.save(topic);
   }
 
+  @Override
+  public void onDenied(Approval approval) {
+    var topic = approval.getMeetingTopic();
+    topic.setStatus(Status.AWAITING_FIX);
+    topicRepository.save(topic);
+  }
+
+  @Override
+  public void onFixed(Approval approval) {
+    var topic = approval.getMeetingTopic();
+    topic.setStatus(Status.AWAITING_REVIEW);
+    topicRepository.save(topic);
+  }
 }

@@ -17,6 +17,12 @@ public enum Status {
   // 审核不通过
   REVIEW_DENIED,
 
+  // 等待退回修改
+  AWAITING_FIX,
+
+  // 已修改
+  FIXED,
+
   // 已完成
   FINISHED,
 }

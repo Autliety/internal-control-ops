@@ -12,10 +12,9 @@ export default function MatterReviewModal({ data }) {
   const { user } = useAuth();
 
   const [isVisible, setIsVisible] = React.useState(false);
-  const [checker, setChecker] = React.useState({id: 1});
   const { http } = useHttp('/matter/approval', { method: 'POST', isManual: true})
 
-  let result = data.filter(i => i.status === 'NONE_REVIEW').filter(i => i.user?.id === user?.id);
+  let result = data.filter(i => ['NONE_REVIEW', 'AWAITING_FIX'].includes(i.status) && i.user?.id === user?.id);
   if (result.length === 0 && user.privilege === 'DEPT') {
     result = data.filter(i => i.stepTwoStatus === 'NONE_REVIEW');
   }
@@ -33,14 +32,13 @@ export default function MatterReviewModal({ data }) {
         visible={isVisible}
         width={1500}
         closable
-        // todo api
         onOk={() => http().then(() => window.location.reload())}
         onCancel={() => setIsVisible(false)}
     >
       <MatterTable columns={matterColumns} value={result}/>
       <Divider dashed/>
       <p>审核人</p>
-      <UserSelectCascader disabled onChange={v => setChecker(v)}/>
+      <UserSelectCascader disabled />
 
     </Modal>
   </>;

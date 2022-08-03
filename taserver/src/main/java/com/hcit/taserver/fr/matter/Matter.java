@@ -55,7 +55,7 @@ public class Matter implements BasicPersistable {
 
   @ApiModelProperty("措施")
   @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
-  @OneToMany(mappedBy = "matter", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "matter", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
   private List<Measure> measure;
 

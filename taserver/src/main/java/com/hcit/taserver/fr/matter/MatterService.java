@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
@@ -11,6 +12,7 @@ import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.Collection;
 import java.util.List;
 
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 @Service
-public class MatterService {
+public class MatterService implements ApprovalAdaptor {
 
   private final MatterRepository matterRepository;
   private final ApprovalService approvalService;
@@ -76,25 +78,52 @@ public class MatterService {
   }
 
   public Approval submitApproval() {
-    var matters = matterRepository.findAllByUserAndStatus(authService.getCurrentUser(), Status.NONE_REVIEW);
-    if (CollectionUtils.isEmpty(matters)) {
-      if (authService.getCurrentUser().getPrivilege() != Privilege.DEPT) {
-        throw new IllegalArgumentException("需要审批的问题清单为空");
-      }
+    List<Matter> matters;
+    if (authService.getCurrentUser().getPrivilege() == Privilege.DEPT) {
+      // 二审
       matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
           userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
-          ,
-          List.of(Status.NONE_REVIEW)
-      );
+          , List.of(Status.NONE_REVIEW));
+      if (CollectionUtils.isEmpty(matters)) {
+        throw new IllegalArgumentException("需要审批的问题清单为空");
+      }
+
       matters.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
+      return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
+          matters);
+
     } else {
-      matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+      // 初审
+      matters = matterRepository.findAllByUserAndStatusIn(authService.getCurrentUser(),
+          List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
+      if (CollectionUtils.isEmpty(matters)) {
+        throw new IllegalArgumentException("需要审批的问题清单为空");
+      }
+
+      var fixes = matters.stream().filter(m -> m.getStatus() == Status.AWAITING_FIX).collect(Collectors.toList());
+      if (CollectionUtils.isEmpty(fixes)) {
+        // 未审核时提交
+        matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+        return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
+            matters);
+      } else {
+        // 退回修改后提交
+        var approval = fixes.get(0).getApproval();
+        approval.setMatter(matters);
+        approvalService.save(approval);
+        matters.forEach(m -> {
+          m.setStatus(Status.AWAITING_REVIEW);
+          m.setApproval(approval);
+        });
+        matterRepository.saveAll(matters);
+        return approvalService.stepIn(approval.getId(), Status.FIXED, null);
+      }
     }
-    return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
-        matters);
   }
 
-  public void onReviewed(List<Matter> matter) {
+  @Override
+  public void onReview(Approval approval) {
+    var matter = approval.getMatter();
     if (matter.get(0).getStatus() == Status.REVIEWED) {
       matter.forEach(m -> m.setStepTwoStatus(Status.REVIEWED));
 
@@ -112,6 +141,26 @@ public class MatterService {
     matterRepository.saveAll(matter);
   }
 
+  @Override
+  public void onDenied(Approval approval) {
+    var matter = approval.getMatter();
+    if (matter.get(0).getStatus() == Status.REVIEWED) {
+      matter.forEach(m -> m.setStepTwoStatus(Status.AWAITING_FIX));
+    } else {
+      matter.forEach(m -> m.setStatus(Status.AWAITING_FIX));
+    }
+  }
+
+  @Override
+  public void onFixed(Approval approval) {
+    var matter = approval.getMatter();
+    if (matter.get(0).getStatus() == Status.REVIEWED) {
+      matter.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
+    } else {
+      matter.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
+    }
+  }
+
   public Matter update(Matter matter) {
     if (!CollectionUtils.isEmpty(matter.getMeasure())) {
       matter.getMeasure().forEach(ms -> {
@@ -126,6 +175,12 @@ public class MatterService {
   }
 
   public void delete(Long id) {
+    var matter = matterRepository.findById(id).orElseThrow();
+    var approval = matter.getApproval();
+    if (approval != null) {
+      approval.getMatter().remove(matter);
+      approvalService.save(approval);
+    }
     matterRepository.deleteById(id);
   }
 }

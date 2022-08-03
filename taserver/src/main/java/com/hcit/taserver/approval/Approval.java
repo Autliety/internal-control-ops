@@ -63,14 +63,13 @@ public class Approval implements BasicPersistable {
   private LocalDateTime updateTime;
 
   @JsonIgnoreProperties({"approval"})
-  @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
   private List<ApprovalStep> step;
 
   @Transient
   public Status getStatus() {
-    // todo the last step status
-    return Optional.ofNullable(step).map(l -> l.get(0)).map(ApprovalStep::getStatus).orElse(null);
+    return Optional.ofNullable(step).map(l -> l.get(step.size() - 1)).map(ApprovalStep::getStatus).orElse(null);
   }
 
   // fr

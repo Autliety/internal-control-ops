@@ -20,8 +20,8 @@ export function getApprovalNotes(input: any) {
   } else if (input.matter) {
     result = {
       link: `/fr/mz/list/matter/approval/${input.id}`,
-      title: '措施清单审核',
-      content: `【${input.requestUser?.name}】更新了措施清单，正在等待您审核`,
+      title: '问题清单审核',
+      content: `【${input.requestUser?.name}】提交了问题和措施清单，正在等待您审核`,
     }
 
   } else if (input.progress) {

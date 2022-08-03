@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MatterRepository extends JpaRepository<Matter, Long>, JpaSpecificationExecutor<Matter> {
 
-  List<Matter> findAllByUserAndStatus(User user, Status status);
+  List<Matter> findAllByUserAndStatusIn(User user, Collection<Status> status);
 
   List<Matter> findAllByUserInAndStepTwoStatusIn(Collection<User> users, Collection<Status> statuses);
 

@@ -21,7 +21,7 @@ export default function MeetingTopic() {
   const { tid: id, id: meetingId } = useParams();
   const { state: meetingState } = useHttp('/meeting/' + meetingId);
   const { state } = useHttp(`/topic/${id}`, { isManual: isCreate });
-  let isUpdate = state.status === 'AWAITING_FIX' && state.user?.id === user.id;
+  let isUpdate = ['AWAITING_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
 
   const [info, setInfo] = React.useState<any>({ user });
   const [task, setTask] = React.useState([]);
@@ -56,6 +56,18 @@ export default function MeetingTopic() {
         onChange={setTask}
         isInEdit={isCreate || isUpdate}
     />
+    {isUpdate &&
+    <Button
+        style={{marginTop: 10}}
+        type={'primary'}
+        onClick={() => update(null, null,
+            task.map(t => ({ ...t, topic: { id } })),
+        )
+        .then(() => window.location.reload())}
+    >
+      保存更新
+    </Button>
+    }
 
     <Divider orientation={'left'}>审核流程</Divider>
     {isCreate ?
@@ -85,19 +97,6 @@ export default function MeetingTopic() {
     </FooterToolbar>
     }
 
-    {isUpdate &&
-    <FooterToolbar>
-      <Button
-          type={'primary'}
-          onClick={() => update(null, null,
-              task.map(t => ({ ...t, topic: { id } })),
-          )
-          .then(() => window.location.reload())}
-      >
-        保存更新
-      </Button>
-    </FooterToolbar>
-    }
 
   </PageContainer>;
 }

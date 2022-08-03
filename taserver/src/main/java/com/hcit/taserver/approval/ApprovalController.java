@@ -1,15 +1,8 @@
 package com.hcit.taserver.approval;
 
-import com.hcit.taserver.fr.matter.MatterService;
-import com.hcit.taserver.fr.meeting.MeetingService;
-import com.hcit.taserver.fr.meeting.TopicService;
-import com.hcit.taserver.fr.progress.ProgressService;
-import com.hcit.taserver.ta.plan.PlanService;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApprovalController {
 
   private final ApprovalService approvalService;
-  private final TopicService topicService;
-  private final MatterService matterService;
-  private final ProgressService progressService;
-  private final PlanService planService;
-  private final MeetingService meetingService;
 
   @GetMapping(params = {"current"})
   public List<Approval> fetchCurrent(@RequestParam boolean current) {
@@ -43,22 +31,9 @@ public class ApprovalController {
 
   @PatchMapping("/{id}")
   @Transactional
-  public Approval updateStep(@PathVariable Long id, @RequestBody(required = false) ApprovalStep body) {
-    String content = Optional.ofNullable(body).map(ApprovalStep::getContent).orElse(null);
-    var approval = approvalService.stepIn(id, content);
-
-    // todo: move onReviewed to better place
-    if (approval.getMeetingTopic() != null) {
-      topicService.onReviewed(approval.getMeetingTopic());
-    } else if (!CollectionUtils.isEmpty(approval.getMatter())) {
-      matterService.onReviewed(approval.getMatter());
-    } else if (approval.getProgress() != null) {
-      progressService.onReviewed(approval.getProgress());
-    } else if (approval.getPlan() != null) {
-      planService.onReviewed(approval.getPlan());
-    } else if (approval.getMeeting() != null) {
-      meetingService.onReviewed(approval.getMeeting());
-    }
-    return approval;
+  public Approval updateStep(@PathVariable Long id, @RequestBody ApprovalStep body) {
+    var status = body.getStatus();
+    var content = body.getContent();
+    return approvalService.stepIn(id, status, content);
   }
 }

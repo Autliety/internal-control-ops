@@ -66,8 +66,8 @@ export default function Meeting() {
     <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
 
+    {state.status === 'NONE_REVIEW' &&
     <FooterToolbar>
-      {state.status === 'NONE_REVIEW' &&
       <Space>
         <Button
             type={'primary'}
@@ -84,16 +84,20 @@ export default function Meeting() {
           <AuditOutlined/>提交审核
         </Button>
       </Space>
-      }
+    </FooterToolbar>
+    }
 
-      {state.status === 'REVIEWED' && <Button
+    {state.status === 'REVIEWED' &&
+    <FooterToolbar>
+      <Button
           type={'primary'}
           disabled={user.id !== state.user.id}
           onClick={() => setIsVisible(true)}
       >
         <PauseOutlined/>结束会议
-      </Button>}
+      </Button>
     </FooterToolbar>
+    }
 
     <Modal
         title={state.status === 'NONE_REVIEW' ? '会议审批' : '确认会议职责任务'}
