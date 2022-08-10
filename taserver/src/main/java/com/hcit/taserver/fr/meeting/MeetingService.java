@@ -37,12 +37,7 @@ public class MeetingService implements ApprovalAdaptor {
     meeting.setCode("HY001");
     User user = authService.getCurrentUser();
     meeting.setUser(user);
-    //noinspection ConstantConditions
-    if (user.getId().equals(1L)) {
-      meeting.setStatus(Status.REVIEWED);
-    } else {
-      meeting.setStatus(Status.NONE_REVIEW);
-    }
+    meeting.setStatus(Status.NONE_REVIEW);
     return meetingRepository.saveAndFlush(meeting);
   }
 

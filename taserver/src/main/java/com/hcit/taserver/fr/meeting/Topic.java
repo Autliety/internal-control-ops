@@ -54,7 +54,7 @@ public class Topic implements BasicPersistable {
   private Status status;
 
   @JsonIgnoreProperties(value = {"topic"}, allowSetters = true)
-  @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
   private List<TopicTask> task;
 

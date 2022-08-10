@@ -1783,7 +1783,7 @@ ALTER TABLE `ta_task` ENABLE KEYS;
 
 ALTER TABLE `user` DISABLE KEYS;
 INSERT INTO `user` (`id`, `name`, `privilege`, `station`, `user_order`, `department_id`, `parent_id`) VALUES
-	(1, '党委', 'DEPT', '党委', NULL, 1, NULL),
+	(1, '党委', 'DEPT', '党委', NULL, 1, 1),
 	(2, '赵小龙', 'FIRST', '党委书记、管委会主任', NULL, 2, NULL),
 	(3, '吴胜杰', 'DOUBLE', '党委副书记、镇长、管委会副主任', NULL, 3, NULL),
 	(4, '蔡耀明', 'DOUBLE', '人大主席', NULL, 3, NULL),
