@@ -8,6 +8,8 @@ import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../utils/request';
 import { useAuth } from '../utils/auth';
 import UserSelectCascader from './UserSelectCascader';
+import { useBoolean } from 'ahooks';
+import { InfoCircleTwoTone } from '@ant-design/icons';
 
 type Props = {
   value: any,
@@ -31,7 +33,8 @@ export default function ApprovalTable({ value, onSave }: Props) {
   const { user } = useAuth();
   const { http } = useHttp('/approval', { method: 'PATCH', isManual: true });
 
-  const [content, setContent] = React.useState<string>('');
+  const [isOpen, { setTrue: open, setFalse: close }] = useBoolean(false);
+  const [message, setMessage] = React.useState<string>('');
 
   return <>
     <BaseEditableTable
@@ -45,14 +48,7 @@ export default function ApprovalTable({ value, onSave }: Props) {
           <Space>
             <Button
                 danger
-                onClick={() => Modal.confirm({
-                  title: '审核不通过',
-                  content: <>审核不通过，退回申请人重新修改。<br/><br/>
-                    <Input placeholder={'修改意见'} onChange={e => setContent(e.target.value)}/></>,
-                  onOk: () =>
-                      http(value.id, null, { status: 'REVIEW_DENIED', content })
-                      .then(() => window.location.reload()),
-                })}
+                onClick={open}
             >退回修改</Button>
             <Button
                 type={'primary'}
@@ -95,6 +91,18 @@ export default function ApprovalTable({ value, onSave }: Props) {
       }
     </FooterToolbar>
     }
+
+    <Modal
+        visible={isOpen}
+        width={800}
+        onCancel={close}
+        onOk={() => http(value.id, null, { status: 'REVIEW_DENIED', content: message })
+        .then(() => window.location.reload())}
+    >
+      <InfoCircleTwoTone twoToneColor={'red'}/> 审核不通过，退回申请人重新修改
+      <br/><br/>
+      <Input.TextArea placeholder={'修改意见'} onChange={e => setMessage(e.target.value)}/>
+    </Modal>
 
 
   </>;
