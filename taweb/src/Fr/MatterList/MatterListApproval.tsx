@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import ApprovalTable from '../../components/ApprovalTable';
 import BaseDivider from '../../components/BaseDivider';
+import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
 
 export default function MatterListApproval() {
 
@@ -16,5 +17,6 @@ export default function MatterListApproval() {
     <MatterTable value={state.matter || []} loading={loading} />
     <BaseDivider title={'审批流程'}/>
     <ApprovalTable value={state}/>
+    <ApprovalFooterToolbar value={state}/>
   </PageContainer>;
 }

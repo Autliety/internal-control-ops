@@ -23,10 +23,10 @@ export default function MatterList() {
   >
 
     {<QueryFilter onFinish={async values => setParams(values)}>
-      <ProFormText name='code' label='措施编号'/>
+      <ProFormText name='code' label='问题编号'/>
       <ProFormSelect
           name='status'
-          label='措施状态'
+          label='问题状态'
           showSearch
           valueEnum={{
             NONE_REVIEW: '未完成',

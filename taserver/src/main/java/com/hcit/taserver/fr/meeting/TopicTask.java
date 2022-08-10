@@ -30,7 +30,7 @@ public class TopicTask implements BasicPersistable {
   private Topic topic;
 
   public User getUser() {
-    return topic.getUser();
+    return topic == null ? null : topic.getUser();
   }
 
   @Column(columnDefinition = "LONGTEXT")

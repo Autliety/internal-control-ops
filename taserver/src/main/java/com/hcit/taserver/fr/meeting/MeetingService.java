@@ -7,6 +7,7 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,16 +46,25 @@ public class MeetingService implements ApprovalAdaptor {
     return meetingRepository.saveAndFlush(meeting);
   }
 
-  public Meeting patch(Long id, Status status) {
+  public Meeting update(Long id, Meeting update) {
     var meeting = meetingRepository.findById(id).orElseThrow();
-    meeting.setStatus(status);
+    if (!Objects.equals(meeting.getId(), update.getId())) {
+      throw new IllegalArgumentException("id不匹配");
+    }
+    meeting.setStatus(update.getStatus());
+    meeting.setPlacement(update.getPlacement());
+    meeting.setContent(update.getContent());
+    meeting.setStartTime(update.getStartTime());
+    meeting.setMeetingUser(update.getMeetingUser());
+    meeting.setSubUser(update.getSubUser());
+    meetingRepository.save(meeting);
 
-    if (status == Status.AWAITING_REVIEW) {
+    if (update.getStatus() == Status.AWAITING_REVIEW && meeting.getApproval() == null) {
       approvalService.generate(Approval.builder()
           .approveUser(approvalService.getDefaultApproveUser())
           .build(), meeting);
     }
-    return meeting;
+    return update;
   }
 
   @Override

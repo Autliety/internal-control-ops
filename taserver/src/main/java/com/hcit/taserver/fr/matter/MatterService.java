@@ -83,12 +83,18 @@ public class MatterService implements ApprovalAdaptor {
       // 二审
       matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
           userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
-          , List.of(Status.NONE_REVIEW));
+          , List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
+      matters.addAll(
+          matters = matterRepository.findAllByUserAndStatusIn(authService.getCurrentUser(),
+              List.of(Status.NONE_REVIEW, Status.AWAITING_FIX)));
       if (CollectionUtils.isEmpty(matters)) {
         throw new IllegalArgumentException("需要审批的问题清单为空");
       }
 
-      matters.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
+      matters.forEach(m -> {
+        m.setStatus(Status.REVIEWED);
+        m.setStepTwoStatus(Status.AWAITING_REVIEW);
+      });
       return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
           matters);
 

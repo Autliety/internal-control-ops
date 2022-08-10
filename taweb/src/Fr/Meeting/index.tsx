@@ -1,7 +1,7 @@
 import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Modal, Space, Statistic } from 'antd';
-import { AuditOutlined, FileAddOutlined, PauseOutlined } from '@ant-design/icons';
+import { AuditOutlined, FileAddOutlined, PauseOutlined, SaveOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
@@ -13,7 +13,8 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
-import MeetingFoterToolbar from './MeetingFoterToolbar';
+import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
+import moment from 'moment';
 
 export default function Meeting() {
 
@@ -31,17 +32,24 @@ export default function Meeting() {
     setMyTopic(state.topic?.find(t => t.user?.id === user.id)?.id);
   }, [state]);
 
-  const { http } = useHttp('/topic/task', { isManual: true, method: 'POST' });
-  const { http: meetingHttp } = useHttp(`/meeting/${id}`, { isManual: true, method: 'PATCH' });
+  const { http: taskUpdate } = useHttp('/topic/task', { isManual: true, method: 'POST' });
+  const { http: meetingUpdate } = useHttp(`/meeting/${id}`, { isManual: true, method: 'POST' });
+
+  const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
 
   // 会议审核
-  const [approval, setApproval] = React.useState({ approvalUser: 1, copyUser: 28 });
+  const [info, setInfo] = React.useState<any>({});
+  const [meetingUser, setMeetingUser] = React.useState([]);
+  const [subUser, setSubUser] = React.useState([]);
+
+  const onSave = () => meetingUpdate(null, null, {
+    ...info,
+    startTime: moment(info.startTime).valueOf(),
+    meetingUser: meetingUser,
+    subUser: subUser,
+  });
 
   // 编辑
-  const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
-  const [meetingUser, setMeetingUser] = React.useState([]);
-  const [info, setInfo] = React.useState({});
-  const [subUser, setSubUser] = React.useState([]);
   React.useEffect(() => {
     setMeetingUser(state.meetingUser);
     setSubUser(state.subUser);
@@ -67,7 +75,7 @@ export default function Meeting() {
     <Divider orientation={'left'}>参会人员</Divider>
     {
       isUpdate
-          ? <div className='content'>
+          ? <div className="content">
             <AttendeeSelectCard value={meetingUser} onChange={setMeetingUser}/>
           </div>
           : <MeetingAttendee data={meetingUser} isOptional={false}/>
@@ -76,7 +84,7 @@ export default function Meeting() {
     <Divider orientation={'left'}>列席人员</Divider>
     {
       isUpdate
-          ? <div className='content'>
+          ? <div className="content">
             <AttendeeSelectCard value={subUser} onChange={setSubUser}/>
           </div>
           : <MeetingAttendee data={subUser} isOptional/>
@@ -96,50 +104,52 @@ export default function Meeting() {
     <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
 
-    <MeetingFoterToolbar
+    <ApprovalFooterToolbar
         value={state.approval}
-        onSave={() => meetingHttp(null, null, {
-          ...info,
-          meetingUser: meetingUser,
-          subUser: subUser
-        })}
+        onSave={onSave}
     />
 
     {state.status === 'NONE_REVIEW' &&
-        <FooterToolbar>
-          <Space>
-            <Button
-                type={'primary'}
-                disabled={!state.meetingUser.find(u => u.id === user.id)}
-                onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
-            >
-              <FileAddOutlined/>会前准备
-            </Button>
-            <Button
-                type='primary'
-                disabled={state.user?.id !== user.id}
-                onClick={() => setIsVisible(true)}
-            >
-              <AuditOutlined/>提交审核
-            </Button>
-          </Space>
-        </FooterToolbar>
+    <FooterToolbar>
+      <Space>
+        <Button
+            type={'primary'}
+            disabled={!state.meetingUser.find(u => u.id === user.id)}
+            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
+        >
+          <FileAddOutlined/>会前准备
+        </Button>
+        <Button
+            disabled={state.user?.id !== user.id}
+            onClick={() => onSave().then(() => window.location.reload())}
+        >
+          <SaveOutlined/>暂存更新
+        </Button>
+        <Button
+            type="primary"
+            disabled={state.user?.id !== user.id}
+            onClick={() => setIsVisible(true)}
+        >
+          <AuditOutlined/>提交审核
+        </Button>
+      </Space>
+    </FooterToolbar>
     }
 
     {state.status === 'REVIEWED' &&
-        <FooterToolbar>
-          <Button
-              type={'primary'}
-              disabled={user.id !== state.user.id}
-              onClick={() => setIsVisible(true)}
-          >
-            <PauseOutlined/>结束会议
-          </Button>
-        </FooterToolbar>
+    <FooterToolbar>
+      <Button
+          type={'primary'}
+          disabled={user.id !== state.user.id}
+          onClick={() => setIsVisible(true)}
+      >
+        <PauseOutlined/>结束会议
+      </Button>
+    </FooterToolbar>
     }
 
     <Modal
-        title={state.status === 'NONE_REVIEW' ? '会议审批' : '确认会议职责任务'}
+        title={state.status === 'NONE_REVIEW' ? '提交审批' : '确认会议职责任务'}
         closable
         visible={isVisible}
         width={1000}
@@ -147,12 +157,14 @@ export default function Meeting() {
           () => {
             setIsVisible(false);
             {
-              state.status === 'NONE_REVIEW'
-                  ? meetingHttp(null, null, { ...approval, status: 'AWAITING_REVIEW' })
-                      .then(() => window.location.reload())
-                  : http(null, null, tasks)
-                      .then(() => meetingHttp(null, null, { status: 'FINISHED' }))
-                      .then(() => window.location.reload());
+              state.status === 'NONE_REVIEW' ?
+                  onSave()
+                  .then(m => meetingUpdate(null, null, { ...m, status: 'AWAITING_REVIEW' })
+                  .then(() => window.location.reload()))
+                  :
+                  taskUpdate(null, null, tasks)
+                  .then(() => meetingUpdate(null, null, { ...info, status: 'FINISHED' }))
+                  .then(() => window.location.reload());
             }
           }
         }
@@ -162,13 +174,10 @@ export default function Meeting() {
         state.status === 'NONE_REVIEW'
             ? <>
               <p>审核人</p>
-              <UserSelectCascader value={{ id: 1 }} onChange={v => setApproval({ ...approval, approvalUser: v.id })}/>
+              <UserSelectCascader value={{ id: 1 }} disabled/>
               <Divider dashed/>
               <p>抄送</p>
-              <UserSelectCascader
-                  value={{ id: 28 }}
-                  onChange={v => setApproval({ ...approval, copyUser: v.id })}
-              />
+              <UserSelectCascader value={{ id: 28 }} disabled/>
             </>
             : <TopicTask
                 withMatter
