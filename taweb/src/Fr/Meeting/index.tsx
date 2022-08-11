@@ -123,11 +123,12 @@ export default function Meeting() {
         state.status === 'NONE_REVIEW'
             ? <>
               <p>审核人</p>
-              <UserSelectCascader value={{ id: 1 }} onChange={v => setApproval({ ...approval, approvalUser: v.id })}/>
+              <UserSelectCascader value={{id: user.parent?.id ?? 1}} disabled onChange={v => setApproval({ ...approval, approvalUser: v.id })}/>
               <Divider dashed/>
               <p>抄送</p>
               <UserSelectCascader
                   value={{ id: 28 }}
+                  disabled
                   onChange={v => setApproval({ ...approval, copyUser: v.id })}
               />
             </>
