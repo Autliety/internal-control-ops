@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import { Button, Input, Modal, Space } from 'antd';
 import { ProColumns } from '@ant-design/pro-table';
-import { statusEnum } from '../utils/nameMapTa';
 import BaseEditableTable from './BaseEditableTable';
 import { FooterToolbar } from '@ant-design/pro-layout';
 import { useHttp } from '../utils/request';
@@ -21,7 +20,7 @@ export default function ApprovalTable({ value, onSave }: Props) {
   const columns: ProColumns[] = [
     { title: '审核主体', dataIndex: ['approveUser', 'department', 'name'] },
     { title: '审核人', dataIndex: ['approveUser', 'name'] },
-    { title: '审核情况', dataIndex: 'status', valueEnum: statusEnum },
+    //{ title: '审核情况', dataIndex: 'status', valueEnum: statusEnum },
     { title: '修改意见', dataIndex: 'content' },
     {
       title: '更新时间',
