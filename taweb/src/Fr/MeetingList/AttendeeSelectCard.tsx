@@ -11,11 +11,20 @@ export default (
     {
       onChange,
       value = [],
-    }: Props
+    }: Props,
 ) => {
 
+  function uniqueFunc(arr, uniId) {
+    const res = new Map();
+    return arr.filter(item => !res.has(item[uniId]) && res.set(item[uniId], 1));
+  }
+
   return <>
-    <SelectUser withUser onChange={(_, option: any) => onChange([...value, option.data])}/>
+    <SelectUser
+        withUser
+        onChange={(_, option: any) =>
+            onChange(uniqueFunc([...value, option.data], 'id'))}
+    />
     <Divider/>
     <CheckCard.Group
         multiple
@@ -31,11 +40,11 @@ export default (
                 <Tooltip title={u.name}>
                   {u.name.length > 9 ? u.name.slice(0, 8) + '...' : u.name}
                 </Tooltip>
-                <Divider type='vertical'/>
+                <Divider type="vertical"/>
               </div>
             }
             extra={<Button
-                type='link'
+                type="link"
                 danger
                 onClick={() => onChange(value.filter((i: any) => i.id !== u.id))}
             >
