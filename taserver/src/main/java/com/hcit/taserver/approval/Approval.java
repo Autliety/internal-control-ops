@@ -20,6 +20,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -82,7 +83,7 @@ public class Approval implements BasicPersistable {
   private Topic meetingTopic;
 
   @JsonIgnoreProperties({"approval"})
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @Fetch(FetchMode.SUBSELECT)
   private List<Matter> matter;
 
