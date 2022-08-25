@@ -220,7 +220,7 @@ ALTER TABLE `fr_measure` ENABLE KEYS;
 
 ALTER TABLE `fr_meeting` DISABLE KEYS;
 INSERT INTO `fr_meeting` (`id`, `code`, `content`, `placement`, `start_time`, `status`, `type`, `user_id`) VALUES
-	(1, 'HY001', '1. 传达学习上级精神\n2. 明确各责任主体职责任务\n3. 排查各自领域问题风险及防范措施', '暂无', '2022-03-08 10:00:00.534000', 'FINISHED', '1专题会议', 1);
+	(1, 'HY001', '1. 传达学习上级精神\n2. 明确各责任主体职责任务\n3. 排查各自领域问题风险及防范措施', '暂无', '2022-03-08 10:00:00.534000', 'REVIEWED', '1专题会议', 1);
 ALTER TABLE `fr_meeting` ENABLE KEYS;
 
 ALTER TABLE `fr_meeting_meeting_user` DISABLE KEYS;

@@ -38,7 +38,7 @@ export default function MatterReviewModal({ data }) {
       <MatterTable columns={matterColumns} value={result}/>
       <Divider dashed/>
       <p>审核人</p>
-      <UserSelectCascader disabled />
+      <UserSelectCascader value={{id: user.parent?.id}} disabled />
 
     </Modal>
   </>;

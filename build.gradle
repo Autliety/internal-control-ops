@@ -1,5 +1,5 @@
 group 'com.hcit'
-version '0.1.18'
+version '0.1.26'
 
 task cleanup(type: Delete) {
   dependsOn(':taserver:clean', ':taweb:clean')
