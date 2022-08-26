@@ -6,6 +6,7 @@ import PieChart from './PieChart';
 import { useAuth } from '../../utils/auth';
 import GlobalSearch from './GlobalSearch';
 import StatisticNotes from './StatisticNotes';
+import BarChart from "./BarChart";
 
 export default function Home() {
 
@@ -37,7 +38,7 @@ export default function Home() {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <div className="content">
-            <PieChart title={'各部门问题清单数量'}/>
+            <BarChart/>
           </div>
         </Col>
       </Row>

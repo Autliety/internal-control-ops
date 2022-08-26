@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import PagesTa from './Ta/index';
 import PagesFr from './Fr/index';
+import Display from './pages/Display';
 
 
 moment.locale('zh-cn');
@@ -22,13 +23,15 @@ function App() {
     },
   });
 
-  return <div className="App">
+  return <div className='App'>
     <ConfigProvider
         locale={zhCN}
         input={{ autoComplete: 'off' }}
         renderEmpty={() => '暂无数据'}
     >
       <Routes>
+        {/* 大屏数据展示 */}
+        <Route path={'/data'} element={<Display/>}/>
         <Route path={'/'} element={<Navigate to={'/login'} replace/>}/>
         <Route path={'/login'} element={<Login/>}/>
         <Route path={'/logout'} element={<Logout/>}/>
