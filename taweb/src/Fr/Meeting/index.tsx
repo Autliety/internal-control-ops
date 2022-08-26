@@ -13,7 +13,6 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
-import MeetingFoterToolbar from './MeetingFoterToolbar';
 
 export default function Meeting() {
 
@@ -95,15 +94,6 @@ export default function Meeting() {
 
     <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
-
-    <MeetingFoterToolbar
-        value={state.approval}
-        onSave={() => meetingHttp(null, null, {
-          ...info,
-          meetingUser: meetingUser,
-          subUser: subUser
-        })}
-    />
 
     {state.status === 'NONE_REVIEW' &&
         <FooterToolbar>
