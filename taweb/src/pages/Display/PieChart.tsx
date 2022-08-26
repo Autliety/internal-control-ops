@@ -40,8 +40,8 @@ export default function PieChart() {
   };
 
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>饼图</p>
     {/* @ts-ignore */}
     <Pie {...config} />
+    <p style={{ textAlign: 'center', color: '#fff' }}>饼图</p>
   </div>;
 }

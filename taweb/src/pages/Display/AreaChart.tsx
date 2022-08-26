@@ -45,9 +45,8 @@ function AreaChart() {
 
 
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>面积图</p>
-    <br/>
     <Area {...config} />
+    <p style={{ textAlign: 'center', color: '#fff' }}>面积图</p>
   </div>;
 }
 

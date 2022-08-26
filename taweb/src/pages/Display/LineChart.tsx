@@ -43,9 +43,9 @@ function LineChart() {
     }
   };
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>折线图</p>
     {/*@ts-ignore*/}
     <Line {...config}/>
+    <p style={{ textAlign: 'center', color: '#fff' }}>折线图</p>
   </div>;
 }
 
