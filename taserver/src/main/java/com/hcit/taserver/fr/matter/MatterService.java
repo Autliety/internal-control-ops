@@ -79,35 +79,21 @@ public class MatterService implements ApprovalAdaptor {
 
   public Approval submitApproval() {
     List<Matter> matters;
-    if (authService.getCurrentUser().getPrivilege() == Privilege.DEPT) {
-      // 二审
-      matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
-          userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
-          , List.of(Status.NONE_REVIEW));
-      if (CollectionUtils.isEmpty(matters)) {
-        throw new IllegalArgumentException("需要审批的问题清单为空");
-      }
+    matters = matterRepository.findAllByUserAndStatusIn(authService.getCurrentUser(),
+        List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
 
-      matters.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
-      return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
-          matters);
-
-    } else {
+    if (!CollectionUtils.isEmpty(matters)) {
       // 初审
-      matters = matterRepository.findAllByUserAndStatusIn(authService.getCurrentUser(),
-          List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
-      if (CollectionUtils.isEmpty(matters)) {
-        throw new IllegalArgumentException("需要审批的问题清单为空");
-      }
-
       var fixes = matters.stream().filter(m -> m.getStatus() == Status.AWAITING_FIX).collect(Collectors.toList());
       if (CollectionUtils.isEmpty(fixes)) {
-        // 未审核时提交
+        // 提交初审
         matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
-        return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
+        return approvalService.generate(Approval.builder()
+                .approveUser(authService.getCurrentUser().getPrivilege() == Privilege.DEPT ? authService.getCurrentUser() : approvalService.getDefaultApproveUser())
+                .build(),
             matters);
       } else {
-        // 退回修改后提交
+        // 提交退回修改
         var approval = fixes.get(0).getApproval();
         approval.setMatter(matters);
         approvalService.save(approval);
@@ -118,6 +104,36 @@ public class MatterService implements ApprovalAdaptor {
         matterRepository.saveAll(matters);
         return approvalService.stepIn(approval.getId(), Status.FIXED, null);
       }
+
+    } else if (authService.getCurrentUser().getPrivilege() == Privilege.DEPT) {
+      // 二审
+      matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
+          userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
+          , List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
+      var fixes = matters.stream().filter(m -> m.getStepTwoStatus() == Status.AWAITING_FIX).collect(Collectors.toList());
+      if (CollectionUtils.isEmpty(fixes)) {
+        // 提交二审
+        matters.forEach(m -> {
+          m.setStatus(Status.REVIEWED);
+          m.setStepTwoStatus(Status.AWAITING_REVIEW);
+        });
+        return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
+            matters);
+      } else {
+        // 退回修改
+        var approval = fixes.get(0).getApproval();
+        approval.setMatter(matters);
+        approvalService.save(approval);
+        matters.forEach(m -> {
+          m.setStepTwoStatus(Status.AWAITING_REVIEW);
+          m.setApproval(approval);
+        });
+        matterRepository.saveAll(matters);
+        return approvalService.stepIn(approval.getId(), Status.FIXED, null);
+      }
+
+    } else {
+      throw new IllegalStateException("需要审批的问题清单为空");
     }
   }
 
@@ -164,7 +180,6 @@ public class MatterService implements ApprovalAdaptor {
   public Matter update(Matter matter) {
     if (!CollectionUtils.isEmpty(matter.getMeasure())) {
       matter.getMeasure().forEach(ms -> {
-        // todo generate code
         ms.setMatter(matter);
         if (ms.getProgress() == null) {
           ms.setProgress(progressService.create(ms));

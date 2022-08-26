@@ -16,7 +16,7 @@ export default function MatterReviewModal({ data }) {
 
   let result = data.filter(i => ['NONE_REVIEW', 'AWAITING_FIX'].includes(i.status) && i.user?.id === user?.id);
   if (result.length === 0 && user.privilege === 'DEPT') {
-    result = data.filter(i => i.stepTwoStatus === 'NONE_REVIEW');
+    result = data.filter(i => ['NONE_REVIEW', 'AWAITING_FIX'].includes(i.stepTwoStatus));
   }
 
   return <>
@@ -38,7 +38,7 @@ export default function MatterReviewModal({ data }) {
       <MatterTable columns={matterColumns} value={result}/>
       <Divider dashed/>
       <p>审核人</p>
-      <UserSelectCascader disabled />
+      <UserSelectCascader value={{id: user.parent?.id}} disabled />
 
     </Modal>
   </>;

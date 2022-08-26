@@ -8,7 +8,7 @@ import BaseDescriptions from '../../components/BaseDescriptions';
 import { statusEnum } from '../../utils/nameMapTa';
 
 export const matterColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code', hideInForm: true, editable: false },
+  { title: '编号', dataIndex: 'id', hideInForm: true, editable: false },
   {
     title: '来源及类型',
     dataIndex: 'origin',
