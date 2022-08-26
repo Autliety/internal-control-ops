@@ -36,12 +36,12 @@ function LiquidChart() {
 
 
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>水波图</p>
     <Space size='large' style={{ display: 'flex', justifyContent: 'space-around' }}>
       <Liquid {...config1}/>
       <Liquid {...config2}/>
       <Liquid {...config3}/>
     </Space>
+    <p style={{ textAlign: 'center', color: '#fff' }}>水波图</p>
   </div>;
 }
 

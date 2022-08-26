@@ -53,8 +53,8 @@ export default function ColumnChart() {
   };
 
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>柱状图</p>
     {/* @ts-ignore */}
     <Column {...config} />
+    <p style={{ textAlign: 'center', color: '#fff' }}>柱状图</p>
   </div>;
 }

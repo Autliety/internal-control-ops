@@ -40,8 +40,8 @@ function RadarChart() {
     area: {},
   };
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>雷达图</p>
     <Radar {...config} />
+    <p style={{ textAlign: 'center', color: '#fff' }}>雷达图</p>
   </div>;
 }
 

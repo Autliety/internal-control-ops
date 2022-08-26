@@ -56,9 +56,9 @@ function BarChart() {
   };
 
   return <div>
-    <p style={{ textAlign: 'center', color: '#fff' }}>条形图</p>
     {/*@ts-ignore*/}
     <Bar {...config} />
+    <p style={{ textAlign: 'center', color: '#fff' }}>条形图</p>
   </div>;
 }
 
