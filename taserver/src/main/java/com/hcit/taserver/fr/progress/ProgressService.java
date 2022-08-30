@@ -30,6 +30,7 @@ public class ProgressService implements ApprovalAdaptor {
     progress.setContent(update.getContent());
     progress.setPercentage(update.getPercentage());
     progress.setReason(update.getReason());
+    progress.setSubUser(update.getSubUser());
 
     if (update.getStatus() == Status.AWAITING_REVIEW) {
       progress.setStatus(Status.AWAITING_REVIEW);

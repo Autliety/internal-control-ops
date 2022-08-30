@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -46,6 +48,9 @@ public class Progress implements BasicPersistable {
 
   @Enumerated(EnumType.STRING)
   private Status status;
+
+  @ManyToOne
+  private User subUser;
 
   @UpdateTimestamp
   private LocalDateTime updateTime;

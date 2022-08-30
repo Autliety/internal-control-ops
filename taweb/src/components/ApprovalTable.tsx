@@ -13,7 +13,7 @@ import { InfoCircleTwoTone } from '@ant-design/icons';
 
 type Props = {
   value: any,
-  onSave?: () => {},
+  onSave?: () => Promise<void>,
 }
 
 export default function ApprovalTable({ value, onSave }: Props) {
