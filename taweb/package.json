@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-card": "^1.19.5",
     "@ant-design/pro-components": "^1.1.7",
@@ -10,6 +11,10 @@
     "@ant-design/pro-form": "^1.62.1",
     "@ant-design/pro-layout": "^6.33.0",
     "@ant-design/pro-table": "^2.71.4",
+    "@antv/l7": "^2.9.24",
+    "@antv/l7-district": "^2.3.12",
+    "@antv/l7-maps": "^2.9.24",
+    "@antv/l7plot": "^0.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",

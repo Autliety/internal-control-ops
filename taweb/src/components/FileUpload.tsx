@@ -23,16 +23,15 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
               listType={'picture'}
 
               fileList={value?.map(a => ({
-                uid: a.id,
-                name: a.fileName,
-                status: 'done',
+                uid: a.uid || a.id,
+                id: a.id,
+                name: a.name || a.fileName,
+                status: a.status || 'done',
                 thumbUrl: file,
                 url: `${host}/attach/${a.id}`,
               }))}
               onChange={({ file, fileList }) => {
-                if (file.status !== 'uploading') {
-                  onChange(fileList.map(f => f.response ? f.response : f));
-                }
+                onChange(fileList.map(f => f.response ? f.response : f));
               }}
               showUploadList={{ showRemoveIcon: isInEdit }}
           >

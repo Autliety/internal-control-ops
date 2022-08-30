@@ -13,6 +13,7 @@ gradlew.bat
 
 ### Node.js ###
 node_modules/
+package-lock.json
 .pnp/
 .pnp.js
 .env.local

@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import ThreeCreateModal from '../ThreeList/ThreeCreateModal';
 import { useAuth } from '../../utils/auth';
+import BaseDivider from '../../components/BaseDivider';
+import FileUpload from '../../components/FileUpload';
 
 export default function Three() {
 
@@ -24,5 +26,8 @@ export default function Three() {
         columns={threeColumns}
         dataSource={state}
     />
+
+    <BaseDivider title={'相关附件'}/>
+    <FileUpload value={state?.attach || []}/>
   </PageContainer>;
 }

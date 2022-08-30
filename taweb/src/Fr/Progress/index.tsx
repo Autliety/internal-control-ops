@@ -21,7 +21,8 @@ export default function Progress() {
   const { http: patch } = useHttp(`/progress/${id}`, { method: 'PATCH', isManual: true });
 
   const [isInEdit, { setTrue: start, setFalse: end }] = useBoolean(false);
-  const [progress, setProgress] = useState({});
+  const [progress, setProgress] = useState<any>({});
+  const [subUser, setSubUser] = React.useState<any>();
 
   return <PageContainer>
     <BaseDivider title={'措施信息'} onLink={() => navigate(`/fr/mz/list/measure/${state.measure.id}`)}/>
@@ -36,13 +37,11 @@ export default function Progress() {
     />
 
     <Divider orientation={'left'}>协调配合</Divider>
-    {/*todo 协调配合*/}
     <div className='content'>
-      <UserSelectCascader disabled/>
+      <UserSelectCascader disabled={!isInEdit} value={subUser || state.subUser} onChange={setSubUser}/>
     </div>
 
     <Divider orientation={'left'}>后续措施</Divider>
-    {/*todo 后续措施*/}
     <div className='content'>
       {state.continueMeasure ?
           <MeasureTable dataSource={[state.continueMeasure]}/>
@@ -63,7 +62,7 @@ export default function Progress() {
               <Button onClick={end}>取消</Button>
               <Button
                   type={'primary'}
-                  onClick={() => patch(null, null, progress)
+                  onClick={() => patch(null, null, {...progress, subUser})
                       .then(() => window.location.reload())}
               >
                 更新

@@ -18,7 +18,7 @@ export const measureColumns: ProColumns[] = [
     dataIndex: 'content',
     valueType: 'textarea',
     render: (text: any) => <>
-      {text.substring(0, 40)}
+      {text?.substring(0, 40)}
       {text?.length > 40 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
   },
