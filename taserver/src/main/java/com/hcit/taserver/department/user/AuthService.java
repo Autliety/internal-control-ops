@@ -57,8 +57,6 @@ public class AuthService implements UserDetailsService {
     Predicate predicate;
     switch (u.getPrivilege()) {
       case DEPT:
-      case DEPT_J:
-      case DEPT_Z:
       case ADMIN:
         if (List.of(1L, 28L, 29L, 999L).contains(u.getId())) {
           predicate = cb.conjunction();
@@ -69,6 +67,8 @@ public class AuthService implements UserDetailsService {
       case FIRST:
         predicate = cb.equal(userPath.get("department").get("id"), u.getDepartment().getId());
         break;
+      case DEPT_J:
+      case DEPT_Z:
       case DOUBLE:
         predicate = cb.or(
             cb.equal(userPath.get("id"), u.getId()),
