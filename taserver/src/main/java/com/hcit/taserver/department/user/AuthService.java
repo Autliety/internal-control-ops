@@ -55,29 +55,27 @@ public class AuthService implements UserDetailsService {
     }
     User u = getCurrentUser();
     Predicate predicate;
-    switch (u.getPrivilege()) {
-      case DEPT:
-      case ADMIN:
-        if (List.of(1L, 28L, 29L, 999L).contains(u.getId())) {
-          predicate = cb.conjunction();
-        } else {
+    if (List.of(1L, 28L, 29L, 999L).contains(u.getId())) {
+      predicate = cb.conjunction();
+    } else {
+      switch (u.getPrivilege()) {
+        case DEPT:
+        case ADMIN:
+        case FIRST:
           predicate = cb.equal(userPath.get("department").get("id"), u.getDepartment().getId());
-        }
-        break;
-      case FIRST:
-        predicate = cb.equal(userPath.get("department").get("id"), u.getDepartment().getId());
-        break;
-      case DEPT_J:
-      case DEPT_Z:
-      case DOUBLE:
-        predicate = cb.or(
-            cb.equal(userPath.get("id"), u.getId()),
-            cb.equal(userPath.get("parent").get("id"), u.getId()), // 主要分管
-            userPath.get("department").get("id").in() // todo 分管站办
-        );
-        break;
-      default:
-        predicate = cb.equal(userPath.get("id"), u.getId());
+          break;
+        case DEPT_J:
+        case DEPT_Z:
+        case DOUBLE:
+          predicate = cb.or(
+              cb.equal(userPath.get("id"), u.getId()),
+              cb.equal(userPath.get("parent").get("id"), u.getId()), // 主要分管
+              userPath.get("department").get("id").in() // todo 分管站办
+          );
+          break;
+        default:
+          predicate = cb.equal(userPath.get("id"), u.getId());
+      }
     }
     return cb.or(predicate, or);
   }
