@@ -2,6 +2,9 @@ package com.hcit.taserver.common;
 
 public enum Status {
 
+  // 无需审核
+  PASSED,
+
   // 未提交审核
   NONE_REVIEW,
 

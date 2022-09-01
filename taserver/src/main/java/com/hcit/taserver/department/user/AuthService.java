@@ -7,6 +7,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements UserDetailsService {
 
+  @Value("${env.dev}")
+  private Boolean envDev;
   private final UserService userService;
 
   @Override
@@ -33,8 +37,11 @@ public class AuthService implements UserDetailsService {
     if (principal instanceof Auth) {
       return ((Auth) principal).getUser();
 
+    } else if (BooleanUtils.isTrue(envDev)) {
+      return userService.findById(-999L);
+
     } else {
-      throw new UsernameNotFoundException("admin not admitted");
+      throw new UsernameNotFoundException("login not admitted");
     }
   }
 
@@ -55,7 +62,7 @@ public class AuthService implements UserDetailsService {
     }
     User u = getCurrentUser();
     Predicate predicate;
-    if (List.of(1L, 28L, 29L, 999L).contains(u.getId())) {
+    if (List.of(1L, 28L, 29L, -999L).contains(u.getId())) {
       predicate = cb.conjunction();
     } else {
       switch (u.getPrivilege()) {

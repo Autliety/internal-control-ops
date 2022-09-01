@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.meeting;
+package com.hcit.taserver.fr.meeting.topic;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/topic")
-public class TopicController {
+public class MeetingTopicController {
 
-  private final TopicService topicService;
+  private final MeetingTopicService meetingTopicService;
 
   @GetMapping("/{id}")
-  public Topic getTopic(@PathVariable Long id) {
-    return topicService.findById(id);
+  public MeetingTopic getTopic(@PathVariable Long id) {
+    return meetingTopicService.findById(id);
   }
 
   @PostMapping
-  public Topic create(@RequestBody Topic topic) {
-    return topicService.create(topic);
+  public MeetingTopic create(@RequestBody MeetingTopic topic) {
+    return meetingTopicService.create(topic);
   }
 
   @PostMapping("/{id}")
-  public Topic update(@PathVariable Long id, @RequestBody Topic topic) {
-    return topicService.update(id, topic);
+  public MeetingTopic update(@PathVariable Long id, @RequestBody MeetingTopic topic) {
+    return meetingTopicService.update(id, topic);
   }
 
 }

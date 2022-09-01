@@ -1,7 +1,5 @@
 package com.hcit.taserver.fr.meeting;
 
-import com.hcit.taserver.approval.Approval;
-import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MeetingService implements ApprovalAdaptor {
+public class MeetingService {
 
   private final MeetingRepository meetingRepository;
   private final AuthService authService;
@@ -33,12 +31,12 @@ public class MeetingService implements ApprovalAdaptor {
   }
 
   public Meeting create(Meeting meeting) {
-    // todo generate code
-    meeting.setCode("HY001");
     User user = authService.getCurrentUser();
     meeting.setUser(user);
-    meeting.setStatus(Status.NONE_REVIEW);
-    return meetingRepository.saveAndFlush(meeting);
+    meeting.setStatus(null);
+    meetingRepository.save(meeting);
+    approvalService.generate((a -> a.withApprovalType("meeting").withMeeting(meeting)));
+    return meeting;
   }
 
   public Meeting update(Long id, Meeting update) {
@@ -46,41 +44,16 @@ public class MeetingService implements ApprovalAdaptor {
     if (!Objects.equals(meeting.getId(), update.getId())) {
       throw new IllegalArgumentException("id不匹配");
     }
-    meeting.setStatus(update.getStatus());
+    if (update.getStatus() == Status.FINISHED) {
+      meeting.setStatus(update.getStatus());
+    }
     meeting.setPlacement(update.getPlacement());
     meeting.setContent(update.getContent());
     meeting.setStartTime(update.getStartTime());
     meeting.setMeetingUser(update.getMeetingUser());
     meeting.setSubUser(update.getSubUser());
     meetingRepository.save(meeting);
-
-    if (update.getStatus() == Status.AWAITING_REVIEW && meeting.getApproval() == null) {
-      approvalService.generate(Approval.builder()
-          .approveUser(approvalService.getDefaultApproveUser())
-          .build(), meeting);
-    }
     return update;
   }
 
-  @Override
-  public void onReview(Approval approval) {
-    var meeting = approval.getMeeting();
-    meeting.setStatus(Status.REVIEWED);
-    meetingRepository.save(meeting);
-  }
-
-  @Override
-  public void onDenied(Approval approval) {
-
-    var meeting = approval.getMeeting();
-    meeting.setStatus(Status.AWAITING_FIX);
-    meetingRepository.save(meeting);
-  }
-
-  @Override
-  public void onFixed(Approval approval) {
-    var meeting = approval.getMeeting();
-    meeting.setStatus(Status.AWAITING_REVIEW);
-    meetingRepository.save(meeting);
-  }
 }

@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
-import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.meeting.Meeting;
-import com.hcit.taserver.fr.meeting.Topic;
+import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
@@ -20,7 +19,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -30,13 +28,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.With;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.util.CollectionUtils;
 
 @ApiModel("审批单")
 
-@Getter @Setter
+@Getter @Setter @With
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
@@ -63,38 +63,35 @@ public class Approval implements BasicPersistable {
   @CreationTimestamp
   private LocalDateTime updateTime;
 
-  @JsonIgnoreProperties({"approval"})
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
   private List<ApprovalStep> step;
 
   @Transient
   public Status getStatus() {
-    return Optional.ofNullable(step).map(l -> l.get(step.size() - 1)).map(ApprovalStep::getStatus).orElse(null);
+    return Optional.ofNullable(CollectionUtils.lastElement(step))
+        .map(ApprovalStep::getStatus)
+        .orElse(Status.NONE_REVIEW);
   }
 
+  public String approvalType;
+
   // fr
-  @JsonIgnoreProperties({"approval"})
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
   private Meeting meeting;
 
-  @JsonIgnoreProperties({"approval"})
-  @OneToOne(cascade = CascadeType.PERSIST)
-  private Topic meetingTopic;
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
+  private MeetingTopic meetingTopic;
 
-  @JsonIgnoreProperties({"approval"})
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @Fetch(FetchMode.SUBSELECT)
-  private List<Matter> matter;
-
-  @JsonIgnoreProperties({"approval"})
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
   private Progress progress;
 
   // ta
-  @JsonIgnoreProperties({"approval"})
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
   private Plan plan;
 }
-
-

@@ -2,10 +2,12 @@ package com.hcit.taserver.fr.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalEntity;
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -39,13 +41,14 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "fr_meeting")
-public class Meeting implements BasicPersistable {
+public class Meeting implements BasicPersistable, ApprovalEntity {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ApiModelProperty("编号")
-  private String code;
+  public String getCode() {
+    return String.format("HY%04d", id);
+  }
 
   @Enumerated(EnumType.STRING)
   private Status status;
@@ -84,7 +87,7 @@ public class Meeting implements BasicPersistable {
   @JsonIgnoreProperties(value = {"meeting"}, allowSetters = true)
   @OneToMany(mappedBy = "meeting", fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
-  private List<Topic> topic;
+  private List<MeetingTopic> topic;
 
   @OneToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)

@@ -1,10 +1,12 @@
-package com.hcit.taserver.fr.meeting;
+package com.hcit.taserver.fr.meeting.topic;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalEntity;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.meeting.Meeting;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,7 +40,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "fr_meeting_topic")
-public class Topic implements BasicPersistable {
+public class MeetingTopic implements BasicPersistable, ApprovalEntity {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -56,7 +58,7 @@ public class Topic implements BasicPersistable {
   @JsonIgnoreProperties(value = {"topic"}, allowSetters = true)
   @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
-  private List<TopicTask> task;
+  private List<MeetingTopicTask> task;
 
   @Transient
   public int getCount() {

@@ -23,3 +23,6 @@ spring:
 
 springfox:
   documentation.enabled: true
+
+config:
+  dev-env: true

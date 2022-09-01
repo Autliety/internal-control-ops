@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "config.dev-env",
+      "type": "java.lang.Boolean",
+      "description": "development environment enabled."
+  }
+] }

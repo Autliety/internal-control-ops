@@ -13,9 +13,10 @@ import {
   Modal,
   Popconfirm,
   Radio,
-  Row, Select,
+  Row,
+  Select,
   Space,
-  Tabs
+  Tabs,
 } from 'antd';
 
 import { useHttp } from '../../utils/request';
@@ -80,7 +81,7 @@ export default function Department({ systemType, isUser = true }) {
             locale={{ emptyText: '暂无数据，点击左侧部门名称查看详细信息' }}
             renderItem={(item: any) => (
                 <List.Item
-                    actions={isUser && user.id === 999 && [
+                    actions={isUser && user.id === -999 && [
                       <Button type={'link'} onClick={() => {
                         setInitData(item);
                         setIsVisible(true);

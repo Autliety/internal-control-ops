@@ -1,7 +1,7 @@
 import React from 'react';
-import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
+import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Divider, Modal, Space, Statistic } from 'antd';
-import { AuditOutlined, FileAddOutlined, PauseOutlined, SaveOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, FileAddOutlined, PauseOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
 import MeetingInfo from './MeetingInfo';
@@ -9,8 +9,6 @@ import TopicTask from '../MeetingTopic/TopicTask';
 import MeetingAttendee from './MeetingAttendee';
 import { useAuth } from '../../utils/auth';
 import FileUpload from '../../components/FileUpload';
-import UserSelectCascader from '../../components/UserSelectCascader';
-import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
 import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
@@ -21,23 +19,16 @@ export default function Meeting() {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = React.useState(false);
 
   const { state, loading } = useHttp(`/meeting/${id}`);
+  let myTopicId = state.topic?.find(t => t.user?.id === user.id)?.id;
 
-  const [tasks, setTasks] = React.useState([]);
-  const [myTopic, setMyTopic] = React.useState(null);
-  React.useEffect(() => {
-    setTasks(state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta }))));
-    setMyTopic(state.topic?.find(t => t.user?.id === user.id)?.id);
-  }, [state]);
-
-  const { http: taskUpdate } = useHttp('/topic/task', { isManual: true, method: 'POST' });
   const { http: meetingUpdate } = useHttp(`/meeting/${id}`, { isManual: true, method: 'POST' });
+  const { http: topicCreate } = useHttp('/topic', { isManual: true, method: 'POST' });
 
+  // 编辑
   const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
 
-  // 会议审核
   const [info, setInfo] = React.useState<any>({});
   const [meetingUser, setMeetingUser] = React.useState([]);
   const [subUser, setSubUser] = React.useState([]);
@@ -49,7 +40,6 @@ export default function Meeting() {
     subUser: subUser,
   });
 
-  // 编辑
   React.useEffect(() => {
     setMeetingUser(state.meetingUser);
     setSubUser(state.subUser);
@@ -93,100 +83,48 @@ export default function Meeting() {
     <Divider orientation={'left'}>职责任务</Divider>
     <TopicTask
         isInEdit={false}
-        value={tasks}
-        onChange={() => {
-        }}
+        value={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta })))}
     />
 
     <Divider orientation={'left'}>上传附件</Divider>
     <FileUpload value={state.attach || []}/>
 
-    <BaseDivider title={'审核流程'}/>
     <ApprovalTable value={state.approval}/>
 
     <ApprovalFooterToolbar
         value={state.approval}
         onSave={onSave}
-    />
-
-    {state.status === 'NONE_REVIEW' &&
-    <FooterToolbar>
-      <Space>
-        <Button
-            type={'primary'}
-            disabled={!state.meetingUser.find(u => u.id === user.id)}
-            onClick={() => navigate(`/fr/mz/meeting/${id}/topic/${myTopic || '0?create=true'}`)}
-        >
-          <FileAddOutlined/>会前准备
-        </Button>
-        <Button
-            disabled={state.user?.id !== user.id}
-            onClick={() => onSave().then(() => window.location.reload())}
-        >
-          <SaveOutlined/>暂存更新
-        </Button>
-        <Button
-            type="primary"
-            disabled={state.user?.id !== user.id}
-            onClick={() => setIsVisible(true)}
-        >
-          <AuditOutlined/>提交审核
-        </Button>
-      </Space>
-    </FooterToolbar>
-    }
-
-    {state.status === 'REVIEWED' &&
-    <FooterToolbar>
-      <Button
-          type={'primary'}
-          disabled={user.id !== state.user.id}
-          onClick={() => setIsVisible(true)}
-      >
-        <PauseOutlined/>结束会议
-      </Button>
-    </FooterToolbar>
-    }
-
-    <Modal
-        title={state.status === 'NONE_REVIEW' ? '提交审批' : '确认会议职责任务'}
-        closable
-        visible={isVisible}
-        width={1000}
-        onOk={
-          () => {
-            setIsVisible(false);
-            {
-              state.status === 'NONE_REVIEW' ?
-                  onSave()
-                  .then(m => meetingUpdate(null, null, { ...m, status: 'AWAITING_REVIEW' })
-                  .then(() => window.location.reload()))
+        extraButton={{
+          noneReview: <Button
+              type={'primary'}
+              disabled={!state.meetingUser?.find(u => u.id === user.id)}
+              onClick={() => myTopicId ?
+                  navigate(`/fr/mz/meeting/${id}/topic/${myTopicId}`)
                   :
-                  taskUpdate(null, null, tasks)
-                  .then(() => meetingUpdate(null, null, { ...info, status: 'FINISHED' }))
-                  .then(() => window.location.reload());
-            }
-          }
-        }
-        onCancel={() => setIsVisible(false)}
-    >
-      {
-        state.status === 'NONE_REVIEW'
-            ? <>
-              <p>审核人</p>
-              <UserSelectCascader value={{ id: 1 }} disabled/>
-              <Divider dashed/>
-              <p>抄送</p>
-              <UserSelectCascader value={{ id: 28 }} disabled/>
-            </>
-            : <TopicTask
-                withMatter
-                isInEdit
-                value={tasks}
-                onChange={setTasks}
-            />
-      }
-    </Modal>
+                  topicCreate(null, null, { meeting: { id } })
+                  .then(data => navigate(`/fr/mz/meeting/${id}/topic/${data.id}`))
+              }
+          >
+            <FileAddOutlined/>会前准备
+          </Button>,
+          reviewed: <Button
+              type={'primary'}
+              disabled={user.id !== state.user?.id}
+              onClick={() => Modal.confirm({
+                title: '是否结束并关闭该会议',
+                icon: <ExclamationCircleOutlined/>,
+                onOk() {
+                  meetingUpdate(null, null, { ...state, status: 'FINISHED' }).then(() => window.location.reload());
+                },
+              })}
+          >
+            <PauseOutlined/>结束会议
+          </Button>,
+        }}
+        defaultConfig={{
+          disabled: true,
+        }}
+    />
 
   </PageContainer>;
 }
