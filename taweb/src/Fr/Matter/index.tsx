@@ -32,7 +32,7 @@ export default function Matter() {
 
   return <PageContainer
       content={<Space size={'large'}>
-        <Statistic title={'编号'} value={state.code}/>
+        <Statistic title={'序号'} value={state.id}/>
         <Statistic title={'责任主体'} value={state.department?.name}/>
       </Space>}
       loading={loading}

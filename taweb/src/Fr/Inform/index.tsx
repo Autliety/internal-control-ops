@@ -19,7 +19,7 @@ export default function Inform() {
   return <PageContainer
       content={
         <Space size={'large'}>
-          <Statistic title={'编号'} value={state.code}/>
+          <Statistic title={'序号'} value={state.id}/>
           <Statistic title={'类型'} value={informType[state.type]?.name}/>
         </Space>
       }

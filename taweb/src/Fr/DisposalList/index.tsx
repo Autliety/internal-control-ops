@@ -12,8 +12,8 @@ import DisposalCreateModal from './DisposalCreateModal';
 
 export const disposalColumns: ProColumns[] = [
   {
-    title: '编号',
-    dataIndex: 'code',
+    title: '序号',
+    dataIndex: 'id',
     hideInForm: true,
   },
   {

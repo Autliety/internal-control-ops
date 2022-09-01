@@ -6,8 +6,8 @@ import { useHttp } from '../../utils/request';
 import MeasureInfo from './MeasureInfo';
 import MatterInfo from '../Matter/MatterInfo';
 import BaseDivider from '../../components/BaseDivider';
-import ProgressTable from '../ProgressList/ProgressTable';
-import FileUpload from '../../components/FileUpload';
+import ProgressInfo from '../Progress/ProgressInfo';
+import UserSelectCascader from '../../components/UserSelectCascader';
 
 export default function Measure() {
 
@@ -19,7 +19,7 @@ export default function Measure() {
   return <>
     <PageContainer
         content={<Space size={'large'}>
-          <Statistic title={'编号'} value={state.code}/>
+          <Statistic title={'序号'} value={state.id}/>
           <Statistic title={'责任人'} value={state.user?.name ?? ' '}/>
         </Space>}
         loading={loading}
@@ -30,11 +30,11 @@ export default function Measure() {
       <Divider orientation={'left'}>措施详情</Divider>
       <MeasureInfo dataSource={state}/>
 
-      <BaseDivider title={'上传附件'}/>
-      <FileUpload value={state.attach || []}/>
-
       <Divider orientation={'left'}>履责情况</Divider>
-      <ProgressTable data={state.progress ? [{ measure: state, ...state.progress }] : []}/>
+      <ProgressInfo dataSource={state.progress}/>
+      <div className='content'>
+        协调配合： <UserSelectCascader disabled value={state.progress?.subUser}/>
+      </div>
 
     </PageContainer>
   </>;

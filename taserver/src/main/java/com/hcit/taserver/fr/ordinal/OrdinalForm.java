@@ -70,6 +70,8 @@ public class OrdinalForm {
   private String longContent1;
   @Column(columnDefinition = "LONGTEXT")
   private String longContent2;
+  @Column(columnDefinition = "LONGTEXT")
+  private String longContent3;
   @ManyToOne
   private User singleUser1;
   @ManyToOne

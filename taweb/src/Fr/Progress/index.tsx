@@ -11,6 +11,7 @@ import { useBoolean } from 'ahooks';
 import ApproveAndCopyModal from '../../components/ApproveAndCopyModal';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import ApprovalTable from '../../components/ApprovalTable';
+import FileUpload from '../../components/FileUpload';
 
 export default function Progress() {
 
@@ -23,6 +24,7 @@ export default function Progress() {
   const [isInEdit, { setTrue: start, setFalse: end }] = useBoolean(false);
   const [progress, setProgress] = useState<any>({});
   const [subUser, setSubUser] = React.useState<any>();
+  const [attach, setAttach] = React.useState<any[]>();
 
   return <PageContainer>
     <BaseDivider title={'措施信息'} onLink={() => navigate(`/fr/mz/list/measure/${state.measure.id}`)}/>
@@ -35,6 +37,9 @@ export default function Progress() {
           onSave: async (_, newInfo) => setProgress(newInfo),
         } : null}
     />
+
+    <BaseDivider title={'相关附件'}/>
+    <FileUpload isInEdit={isInEdit} value={attach || state.attach || []} onChange={setAttach}/>
 
     <Divider orientation={'left'}>协调配合</Divider>
     <div className='content'>
@@ -62,7 +67,7 @@ export default function Progress() {
               <Button onClick={end}>取消</Button>
               <Button
                   type={'primary'}
-                  onClick={() => patch(null, null, {...progress, subUser})
+                  onClick={() => patch(null, null, {...progress, subUser, attach})
                       .then(() => window.location.reload())}
               >
                 更新

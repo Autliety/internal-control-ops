@@ -14,7 +14,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
 
   return <div className='content'>
     {
-      value?.length === 0
+      value?.length === 0 && !isInEdit
           ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<p>暂无附件</p>}/>
           : <Upload
               action={host + '/attach'}
@@ -30,7 +30,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
                 thumbUrl: file,
                 url: `${host}/attach/${a.id}`,
               }))}
-              onChange={({ file, fileList }) => {
+              onChange={({ fileList }) => {
                 onChange(fileList.map(f => f.response ? f.response : f));
               }}
               showUploadList={{ showRemoveIcon: isInEdit }}

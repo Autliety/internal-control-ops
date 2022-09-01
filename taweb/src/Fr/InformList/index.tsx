@@ -12,7 +12,7 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import showInfo from '../../utils/showInfo';
 
 export const informColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code', width: 100 },
+  { title: '序号', dataIndex: 'id', width: 100 },
   { title: '类型', dataIndex: 'type', renderText: text => informType[text].name },
   { title: '签发主体', dataIndex: ['fromUser', 'name'] },
   { title: '接收主体', dataIndex: ['destUser', 'name'] },

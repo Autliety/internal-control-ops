@@ -11,7 +11,7 @@ import { useHttp } from '../../utils/request';
 import FileUpload from '../../components/FileUpload';
 
 export const baseColumns: ProColumns[] = [
-  { title: '序号', renderText: (_, r, index) => index + 1, width: 50, hideInForm: true, hideInDescriptions: true },
+  { title: '序号', renderText: (_, r, index) => index + 1, hideInForm: true, hideInDescriptions: true },
   {
     title: '报告人', dataIndex: 'singleUser1', renderText: t => t.name, renderFormItem: () => <UserSelectCascader/>,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
