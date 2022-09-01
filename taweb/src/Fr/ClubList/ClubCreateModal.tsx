@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useHttp } from '../../utils/request';
 import BaseStepForm from '../../components/BaseStepForm';
 import { clubColumns } from './index';
+import FileUpload from '../../components/FileUpload';
 
 type Props = {
   isFirstEdit: boolean,
@@ -13,14 +14,14 @@ type Props = {
 function ClubCreateModal({ isFirstEdit, id }: Props) {
 
   const navigate = useNavigate();
-  const { http } = useHttp('/ordinal/club', { method: 'POST', isManual: true })
+  const { http } = useHttp('/ordinal/club', { method: 'POST', isManual: true });
   const { state } = useHttp(`/ordinal/club/${id}`, { initState: {}, isManual: !id });
   const { http: updateHttp } = useHttp(`/ordinal/club/${id}`, { method: 'POST', isManual: true });
 
   return <>
 
     <BaseStepForm
-        title='民主（组织）生活会'
+        title="民主（组织）生活会"
         isFirstEdit={isFirstEdit}
         value={state}
         onFinish={async data => {
@@ -32,9 +33,18 @@ function ClubCreateModal({ isFirstEdit, id }: Props) {
           navigate('/fr/lz/club/' + res.id);
         }}
         formConfig={{
-          0: { title: '基本信息', columns: clubColumns.slice(0, 7) },
-          1: { title: '监督情况', columns: clubColumns.slice(7, 10) },
-          2: { title: '整改情况', columns: clubColumns.slice(10) },
+          0: {
+            title: '基本信息', columns: clubColumns.slice(0, 9).concat(
+                {
+                  title: '上传附件',
+                  dataIndex: 'attach',
+                  renderFormItem: () => <FileUpload isInEdit/>,
+                },
+            ),
+          },
+          1: { title: '监督情况', columns: clubColumns.slice(9, 12) },
+          2: { title: '整改情况', columns: clubColumns.slice(12, 13) },
+          3: { title: '结果运用', columns: clubColumns.slice(13) },
         }}
     />
 

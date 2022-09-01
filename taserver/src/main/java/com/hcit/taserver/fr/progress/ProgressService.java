@@ -31,14 +31,12 @@ public class ProgressService implements ApprovalAdaptor {
     progress.setPercentage(update.getPercentage());
     progress.setReason(update.getReason());
     progress.setSubUser(update.getSubUser());
+    progress.setAttach(update.getAttach());
 
     if (update.getStatus() == Status.AWAITING_REVIEW) {
       progress.setStatus(Status.AWAITING_REVIEW);
 
-    } else if (update.getStatus() != Status.NONE_REVIEW) {
-      throw new IllegalStateException("不允许更新");
     }
-
     return progressRepository.save(progress);
   }
 

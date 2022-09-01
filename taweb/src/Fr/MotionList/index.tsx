@@ -12,7 +12,7 @@ import moment from "moment";
 export const motionColumns: ProColumns[] = [
   {
     title: '序号',
-    dataIndex: 'code', width: 80,
+    dataIndex: 'id',
     hideInDescriptions: true,
     render: (_, r, index) => index + 1,
   },

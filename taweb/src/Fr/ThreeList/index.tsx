@@ -22,7 +22,6 @@ export const threeColumns: ProColumns[] = [
   {
     title: '拟提交事项',
     dataIndex: 'content1',
-    hideInTable: true,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] }
   },
   {
@@ -35,6 +34,7 @@ export const threeColumns: ProColumns[] = [
   {
     title: '议题来源',
     dataIndex: 'content2',
+    hideInTable: true,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     renderFormItem: () => <Select placeholder={'请选择'}>
       <Select.Option value={'主管、分管条线自行研究（商议）提出'}>主管、分管条线自行研究（商议）提出</Select.Option>

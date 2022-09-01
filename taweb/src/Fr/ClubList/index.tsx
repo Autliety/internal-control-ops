@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import ClubCreateModal from './ClubCreateModal';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import FileUpload from '../../components/FileUpload';
 
 export const clubColumns: ProColumns[] = [
+  { title: '序号', dataIndex: 'id', hideInForm: true, editable: false },
+  { title: '生活会主体', dataIndex: ['destUser', 'name'], hideInForm: true, editable: false },
   {
     title: '生活会类别', dataIndex: 'content1', valueType: 'select', fieldProps: {
       options: [
@@ -50,7 +51,6 @@ export const clubColumns: ProColumns[] = [
   { title: '督导组会后评估', dataIndex: 'content7' },
   { title: '整改情况', dataIndex: 'longContent2', valueType: 'textarea' },
   { title: '结果运用', dataIndex: 'longContent3', valueType: 'textarea' },
-  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInDescriptions: true },
 ];
 
 
@@ -67,7 +67,7 @@ function ClubList() {
       }
   >
     <BaseEditableTable
-        columns={clubColumns.slice(0, 4).concat({
+        columns={clubColumns.slice(0, 6).concat({
           title: '详情',
           hideInSearch: true,
           dataIndex: 'operation',

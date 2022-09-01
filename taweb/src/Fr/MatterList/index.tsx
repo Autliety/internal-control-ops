@@ -23,7 +23,7 @@ export default function MatterList() {
   >
 
     {<QueryFilter onFinish={async values => setParams(values)}>
-      <ProFormText name='code' label='措施编号'/>
+      <ProFormText name='code' label='措施序号'/>
       <ProFormSelect
           name='status'
           label='措施状态'

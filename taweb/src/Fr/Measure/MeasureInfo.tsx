@@ -6,7 +6,12 @@ import { statusEnum } from '../../utils/nameMapTa';
 import showInfo from '../../utils/showInfo';
 
 export const measureColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code', editable: false },
+  {
+    title: '序号',
+    dataIndex: 'id',
+    renderText: (_, row) => row.matter?.id ?? '-' + '-' + row.id,
+    editable: false,
+  },
   {
     title: '审核状态',
     dataIndex: 'status',
@@ -22,7 +27,7 @@ export const measureColumns: ProColumns[] = [
       {text?.length > 40 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
     </>,
   },
-  { title: '责任主体', dataIndex: ['matter', 'user'], renderText: u => u?.name, editable: false},
+  { title: '责任主体', dataIndex: ['matter', 'user'], renderText: u => u?.name, editable: false },
   { title: '开始时间', dataIndex: 'startDate', valueType: 'date' },
 ];
 

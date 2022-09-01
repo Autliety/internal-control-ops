@@ -9,7 +9,7 @@ import DisciplineCreateModal from './DisciplineCreateModal';
 
 
 export const discipColumns: ProColumns[] = [
-  { title: '序号', dataIndex: 'code' },
+  { title: '序号', dataIndex: 'id' },
   { title: '上报人', dataIndex: 'user' },
   { title: '违纪违法类型', dataIndex: 'type' },
   { title: '情况概述', dataIndex: 'content' },
