@@ -11,9 +11,10 @@ type Props = {
   formConfig: any,
   value?: any,
   size?: 'small' | 'middle' | 'large',
+  stepInDisabled?: boolean
 }
 
-function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
+function BaseStepForm({ isFirstEdit = true, stepInDisabled = false, ...props }: Props) {
 
   const { Step } = Steps;
 
@@ -34,7 +35,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
             {
               props.size
                   ? <Button
-                      disabled={currentStep === Object.keys(props.formConfig).length}
+                      disabled={stepInDisabled || currentStep === Object.keys(props.formConfig).length}
                       type={'primary'}
                       onClick={() => setIsVisible(true)}
                       icon={<EditOutlined/>}
@@ -43,7 +44,7 @@ function BaseStepForm({ isFirstEdit = true, ...props }: Props) {
                     继续填写
                   </Button>
                   : <Button
-                      disabled={currentStep === Object.keys(props.formConfig).length}
+                      disabled={stepInDisabled || currentStep === Object.keys(props.formConfig).length}
                       type={'primary'}
                       onClick={() => setIsVisible(true)}
                       icon={<EditOutlined/>}

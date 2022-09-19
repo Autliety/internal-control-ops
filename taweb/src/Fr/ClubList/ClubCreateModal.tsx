@@ -5,6 +5,7 @@ import { useHttp } from '../../utils/request';
 import BaseStepForm from '../../components/BaseStepForm';
 import { clubColumns } from './index';
 import FileUpload from '../../components/FileUpload';
+import { useAuth } from '../../utils/auth';
 
 type Props = {
   isFirstEdit: boolean,
@@ -14,12 +15,27 @@ type Props = {
 function ClubCreateModal({ isFirstEdit, id }: Props) {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { http } = useHttp('/ordinal/club', { method: 'POST', isManual: true });
   const { state } = useHttp(`/ordinal/club/${id}`, { initState: {}, isManual: !id });
   const { http: updateHttp } = useHttp(`/ordinal/club/${id}`, { method: 'POST', isManual: true });
 
-  return <>
+  const ifDisabled = (state) => {
+    let step = state.integer1 || -1;
+    if (step === 1 || step === 3) {
+      if (user.id < 30) {
+        return false;
+      }
+    }
+    if (step === 2) {
+      if (user.id === state.destUser.id) {
+        return false;
+      }
+    }
+    return true;
+  };
 
+  return <>
     <BaseStepForm
         title="民主（组织）生活会"
         isFirstEdit={isFirstEdit}
@@ -34,7 +50,7 @@ function ClubCreateModal({ isFirstEdit, id }: Props) {
         }}
         formConfig={{
           0: {
-            title: '基本信息', columns: clubColumns.slice(0, 9).concat(
+            title: '基本信息', columns: clubColumns.slice(0, 8).concat(
                 {
                   title: '上传附件',
                   dataIndex: 'attach',
@@ -42,10 +58,11 @@ function ClubCreateModal({ isFirstEdit, id }: Props) {
                 },
             ),
           },
-          1: { title: '监督情况', columns: clubColumns.slice(9, 12) },
+          1: { title: '监督情况', columns: clubColumns.slice(8, 12) },
           2: { title: '整改情况', columns: clubColumns.slice(12, 13) },
           3: { title: '结果运用', columns: clubColumns.slice(13) },
         }}
+        stepInDisabled={ifDisabled(state)}
     />
 
   </>;
