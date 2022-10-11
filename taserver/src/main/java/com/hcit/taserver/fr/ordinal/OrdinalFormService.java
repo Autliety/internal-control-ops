@@ -31,6 +31,9 @@ public class OrdinalFormService {
           else if (formType == FormType.INSPECT) {
             or = cb.equal(root.joinList("multiDepartment1").get("id"), u.getDepartment().getId());
           }
+          else if (formType == FormType.QUESTION) {
+            or = cb.equal(root.get("singleUser1").get("id"), authService.getCurrentUser().getId());
+          }
           return query.where(cb.and(
               authService.getPrivilegePredicate(root, cb, or, root.get("destUser")),
               cb.equal(root.get("formType"), formType)
