@@ -24,10 +24,9 @@ export default function Evaluation() {
         {text?.length > 20 && <Button type={'link'} onClick={() => showInfo(text)}>...[更多]</Button>}
       </>,
     },
-    { title: '系统评价得分', dataIndex: 'mark' },
-    { title: '自评得分', dataIndex: 'mark' },
-    { title: '互评得分', dataIndex: 'mark' },
-    { title: '领导评价得分', dataIndex: 'mark' },
+    { title: '系统评分【70%】', dataIndex: 'mark' },
+    { title: '领导评分【20%】', dataIndex: 'mark' },
+    { title: '自评得分【10%】', dataIndex: 'mark' },
     { title: '综合得分', dataIndex: 'mark' },
   ];
 
