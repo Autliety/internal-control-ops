@@ -11,7 +11,7 @@ import Logout from './pages/Logout';
 import PagesTa from './Ta/index';
 import PagesFr from './Fr/index';
 import Display from './pages/Display';
-
+import Login2 from './pages/Login/Login2';
 
 moment.locale('zh-cn');
 
@@ -34,6 +34,7 @@ function App() {
         <Route path={'/data'} element={<Display/>}/>
         <Route path={'/'} element={<Navigate to={'/login'} replace/>}/>
         <Route path={'/login'} element={<Login/>}/>
+        <Route path={'/login2'} element={<Login2/>}/>
         <Route path={'/logout'} element={<Logout/>}/>
         <Route path={'/ta/*'} element={<PagesTa/>}/>
         <Route path={'/fr/*'} element={<PagesFr/>}/>

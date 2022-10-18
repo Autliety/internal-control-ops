@@ -5,7 +5,7 @@ import { Col, Divider, Image, Layout, message, Modal, Row, Tabs, Typography } fr
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/bg.jpg';
+import bg from '../../image/login.png';
 import { useHttp } from '../../utils/request';
 
 export default function Login() {
