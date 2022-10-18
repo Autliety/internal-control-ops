@@ -7,6 +7,8 @@ import BaseDescriptions from './BaseDescriptions';
 type Props = {
   title: string,
   isFirstEdit?: boolean,
+  // 是否第一步需要审批
+  isApproval?: boolean,
   onFinish: any,
   formConfig: any,
   value?: any,
@@ -30,24 +32,35 @@ function BaseStepForm({ isFirstEdit = true, stepInDisabled = false, ...props }: 
   return <>
     {
       isFirstEdit
-          ? <Button type={'primary'} onClick={() => setIsVisible(true)} icon={<PlusOutlined/>}>{props.title}新建</Button>
+          ? <Button type={'primary'} onClick={() => setIsVisible(true)} icon={<PlusOutlined />}>{props.title}新建</Button>
           : <Tooltip title={'继续填写'}>
             {
               props.size
                   ? <Button
-                      disabled={stepInDisabled || currentStep === Object.keys(props.formConfig).length}
+                      disabled={
+                        stepInDisabled ||
+                        props.isApproval
+                            // 审批状态
+                            ? (currentStep === Object.keys(props.formConfig).length)
+                            : (currentStep === Object.keys(props.formConfig).length)
+                      }
                       type={'primary'}
                       onClick={() => setIsVisible(true)}
-                      icon={<EditOutlined/>}
+                      icon={<EditOutlined />}
                       size={'middle'}
                   >
                     继续填写
                   </Button>
                   : <Button
-                      disabled={stepInDisabled || currentStep === Object.keys(props.formConfig).length}
+                      disabled={stepInDisabled ||
+                      props.isApproval
+                          // 审批状态
+                          ? (currentStep === Object.keys(props.formConfig).length)
+                          : (currentStep === Object.keys(props.formConfig).length)
+                      }
                       type={'primary'}
                       onClick={() => setIsVisible(true)}
-                      icon={<EditOutlined/>}
+                      icon={<EditOutlined />}
                       size={'small'}
                   />
             }
@@ -83,7 +96,7 @@ function BaseStepForm({ isFirstEdit = true, stepInDisabled = false, ...props }: 
             step === currentStep
                 ? <>
                   <Typography.Title level={5}>{props.formConfig[currentStep]?.title + '填写'}</Typography.Title>
-                  <br/>
+                  <br />
                   <ProForm
                       onFinish={async (values) => props.onFinish(values)}
                   >
@@ -102,7 +115,7 @@ function BaseStepForm({ isFirstEdit = true, stepInDisabled = false, ...props }: 
           }
         </Col>
       </Row>
-      <br/>
+      <br />
     </Modal>
   </>;
 }
