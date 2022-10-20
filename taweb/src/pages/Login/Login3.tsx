@@ -5,11 +5,11 @@ import { Col, Divider, Image, Layout, message, Modal, Row, Tabs, Typography } fr
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/login2.png';
+import bg from '../../image/login.png';
 import headerBg from '../../image/header.jpg';
 import { useHttp } from '../../utils/request';
 
-export default function Login2() {
+export default function Login3() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
@@ -24,7 +24,6 @@ export default function Login2() {
       backgroundImage: `url(${headerBg})`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      // backgroundColor: '#f54343',
       width: '100%'
     }}>
       <Typography.Title style={{ marginTop: 20, fontFamily: 'serif', fontWeight: 'bolder' }}>

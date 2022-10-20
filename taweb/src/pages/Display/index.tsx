@@ -1,18 +1,19 @@
 import React from 'react';
-import { Col, Row, Space, Typography } from 'antd';
+import { Alert, Col, Row, Space, Typography } from 'antd';
+import Marquee from 'react-fast-marquee';
 import moment from 'moment';
 import { useInterval } from 'ahooks';
+import { EnvironmentTwoTone } from '@ant-design/icons';
 
 import PieChart from './PieChart';
-import ColumnChart from './ColumnChart';
 import LineChart from './LineChart';
 import bg from '../../image/bg.jpg';
 import Map from './Map';
-import BarChart from './BarChart';
 import PieChart2 from './PieChart2';
 import Table from './Table';
+import Warning from './Warning';
 import './style.css';
-import { EnvironmentTwoTone } from '@ant-design/icons';
+import BulletChart from './BulletChart';
 
 function Display() {
 
@@ -36,7 +37,7 @@ function Display() {
           <EnvironmentTwoTone twoToneColor={'#2bddf1'} style={{ marginRight: 10, fontSize: 20 }} />
           所在位置：海盐百步经济开发区（百步镇）
         </p>
-        <p style={{ textAlign: 'center' }}>在岗人员：55/56</p>
+        <p style={{ textAlign: 'center' }}>在岗人数：55/56</p>
       </Col>
       <Col span={10}>
         <Typography.Title level={2} className={'title'}>百步经济开发区（百步镇）-- 数据可视化（测试）</Typography.Title>
@@ -55,11 +56,21 @@ function Display() {
         <Space direction='vertical' size='large' style={{ display: 'flex' }}>
           <PieChart />
           <LineChart />
-          <ColumnChart />
+          <Warning />
         </Space>
       </Col>
 
       <Col span={10}>
+        <Alert
+            banner
+            type={'info'}
+            showIcon={false}
+            message={
+              <Marquee pauseOnHover gradient={false}>
+                百步社区：1、 百联村：5、 超同村：2、 桃北村：4、 胜利村：3、 五丰村：4、 新升村：1、 横港村：6、 农丰村：1、 得胜村：2、 逍恬村：4、
+              </Marquee>
+            }
+        />
         <Map />
         <br />
         <Table />
@@ -68,7 +79,7 @@ function Display() {
       <Col span={7}>
         <PieChart2 />
         <br />
-        <BarChart />
+        <BulletChart />
       </Col>
     </Row>
 

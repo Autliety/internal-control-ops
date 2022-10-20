@@ -36,7 +36,7 @@ export default function PieChart() {
   };
 
   return <div>
-    <Title title={'问题分布'} />
+    <Title title={'问题清单'} />
     {/* @ts-ignore */}
     <Pie {...config} />
   </div>;
