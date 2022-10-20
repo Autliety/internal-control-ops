@@ -91,7 +91,6 @@ public class ApprovalService {
       // 通过
       if (newStatus == Status.REVIEWED) {
         lastStep.setStatus(Status.REVIEWED);
-
       }
       // 不通过
       else if (newStatus == Status.REVIEW_DENIED) {

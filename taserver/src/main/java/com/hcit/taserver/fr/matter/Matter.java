@@ -1,23 +1,15 @@
 package com.hcit.taserver.fr.matter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.common.BasicPersistable;
-import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.Department;
-import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +24,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("问题")
 
@@ -46,8 +37,9 @@ public class Matter implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ApiModelProperty("问题编号")
-  private String code;
+  @JsonIgnoreProperties(value = {"matters"}, allowSetters = true)
+  @ManyToOne
+  private MatterForm matterForm;
 
   @ApiModelProperty("问题内容")
   @Column(columnDefinition = "LONGTEXT")
@@ -55,14 +47,6 @@ public class Matter implements BasicPersistable {
 
   @ApiModelProperty("类型和来源")
   private String origin;
-
-  @ApiModelProperty("负责人")
-  @ManyToOne
-  private User user;
-
-  public Department getDepartment() {
-    return Optional.ofNullable(user).map(User::getDepartment).orElse(null);
-  }
 
   @ApiModelProperty("措施")
   @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
@@ -73,19 +57,4 @@ public class Matter implements BasicPersistable {
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
 
-  @ApiModelProperty("更新时间")
-  @UpdateTimestamp
-  private LocalDateTime updateTime;
-
-  @ApiModelProperty("问题审批状态")
-  @Enumerated(EnumType.STRING)
-  private Status status;
-
-  @ApiModelProperty("问题二次审批状态")
-  @Enumerated(EnumType.STRING)
-  private Status stepTwoStatus;
-
-  @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
-  @ManyToOne
-  private Approval approval;
 }

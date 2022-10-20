@@ -35,7 +35,7 @@ public class MeetingService {
     meeting.setUser(user);
     meeting.setStatus(null);
     meetingRepository.save(meeting);
-    approvalService.generate((a -> a.withApprovalType("meeting").withMeeting(meeting)));
+    approvalService.generate(a -> a.withApprovalType("meeting").withMeeting(meeting));
     return meeting;
   }
 

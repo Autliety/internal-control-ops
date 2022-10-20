@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.matter.MatterForm;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import com.hcit.taserver.fr.progress.Progress;
@@ -85,6 +86,10 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToOne
   private MeetingTopic meetingTopic;
+
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
+  private MatterForm matterForm;
 
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToOne
