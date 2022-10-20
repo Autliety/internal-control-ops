@@ -2,12 +2,12 @@ import React from 'react';
 import { Pie } from '@ant-design/charts';
 import Title from './Title';
 
-export default function PieChart() {
+export default function PieChart2() {
 
   const data = [
-    { type: '区（镇）', value: 27 },
-    { type: '站办', value: 25 },
-    { type: '村（社）', value: 40 }
+    { type: '一单三书', value: 5 },
+    { type: '纪委动议', value: 3 },
+    { type: '履责约谈', value: 8 }
   ];
   const config = {
     data,
@@ -36,7 +36,7 @@ export default function PieChart() {
   };
 
   return <div>
-    <Title title={'问题清单'} />
+    <Title title={'督责各类别运用分布'} />
     {/* @ts-ignore */}
     <Pie {...config} />
   </div>;

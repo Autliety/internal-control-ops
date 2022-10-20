@@ -1,0 +1,27 @@
+.title {
+  text-align: center;
+  background: linear-gradient(180deg, #46BAEC 10%, #055579 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.labelStyle {
+  text-indent: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  background-image: linear-gradient(to right, #267c86, #92ecf6);
+  box-shadow: 0 0 8px #267c86;
+}
+
+.box {
+  height: 70px;
+  color: #ef2121;
+  font-size: 24px;
+  border: #2bddf1 solid 2px;
+  text-align: center;
+  padding-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: #2bddf1 0 0 4px;
+}

@@ -25,12 +25,12 @@ export default function Login() {
   >
     <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: 'transparent' }}>
       <Typography.Title style={{ marginTop: 20, color: '#fff' }}>
-        <Image src={logo} width={70} preview={false}/>
+        <Image src={logo} width={70} preview={false} />
         浙江百步经济开发区(百步镇)
       </Typography.Title>
     </Layout.Header>
     <Row>
-      <Col span={16}/>
+      <Col span={16} />
       <Col span={4} className={'bgStyle'} style={{ minWidth: 360, marginTop: 100 }}>
         <LoginForm
             onFinish={async (values: any) => {
@@ -50,7 +50,7 @@ export default function Login() {
             }}
         >
           <Typography.Title style={{ textAlign: 'center' }} level={3}>{'欢迎登录'}</Typography.Title>
-          <br/>
+          <br />
 
           <ProFormSelect
               name={'system'}
@@ -65,13 +65,13 @@ export default function Login() {
               rules={[{ required: true, message: '请选择登录系统' }]}
           />
 
-          <Divider/>
+          <Divider />
 
           <ProFormText
               name="username"
               fieldProps={{
                 size: 'large',
-                prefix: <UserOutlined className={'prefixIcon'}/>,
+                prefix: <UserOutlined className={'prefixIcon'} />,
               }}
               placeholder={'用户名'}
               rules={[{ required: true, message: '请输入用户名' }]}
@@ -82,7 +82,7 @@ export default function Login() {
               name="password"
               fieldProps={{
                 size: 'large',
-                prefix: <LockOutlined className={'prefixIcon'}/>,
+                prefix: <LockOutlined className={'prefixIcon'} />,
               }}
               placeholder={'密码'}
               rules={[{ required: true, message: '请输入密码' }]}
@@ -93,7 +93,7 @@ export default function Login() {
               name="validation"
               fieldProps={{
                 size: 'large',
-                prefix: <SafetyOutlined className={'prefixIcon'}/>,
+                prefix: <SafetyOutlined className={'prefixIcon'} />,
               }}
               placeholder={'验证码'}
           />
@@ -110,10 +110,10 @@ export default function Login() {
               忘记密码
             </a>
           </div>
-          <br/><br/>
+          <br /><br />
         </LoginForm>
       </Col>
-      <Col span={4}/>
+      <Col span={4} />
     </Row>
   </div>;
 }

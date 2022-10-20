@@ -1,71 +1,155 @@
 import React from 'react';
-import { Scene } from '@antv/l7';
-import { CountyLayer } from '@antv/l7-district';
-import { Mapbox } from '@antv/l7-maps';
+import { PointLayer, Popup, Scene } from '@antv/l7';
+import { GaodeMap } from '@antv/l7-maps';
 
 function Map() {
 
-  React.useEffect(() => {
-    const scene = new Scene({
-      id: 'county',
-      map: new Mapbox({
-        center: [116.2825, 39.9],
-        pitch: 0,
-        style: 'blank',
-        zoom: 3,
-        minZoom: 0,
-        maxZoom: 10,
-      }),
-      logoVisible: false,
+  const data = [
+    {
+      id: 1,
+      name: "百步镇",
+      longitude: 120.78855,
+      latitude: 30.54499,
+      count: 2
+    },
+    {
+      id: 2,
+      name: "超同村",
+      longitude: 120.81102,
+      latitude: 30.54671,
+      count: 4
+    },
+    {
+      id: 3,
+      name: "百步社区",
+      longitude: 120.78305,
+      latitude: 30.54386,
+      count: 2
+    },
+    {
+      id: 4,
+      name: "百联村",
+      longitude: 120.78292,
+      latitude: 30.54154,
+      count: 3
+    },
+
+    {
+      id: 5,
+      name: "逍恬村",
+      longitude: 120.79002,
+      latitude: 30.52325,
+      count: 2
+    },
+    {
+      id: 6,
+      name: "农丰村",
+      longitude: 120.76531,
+      latitude: 30.54010,
+      count: 4
+    },
+    {
+      id: 7,
+      name: "胜利村",
+      longitude: 120.76026,
+      latitude: 30.60466,
+      count: 1
+    },
+    {
+      id: 8,
+      name: "横港村",
+      longitude: 120.77491,
+      latitude: 30.58575,
+      count: 2
+    },
+
+    {
+      id: 9,
+      name: "桃北村",
+      longitude: 120.75068,
+      latitude: 30.58519,
+      count: 5
+    },
+    {
+      id: 10,
+      name: "得胜村",
+      longitude: 120.77487,
+      latitude: 30.56950,
+      count: 2
+    },
+    {
+      id: 11,
+      name: "五丰村",
+      longitude: 120.77557,
+      latitude: 30.60487,
+      count: 2
+    },
+    {
+      id: 12,
+      name: "新升村",
+      longitude: 120.79184,
+      latitude: 30.54450,
+      count: 2
+    },
+  ];
+
+  const scene = new Scene({
+    id: 'map',
+    map: new GaodeMap({
+      pitch: 64,
+      style: 'dark',
+      center: [120.78855, 30.54499],
+      zoom: 13,
+      rotation: 30,
+    }),
+    logoVisible: false,
+  });
+
+  scene.on('loaded', () => {
+    const pointLayer = new PointLayer({})
+        .source(data, {
+          parser: {
+            type: 'json',
+            x: 'longitude',
+            y: 'latitude'
+          }
+        })
+        .animate(true)
+        .active(true)
+        .shape('name', [
+          'cylinder',
+        ])
+        .size('count', h => {
+          return [6, 6, h * 30];
+        })
+        .style({
+          opacity: 0.8,
+          sourceColor: '#92ecf6',
+          targetColor: '#267c86',
+          lightEnable: false
+        })
+
+    pointLayer.on('mousemove', e => {
+      const popup = new Popup({
+        offsets: [0, 0],
+        closeButton: false
+      })
+          .setLnglat(e.lngLat)
+          .setHTML(`<span>${e.feature.name}: ${e.feature.count}个</span>`);
+      scene.addPopup(popup);
     });
 
-    scene.on('loaded', () => {
-      new CountyLayer(scene, {
-        adcode: ['330424', '330401', '330402', '330411', '330421', '330481', '330482', '330483'], // 区县行政编码，可以加多个区县行政编码，展示多个区县
-        fill: {
-          color: {
-            field: 'NAME_CHN',
-            values: [
-              '#f17e7e',
-              '#0ca0e0',
-              '#6be7fd',
-              '#fd8d3c',
-              '#e0960e',
-              '#43e704',
-              '#5382f6'
-            ],
-          },
-        },
-        stroke: '#0DCCFF',
-        strokeOpacity: 0.4,
-        label: {
-          enable: true,
-          textAllowOverlap: false,
-          field: 'NAME_CHN',
-        },
-        popup: {
-          enable: true,
-          Html: props => {
-            return `<div>
-<span>名称：${props.NAME_CHN}</span>
-<br/>
-<span>所属：浙江-嘉兴</span>
-</div>`;
-          },
-        },
-      });
-    });
-  }, []);
+    scene.addLayer(pointLayer);
+  });
 
   return <div>
     <div
         style={{ height: 510, position: 'relative' }}
-        id='county'
+        id='map'
     >
     </div>
-    <br/>
-    <p style={{ textAlign: 'center', color: '#fff' }}>地图</p>
-  </div>;
+    <br />
+  </div>
 }
 
 export default Map;

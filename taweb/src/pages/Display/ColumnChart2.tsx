@@ -2,7 +2,7 @@ import React from 'react';
 import { Column } from '@ant-design/charts';
 import Title from './Title';
 
-export default function ColumnChart() {
+export default function ColumnChart2() {
 
   const data = [
     { year: '抄告单', value: 102 },
