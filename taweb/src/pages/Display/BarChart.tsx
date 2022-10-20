@@ -5,32 +5,16 @@ import Title from './Title';
 function BarChart() {
 
   const data = [
-    { name: '赵小龙', value: 38 },
-    { name: '吴胜杰', value: 45 },
-    { name: '蔡耀明', value: 75 },
-    { name: '王哲', value: 52 },
-    { name: '姜利明', value: 45 },
-    { name: '李勤根', value: 52 },
-    { name: '沈潇雅', value: 38 },
-    { name: '范郭真', value: 52 },
-    { name: '吴肖锋', value: 56 },
-    { name: '朱世鹏', value: 23 },
-    { name: '董佳浩', value: 38 },
-    { name: '张陆军', value: 70 },
-    { name: '李均敬', value: 38 },
-    { name: '潘其华', value: 52 },
-    { name: '王玲敏', value: 45 },
-    { name: '沈伟华', value: 52 },
-    { name: '姚晨雪', value: 56 },
-    { name: '叶吴良', value: 52 },
-    { name: '叶锋', value: 38 },
-    { name: '沈鹏', value: 54 },
-    { name: '蒋爱君', value: 38 },
-    { name: '赵生良', value: 52 },
-    { name: '张明', value: 45 },
-    { name: '张陆君', value: 52 },
-    { name: '刘爱群', value: 38 },
-    { name: '唐慧平', value: 56 },
+    { name: '党委书记', value: 38 },
+    { name: '党委副书记', value: 45 },
+    { name: '人大主席', value: 75 },
+    { name: '党委副书记 (党群)', value: 52 },
+    { name: '党委副书记 (政法)', value: 45 },
+    { name: '纪委书记', value: 52 },
+    { name: '党委委员 (组织)', value: 38 },
+    { name: '党委委员 (宣传)', value: 52 },
+    { name: '党委委员 (统战)', value: 56 },
+    { name: '党委委员 (政法)', value: 23 },
   ];
   const config = {
     data,
@@ -40,15 +24,8 @@ function BarChart() {
     seriesField: 'name',
     legend: {
       position: 'top-left',
-      title: { text: '姓名', spacing: 8, style: { fill: '#fff' } },
-      itemName: { style: { fill: '#fff', fontSize: 14 } },
-    },
-    label: {
-      position: 'right',
-      style: {
-        fill: '#fff',
-        fontSize: 14,
-      },
+      title: { text: '岗位', style: { fill: '#fff' } },
+      itemName: { style: { fill: '#fff', fontSize: 12 } },
     },
     xAxis: {
       label: {

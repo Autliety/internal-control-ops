@@ -12,6 +12,7 @@ import PagesTa from './Ta/index';
 import PagesFr from './Fr/index';
 import Display from './pages/Display';
 import Login2 from './pages/Login/Login2';
+import Login3 from './pages/Login/Login3';
 
 moment.locale('zh-cn');
 
@@ -31,13 +32,14 @@ function App() {
     >
       <Routes>
         {/* 大屏数据展示 */}
-        <Route path={'/data'} element={<Display/>}/>
-        <Route path={'/'} element={<Navigate to={'/login'} replace/>}/>
-        <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/login2'} element={<Login2/>}/>
-        <Route path={'/logout'} element={<Logout/>}/>
-        <Route path={'/ta/*'} element={<PagesTa/>}/>
-        <Route path={'/fr/*'} element={<PagesFr/>}/>
+        <Route path={'/data'} element={<Display />} />
+        <Route path={'/'} element={<Navigate to={'/login'} replace />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/login2'} element={<Login2 />} />
+        <Route path={'/login3'} element={<Login3 />} />
+        <Route path={'/logout'} element={<Logout />} />
+        <Route path={'/ta/*'} element={<PagesTa />} />
+        <Route path={'/fr/*'} element={<PagesFr />} />
       </Routes>
     </ConfigProvider>
   </div>;

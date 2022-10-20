@@ -8,51 +8,61 @@ function Table() {
     const container = document.getElementById('container');
     const s2Options = {
       width: 810,
-      height: 390,
-      showSeriesNumber: true,
+      height: 360,
+      showSeriesNumber: false,
+      conditions: {
+        text: [
+          {
+            field: 'status',
+            mapping(fieldValue, data) {
+              return {
+                // fill 是文本字段标记下唯一必须的字段，用于指定文本颜色
+                fill: '#40ef19',
+              };
+            },
+          },
+        ],
+      },
     };
 
     const s2DataConfig = {
       fields: {
-        columns: ['name', 'content', 'status'],
+        columns: ['content', 'date', 'status'],
       },
       meta: [
-        { field: 'name', name: '一岗双责' },
         { field: 'content', name: '拟提交内容' },
+        { field: 'date', name: '决策时间' },
         { field: 'status', name: '决策状态' },
       ],
       data: [
-        { id: 1, name: '李勤根', content: '横港村副书记俞惠飞违纪案', status: '已完成' },
-        { id: 2, name: '李勤根', content: '横港村党委书记钱伟斌违纪案', status: '已完成' },
-        { id: 3, name: '沈潇雅', content: '沈伟佳参加工作时间认定', status: '已完成' },
-        { id: 4, name: '沈潇雅', content: '党员发展', status: '已完成' },
-        { id: 5, name: '沈潇雅', content: '党费使用', status: '已完成' },
-        { id: 6, name: '董佳浩', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
-        { id: 7, name: '沈潇雅', content: '党员发展', status: '已完成' },
-        { id: 8, name: '沈潇雅', content: '党费使用', status: '已完成' },
-        { id: 9, name: '董佳浩', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
-        { id: 10, name: '沈潇雅', content: '党员发展', status: '已完成' },
-        { id: 11, name: '沈潇雅', content: '党费使用', status: '已完成' },
-        { id: 12, name: '董佳浩', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
-        { id: 13, name: '沈潇雅', content: '党员发展', status: '已完成' },
-        { id: 14, name: '沈潇雅', content: '党费使用', status: '已完成' },
-        { id: 15, name: '董佳浩', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
+        { id: 1, date: '2022-06-05', content: '横港村副书记俞惠飞违纪案', status: '已完成' },
+        { id: 2, date: '2022-06-05', content: '横港村党委书记钱伟斌违纪案', status: '已完成' },
+        { id: 3, date: '2022-06-05', content: '沈伟佳参加工作时间认定', status: '已完成' },
+        { id: 4, date: '2022-06-05', content: '党员发展', status: '已完成' },
+        { id: 5, date: '2022-06-05', content: '党费使用', status: '已完成' },
+        { id: 6, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
+        { id: 7, date: '2022-06-05', content: '党员发展', status: '已完成' },
+        { id: 8, date: '2022-06-05', content: '党费使用', status: '已完成' },
+        { id: 9, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
+        { id: 10, date: '2022-06-05', content: '党员发展', status: '已完成' },
+        { id: 11, date: '2022-06-05', content: '党费使用', status: '已完成' },
+        { id: 12, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
+        { id: 13, date: '2022-06-05', content: '党员发展', status: '已完成' },
+        { id: 14, date: '2022-06-05', content: '党费使用', status: '已完成' },
+        { id: 15, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
       ],
     };
     const s2 = new TableSheet(container, s2DataConfig, s2Options);
 
     s2.setThemeCfg({
       theme: {
-        rowCell: {
-          cell: { backgroundColor: '#1F2E4D', backgroundColorOpacity: 0.8 },
-        },
         dataCell: {
           cell: {
             crossBackgroundColor: '#3e5586',
             backgroundColor: '#1F2E4D',
             backgroundColorOpacity: 0.8,
           },
-          text: { fill: '#fff' },
+          text: { fill: '#fff', textAlign: 'center' },
         },
         background: { color: '#1F2E4D', opacity: 0 },
       },
