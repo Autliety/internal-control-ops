@@ -5,10 +5,11 @@ import Title from './Title';
 export default function ColumnChart() {
 
   const data = [
-    { year: '抄告单', value: 102 },
-    { year: '意见书', value: 104 },
-    { year: '建议书', value: 109 },
-    { year: '第一种形态告知书', value: 112 },
+    { year: '三重一大', value: 102 },
+    { year: '5+1谈话', value: 104 },
+    { year: '相互监督提醒', value: 109 },
+    { year: '履责情况', value: 112 },
+    { year: '述责述廉评议', value: 85 }
   ];
 
   const config = {
