@@ -34,7 +34,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor @AllArgsConstructor @Builder
 
 @Entity
-@Table(name = "fr_matter")
+@Table(name = "fr_matter_form")
 public class MatterForm {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,4 +66,5 @@ public class MatterForm {
   @ApiModelProperty("更新时间")
   @UpdateTimestamp
   private LocalDateTime updateTime;
+
 }

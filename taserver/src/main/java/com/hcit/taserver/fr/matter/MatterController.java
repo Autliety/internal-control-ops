@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.matter;
 
-import com.hcit.taserver.approval.Approval;
 import io.swagger.annotations.Api;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,29 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "问题")
 @RestController
-@RequestMapping("/matter")
+@RequestMapping("/matterform")
 public class MatterController {
 
   private final MatterService matterService;
-
+  private final MatterFormService matterFormService;
 
   @GetMapping
-  public List<Matter> findByStatus(Matter matter) {
-    return matterService.findByCondition(matter);
+  public List<MatterForm> getAllForCurrentUser() {
+    return matterFormService.getAllForCurrentUser();
   }
 
   @GetMapping("/{id}")
+  public MatterForm getById(@PathVariable Long id) {
+    return matterFormService.findById(id);
+  }
+
+  @GetMapping("/*/matter/{id}")
   public Matter findById(@PathVariable Long id) {
     return matterService.findById(id);
   }
 
-  @PostMapping
+  @PostMapping("{formId}/matter")
   @Transactional
   public List<Matter> create(@RequestParam(required = false) Boolean self, @RequestBody List<Matter> matters) {
     return BooleanUtils.isTrue(self) ? matterService.createAll(matters) : matterService.createAllWithoutApprove(matters);
   }
 
-  @PostMapping("/{id}")
+  @PostMapping("/*/matter/{id}")
   @Transactional
   public Matter update(@PathVariable Long id, @RequestBody Matter matter) {
     if (!id.equals(matter.getId())) {
@@ -51,15 +55,9 @@ public class MatterController {
   }
 
   @Transactional
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/*/matter/{id}")
   public void delete(@PathVariable Long id) {
     matterService.delete(id);
-  }
-
-  @Transactional
-  @PostMapping("/approval")
-  public Approval submitApproval() {
-    return matterService.submitApproval();
   }
 
 }
