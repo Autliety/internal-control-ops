@@ -62,7 +62,7 @@ export default function Login3() {
 
             <Tabs defaultActiveKey="1" onChange={key => setOption(key)}>
               <Tabs.TabPane tab="督查考核系统" key="1" />
-              <Tabs.TabPane tab="从严治党责任落实应用系统" key="2" />
+              <Tabs.TabPane tab="全面从严治党责任落实应用系统" key="2" />
             </Tabs>
             <br /><br />
 
