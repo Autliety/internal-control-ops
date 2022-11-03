@@ -1,7 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ProColumns } from '@ant-design/pro-table';
 import { Button, Space, Statistic } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
 import showInfo from '../../utils/showInfo';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseEditableTable from '../../components/BaseEditableTable';
@@ -10,7 +11,8 @@ import { useHttp } from '../../utils/request';
 export default function Evaluation() {
 
   const { type, year } = useParams();
-  const { state: data } = useHttp(`/evaluation/${type}`, { initState: [] })
+  const { state: data } = useHttp(`/evaluation/${type}`, { initState: [] });
+  const navigate = useNavigate();
 
   const columns: ProColumns[] = [
     { title: '考评模块', dataIndex: 'type' },
@@ -32,8 +34,24 @@ export default function Evaluation() {
 
   return <PageContainer
       content={<Space size={'large'}>
-        <Statistic title="年度" value={year} groupSeparator={''}/>
+        <Statistic title='年度' value={year} groupSeparator={''} />
       </Space>}
+      extra={[
+        <Button
+            type={'primary'}
+            icon={<FormOutlined />}
+            onClick={() => navigate('/fr/pz/score?isLeader=true')}
+        >
+          领导评价
+        </Button>,
+        <Button
+            type={'dashed'}
+            icon={<FormOutlined />}
+            onClick={() => navigate('/fr/pz/score')}
+        >
+          自评得分
+        </Button>
+      ]}
   >
     <BaseEditableTable columns={columns} value={data}/>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoginForm, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, Image, Layout, message, Modal, Row, Tabs, Typography } from 'antd';
+import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
@@ -9,13 +9,10 @@ import bg from '../../image/login2.png';
 import headerBg from '../../image/header.jpg';
 import { useHttp } from '../../utils/request';
 
-export default function Login2() {
+export default function LoginTa() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
-
-  const options = { '1': 'ta', '2': 'fr' }
-  const [option, setOption] = React.useState<string>('1');
 
   return <Layout style={{ height: '100%' }}>
     <Layout.Header style={{
@@ -24,14 +21,25 @@ export default function Login2() {
       backgroundImage: `url(${headerBg})`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      // backgroundColor: '#f54343',
       width: '100%'
     }}>
-      <Typography.Title style={{ marginTop: 20, fontFamily: 'serif', fontWeight: 'bolder' }}>
-        <Image src={logo} width={70} preview={false} />
-        <Divider type={'vertical'} />
-        浙江百步经济开发区(百步镇)
-      </Typography.Title>
+      <Space direction={'vertical'}>
+        <Typography.Title style={{ marginTop: 10, fontFamily: 'serif', fontWeight: 'bolder', color: '#f3e8b4' }}>
+          <Image src={logo} width={70} preview={false} />
+          <Divider type={'vertical'} />
+          浙江百步经济开发区(百步镇)
+          <p
+              style={{
+                marginLeft: 90,
+                marginTop: -10,
+                fontSize: 18,
+                color: '#f3e8b4'
+              }}
+          >
+            督查考核系统
+          </p>
+        </Typography.Title>
+      </Space>
     </Layout.Header>
     <Layout.Content style={{
       height: '80%',
@@ -45,7 +53,7 @@ export default function Login2() {
           <LoginForm
               onFinish={async (values: any) => {
 
-                values.system = options[option];
+                values.system = 'ta';
                 if (values.username.includes('（')) {
                   message.warning('用户名无需携带责任名称');
                   return true;
@@ -61,14 +69,11 @@ export default function Login2() {
               }}
           >
 
-            <Tabs defaultActiveKey="1" onChange={key => setOption(key)}>
-              <Tabs.TabPane tab="督查考核系统" key="1" />
-              <Tabs.TabPane tab="从严治党责任落实应用系统" key="2" />
-            </Tabs>
-            <br /><br />
+            <Typography.Title level={4} style={{ textAlign: 'center' }}>督查考核系统</Typography.Title>
+            <Divider />
 
             <ProFormText
-                name="username"
+                name='username'
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={'prefixIcon'} />,
@@ -79,7 +84,7 @@ export default function Login2() {
             />
 
             <ProFormText.Password
-                name="password"
+                name='password'
 
                 fieldProps={{
                   size: 'large',
@@ -91,7 +96,7 @@ export default function Login2() {
 
             <ProFormText
                 disabled
-                name="validation"
+                name='validation'
                 fieldProps={{
                   size: 'large',
                   prefix: <SafetyOutlined className={'prefixIcon'} />,

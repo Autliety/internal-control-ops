@@ -9,6 +9,7 @@ export default function BaseEditableTable(
       isSearch = false,
       disableAdd = false, // 编辑模式下不允许新增数据
       isOnlyDelete = false,
+      isOnlyEdit = false,
       value = [],
       onChange = (_: any[]) => {
       },
@@ -36,7 +37,7 @@ export default function BaseEditableTable(
               isOnlyDelete || <a key="editable" onClick={() => action?.startEditable?.(record.key)}>
                 编辑
               </a>,
-              <a key="delete" onClick={() => onChange(value.filter(i => i.key !== record.key))}>
+              isOnlyEdit || <a key="delete" onClick={() => onChange(value.filter(i => i.key !== record.key))}>
                 删除
               </a>,
             ],
