@@ -1,17 +1,14 @@
 package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.approval.Approval;
-import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.progress.ProgressService;
-
 import java.util.Collection;
 import java.util.List;
-
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,7 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 @Service
-public class MatterService implements ApprovalAdaptor {
+public class MatterService {
 
   private final MatterRepository matterRepository;
   private final ApprovalService approvalService;

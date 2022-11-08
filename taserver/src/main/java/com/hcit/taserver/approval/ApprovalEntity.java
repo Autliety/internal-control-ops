@@ -7,11 +7,7 @@ public interface ApprovalEntity {
 
   Status getStatus();
 
-  void setStatus(Status status);
-
   Approval getApproval();
-
-  void setApproval(Approval approval);
 
   @JsonProperty("status")
   default Status getApprovalStatus() {

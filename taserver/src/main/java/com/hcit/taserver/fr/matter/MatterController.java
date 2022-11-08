@@ -3,9 +3,7 @@ package com.hcit.taserver.fr.matter;
 import io.swagger.annotations.Api;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,25 +37,18 @@ public class MatterController {
     return matterService.findById(id);
   }
 
-  @PostMapping("{formId}/matter")
   @Transactional
-  public List<Matter> create(@RequestParam(required = false) Boolean self, @RequestBody List<Matter> matters) {
-    return BooleanUtils.isTrue(self) ? matterService.createAll(matters) : matterService.createAllWithoutApprove(matters);
+  @PostMapping("/{id}")
+  public MatterForm update(@PathVariable Long id, @RequestBody MatterForm matterForm) {
+    return matterFormService.update(id, matterForm.getMatters());
   }
 
-  @PostMapping("/*/matter/{id}")
-  @Transactional
-  public Matter update(@PathVariable Long id, @RequestBody Matter matter) {
-    if (!id.equals(matter.getId())) {
-      throw new IllegalArgumentException("数据键值与url不匹配");
+  @PostMapping
+  public MatterForm create(@RequestParam(required = false) Boolean isDept, @RequestBody MatterForm input) {
+    if (isDept == null) {
+      isDept = false;
     }
-    return matterService.update(matter);
-  }
-
-  @Transactional
-  @DeleteMapping("/*/matter/{id}")
-  public void delete(@PathVariable Long id) {
-    matterService.delete(id);
+    return matterFormService.create(isDept, input);
   }
 
 }
