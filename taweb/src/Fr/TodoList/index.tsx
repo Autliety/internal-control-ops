@@ -1,9 +1,11 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
+import { ExportOutlined } from '@ant-design/icons';
+import { Button, message, Modal } from 'antd';
 import BaseDivider from '../../components/BaseDivider';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import ExportData from './ExportData';
+import FileUpload from '../../components/FileUpload';
 
 // 黄哨
 export const yellowColumns: ProColumns[] = [
@@ -72,14 +74,34 @@ export const redColumns: ProColumns[] = [
 
 function TodoList() {
 
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [file, setFile] = React.useState<any>([]);
+
   return <PageContainer
-      extra={[<ExportData />]}
+      extra={[
+        <Button type={'primary'} icon={<ExportOutlined />} onClick={() => setIsVisible(true)}>黄哨数据导入</Button>,
+        <Button type={'primary'} danger icon={<ExportOutlined />} onClick={() => setIsVisible(true)}>红哨数据导入</Button>
+      ]}
   >
     <BaseDivider title={'【云哨黄哨】'} />
     <BaseEditableTable columns={yellowColumns} value={[]} isInEdit={false} />
 
     <BaseDivider title={'【云哨红哨】'} />
     <BaseEditableTable columns={redColumns} value={[]} isInEdit={false} />
+
+    <Modal
+        title={'外部数据导入'}
+        visible={isVisible}
+        width={800}
+        closable
+        onCancel={() => setIsVisible(false)}
+        destroyOnClose
+        onOk={() => {
+          message.success('上传成功！').then(() => console.log(file));
+        }}
+    >
+      <FileUpload isInEdit onChange={setFile} />
+    </Modal>
 
   </PageContainer>;
 }

@@ -24,3 +24,24 @@
   margin-bottom: 10px;
   box-shadow: #2bddf1 0 0 4px;
 }
+
+.tableStyle {
+  height: 300px;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+}
+
+.itemStyle {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 4px;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.hrStyle {
+  border: 1px solid #2bddf1;
+}
