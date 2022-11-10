@@ -22,6 +22,10 @@ public class ApprovalService {
   private final AuthService authService;
   private final UserRepository userRepository;
 
+  public Approval findById(Long id) {
+    return approvalRepository.findById(id).orElseThrow();
+  }
+
   public List<Approval> getCurrentUserApproved() {
     var user = authService.getCurrentUser();
     return approvalStepRepository.findAllByApproveUser(user)
@@ -128,7 +132,5 @@ public class ApprovalService {
     return approval;
   }
 
-  public Approval findById(Long id) {
-    return approvalRepository.findById(id).orElseThrow();
-  }
+
 }

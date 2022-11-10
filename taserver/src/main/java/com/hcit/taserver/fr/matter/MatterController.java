@@ -1,7 +1,7 @@
 package com.hcit.taserver.fr.matter;
 
+import com.hcit.taserver.fr.matter.form.MatterForm;
 import io.swagger.annotations.Api;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,35 +20,33 @@ import org.springframework.web.bind.annotation.RestController;
 public class MatterController {
 
   private final MatterService matterService;
-  private final MatterFormService matterFormService;
 
-  @GetMapping
-  public List<MatterForm> getAllForCurrentUser() {
-    return matterFormService.getAllForCurrentUser();
+  @GetMapping(params = {"current"})
+  public MatterForm findByCurrent(@RequestParam boolean current) {
+    if (!current) {
+      throw new UnsupportedOperationException();
+    }
+    return matterService.findByCurrent();
   }
 
   @GetMapping("/{id}")
-  public MatterForm getById(@PathVariable Long id) {
-    return matterFormService.findById(id);
-  }
-
-  @GetMapping("/*/matter/{id}")
-  public Matter findById(@PathVariable Long id) {
-    return matterService.findById(id);
+  public MatterForm getById(@PathVariable Long id, @RequestParam(required = false) Boolean withChildren) {
+    return matterService.findById(id, withChildren);
   }
 
   @Transactional
   @PostMapping("/{id}")
   public MatterForm update(@PathVariable Long id, @RequestBody MatterForm matterForm) {
-    return matterFormService.update(id, matterForm.getMatters());
+    return matterService.update(id, matterForm.getMatters());
   }
 
-  @PostMapping
-  public MatterForm create(@RequestParam(required = false) Boolean isDept, @RequestBody MatterForm input) {
-    if (isDept == null) {
-      isDept = false;
-    }
-    return matterFormService.create(isDept, input);
+  @GetMapping("/*/matter/{id}")
+  public Matter findById(@PathVariable Long id) {
+    return matterService.findMatterById(id);
   }
 
+  @GetMapping("/test")
+  public void test() {
+    matterService.createAnnually();
+  }
 }

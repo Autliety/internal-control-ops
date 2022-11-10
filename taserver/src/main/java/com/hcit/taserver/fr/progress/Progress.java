@@ -2,6 +2,7 @@ package com.hcit.taserver.fr.progress;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalEntity;
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
@@ -39,7 +40,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "fr_progress")
-public class Progress implements BasicPersistable {
+public class Progress implements BasicPersistable, ApprovalEntity {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

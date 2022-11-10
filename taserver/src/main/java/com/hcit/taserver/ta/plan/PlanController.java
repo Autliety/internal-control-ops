@@ -1,9 +1,7 @@
 package com.hcit.taserver.ta.plan;
 
-import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
-import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.ta.assessment.AssessmentService;
 import com.hcit.taserver.ta.task.Task;
 import java.util.List;
@@ -44,7 +42,6 @@ public class PlanController {
   public Plan create(@RequestBody Plan plan) {
     plan.setId(null);
     plan.setCode("JH2022-0001"); // todo generate code
-    plan.setStatus(Status.AWAITING_REVIEW);
     if (!CollectionUtils.isEmpty(plan.getDetail())) {
       plan.getDetail().forEach(d -> {
         d.setPlan(plan);
@@ -56,7 +53,6 @@ public class PlanController {
             .build());
       });
     }
-    plan.setApproval(approvalService.generate(Approval.builder().approveUser(User.builder().id(plan.getApproval().getApproveUser().getId()).build()).build(), plan));
     return planService.create(plan);
   }
 }

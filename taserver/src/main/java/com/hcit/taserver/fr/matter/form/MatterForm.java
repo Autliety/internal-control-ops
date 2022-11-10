@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.matter;
+package com.hcit.taserver.fr.matter.form;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -9,6 +9,7 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.fr.matter.Matter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
@@ -21,10 +22,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,7 +60,7 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   private Status status;
 
   @JsonIgnoreProperties(value = {"matterForms"}, allowSetters = true)
-  @ManyToMany(cascade = CascadeType.ALL, fetch = EAGER)
+  @OneToMany(mappedBy = "matterForm", cascade = CascadeType.ALL, fetch = EAGER)
   private List<Matter> matters;
 
   @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
@@ -69,4 +71,6 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
+  @Transient
+  private List<MatterForm> children;
 }

@@ -3,6 +3,7 @@ package com.hcit.taserver.fr.matter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.util.CollectionUtils;
 
 @ApiModel("问题")
 
@@ -40,12 +40,11 @@ public class Matter implements BasicPersistable {
   private Long id;
 
   @JsonIgnoreProperties(value = {"matters"}, allowSetters = true)
-  @ManyToMany
-  private List<MatterForm> matterForms;
+  @ManyToOne
+  private MatterForm matterForm;
 
   public Status getStatus() {
-    var lastForm = CollectionUtils.lastElement(matterForms);
-    return lastForm == null ? null : lastForm.getStatus();
+    return matterForm.getStatus();
   }
 
   public String getCode() {

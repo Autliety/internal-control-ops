@@ -1,7 +1,6 @@
 package com.hcit.taserver.fr.progress;
 
 import com.hcit.taserver.approval.ApprovalService;
-import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.measure.Measure;
 import com.hcit.taserver.fr.measure.MeasureService;
 import io.swagger.annotations.Api;
@@ -10,8 +9,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,14 +35,19 @@ public class ProgressController {
     return progressService.findById(id);
   }
 
-  @PatchMapping("/{id}")
+  @PostMapping("/")
+  @Transactional
+  public Progress createProgress(@RequestBody Progress progress) {
+    var measure = progress.getMeasure();
+    if (progress.getMeasure() == null) {
+      throw new IllegalArgumentException();
+    }
+    return progressService.create(measure);
+  }
+
+  @PostMapping("/{id}")
   @Transactional
   public Progress updateProgress(@PathVariable Long id, @RequestBody Progress update) {
-    var progress = progressService.update(id, update);
-    if (update.getStatus() == Status.AWAITING_REVIEW) {
-      progress.setStatus(Status.AWAITING_REVIEW);
-      approvalService.generate(update.getApproval(), progress);
-    }
-    return progress;
+    return progressService.update(id, update);
   }
 }

@@ -2,6 +2,6 @@ package com.hcit.taserver.approval;
 
 public interface ApprovalAdaptor {
 
-  void onReviewed();
+  default void onReviewed() {}
 
 }
