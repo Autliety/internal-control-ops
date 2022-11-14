@@ -4,7 +4,6 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.attach.AttachService;
-import com.hcit.taserver.ta.assessment.AssessmentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +21,8 @@ import java.util.List;
 @RequestMapping("/warning")
 public class warningController {
 
-  public final AttachService attachService;
-  public final warningService warningService;
-  public final AssessmentService assessmentService;
+  private final AttachService attachService;
+  private final warningService warningService;
 
   private final static Path YW_PATH = Paths.get("fs/attach");
 

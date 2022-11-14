@@ -1,24 +1,18 @@
 package com.hcit.taserver.attach;
 
 import com.hcit.taserver.department.user.User;
+import lombok.*;
+import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
 
+@Proxy(lazy = false)
 @Entity
 public class Attach {
 
