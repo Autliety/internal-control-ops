@@ -381,7 +381,7 @@ function Display() {
       {/* 左 */}
       <Col span={7}>
         <Space direction='vertical' size='large' style={{ display: 'flex' }}>
-          <Carousel autoplay dots={false}>
+          <Carousel autoplay dots={false} dotPosition={'right'}>
             <div>
               <Title title={'问题清单'} />
               <RoseChart />

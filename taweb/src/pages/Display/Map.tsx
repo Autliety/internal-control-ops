@@ -14,7 +14,6 @@ import wufeng from '../../image/wufeng.png';
 import xinsheng from '../../image/xinsheng.png';
 import './style.css';
 
-
 function Map() {
 
   const data = [
@@ -32,48 +31,48 @@ function Map() {
     {
       id: 3,
       name: '百联村',
-      img: bailian
+      img: bailian,
     },
     {
       id: 4,
       name: '逍恬村',
-      img: xiaotian
+      img: xiaotian,
     },
     {
       id: 5,
       name: '农丰村',
-      img: nongfeng
+      img: nongfeng,
     },
     {
       id: 6,
       name: '胜利村',
-      img: shengli
+      img: shengli,
     },
     {
       id: 7,
       name: '横港村',
-      img: henggang
+      img: henggang,
     },
 
     {
       id: 8,
       name: '桃北村',
-      img: taobei
+      img: taobei,
     },
     {
       id: 9,
       name: '得胜村',
-      img: desheng
+      img: desheng,
     },
     {
       id: 10,
       name: '五丰村',
-      img: wufeng
+      img: wufeng,
     },
     {
       id: 11,
       name: '新升村',
-      img: xinsheng
+      img: xinsheng,
     },
   ];
 
@@ -82,35 +81,29 @@ function Map() {
     <Carousel dots={false} autoplay>
       {
         data.map(item => <div key={item.id}>
-          <Row align={'middle'}>
-            <Col span={12}>
-              <img src={item.img} alt={'各行政区域地图'} height={item.height || 250} />
+          <Row>
+            <Col span={16}>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={item.img} alt={'各行政区域地图'} height={item?.height || 390} style={{ display: 'block' }} />
+              </div>
             </Col>
-            <Col span={12}>
-              <div className={'tableStyle'}>
-                <div className={'itemStyle'} style={{ fontSize: 18 }}>
-                  <span>标题</span>
-                  <span>数量</span>
-                </div>
-                <hr className={'hrStyle'} />
+            <Col span={8}>
+              <div>
                 <div className={'itemStyle'}>
-                  <span>问题总数</span>
-                  <span>42</span>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>82</div>
+                  <div style={{ color: '#fff' }}>总数</div>
                 </div>
-                <hr className={'hrStyle'} />
                 <div className={'itemStyle'}>
-                  <span>已解决</span>
-                  <span>20</span>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>64</div>
+                  <div style={{ color: '#fff' }}>已完成</div>
                 </div>
-                <hr className={'hrStyle'} />
                 <div className={'itemStyle'}>
-                  <span>未解决</span>
-                  <span>12</span>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>16</div>
+                  <div style={{ color: '#fff' }}>未完成</div>
                 </div>
-                <hr className={'hrStyle'} />
                 <div className={'itemStyle'}>
-                  <span>已作废</span>
-                  <span>8</span>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>2</div>
+                  <div style={{ color: '#fff' }}>已作废</div>
                 </div>
               </div>
 
