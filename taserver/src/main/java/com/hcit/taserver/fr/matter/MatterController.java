@@ -45,8 +45,10 @@ public class MatterController {
     return matterService.findMatterById(id);
   }
 
-  @GetMapping("/test")
-  public void test() {
-    matterService.createAnnually();
+  @Transactional
+  @PostMapping
+  public MatterForm create() {
+    return matterService.create(null);
   }
+
 }

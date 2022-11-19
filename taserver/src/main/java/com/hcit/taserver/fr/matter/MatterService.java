@@ -2,14 +2,13 @@ package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.department.user.AuthService;
+import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserService;
 import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.matter.form.MatterFormRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +23,18 @@ public class MatterService {
   private final UserService userService;
 
   private MatterForm mapWithChildren(MatterForm origin) {
+    if (origin == null) {
+      return null;
+    }
     var formList = matterFormRepository.findAll((root, query, cb) ->
         query.where(
-                cb.and(authService.getPrivilegePredicate(root, cb, origin.getUser())), cb.equal(root.get("year"), 2022))
+                cb.and(
+                    authService.getPrivilegePredicate(root, cb, origin.getUser()),
+                cb.notEqual(root.get("id"), origin.getId()),
+                cb.equal(root.get("year"), 2022))
+            )
             .getRestriction());
-    origin.setChildren(
-        formList.stream().filter(f -> !Objects.equals(f.getId(), origin.getId())).collect(Collectors.toList()));
+    origin.setChildren(formList);
     return origin;
   }
 
@@ -43,7 +48,11 @@ public class MatterService {
   }
 
   public MatterForm findByCurrent() {
-    return mapWithChildren(matterFormRepository.findByUserAndYear(authService.getCurrentUser(), 2022));
+    var user = authService.getCurrentUser();
+    if (user.getPrivilege() == Privilege.ADMIN) {
+      user = userService.findById(1L);
+    }
+    return mapWithChildren(matterFormRepository.findByUserAndYear(user, 2022));
   }
 
   public MatterForm update(Long id, List<Matter> matters) {
@@ -65,26 +74,17 @@ public class MatterService {
     return matterRepository.saveAll(matters);
   }
 
-  public MatterForm create() {
+  public MatterForm create(User user) {
+    if (user == null) {
+      user = authService.getCurrentUser();
+    }
     var form = MatterForm.builder()
-        .user(authService.getCurrentUser())
+        .user(user)
         .year(LocalDateTime.now().getYear())
         .build();
     matterFormRepository.save(form);
     approvalService.generate(a -> a.withApprovalType("matterForm").withMatterForm(form), true);
     return form;
-  }
-
-  public void createAnnually() {
-    var forms = userService.findAll()
-        .stream()
-        .map(u -> MatterForm.builder()
-            .user(u)
-            .year(2022)
-            .build())
-        .collect(Collectors.toList());
-    matterFormRepository.saveAll(forms);
-    forms.forEach(f -> approvalService.generate(a -> a.withApprovalType("matterForm").withMatterForm(f), true));
   }
 
 }

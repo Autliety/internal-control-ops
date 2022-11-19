@@ -46,9 +46,7 @@ public class Meeting implements BasicPersistable, ApprovalEntity {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  public String getCode() {
-    return String.format("HY%04d", id);
-  }
+  private String code;
 
   @Enumerated(EnumType.STRING)
   private Status status;

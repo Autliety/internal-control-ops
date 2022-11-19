@@ -8,6 +8,7 @@ import com.hcit.taserver.fr.measure.Measure;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("问题")
 
@@ -38,6 +40,8 @@ public class Matter implements BasicPersistable {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  private String code;
 
   @JsonIgnoreProperties(value = {"matters"}, allowSetters = true)
   @ManyToOne
@@ -66,5 +70,8 @@ public class Matter implements BasicPersistable {
 
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
+
+  @UpdateTimestamp
+  private LocalDateTime updateTime;
 
 }

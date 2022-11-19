@@ -59,12 +59,12 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @JsonIgnoreProperties(value = {"matterForms"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
   @OneToMany(mappedBy = "matterForm", cascade = CascadeType.ALL, fetch = EAGER)
   private List<Matter> matters;
 
   @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
-  @OneToOne
+  @OneToOne(mappedBy = "matterForm")
   private Approval approval;
 
   @ApiModelProperty("更新时间")

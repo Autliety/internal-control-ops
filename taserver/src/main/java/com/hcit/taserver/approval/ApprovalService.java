@@ -36,7 +36,10 @@ public class ApprovalService {
   }
 
   public User getDefaultApproveUser(boolean withParent) {
-    User user = authService.getCurrentUser();
+    return getDefaultApproveUser(authService.getCurrentUser(), withParent);
+  }
+
+  public User getDefaultApproveUser(User user, boolean withParent) {
     return Optional.ofNullable(withParent ? user.getParent() : null)
         .orElseGet(() -> userRepository.findByDepartmentAndPrivilege(user.getDepartment(), Privilege.DEPT)
             .orElseGet(() -> userRepository.findById(1L)
@@ -52,11 +55,18 @@ public class ApprovalService {
   }
 
   public Approval generate(UnaryOperator<Approval> mapper, User approveUser, User copyUser) {
+    return generate(mapper, approveUser, copyUser, null);
+  }
+
+  public Approval generate(UnaryOperator<Approval> mapper, User approveUser, User copyUser, User requestUser) {
     if (approveUser == null) {
       approveUser = getDefaultApproveUser(true);
     }
+    if (requestUser == null) {
+      requestUser = authService.getCurrentUser();
+    }
     var a = Approval.builder()
-        .requestUser(authService.getCurrentUser())
+        .requestUser(requestUser)
         .approveUser(approveUser)
         .copyUser(copyUser)
         .build();

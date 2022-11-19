@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.progress;
 
-import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.fr.measure.Measure;
 import com.hcit.taserver.fr.measure.MeasureService;
 import io.swagger.annotations.Api;
@@ -23,7 +22,6 @@ public class ProgressController {
 
   private final MeasureService measureService;
   private final ProgressService progressService;
-  private final ApprovalService approvalService;
 
   @GetMapping
   public List<Progress> fetchAll() {
