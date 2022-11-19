@@ -12,9 +12,8 @@ import UserSelectCascader from '../../components/UserSelectCascader';
 import FileUpload from '../../components/FileUpload';
 import SelectUser from '../../components/SelectUser';
 
-
 export const matterColumns: ProColumns[] = [
-  { title: '问题内容', dataIndex: 'content', renderFormItem: () => <Input.TextArea placeholder='问题内容'/> },
+  { title: '问题内容', dataIndex: 'content', renderFormItem: () => <Input.TextArea placeholder='问题内容' /> },
   { title: '结束时间', dataIndex: 'endDate', valueType: 'date', width: 200 },
 ];
 
@@ -22,17 +21,19 @@ export const inspectColumns: ProColumns[] = [
   {
     title: '监督检查人',
     dataIndex: 'singleUser1',
-    renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/>,
+    renderText: u => u?.name, renderFormItem: () => <UserSelectCascader />,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+    editable: false,
   },
   { title: '监督检查领域', dataIndex: 'content1', formItemProps: { rules: [{ required: true, message: '此项必填' }] } },
   {
     title: '涉及站办（村社）',
     dataIndex: 'multiDepartment1',
     hideInTable: true,
+    editable: false,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
-    renderFormItem: () => <SelectUser multiple='multiple' placeholder='请选择'/>,
-    renderText: t => t?.map((item, index) => <Tag color='processing' key={index}>{item.name}</Tag>)
+    renderFormItem: () => <SelectUser multiple={'multiple'} placeholder={'请选择'} />,
+    renderText: t => t?.map(item => <Tag color='processing' key={item.name}>{item.name}</Tag>)
   },
   {
     title: '监督检查日期',
@@ -52,7 +53,7 @@ export const inspectColumns: ProColumns[] = [
     title: '发现问题',
     dataIndex: 'matter',
     tooltip: '确定提交后自动纳入问题清单',
-    renderFormItem: () => <BaseEditableTable columns={matterColumns} isInEdit/>,
+    renderFormItem: () => <BaseEditableTable columns={matterColumns} isInEdit />,
     renderText: r => r?.map((item, index) => <Comment
         key={index}
         avatar={index + 1}
@@ -61,12 +62,18 @@ export const inspectColumns: ProColumns[] = [
     hideInTable: true,
     hideInDescriptions: true,
   },
-  { title: '问题交办', dataIndex: 'destUser', renderText: u => u?.name, renderFormItem: () => <UserSelectCascader/> },
+  {
+    title: '问题交办',
+    dataIndex: 'destUser',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader />,
+    editable: false,
+  },
   { title: '处置及整改情况', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   {
     title: '上传附件',
     dataIndex: 'attach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true
   },
@@ -78,7 +85,7 @@ export default function InspectList() {
   const navigate = useNavigate();
 
   return <PageContainer
-      extra={<InspectCreateModal/>}
+      extra={<InspectCreateModal />}
   >
     <BaseEditableTable
         columns={inspectColumns.concat({
@@ -89,7 +96,7 @@ export default function InspectList() {
           render: (_, record: any) => <Tooltip title={'详情'}>
             <Button
                 type={'primary'}
-                icon={<FileTextOutlined/>}
+                icon={<FileTextOutlined />}
                 size={'small'}
                 onClick={() => navigate(`/fr/lz/inspect/${record.id}`)}
             />

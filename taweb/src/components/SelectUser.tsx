@@ -3,7 +3,7 @@ import { Select, Space } from 'antd';
 import { useHttp } from '../utils/request';
 
 type Props = {
-  value?: number,
+  value?: any,
   onChange?: (value: number, option: any) => void,
   withUser?: boolean,
   filtered?: number,
@@ -33,6 +33,7 @@ function SelectUser(props: Props) {
               <Select.Option
                   key={index}
                   value={item.id}
+                  data={item}
               >
                 {item.name}
               </Select.Option>)

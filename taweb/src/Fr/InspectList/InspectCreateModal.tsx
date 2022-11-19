@@ -17,7 +17,7 @@ export default function InspectCreateModal() {
         title={'监督检查'}
         layoutType={'ModalForm'}
         width={1000}
-        trigger={<Button type={'primary'}><PlusSquareOutlined/>新增</Button>}
+        trigger={<Button type={'primary'}><PlusSquareOutlined />新增</Button>}
         columns={inspectColumns}
         onFinish={async data => {
           if (data.time1) {

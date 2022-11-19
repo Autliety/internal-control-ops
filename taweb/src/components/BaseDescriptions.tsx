@@ -1,7 +1,15 @@
 import React from 'react';
 import ProDescriptions from '@ant-design/pro-descriptions';
 
-export default function BaseDescriptions({ columns, dataSource, column = 2, isInEdit = false, ...restProps }) {
+export default function BaseDescriptions(
+    {
+      columns,
+      dataSource,
+      column = 2,
+      isInEdit = false,
+      ...restProps
+    }
+) {
   return <>
     <ProDescriptions
         bordered
@@ -14,6 +22,7 @@ export default function BaseDescriptions({ columns, dataSource, column = 2, isIn
 
         columns={columns}
         dataSource={dataSource}
+        formProps={{ onValuesChange: restProps.onChange }}
 
         {...restProps}
     />
