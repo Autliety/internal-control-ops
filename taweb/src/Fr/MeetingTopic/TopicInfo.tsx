@@ -16,7 +16,7 @@ export default function TopicInfo({ data}) {
     },
     {
       title: '会前准备状态',
-      dataIndex: 'status',
+      dataIndex: 'approvalStatus',
       valueEnum: statusEnum,
     },
     { title: '编写时间', dataIndex: 'createTime', valueType: 'dateTime' },

@@ -9,7 +9,7 @@ export const meetingColumns: ProColumns[] = [
   { title: '责任主体', dataIndex: ['user', 'name'], editable: false },
   {
     title: '会议状态',
-    dataIndex: 'status',
+    dataIndex: 'approvalStatus',
     valueEnum: meetingStatusEnum,
     editable: false,
   },

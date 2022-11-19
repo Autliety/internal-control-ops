@@ -48,7 +48,7 @@ public class Matter implements BasicPersistable {
   private MatterForm matterForm;
 
   public Status getStatus() {
-    return matterForm.getStatus();
+    return matterForm.getApprovalStatus();
   }
 
   public String getCode() {
