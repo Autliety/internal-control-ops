@@ -1,154 +1,117 @@
 import React from 'react';
-import { PointLayer, Popup, Scene } from '@antv/l7';
-import { GaodeMap } from '@antv/l7-maps';
+import Title from './Title';
+import { Carousel, Col, Row } from 'antd';
+import map from '../../image/map.png';
+import chaotong from '../../image/chaotong.png';
+import bailian from '../../image/bailian.png';
+import xiaotian from '../../image/xiaotian.png';
+import nongfeng from '../../image/nongfeng.png';
+import shengli from '../../image/shengli.png';
+import henggang from '../../image/henggang.png';
+import taobei from '../../image/taobei.png';
+import desheng from '../../image/desheng.png';
+import wufeng from '../../image/wufeng.png';
+import xinsheng from '../../image/xinsheng.png';
+import './style.css';
 
 function Map() {
 
   const data = [
     {
       id: 1,
-      name: "百步镇",
-      longitude: 120.78855,
-      latitude: 30.54499,
-      count: 2
+      name: '百步镇',
+      img: map,
+      height: 510
     },
     {
       id: 2,
-      name: "超同村",
-      longitude: 120.81102,
-      latitude: 30.54671,
-      count: 4
+      name: '超同村',
+      img: chaotong,
     },
     {
       id: 3,
-      name: "百步社区",
-      longitude: 120.78305,
-      latitude: 30.54386,
-      count: 2
+      name: '百联村',
+      img: bailian,
     },
     {
       id: 4,
-      name: "百联村",
-      longitude: 120.78292,
-      latitude: 30.54154,
-      count: 3
+      name: '逍恬村',
+      img: xiaotian,
     },
-
     {
       id: 5,
-      name: "逍恬村",
-      longitude: 120.79002,
-      latitude: 30.52325,
-      count: 2
+      name: '农丰村',
+      img: nongfeng,
     },
     {
       id: 6,
-      name: "农丰村",
-      longitude: 120.76531,
-      latitude: 30.54010,
-      count: 4
+      name: '胜利村',
+      img: shengli,
     },
     {
       id: 7,
-      name: "胜利村",
-      longitude: 120.76026,
-      latitude: 30.60466,
-      count: 1
-    },
-    {
-      id: 8,
-      name: "横港村",
-      longitude: 120.77491,
-      latitude: 30.58575,
-      count: 2
+      name: '横港村',
+      img: henggang,
     },
 
     {
+      id: 8,
+      name: '桃北村',
+      img: taobei,
+    },
+    {
       id: 9,
-      name: "桃北村",
-      longitude: 120.75068,
-      latitude: 30.58519,
-      count: 5
+      name: '得胜村',
+      img: desheng,
     },
     {
       id: 10,
-      name: "得胜村",
-      longitude: 120.77487,
-      latitude: 30.56950,
-      count: 2
+      name: '五丰村',
+      img: wufeng,
     },
     {
       id: 11,
-      name: "五丰村",
-      longitude: 120.77557,
-      latitude: 30.60487,
-      count: 2
-    },
-    {
-      id: 12,
-      name: "新升村",
-      longitude: 120.79184,
-      latitude: 30.54450,
-      count: 2
+      name: '新升村',
+      img: xinsheng,
     },
   ];
 
-  const scene = new Scene({
-    id: 'map',
-    map: new GaodeMap({
-      pitch: 64,
-      style: 'dark',
-      center: [120.78855, 30.54499],
-      zoom: 13,
-      rotation: 30,
-    }),
-    logoVisible: false,
-  });
+  return <div style={{ height: 570 }}>
+    <Title title={'各行政区详情'} />
+    <Carousel dots={false} autoplay>
+      {
+        data.map(item => <div key={item.id}>
+          <Row>
+            <Col span={16}>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={item.img} alt={'各行政区域地图'} height={item?.height || 390} style={{ display: 'block' }} />
+              </div>
+            </Col>
+            <Col span={8}>
+              <div>
+                <div className={'itemStyle'}>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>82</div>
+                  <div style={{ color: '#fff' }}>总数</div>
+                </div>
+                <div className={'itemStyle'}>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>64</div>
+                  <div style={{ color: '#fff' }}>已完成</div>
+                </div>
+                <div className={'itemStyle'}>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>16</div>
+                  <div style={{ color: '#fff' }}>未完成</div>
+                </div>
+                <div className={'itemStyle'}>
+                  <div style={{ fontSize: 30, color: '#2bddf1' }}>2</div>
+                  <div style={{ color: '#fff' }}>已作废</div>
+                </div>
+              </div>
 
-  scene.on('loaded', () => {
-    const pointLayer = new PointLayer({})
-        .source(data, {
-          parser: {
-            type: 'json',
-            x: 'longitude',
-            y: 'latitude'
-          }
-        })
-        .animate(true)
-        .active(true)
-        .shape('name', [
-          'cylinder',
-        ])
-        .size('count', h => {
-          return [6, 6, h * 30];
-        })
-        .style({
-          opacity: 0.8,
-          sourceColor: '#92ecf6',
-          targetColor: '#267c86',
-          lightEnable: false
-        })
-
-    pointLayer.on('mousemove', e => {
-      const popup = new Popup({
-        offsets: [0, 0],
-        closeButton: false
-      })
-          .setLnglat(e.lngLat)
-          .setHTML(`<span>${e.feature.name}: ${e.feature.count}个</span>`);
-      scene.addPopup(popup);
-    });
-
-    scene.addLayer(pointLayer);
-  });
-
-  return <div>
-    <div
-        style={{ height: 510, position: 'relative' }}
-        id='map'
-    >
-    </div>
-    <br />
+            </Col>
+          </Row>
+        </div>)
+      }
+    </Carousel>
   </div>
 }
 

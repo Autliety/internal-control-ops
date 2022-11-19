@@ -13,7 +13,7 @@ export default function Logout() {
     http()
         .then(() => {
           message.success('已退出');
-          navigate('/login', { replace: true });
+          navigate('/', { replace: true });
         });
   }, []);
   return <></>;

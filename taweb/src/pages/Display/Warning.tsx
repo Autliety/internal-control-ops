@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import { AlertTwoTone } from '@ant-design/icons';
+import { AlertTwoTone, BellTwoTone, BulbTwoTone } from '@ant-design/icons';
 import Title from './Title';
 import './style.css';
 
@@ -10,7 +10,7 @@ function Warning() {
     <div className={'box'}>
       <Row>
         <Col span={4}>
-          <AlertTwoTone twoToneColor={'#efaf35'} style={{ fontSize: 40 }} />
+          <BellTwoTone twoToneColor={'#efaf35'} style={{ fontSize: 40 }} />
         </Col>
         <Col span={6}>
           <p style={{ color: '#efaf35' }}>云哨黄哨</p>
@@ -39,7 +39,7 @@ function Warning() {
     <div className={'box'}>
       <Row>
         <Col span={4}>
-          <AlertTwoTone twoToneColor={'#3cef21'} style={{ fontSize: 40 }} />
+          <BulbTwoTone twoToneColor={'#3cef21'} style={{ fontSize: 40 }} />
         </Col>
         <Col span={6}>
           <p style={{ color: '#3cef21' }}>三重一大</p>

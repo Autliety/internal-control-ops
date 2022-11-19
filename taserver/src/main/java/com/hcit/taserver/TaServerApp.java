@@ -12,6 +12,4 @@ public class TaServerApp {
 
     SpringApplication.run(TaServerApp.class, args);
   }
-
-
 }

@@ -1,6 +1,13 @@
 package com.hcit.taserver.attach;
 
 import com.hcit.taserver.department.user.AuthService;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,12 +15,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.apache.commons.lang3.BooleanUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
@@ -63,4 +64,11 @@ public class AttachService {
   public List<Attach> findAllById(List<Long> id) {
     return attachRepository.findAllById(id);
   }
+
+  public Attach findFileById(Long id){
+     var attach = attachRepository.getById(id);
+    System.out.println(attach);
+     return attach;
+  }
+
 }

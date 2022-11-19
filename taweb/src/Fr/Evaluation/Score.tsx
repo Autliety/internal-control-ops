@@ -2,7 +2,7 @@ import React from 'react';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
 import { useSearchParams } from 'react-router-dom';
-import { Alert, Button, Descriptions } from 'antd';
+import { Alert, Button, Descriptions, InputNumber } from 'antd';
 import showInfo from '../../utils/showInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 
@@ -41,7 +41,12 @@ function Score() {
     },
     { title: '分值', dataIndex: 'score', width: 80, editable: false },
     { title: '考评权重', dataIndex: 'weight', renderText: () => '20%', editable: false },
-    { title: '考评得分', dataIndex: 'target', width: 100 },
+    {
+      title: '考评得分',
+      dataIndex: 'target',
+      width: 100,
+      renderFormItem: (r: any) => <InputNumber min={0} max={parseFloat(r.entry?.score)} placeholder={'请输入'} />
+    },
   ];
 
   // 测试数据

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Alert, Carousel, Col, Row, Space, Typography } from 'antd';
-import Marquee from 'react-fast-marquee';
+import { Carousel, Col, Row, Space, Typography } from 'antd';
 import moment from 'moment';
 import { useInterval } from 'ahooks';
 import bg from '../../image/bg.jpg';
@@ -382,7 +381,7 @@ function Display() {
       {/* 左 */}
       <Col span={7}>
         <Space direction='vertical' size='large' style={{ display: 'flex' }}>
-          <Carousel autoplay dots={false}>
+          <Carousel autoplay dots={false} dotPosition={'right'}>
             <div>
               <Title title={'问题清单'} />
               <RoseChart />
@@ -407,16 +406,6 @@ function Display() {
       </Col>
       {/* 中 */}
       <Col span={10}>
-        <Alert
-            banner
-            type={'info'}
-            showIcon={false}
-            message={
-              <Marquee pauseOnHover gradient={false}>
-                百步社区：1、 百联村：5、 超同村：2、 桃北村：4、 胜利村：3、 五丰村：4、 新升村：1、 横港村：6、 农丰村：1、 得胜村：2、 逍恬村：4、
-              </Marquee>
-            }
-        />
         <Map />
         <br />
         <Table />
