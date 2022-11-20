@@ -1,50 +1,140 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { ProColumns } from '@ant-design/pro-table';
-import { Button, Tooltip } from 'antd';
+import { Button, Input, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
-import MotionCreateModal from "./MotionCreateModal";
-import moment from "moment";
+import MotionCreateModal from './MotionCreateModal';
+import UserSelectCascader from '../../components/UserSelectCascader';
+import FileUpload from '../../components/FileUpload';
+import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
 
-export const motionColumns: ProColumns[] = [
+
+export const motionColumns: (ProColumns | any)[] = [
   {
     title: '序号',
     dataIndex: 'id',
     hideInDescriptions: true,
-    render: (_, r, index) => index + 1,
-  },
-  { title: '动议时间', dataIndex: 'time1', renderText: t => moment(t).format('YYYY-MM-DD HH:mm') },
-  { title: '动议地点', dataIndex: 'content1' },
-  { title: '动议议题', dataIndex: 'longContent1', hideInSearch: true, hideInTable: true },
-  {
-    title: '动议人数',
-    dataIndex: 'multiUser1',
-    renderText: (t => t?.length),
+    hideInForm: true,
   },
   {
-    title: '概述问题',
-    dataIndex: 'matter',
-    renderText: (t: any) => t?.map((item, index) => <div>
-      <p>{`${index + 1}、内容：${item.content}`}</p>
-      <p>{`结束日期：${moment(item.endDate).format('YYYY-MM-DD')}`}</p>
-    </div>)
-  }
+    title: '动议人',
+    dataIndex: 'requestUser',
+    renderText: u => u?.name,
+    renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
+    onStep: 0,
+  },
+  { title: '动议时间', dataIndex: 'requestTime', valueType: 'date', onStep: 0 },
+  { title: '动议情形', dataIndex: 'requestTitle', onStep: 0 },
+  { title: '动议事项内容', dataIndex: 'requestContent', valueType: 'textarea', hideInTable: true, onStep: 0 },
+  {
+    dataIndex: 'requestAttach',
+    title: '相关附件',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    onStep: 0,
+  },
+  {
+    title: '动议审批',
+    dataIndex: 'approvalApproveUser',
+    renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled/>,
+    hideInDescriptions: true,
+    hideInTable: true,
+    onStep: 0,
+  },
+
+  {
+    title: '参加人员',
+    dataIndex: 'decisionUser',
+    renderFormItem: () => <AttendeeSelectCard/>,
+    onStep: 1,
+    hideInTable: true,
+  },
+  { title: '决策时间', dataIndex: 'decisionTime', valueType: 'date', onStep: 1 },
+  {
+    title: '研究交办事项',
+    dataIndex: 'decisionExecuteResult',
+    renderFormItem: () => <BaseEditableTable
+        columns={[
+          {
+            title: '序号',
+            dataIndex: 'id',
+            width: 80,
+            editable: false,
+          },
+          {
+            title: '内容/事项',
+            dataIndex: 'content',
+            renderFormItem: () => <Input.TextArea placeholder="内容/事项"/>,
+          },
+        ]}
+        isInEdit
+    />,
+    onStep: 1,
+    hideInTable: true,
+  },
+  {
+    dataIndex: 'decisionAttach',
+    title: '相关附件',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    onStep: 1,
+  },
+  {
+    title: '交办责任主体',
+    dataIndex: 'executeUser',
+    renderFormItem: () => <AttendeeSelectCard/>,
+    tooltip: '所选第一顺位为牵头主体',
+    hideInTable: true,
+    onStep: 1,
+  },
+  { title: '完成时限', dataIndex: 'executeTime', valueType: 'date', onStep: 1, hideInTable: true },
+
+  {
+    title: '执行实施具体情况',
+    dataIndex: 'decisionExecuteResult',
+    renderFormItem: () => <BaseEditableTable
+        columns={[
+          {
+            title: '事项',
+            dataIndex: 'id',
+            width: 100,
+            editable: false,
+          },
+          {
+            title: '执行实施情况',
+            dataIndex: 'result',
+            renderFormItem: () => <Input.TextArea placeholder="执行实施情况"/>,
+          },
+        ]}
+        isInEdit
+    />,
+    hideInTable: true,
+    onStep: 2,
+  },
+  {
+    dataIndex: 'executeAttach',
+    title: '相关附件',
+    renderFormItem: () => <FileUpload isInEdit/>,
+    hideInTable: true,
+    onStep: 2,
+  },
 ];
+
 
 function MotionList() {
 
   const navigate = useNavigate();
-  const { state, loading } = useHttp('/ordinal/motion', { initState: [] });
+  const { state, loading } = useHttp('/motion', { initState: [] });
 
   return <PageContainer
-      extra={[<MotionCreateModal/>]}
+      extra={[<MotionCreateModal isFirstEdit/>]}
       loading={loading}
   >
     <BaseEditableTable
-        columns={motionColumns.slice(0, 5).concat({
+        columns={motionColumns.concat({
           title: '详情',
           dataIndex: 'operation',
           width: 100,

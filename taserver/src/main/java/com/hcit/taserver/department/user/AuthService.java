@@ -50,21 +50,18 @@ public class AuthService implements UserDetailsService {
   }
 
   public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb) {
-    return getPrivilegePredicate(root, cb, null, null, null);
+    return getPrivilegePredicate(root, cb, null, null);
   }
 
   public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, User targetUser) {
-    return getPrivilegePredicate(root, cb, null, null, targetUser);
+    return getPrivilegePredicate(root, cb, null, targetUser);
   }
 
-  public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Predicate or, Path<?> userPath) {
-    return getPrivilegePredicate(root, cb, or, userPath, null);
+  public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Path<?> userPath) {
+    return getPrivilegePredicate(root, cb, userPath, null);
   }
 
-  private Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Predicate or, Path<?> userPath, User targetUser) {
-    if (or == null) {
-      or = cb.disjunction();
-    }
+  private Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Path<?> userPath, User targetUser) {
     if (userPath == null) {
       userPath = root.get("user");
     }
@@ -92,7 +89,7 @@ public class AuthService implements UserDetailsService {
           predicate = cb.equal(userPath.get("id"), u.getId());
       }
     }
-    return cb.or(predicate, or);
+    return predicate;
   }
 
 }

@@ -20,24 +20,25 @@ public class OrdinalFormService {
   public List<OrdinalForm> findAllByFormType(FormType formType) {
     User u = authService.getCurrentUser();
     return ordinalFormRepository.findAll((root, query, cb) -> {
-          Predicate or = null;
+          Predicate or = cb.disjunction();
           if (formType == FormType.LEARNING) {
             //noinspection ConstantConditions
             or = u.getId().intValue() < 30
                 ? cb.lessThan(root.get("destUser").get("id"), 30)
                 : cb.equal(root.get("destUser").get("department").get("id"),
                     u.getDepartment().getId());
-          }
-          else if (formType == FormType.INSPECT) {
+          } else if (formType == FormType.INSPECT) {
             or = cb.equal(root.joinList("multiDepartment1").get("id"), u.getDepartment().getId());
-          }
-          else if (formType == FormType.QUESTION) {
+          } else if (formType == FormType.QUESTION) {
             or = cb.equal(root.get("singleUser1").get("id"), authService.getCurrentUser().getId());
           }
           return query.where(cb.and(
-              authService.getPrivilegePredicate(root, cb, or, root.get("destUser")),
-              cb.equal(root.get("formType"), formType)
-          ))
+                  cb.or(
+                      authService.getPrivilegePredicate(root, cb, root.get("destUser")),
+                      or
+                  ),
+                  cb.equal(root.get("formType"), formType)
+              ))
               .distinct(true)
               .getRestriction();
         }

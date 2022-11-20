@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +21,6 @@ public enum FormType {
   REMIND("相互监督提醒"),
   CLUB("生活会"),
   QUESTION("履责约谈"),
-  MOTION("纪委动议"),
   DISPOSAL("第一种形态处置运用"),
   LEARNING("第一议题制度"),
   ;

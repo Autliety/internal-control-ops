@@ -34,6 +34,12 @@ public enum Status {
   // 已完成
   FINISHED,
 
+  // 额外步骤状态
+  EXT_ONE(true),
+  EXT_TWO(true),
+  EXT_THREE(true),
+  EXT_FOUR(true),
+
   ;
 
   private final boolean isEditable;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHttp } from '../utils/request';
 import { Cascader } from 'antd';
+import { useAuth } from '../utils/auth';
 
 type Props = {
   onChange?: (i: { id: number }) => void,
@@ -8,11 +9,20 @@ type Props = {
   filter?: (user: any) => boolean,
   disabled?: boolean,
   placeholder?: string,
+  isSelfOnly?: boolean,
 }
 
-export default function UserSelectCascader({ onChange, value, filter = (_) => true, disabled, placeholder }: Props) {
+export default function UserSelectCascader({
+                                             onChange,
+                                             value,
+                                             filter = (_) => true,
+                                             disabled,
+                                             placeholder,
+                                             isSelfOnly,
+                                           }: Props) {
 
   const { state } = useHttp('/user', { initState: [] });
+  const { user } = useAuth();
   const options = state
       .filter(filter)
       .reduce((r, i) => {
@@ -38,7 +48,7 @@ export default function UserSelectCascader({ onChange, value, filter = (_) => tr
         displayRender={labels => labels?.[0] + ' - ' + labels?.[1]}
         placeholder={placeholder || '请选择'}
 
-        value={state.map(i => [i.department.id, i.id]).find(l => l[1] === value?.id)}
+        value={state.map(i => [i.department.id, i.id]).find(l => l[1] === (isSelfOnly ? user : value)?.id)}
         onChange={(_, o) => onChange(o?.[o?.length - 1])}
     />
   </>;

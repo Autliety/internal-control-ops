@@ -7,6 +7,7 @@ import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
+import com.hcit.taserver.fr.motion.Motion;
 import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
@@ -94,6 +95,10 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToOne
   private Progress progress;
+
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
+  private Motion motion;
 
   // ta
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)

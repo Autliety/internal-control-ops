@@ -11,8 +11,7 @@ export default function BaseEditableTable(
       isOnlyDelete = false,
       isOnlyEdit = false,
       value = [],
-      onChange = (_: any[]) => {
-      },
+      onChange = (_: any[]) => {},
       ...restProps
     }) {
 

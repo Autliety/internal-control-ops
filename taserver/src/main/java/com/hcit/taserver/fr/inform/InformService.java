@@ -17,7 +17,7 @@ public class InformService {
 
   public List<Inform> findAll() {
     return informRepository.findAll(
-        (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb, null, root.get("destUser")))
+        (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb, root.get("destUser")))
             .getRestriction());
   }
 

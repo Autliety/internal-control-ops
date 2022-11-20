@@ -32,6 +32,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @ApiModel("问题清单")
@@ -61,6 +63,7 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
 
   @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
   @OneToMany(mappedBy = "matterForm", cascade = CascadeType.ALL, fetch = EAGER)
+  @Fetch(FetchMode.SUBSELECT)
   private List<Matter> matters;
 
   @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
