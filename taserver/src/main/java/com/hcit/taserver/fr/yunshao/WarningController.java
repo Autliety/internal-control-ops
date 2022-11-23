@@ -1,28 +1,31 @@
-package com.hcit.taserver.fr.excel;
+package com.hcit.taserver.fr.yunshao;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.attach.AttachService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/warning")
-public class warningController {
+public class WarningController {
 
   private final AttachService attachService;
-  private final warningService warningService;
+  private final WarningService warningService;
 
   private final static Path YW_PATH = Paths.get("fs/attach");
 
@@ -38,7 +41,7 @@ public class warningController {
       for (Yellowwarning yellowwarning : dataList) {
         String dateExl = yellowwarning.getYjsjExl();
         if (warningService.dateStrIsValid(dateExl)) {
-          log.info(dateExl);
+          log.trace(dateExl);
           LocalDateTime dateformat = LocalDateTime.parse(dateExl, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
           yellowwarning.setYjsj(dateformat);
           yellowwarning.setModelid(Integer.parseInt(yellowwarning.getMoudelidExl()));

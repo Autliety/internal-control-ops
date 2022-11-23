@@ -1,25 +1,23 @@
-package com.hcit.taserver.fr.excel;
+package com.hcit.taserver.fr.yunshao;
 
 import com.hcit.taserver.attach.AttachRepository;
 import com.hcit.taserver.department.user.AuthService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import javax.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 @Transactional
 //@Modifying
-public class warningService {
+public class WarningService {
 
   private final static Path YW_PATH = Paths.get("fs/attach");
 
@@ -57,15 +55,12 @@ public class warningService {
 
   public boolean dateStrIsValid(String dataExl) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    Date date = null;
     try {
       // 转化为 Date类型测试判断
-      date = dateFormat.parse(dataExl);
-      dataExl.equals(dateFormat.format(date));
-
+      dateFormat.parse(dataExl);
       return true;
     } catch (ParseException e) {
-      //log.error("Illegal date string! Exception occurred: {}", e.getMessage(), e);
+      log.debug("Illegal date format exception occurred: {}", e.getMessage());
       return false;
     }
 
