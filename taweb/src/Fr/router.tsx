@@ -443,8 +443,20 @@ export const router = {
     {
       hideInMenu: true,
       name: '得分情况',
-      path: '/fr/pz/score',
-      element: <Score/>
+      path: '/fr/pz/score/1',
+      element: <Score page={1}/>
+    },
+    {
+      hideInMenu: true,
+      name: '得分情况',
+      path: '/fr/pz/score/2',
+      element: <Score page={2}/>
+    },
+    {
+      hideInMenu: true,
+      name: '得分情况',
+      path: '/fr/pz/score/3',
+      element: <Score page={3}/>
     },
     {
       hideInMenu: true,
