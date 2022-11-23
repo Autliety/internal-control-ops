@@ -7,6 +7,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements UserDetailsService {
 
+  @Value("${config.dev-env}")
+  private Boolean envDev;
   private final UserService userService;
 
   @Override
@@ -33,8 +37,11 @@ public class AuthService implements UserDetailsService {
     if (principal instanceof Auth) {
       return ((Auth) principal).getUser();
 
+    } else if (BooleanUtils.isTrue(envDev)) {
+      return userService.findById(-999L);
+
     } else {
-      throw new UsernameNotFoundException("admin not admitted");
+      throw new UsernameNotFoundException("login not admitted");
     }
   }
 
@@ -43,19 +50,27 @@ public class AuthService implements UserDetailsService {
   }
 
   public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb) {
-    return getPrivilegePredicate(root, cb, null, null);
+    return getPrivilegePredicate(root, cb, null, null, null);
+  }
+
+  public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, User targetUser) {
+    return getPrivilegePredicate(root, cb, null, null, targetUser);
   }
 
   public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Predicate or, Path<?> userPath) {
+    return getPrivilegePredicate(root, cb, or, userPath, null);
+  }
+
+  private Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Predicate or, Path<?> userPath, User targetUser) {
     if (or == null) {
       or = cb.disjunction();
     }
     if (userPath == null) {
       userPath = root.get("user");
     }
-    User u = getCurrentUser();
+    User u = targetUser != null ? targetUser : getCurrentUser();
     Predicate predicate;
-    if (List.of(1L, 28L, 29L, 999L).contains(u.getId())) {
+    if (List.of(1L, 28L, 29L, -999L).contains(u.getId())) {
       predicate = cb.conjunction();
     } else {
       switch (u.getPrivilege()) {

@@ -9,7 +9,7 @@ import { getApprovalNotes } from './getNotes';
 export default function StatisticNotes() {
 
   const navigate = useNavigate();
-  const { state } = useHttp('/notification/uat', { initState: {} });
+  const { state } = useHttp('/approval?current=true', { initState: {} });
 
   const [onPage, setOnPage] = React.useState(0);
 

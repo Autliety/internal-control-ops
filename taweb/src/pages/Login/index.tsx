@@ -5,8 +5,8 @@ import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } f
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/login2.png';
-import headerBg from '../../image/header.jpg';
+import bg from '../../image/login3.png';
+import headerBg from '../../image/header.png';
 import { useHttp } from '../../utils/request';
 
 export default function LoginFr() {

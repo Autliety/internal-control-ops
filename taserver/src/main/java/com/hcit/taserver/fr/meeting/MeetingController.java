@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,10 +35,10 @@ public class MeetingController {
     return meetingService.create(meeting);
   }
 
-  @PatchMapping("/{id}")
+  @PostMapping("/{id}")
   @Transactional
   public Meeting updateMeeting(@PathVariable Long id, @RequestBody Meeting meeting) {
-    return meetingService.patch(id, meeting.getStatus());
+    return meetingService.update(id, meeting);
   }
 
 }

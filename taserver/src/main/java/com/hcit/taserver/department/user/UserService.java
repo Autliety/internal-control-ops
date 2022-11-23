@@ -3,7 +3,6 @@ package com.hcit.taserver.department.user;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +16,7 @@ public class UserService {
   private final UserRepository userRepository;
 
   public Collection<User> findAll() {
-    return userRepository.findAllByIdNotOrderByUserOrderDesc(999L);
+    return userRepository.findAllByIdNotOrderByUserOrderDesc(-999L);
   }
 
   public Collection<User> findAllByDeptId(Long deptId) {
@@ -56,7 +55,6 @@ public class UserService {
     u.setIsDeleted(true);
     userRepository.save(u);
     return userRepository.findAll().stream().filter(user -> BooleanUtils.isNotTrue(user.getIsDeleted())).collect(Collectors.toList());
-
   }
 
 }

@@ -1,5 +1,6 @@
 package com.hcit.taserver.common.config;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
@@ -16,6 +17,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
   @Value("${server.ssl.enabled}")
   private Boolean sslEnabled;
+  @Value("${config.dev-env}")
+  private Boolean devEnv;
 
   @Override
   public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -25,12 +28,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
   @SuppressWarnings("SpringMVCViewInspection")
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/{spring:[\\w-]+}")
-        .setViewName("forward:/");
-    registry.addViewController("/**/{spring:[\\w-]+}")
-        .setViewName("forward:/");
-    registry.addViewController("/{spring:[\\w-]+}/**{spring:?!(\\.js|\\.css)$}")
-        .setViewName("forward:/");
+    if (BooleanUtils.isNotTrue(devEnv)) {
+      registry.addViewController("/{spring:[\\w-]+}")
+          .setViewName("forward:/");
+      registry.addViewController("/**/{spring:[\\w-]+}")
+          .setViewName("forward:/");
+      registry.addViewController("/{spring:[\\w-]+}/**{spring:?!(\\.js|\\.css)$}")
+          .setViewName("forward:/");
+    }
   }
 
   @Override

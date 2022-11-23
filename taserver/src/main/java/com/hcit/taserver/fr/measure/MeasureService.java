@@ -17,7 +17,7 @@ public class MeasureService {
   private final ProgressService progressService;
 
   public List<Measure> findAll() {
-    return matterService.findAll().stream().flatMap(matter -> matter.getMeasure().stream())
+    return matterService.findByCurrent().getMatters().stream().flatMap(m -> m.getMeasure().stream())
         .collect(Collectors.toList());
   }
 

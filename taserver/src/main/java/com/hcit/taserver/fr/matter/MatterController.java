@@ -1,12 +1,9 @@
 package com.hcit.taserver.fr.matter;
 
-import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.fr.matter.form.MatterForm;
 import io.swagger.annotations.Api;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,47 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "问题")
 @RestController
-@RequestMapping("/matter")
+@RequestMapping("/matterform")
 public class MatterController {
 
   private final MatterService matterService;
 
-
-  @GetMapping
-  public List<Matter> findByStatus(Matter matter) {
-    return matterService.findByCondition(matter);
+  @GetMapping(params = {"current"})
+  public MatterForm findByCurrent(@RequestParam boolean current) {
+    if (!current) {
+      throw new UnsupportedOperationException();
+    }
+    return matterService.findByCurrent();
   }
 
   @GetMapping("/{id}")
-  public Matter findById(@PathVariable Long id) {
-    return matterService.findById(id);
+  public MatterForm getById(@PathVariable Long id, @RequestParam(required = false) Boolean withChildren) {
+    return matterService.findById(id, withChildren);
   }
 
-  @PostMapping
   @Transactional
-  public List<Matter> create(@RequestParam(required = false) Boolean self, @RequestBody List<Matter> matters) {
-    return BooleanUtils.isTrue(self) ? matterService.createAll(matters) : matterService.createAllWithoutApprove(matters);
-  }
-
   @PostMapping("/{id}")
-  @Transactional
-  public Matter update(@PathVariable Long id, @RequestBody Matter matter) {
-    if (!id.equals(matter.getId())) {
-      throw new IllegalArgumentException("数据键值与url不匹配");
-    }
-    return matterService.update(matter);
+  public MatterForm update(@PathVariable Long id, @RequestBody MatterForm matterForm) {
+    return matterService.update(id, matterForm.getMatters());
+  }
+
+  @GetMapping("/*/matter/{id}")
+  public Matter findById(@PathVariable Long id) {
+    return matterService.findMatterById(id);
   }
 
   @Transactional
-  @DeleteMapping("/{id}")
-  public void delete(@PathVariable Long id) {
-    matterService.delete(id);
-  }
-
-  @Transactional
-  @PostMapping("/approval")
-  public Approval submitApproval() {
-    return matterService.submitApproval();
+  @PostMapping
+  public MatterForm create() {
+    return matterService.create(null);
   }
 
 }

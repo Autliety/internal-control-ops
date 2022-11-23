@@ -1,201 +1,90 @@
 package com.hcit.taserver.fr.matter;
 
-import com.hcit.taserver.approval.Approval;
-import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
-import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.Privilege;
-import com.hcit.taserver.department.user.UserRepository;
-import com.hcit.taserver.fr.progress.ProgressService;
-
-import java.util.Collection;
+import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.department.user.UserService;
+import com.hcit.taserver.fr.matter.form.MatterForm;
+import com.hcit.taserver.fr.matter.form.MatterFormRepository;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 
 @RequiredArgsConstructor
 @Service
-public class MatterService implements ApprovalAdaptor {
+public class MatterService {
 
+  private final MatterFormRepository matterFormRepository;
   private final MatterRepository matterRepository;
-  private final ApprovalService approvalService;
-  private final ProgressService progressService;
   private final AuthService authService;
-  private final UserRepository userRepository;
+  private final ApprovalService approvalService;
+  private final UserService userService;
 
-  public List<Matter> findAll() {
-    return matterRepository.findAll(
-        (root, query, cb) ->
-            query.where(authService.getPrivilegePredicate(root, cb)).getRestriction());
+  private MatterForm mapWithChildren(MatterForm origin) {
+    if (origin == null) {
+      return null;
+    }
+    var formList = matterFormRepository.findAll((root, query, cb) ->
+        query.where(
+                cb.and(
+                    authService.getPrivilegePredicate(root, cb, origin.getUser()),
+                cb.notEqual(root.get("id"), origin.getId()),
+                cb.equal(root.get("year"), 2022))
+            )
+            .getRestriction());
+    origin.setChildren(formList);
+    return origin;
   }
 
-  public List<Matter> findByCondition(Matter matter) {     //,Integer code
-    Specification<Matter> spec = ((root, query, cb) -> {
-      var code = matter.getCode() == null ? cb.conjunction() : cb.like(root.get("code"), "%" + matter.getCode() + "%");
-      var status = matter.getStatus() == null ? cb.conjunction() : cb.equal(root.get("status"), matter.getStatus());
-      return query.where(cb.and(authService.getPrivilegePredicate(root, cb), code, status))
-          .distinct(true)
-          .getRestriction();
-    });
-    return matterRepository.findAll(spec);
+  public MatterForm findById(Long id, boolean withChildren) {
+    var form = matterFormRepository.findById(id).orElseThrow();
+    return withChildren ? mapWithChildren(form) : form;
   }
 
-  //cb.and(code, status)
-  public Matter findById(Long id) {
+  public Matter findMatterById(Long id) {
     return matterRepository.findById(id).orElseThrow();
   }
 
-  public List<Matter> createAll(Collection<Matter> matters) {
+  public MatterForm findByCurrent() {
+    var user = authService.getCurrentUser();
+    if (user.getPrivilege() == Privilege.ADMIN) {
+      user = userService.findById(1L);
+    }
+    return mapWithChildren(matterFormRepository.findByUserAndYear(user, 2022));
+  }
+
+  public MatterForm update(Long id, List<Matter> matters) {
+    var form = findById(id, false);
+    matters.forEach(m -> m.setMatterForm(form));
+    matterRepository.saveAll(matters);
+    form.setMatters(matters);
+    matterFormRepository.save(form);
+//    matterRepository.deleteAllByMatterFormIsNull();
+    return form;
+  }
+
+  public List<Matter> insertMatters(User user, List<Matter> matters) {
+    var form = matterFormRepository.findByUserAndYear(user, 2022);
     matters.forEach(m -> {
-      // todo generate code
-      m.setStatus(Status.NONE_REVIEW);
       m.setId(null);
-      m.setUser(authService.getCurrentUser());
+      m.setMatterForm(form);
     });
     return matterRepository.saveAll(matters);
   }
 
-  public List<Matter> createAllWithoutApprove(Collection<Matter> matters) {
-    matters.forEach(m -> {
-      // todo generate code
-      m.setStatus(Status.REVIEWED);
-      m.setStepTwoStatus(Status.REVIEWED);
-      m.setId(null);
-      if (!CollectionUtils.isEmpty(m.getMeasure())) {
-        m.getMeasure().forEach(s -> {
-          s.setMatter(m);
-          s.setProgress(progressService.create(s));
-        });
-      }
-    });
-    return matterRepository.saveAll(matters);
-  }
-
-  public Approval submitApproval() {
-    List<Matter> matters;
-    matters = matterRepository.findAllByUserAndStatusIn(authService.getCurrentUser(),
-        List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
-
-    if (!CollectionUtils.isEmpty(matters)) {
-      // 初审
-      var fixes = matters.stream().filter(m -> m.getStatus() == Status.AWAITING_FIX).collect(Collectors.toList());
-      if (CollectionUtils.isEmpty(fixes)) {
-        // 提交初审
-        matters.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
-        return approvalService.generate(Approval.builder()
-                .approveUser(authService.getCurrentUser().getPrivilege() == Privilege.DEPT ? authService.getCurrentUser() : approvalService.getDefaultApproveUser())
-                .build(),
-            matters);
-      } else {
-        // 提交退回修改
-        var approval = fixes.get(0).getApproval();
-        approval.setMatter(matters);
-        approvalService.save(approval);
-        matters.forEach(m -> {
-          m.setStatus(Status.AWAITING_REVIEW);
-          m.setApproval(approval);
-        });
-        matterRepository.saveAll(matters);
-        return approvalService.stepIn(approval.getId(), Status.FIXED, null);
-      }
-
-    } else if (authService.getCurrentUser().getPrivilege() == Privilege.DEPT) {
-      // 二审
-      matters = matterRepository.findAllByUserInAndStepTwoStatusIn(
-          userRepository.findAllByDepartmentIdOrderByUserOrderDesc(authService.getCurrentUser().getDepartment().getId())
-          , List.of(Status.NONE_REVIEW, Status.AWAITING_FIX));
-      var fixes = matters.stream().filter(m -> m.getStepTwoStatus() == Status.AWAITING_FIX).collect(Collectors.toList());
-      if (CollectionUtils.isEmpty(fixes)) {
-        // 提交二审
-        matters.forEach(m -> {
-          m.setStatus(Status.REVIEWED);
-          m.setStepTwoStatus(Status.AWAITING_REVIEW);
-        });
-        return approvalService.generate(Approval.builder().approveUser(approvalService.getDefaultApproveUser()).build(),
-            matters);
-      } else {
-        // 退回修改
-        var approval = fixes.get(0).getApproval();
-        approval.setMatter(matters);
-        approvalService.save(approval);
-        matters.forEach(m -> {
-          m.setStepTwoStatus(Status.AWAITING_REVIEW);
-          m.setApproval(approval);
-        });
-        matterRepository.saveAll(matters);
-        return approvalService.stepIn(approval.getId(), Status.FIXED, null);
-      }
-
-    } else {
-      throw new IllegalStateException("需要审批的问题清单为空");
+  public MatterForm create(User user) {
+    if (user == null) {
+      user = authService.getCurrentUser();
     }
+    var form = MatterForm.builder()
+        .user(user)
+        .year(LocalDateTime.now().getYear())
+        .build();
+    matterFormRepository.save(form);
+    approvalService.generate(a -> a.withApprovalType("matterForm").withMatterForm(form), true);
+    return form;
   }
 
-  @Override
-  public void onReview(Approval approval) {
-    var matter = approval.getMatter();
-    if (matter.get(0).getStatus() == Status.REVIEWED) {
-      matter.forEach(m -> m.setStepTwoStatus(Status.REVIEWED));
-
-    } else {
-      matter.forEach(m -> {
-        m.setStatus(Status.REVIEWED);
-        //noinspection ConstantConditions
-        if (m.getUser().getId().intValue() < 30) {
-          m.setStepTwoStatus(Status.REVIEWED);
-        } else {
-          m.setStepTwoStatus(Status.NONE_REVIEW);
-        }
-      });
-    }
-    matterRepository.saveAll(matter);
-  }
-
-  @Override
-  public void onDenied(Approval approval) {
-    var matter = approval.getMatter();
-    if (matter.get(0).getStatus() == Status.REVIEWED) {
-      matter.forEach(m -> m.setStepTwoStatus(Status.AWAITING_FIX));
-    } else {
-      matter.forEach(m -> m.setStatus(Status.AWAITING_FIX));
-    }
-  }
-
-  @Override
-  public void onFixed(Approval approval) {
-    var matter = approval.getMatter();
-    if (matter.get(0).getStatus() == Status.REVIEWED) {
-      matter.forEach(m -> m.setStepTwoStatus(Status.AWAITING_REVIEW));
-    } else {
-      matter.forEach(m -> m.setStatus(Status.AWAITING_REVIEW));
-    }
-  }
-
-  public Matter update(Matter matter) {
-    if (!CollectionUtils.isEmpty(matter.getMeasure())) {
-      matter.getMeasure().forEach(ms -> {
-        ms.setMatter(matter);
-        if (ms.getProgress() == null) {
-          ms.setProgress(progressService.create(ms));
-        }
-      });
-    }
-    return matterRepository.save(matter);
-  }
-
-  public void delete(Long id) {
-    var matter = matterRepository.findById(id).orElseThrow();
-    var approval = matter.getApproval();
-    if (approval != null) {
-      approval.getMatter().remove(matter);
-      approvalService.save(approval);
-    }
-    matterRepository.deleteById(id);
-  }
 }

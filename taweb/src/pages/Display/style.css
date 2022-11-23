@@ -33,13 +33,13 @@
 }
 
 .itemStyle {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 4px;
-  align-items: center;
+  height: 80px;
+  border: #2bddf1 solid 2px;
+  box-shadow: #2bddf1 0 0 4px;
+  margin-right: 8px;
   text-align: center;
-  font-size: 14px;
-  line-height: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .hrStyle {

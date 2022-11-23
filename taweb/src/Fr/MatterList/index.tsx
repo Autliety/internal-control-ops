@@ -1,17 +1,15 @@
 import React from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
-import {Space} from 'antd';
-import {ProFormSelect, ProFormText, QueryFilter} from '@ant-design/pro-form';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Space } from 'antd';
 
-import {useHttp} from '../../utils/request';
+import { useHttp } from '../../utils/request';
 import MatterAssignModal from './MatterAssignModal';
 import MatterReviewModal from './MatterReviewModal';
 import MatterTable from './MatterTable';
 
 export default function MatterList() {
 
-  const [params, setParams] = React.useState({});
-  const {state, loading} = useHttp('/matter', {initState: [], isManual: !params, params: params});
+  const {state, loading} = useHttp('/matterform?current=true');
 
   return <PageContainer
       extra={
@@ -22,24 +20,9 @@ export default function MatterList() {
       }
   >
 
-    {<QueryFilter onFinish={async values => setParams(values)}>
-      <ProFormText name='code' label='措施序号'/>
-      <ProFormSelect
-          name='status'
-          label='措施状态'
-          showSearch
-          valueEnum={{
-            NONE_REVIEW: '未完成',
-            AWAITING_REVIEW: '待审',
-            REVIEWED: '已审核',
-            FINISHED: '已完成'
-          }}
-      />
-    </QueryFilter>}
+    <MatterTable value={(state.matters || []).concat(state.children?.flatMap(c => c.matters)) ?? []} loading={loading}/>
 
-    <MatterTable value={state} loading={loading}/>
-
-    <MatterReviewModal data={state}/>
+    <MatterReviewModal data={[]}/>
 
   </PageContainer>;
 }

@@ -61,18 +61,11 @@ public class OrdinalFormService {
 
     var matters = f.getMatter();
     f.setMatter(null);
-    if (!CollectionUtils.isEmpty(matters)) {
-      matters.forEach(m -> {
-        m.setId(null);
-        m.setOrigin(formType.getRemark());
-        if (m.getUser() == null) {
-          m.setUser(f.getDestUser());
-        }
-      });
-      var m = matterService.createAllWithoutApprove(matters);
+    if (!CollectionUtils.isEmpty(f.getMatter())) {
+      matters.forEach(m -> m.setOrigin(formType.getRemark()));
+      var m = matterService.insertMatters(f.getDestUser(), matters);
       f.setMatter(m);
     }
-
     return ordinalFormRepository.save(f);
   }
 

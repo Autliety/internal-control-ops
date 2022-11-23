@@ -22,7 +22,8 @@ export default function MatterReviewModal({ data }) {
   return <>
     {result.length > 0 &&
     <FooterToolbar>
-      <Button type="primary" onClick={() => setIsVisible(true)}>提交审核</Button>
+      <Button disabled type="primary" onClick={() => setIsVisible(true)}>提交审核</Button>
+    {/*  todo enable this button */}
     </FooterToolbar>
     }
 

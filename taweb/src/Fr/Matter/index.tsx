@@ -71,7 +71,7 @@ export default function Matter() {
                 measure,
               }).then(() => window.location.reload())}
           >
-            保存更新
+            暂存更新
           </Button>
           <Button danger icon={<DeleteOutlined/>} onClick={() => {
             Modal.confirm({

@@ -4,12 +4,12 @@ import BaseDescriptions from '../../components/BaseDescriptions';
 import { meetingStatusEnum } from '../../utils/nameMapFr';
 
 export const meetingColumns: ProColumns[] = [
-  { title: '编号', dataIndex: 'code', editable: false },
+  { title: '编号', dataIndex: 'id', renderText: n => 'HY' + n?.toString().padStart(3, '0'), editable: false },
   { title: '会议类型', dataIndex: 'type', valueType: 'select', fieldProps: { options: ['1专题会议', 'X专门会议', '纪委动议'] } },
   { title: '责任主体', dataIndex: ['user', 'name'], editable: false },
   {
     title: '会议状态',
-    dataIndex: 'status',
+    dataIndex: 'approvalStatus',
     valueEnum: meetingStatusEnum,
     editable: false,
   },

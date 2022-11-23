@@ -60,7 +60,7 @@ public class User implements BasicPersistable {
 
   private Integer userOrder;
 
-  @JsonIgnoreProperties({"department", "parent"})
+  @JsonIgnoreProperties(value = {"department", "parent"}, allowSetters = true)
   @ManyToOne
   private User parent;
 

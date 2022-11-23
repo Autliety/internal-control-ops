@@ -32,7 +32,8 @@ function App() {
       <Routes>
         {/* 大屏数据展示 */}
         <Route path={'/data'} element={<Display />} />
-        <Route path={'/'} element={<Navigate to={'/loginFr'} replace />} />
+        <Route path={'/'} element={<Navigate to={'/login'} replace />} />
+        <Route path={'/login'} element={<Navigate to={'/loginFr'} replace />} />
         <Route path={'/loginFr'} element={<LoginFr />} />
         <Route path={'/loginTa'} element={<LoginTa />} />
         <Route path={'/logout'} element={<Logout />} />

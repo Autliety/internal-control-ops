@@ -1,6 +1,9 @@
 package com.hcit.taserver.approval;
 
+import com.hcit.taserver.common.Status;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +22,14 @@ public class ApprovalController {
   private final ApprovalService approvalService;
 
   @GetMapping(params = {"current"})
-  public List<Approval> fetchCurrent(@RequestParam boolean current) {
-    // todo notice
-    return null;
+  public Map<Status, List<Approval>> fetchCurrent(@RequestParam boolean current) {
+    if (current) {
+      return approvalService.getCurrentUserApproved()
+          .stream()
+          .collect(Collectors.groupingBy(Approval::getStatus));
+    } else {
+      throw new UnsupportedOperationException();
+    }
   }
 
   @GetMapping("/{id}")
