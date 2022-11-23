@@ -3,18 +3,10 @@ package com.hcit.taserver.fr.evaluation;
 import com.hcit.taserver.common.BasicPersistable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @ApiModel("考评")
 
@@ -34,6 +26,9 @@ public class Evaluation implements BasicPersistable {
   @ApiModelProperty("考核指标")
   private String name;
 
+  /*分值*/
+  private BigDecimal value;
+
   @ApiModelProperty("考评内容")
   @Column(columnDefinition = "LONGTEXT")
   private String content;
@@ -41,8 +36,11 @@ public class Evaluation implements BasicPersistable {
   @ApiModelProperty("数据要点")
   private String focus;
 
-  private BigDecimal value;
-
+  /*
+  * 1，班子成员
+  * 2，站所
+  * 3，村社
+  * */
   private Integer page;
 
 }
