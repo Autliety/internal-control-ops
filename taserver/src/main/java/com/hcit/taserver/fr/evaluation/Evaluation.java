@@ -34,6 +34,7 @@ public class Evaluation implements BasicPersistable {
   private String content;
 
   @ApiModelProperty("数据要点")
+  @Column(columnDefinition = "LONGTEXT")
   private String focus;
 
   /*

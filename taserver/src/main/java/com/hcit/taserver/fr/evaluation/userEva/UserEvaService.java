@@ -15,6 +15,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserEvaService {
 
+  private static final BigDecimal SELF_WEIGHT = BigDecimal.valueOf(0.1);
+  private static final BigDecimal LEADER_WEIGHT = BigDecimal.valueOf(0.2);
+  private static final BigDecimal AUTO_WEIGHT = BigDecimal.valueOf(0.7);
+  private static final BigDecimal SPECIAL_WEIGHT = BigDecimal.valueOf(0.9);
+
   private final UserEvaRepository userEvaRepository;
   private final AuthService authService;
 
@@ -51,6 +56,7 @@ public class UserEvaService {
         if (inputUe.getAuto() == null) {
           inputUe.setAuto(BigDecimal.ZERO);
         }
+        inputUe.setTotal(countTotal(inputUe));
         result.add(inputUe);
 
       } else {
@@ -62,11 +68,19 @@ public class UserEvaService {
           //自评更新
           originUe.setSelf(inputUe.getSelf());
         }
+        originUe.setTotal(countTotal(originUe));
         result.add(originUe);
       }
     }
 
     return userEvaRepository.saveAll(result);
+  }
+
+  private BigDecimal countTotal(UserEvaluation ue) {
+    // todo if (ue.getId().getEvaluation().isSpecial()) {} else
+    return ue.getSelf().multiply(SELF_WEIGHT)
+        .add(ue.getLeader().multiply(LEADER_WEIGHT))
+        .add(ue.getAuto().multiply(AUTO_WEIGHT));
   }
 
   public List<UserEvaluation> findAllByUserId(Long id) {

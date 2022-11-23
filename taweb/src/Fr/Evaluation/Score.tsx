@@ -56,13 +56,14 @@ function Score({page}) {
       title: '考评得分',
       dataIndex: isLeader ? 'leader' : 'self',
       width: 100,
+      valueType: 'digit',
       renderFormItem: (r: any) => <InputNumber min={0} max={parseFloat(r.entry?.value)}/>
     },
   ];
 
   const [value, setValue] = React.useState([]);
   React.useEffect(() => {
-    setValue(state.map(item => ({...item, ...scoreData.find(i => i.evaluationId === item.id)})))
+    setValue(state.map(item => ({...item, ...scoreData.find(i => i.evaluation.id === item.id)})))
   }, [state, scoreData]);
 
   // 求总分
