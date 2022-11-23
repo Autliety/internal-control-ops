@@ -24,6 +24,10 @@ import lombok.Setter;
 @Entity
 public class User implements BasicPersistable {
 
+  public static User of(Long id) {
+    return User.builder().id(id).build();
+  }
+
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 

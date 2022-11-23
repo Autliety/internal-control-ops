@@ -13,7 +13,6 @@ public enum FormType {
 
   INSPECT("监督检查"),
   TALKING("5+1谈话"),
-  THREE("三重一大"),
   PERSONAL("个人事项报告"),
   REPORT("年度履责报告"),
   LEADER("领导干部插手干预重大事项记录报告"),
@@ -23,6 +22,9 @@ public enum FormType {
   QUESTION("履责约谈"),
   DISPOSAL("第一种形态处置运用"),
   LEARNING("第一议题制度"),
+
+  MOTION("纪委动议"),
+  THREE("三重一大"),
   ;
 
   private final String remark;

@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.motion;
+package com.hcit.taserver.fr.three;
 
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
@@ -10,46 +10,47 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MotionService {
+public class ThreeService {
 
-  private final MotionRepository motionRepository;
+  private final ThreeRepository threeRepository;
 
   private final AuthService authService;
 
   private final ApprovalService approvalService;
 
-  public List<Motion> findAll() {
-    return motionRepository.findAll(
+  public List<Three> findAll() {
+    return threeRepository.findAll(
         (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb, root.get("requestUser")))
             .getRestriction());
   }
 
-  public Motion findById(Long id) {
-    return motionRepository.findById(id).orElseThrow();
+  public Three findById(Long id) {
+    return threeRepository.findById(id).orElseThrow();
   }
 
-  public Motion create(Motion motion) {
-    var result = motionRepository.save(
-        Motion.builder()
+  public Three create(Three three) {
+    var result = threeRepository.save(
+        Three.builder()
             .statusStep(0)
             .requestUser(authService.getCurrentUser())
-            .requestTitle(motion.getRequestTitle())
-            .requestContent(motion.getRequestContent())
-            .requestTime(motion.getRequestTime())
-            .requestAttach(motion.getRequestAttach())
+            .requestTitle(three.getRequestTitle())
+            .requestContent(three.getRequestContent())
+            .requestSource(three.getRequestSource())
+            .requestAttach(three.getRequestAttach())
+            .requestTime(three.getRequestTime())
             .build());
-    var approval = approvalService.generate(a -> a.withApprovalType("motion").withMotion(result),
+    var approval = approvalService.generate(a -> a.withApprovalType("three").withThree(result),
         User.of(1L), null);
     approvalService.stepIn(approval.getId(), Status.AWAITING_REVIEW, null);
     return result;
   }
 
-  public Motion update(Long id, Motion motion) {
-    var origin = motionRepository.findById(id).orElseThrow();
+  public Three update(Long id, Three three) {
+    var origin = threeRepository.findById(id).orElseThrow();
     if (!origin.getApprovalStatus().isEditable() && origin.getApprovalStatus() != Status.REVIEWED) {
       throw new UnsupportedOperationException();
     }
-    motion.setId(id);
-    return motionRepository.save(motion);
+    three.setId(id);
+    return threeRepository.save(three);
   }
 }

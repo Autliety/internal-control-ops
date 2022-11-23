@@ -9,13 +9,13 @@ import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import com.hcit.taserver.fr.motion.Motion;
 import com.hcit.taserver.fr.progress.Progress;
+import com.hcit.taserver.fr.three.Three;
 import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -66,7 +66,7 @@ public class Approval implements BasicPersistable {
   private LocalDateTime updateTime;
 
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
-  @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "approval", fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<ApprovalStep> step;
 
@@ -99,6 +99,10 @@ public class Approval implements BasicPersistable {
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToOne
   private Motion motion;
+
+  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @OneToOne
+  private Three three;
 
   // ta
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)

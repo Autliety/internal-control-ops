@@ -10,4 +10,5 @@ public interface ApprovalStepRepository extends JpaRepository<ApprovalStep, Long
 
   List<ApprovalStep> findAllByApproveUser(User approveUser);
 
+  List<ApprovalStep> findAllByApprovalId(Long approvalId);
 }

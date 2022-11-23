@@ -32,7 +32,7 @@ function MotionCreateModal({ isFirstEdit, id, size }: Props) {
           data.executeTime = moment(data.executeTime).valueOf();
 
           let res = isFirstEdit
-              ? await createHttp(null, null, { ...data })
+              ? await createHttp(null, null, data)
               : await updateHttp(null, null, {
                 ...state,
                 ...data,

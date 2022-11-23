@@ -82,7 +82,7 @@ public class ApprovalService {
 
   public Approval stepIn(Long id, Status newStatus, String content) {
     var approval = approvalRepository.findById(id).orElseThrow();
-    var steps = approval.getStep();
+    var steps = approvalStepRepository.findAllByApprovalId(id);
     var lastStep = CollectionUtils.lastElement(steps);
     if (lastStep == null) {
       throw new IllegalStateException();

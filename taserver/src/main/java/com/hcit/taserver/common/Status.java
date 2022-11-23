@@ -42,6 +42,26 @@ public enum Status {
 
   ;
 
+  public static Status getExtStep(Integer step) {
+    if (step == null) {
+      step = 0;
+    }
+    switch (step) {
+      case 0:
+        return null;
+      case 1:
+        return Status.EXT_ONE;
+      case 2:
+        return Status.EXT_TWO;
+      case 3:
+        return Status.EXT_THREE;
+      case 4:
+        return Status.EXT_FOUR;
+      default:
+        throw new IllegalArgumentException();
+    }
+  }
+
   private final boolean isEditable;
 
   Status() {

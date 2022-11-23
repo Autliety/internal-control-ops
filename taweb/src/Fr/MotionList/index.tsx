@@ -16,8 +16,10 @@ export const motionColumns: (ProColumns | any)[] = [
   {
     title: '序号',
     dataIndex: 'id',
+    width: 50,
     hideInDescriptions: true,
     hideInForm: true,
+    onStep: 0,
   },
   {
     title: '动议人',
@@ -32,6 +34,7 @@ export const motionColumns: (ProColumns | any)[] = [
   {
     dataIndex: 'requestAttach',
     title: '相关附件',
+    render: () => <FileUpload/>,
     renderFormItem: () => <FileUpload isInEdit/>,
     hideInTable: true,
     onStep: 0,
@@ -39,15 +42,16 @@ export const motionColumns: (ProColumns | any)[] = [
   {
     title: '动议审批',
     dataIndex: 'approvalApproveUser',
+    renderText: u => u?.name,
     renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled/>,
     hideInDescriptions: true,
     hideInTable: true,
     onStep: 0,
   },
-
   {
     title: '参加人员',
     dataIndex: 'decisionUser',
+    renderText: u => u?.name,
     renderFormItem: () => <AttendeeSelectCard/>,
     onStep: 1,
     hideInTable: true,

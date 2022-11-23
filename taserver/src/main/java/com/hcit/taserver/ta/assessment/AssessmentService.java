@@ -50,7 +50,7 @@ public class AssessmentService {
       return list.stream()
           .filter(a -> a.getRespUser().stream().map(User::getId).anyMatch(i -> i.equals(user.getId())))
           .collect(Collectors.toList());
-    } else if (id <= 29 || id == 999) {
+    } else if (id <= 29 || id == -999) {
       return list;
     } else {
       return list.stream()

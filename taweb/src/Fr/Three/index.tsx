@@ -7,14 +7,15 @@ import { useHttp } from '../../utils/request';
 import ThreeCreateModal from '../ThreeList/ThreeCreateModal';
 import { useAuth } from '../../utils/auth';
 import BaseDivider from '../../components/BaseDivider';
-import FileUpload from '../../components/FileUpload';
 import ApprovalTable from '../../components/ApprovalTable';
+import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
 
 export default function Three() {
 
   const { user } = useAuth();
   const { id } = useParams();
-  const { state, loading } = useHttp(`/ordinal/three/${id}`, { initState: {} });
+  const { state, loading } = useHttp(`/three/${id}`, { initState: {} });
+  // const { http } = useHttp(`/three/${id}`, {method: 'POST', isManual: true})
 
   return <PageContainer
       extra={[
@@ -23,20 +24,27 @@ export default function Three() {
       ]}
       loading={loading}
   >
-    <BaseDivider title={'基本信息'} />
+    <BaseDivider title={'拟提交议题'} />
     <BaseDescriptions
-        columns={threeColumns.slice(1, 5)}
+        columns={threeColumns.filter(c => c.onStep === 0)}
         dataSource={state}
     />
 
-    <BaseDivider title={'审批流程'} />
-    {/* todo 审批数据 */}
-    <ApprovalTable value={[]} />
+    <ApprovalTable value={state.approval} />
 
-    <BaseDivider title={'决策信息'} />
-    <BaseDescriptions columns={threeColumns.slice(6)} dataSource={state} />
+    <BaseDivider title={'党委决策'} />
+    <BaseDescriptions
+        columns={threeColumns.filter(c => c.onStep === 1 || c.onStep === 2)}
+        dataSource={state}
+    />
 
-    <BaseDivider title={'相关附件'} />
-    <FileUpload value={state?.attach || []} />
+    <BaseDivider title={'决策执行'} />
+    <BaseDescriptions
+        columns={threeColumns.filter(c => c.onStep === 3 || c.onStep === 4)}
+        dataSource={state}
+    />
+
+    <ApprovalFooterToolbar value={state.approval} />
+
   </PageContainer>;
 }

@@ -45,7 +45,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dev": "cross-env BROWSER=none react-scripts start"
+    "dev": "cross-env BROWSER=none GENERATE_SOURCEMAP=false react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
