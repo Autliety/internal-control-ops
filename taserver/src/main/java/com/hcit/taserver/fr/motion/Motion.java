@@ -10,6 +10,7 @@ import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.data.FrResultData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -58,7 +59,7 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   private User requestUser;
 
   @ApiModelProperty("动议时间")
-  private LocalDateTime requestTime;
+  private LocalDate requestDate;
 
   @ApiModelProperty("动议情形")
   private String requestTitle;
@@ -83,7 +84,7 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   private List<User> decisionUser;
 
   @ApiModelProperty("决策时间")
-  private LocalDateTime decisionTime;
+  private LocalDate decisionDate;
 
   @ApiModelProperty("研究交办事项、执行情况")
   @JsonIgnoreProperties(value = {"motion"}, allowSetters = true)
@@ -112,7 +113,7 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   }
 
   @ApiModelProperty("完成时限")
-  private LocalDateTime executeTime;
+  private LocalDate executeDate;
 
   private LocalDateTime updateTime;
 

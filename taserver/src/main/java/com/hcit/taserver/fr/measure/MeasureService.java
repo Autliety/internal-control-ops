@@ -1,7 +1,7 @@
 package com.hcit.taserver.fr.measure;
 
 
-import com.hcit.taserver.fr.matter.MatterService;
+import com.hcit.taserver.fr.matter.form.MatterFormService;
 import com.hcit.taserver.fr.progress.ProgressService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class MeasureService {
 
   private final MeasureRepository measureRepository;
-  private final MatterService matterService;
+  private final MatterFormService matterFormService;
   private final ProgressService progressService;
 
   public List<Measure> findAll() {
-    return matterService.findByCurrent().getMatters().stream().flatMap(m -> m.getMeasure().stream())
+    return matterFormService.findByCurrent().getMatters().stream().flatMap(m -> m.getMeasure().stream())
         .collect(Collectors.toList());
   }
 

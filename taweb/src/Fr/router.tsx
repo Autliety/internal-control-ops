@@ -57,10 +57,11 @@ import Department from '../pages/Department';
 import Settings from '../pages/Settings';
 import MotionList from './MotionList';
 import MatterListApproval from './MatterList/MatterListApproval';
-import TodoList from './TodoList';
-import Todo from './Todo';
+import WarningList from './WarningList';
+import WarningYellow from './Warning/WarningYellow';
 import Score from './Evaluation/Score';
-import RedTodo from './Todo/RedTodo';
+import WarningRed from './Warning/WarningRed';
+import AlertList from './AlertList';
 
 export const router = {
   routes: [
@@ -230,9 +231,9 @@ export const router = {
           element: <QuestionList/>,
         },
         {
-          name: '预警追踪',
-          path: '/fr/dz/todo',
-          disabled: true,
+          name: '履责追踪',
+          path: '/fr/dz/alert',
+          element: <AlertList/>,
         },
       ],
     },
@@ -243,8 +244,8 @@ export const router = {
       routes: [
         {
           name: '预警处置',
-          path: '/fr/zz/todo',
-          element: <TodoList/>
+          path: '/fr/zz/warning',
+          element: <WarningList/>
         },
       ],
     },
@@ -431,14 +432,14 @@ export const router = {
     {
       hideInMenu: true,
       name: '预警详情',
-      path: '/fr/zz/todo/yellow/:id',
-      element: <Todo/>
+      path: '/fr/zz/warning/yellow/:id',
+      element: <WarningYellow/>
     },
     {
       hideInMenu: true,
       name: '预警详情',
-      path: '/fr/zz/todo/red/:id',
-      element: <RedTodo/>
+      path: '/fr/zz/warning/red/:id',
+      element: <WarningRed/>
     },
     {
       hideInMenu: true,

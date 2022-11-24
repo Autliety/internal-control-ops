@@ -28,7 +28,7 @@ export const motionColumns: (ProColumns | any)[] = [
     renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
     onStep: 0,
   },
-  { title: '动议时间', dataIndex: 'requestTime', valueType: 'date', onStep: 0 },
+  { title: '动议时间', dataIndex: 'requestDate', valueType: 'date', onStep: 0 },
   { title: '动议情形', dataIndex: 'requestTitle', onStep: 0 },
   { title: '动议事项内容', dataIndex: 'requestContent', valueType: 'textarea', hideInTable: true, onStep: 0 },
   {
@@ -56,7 +56,7 @@ export const motionColumns: (ProColumns | any)[] = [
     onStep: 1,
     hideInTable: true,
   },
-  { title: '决策时间', dataIndex: 'decisionTime', valueType: 'date', onStep: 1 },
+  { title: '决策时间', dataIndex: 'decisionDate', valueType: 'date', onStep: 1 },
   {
     title: '研究交办事项',
     dataIndex: 'decisionExecuteResult',
@@ -94,7 +94,7 @@ export const motionColumns: (ProColumns | any)[] = [
     hideInTable: true,
     onStep: 1,
   },
-  { title: '完成时限', dataIndex: 'executeTime', valueType: 'date', onStep: 1, hideInTable: true },
+  { title: '完成时限', dataIndex: 'executeDate', valueType: 'date', onStep: 1, hideInTable: true },
 
   {
     title: '执行实施具体情况',

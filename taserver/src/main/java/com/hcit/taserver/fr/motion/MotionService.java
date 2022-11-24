@@ -35,7 +35,7 @@ public class MotionService {
             .requestUser(authService.getCurrentUser())
             .requestTitle(motion.getRequestTitle())
             .requestContent(motion.getRequestContent())
-            .requestTime(motion.getRequestTime())
+            .requestDate(motion.getRequestDate())
             .requestAttach(motion.getRequestAttach())
             .build());
     var approval = approvalService.generate(a -> a.withApprovalType("motion").withMotion(result),

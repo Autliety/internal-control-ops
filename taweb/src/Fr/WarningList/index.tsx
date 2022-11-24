@@ -1,14 +1,14 @@
 import React from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
-import {ProColumns} from '@ant-design/pro-table';
-import {ContainerOutlined, ExportOutlined} from '@ant-design/icons';
-import {Button, Modal, Space} from 'antd';
-import {useNavigate} from 'react-router-dom';
+import { PageContainer } from '@ant-design/pro-layout';
+import { ProColumns } from '@ant-design/pro-table';
+import { ContainerOutlined, ExportOutlined } from '@ant-design/icons';
+import { Button, Modal, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import BaseDivider from '../../components/BaseDivider';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import FileUpload from '../../components/FileUpload';
-import {useHttp} from '../../utils/request';
-import moment from "moment";
+import { useHttp } from '../../utils/request';
+import moment from 'moment';
 
 // 黄哨
 export const yellowColumns: ProColumns[] = [
@@ -75,7 +75,7 @@ export const redColumns: ProColumns[] = [
   {title: '是否复发', dataIndex: 'ssff', hideInTable: true},
 ];
 
-function TodoList() {
+function WarningList() {
 
   const navigate = useNavigate();
 
@@ -110,7 +110,7 @@ function TodoList() {
                     type={'primary'}
                     icon={<ContainerOutlined/>}
                     size={'small'}
-                    onClick={() => navigate(`/fr/zz/todo/yellow/${record.id}`)}
+                    onClick={() => navigate(`/fr/zz/warning/yellow/${record.id}`)}
                 />
               </Space>,
               fixed: 'right',
@@ -132,7 +132,7 @@ function TodoList() {
                     type={'primary'}
                     icon={<ContainerOutlined/>}
                     size={'small'}
-                    onClick={() => navigate(`/fr/zz/todo/red/${record.id}`)}
+                    onClick={() => navigate(`/fr/zz/warning/red/${record.id}`)}
                 />
               </Space>,
               fixed: 'right',
@@ -161,4 +161,4 @@ function TodoList() {
   </PageContainer>;
 }
 
-export default TodoList;
+export default WarningList;

@@ -7,7 +7,6 @@ import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-de
 import { useHttp } from '../../utils/request';
 import MeasureTable from '../MeasureList/MeasureTable';
 import MatterInfo from './MatterInfo';
-import ApprovalTable from '../../components/ApprovalTable';
 import { useAuth } from '../../utils/auth';
 
 export default function Matter() {
@@ -16,9 +15,9 @@ export default function Matter() {
   const { user } = useAuth();
   const { id } = useParams();
 
-  const { state, loading } = useHttp(`/matter/${id}`);
-  const { http: updateHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'POST' });
-  const { http: deleteHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'DELETE' });
+  const { state, loading } = useHttp(`/matterform/0/matter/${id}`);
+  const { http: updateHttp } = useHttp(`/matterform/0/matter/${id}`, { isManual: true, method: 'POST' });
+  const { http: deleteHttp } = useHttp(`/matterform/0/matter/${id}`, { isManual: true, method: 'DELETE' });
 
   const editable = user.id === state.user?.id &&
       (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) || 'AWAITING_FIX' === state.stepTwoStatus);
@@ -52,11 +51,6 @@ export default function Matter() {
         onChange={setMeasure}
         isInEdit={editable}
     />
-
-    <>
-      <Divider orientation={'left'}>审核流程</Divider>
-      <ApprovalTable value={state.approval}/>
-    </>
 
     {editable &&
     <FooterToolbar>
