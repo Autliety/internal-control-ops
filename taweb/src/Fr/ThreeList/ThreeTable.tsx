@@ -28,8 +28,18 @@ export default function ThreeTable({ value, isEdit = false }) {
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            {isEdit && ((user?.id === 1 && record.integer1 === 1) || (user?.id === 28 && record.integer1 === 2)) &&
-            <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
+            {(
+                (user?.id === 1 && record.status === 'REVIEWED' && record.statusStep === 0)
+                || (user?.id === 28 && record.statusStep === 2)
+                || (record.statusStep === 3)
+                || (user.id === 28 && record.statusStep === 4)
+            )
+            && isEdit
+            &&
+            <ThreeCreateModal
+                isFirstEdit={false}
+                id={record.id}
+            />}
           </Space>,
         })}
         value={value}
