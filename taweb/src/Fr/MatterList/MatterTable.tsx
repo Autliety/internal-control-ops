@@ -19,7 +19,7 @@ export default function MatterTable({ value, ...rest }) {
               <Tooltip title={'查看详情'}>
                 <Button
                     type={'primary'}
-                    icon={<ContainerOutlined/>}
+                    icon={<ContainerOutlined />}
                     size={'small'}
                     onClick={() => navigate(`/fr/mz/list/matter/${record.id}`)}
                 />

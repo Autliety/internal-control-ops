@@ -24,7 +24,7 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '提交人',
     dataIndex: 'requestUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
+    renderFormItem: () => <UserSelectCascader isSelfOnly disabled />,
     onStep: 0,
   },
   { title: '提交时间', dataIndex: 'requestTime', valueType: 'date', onStep: 0 },
@@ -57,7 +57,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'requestAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 0,
@@ -66,7 +66,7 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '议题审批',
     dataIndex: 'approvalApproveUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled/>,
+    renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled />,
     hideInDescriptions: true,
     hideInTable: true,
     onStep: 0,
@@ -106,7 +106,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'decisionAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 1,
@@ -116,7 +116,7 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '决策执行人',
     dataIndex: 'requestUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
+    renderFormItem: () => <UserSelectCascader isSelfOnly disabled />,
     onStep: 3,
   },
   {
@@ -137,7 +137,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'decisionAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 3,
@@ -152,7 +152,7 @@ export default function ThreeList() {
   const navigate = useNavigate();
 
   return <PageContainer
-      extra={<ThreeCreateModal isFirstEdit/>}
+      extra={<ThreeCreateModal isFirstEdit />}
       loading={loading}
   >
     <BaseEditableTable
@@ -165,13 +165,17 @@ export default function ThreeList() {
             <Tooltip title={'详情'}>
               <Button
                   type={'primary'}
-                  icon={<FileTextOutlined/>}
+                  icon={<FileTextOutlined />}
                   size={'small'}
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            {((user?.id === 1 && record.integer1 === 1) || (user?.id === 28 && record.integer1 === 2)) &&
-            <ThreeCreateModal isFirstEdit={false} id={record.id}/>}
+            {((
+                    user?.id === 1 && record.status === 'REVIEWED' && record.statusStep === 0)
+                || (user?.id === 28 && record.statusStep === 2)
+                || (record.statusStep === 3)
+                || (user.id === 28 && record.statusStep === 4)
+            ) && <ThreeCreateModal isFirstEdit={false} id={record.id} />}
           </Space>,
         })}
         value={state}

@@ -16,9 +16,9 @@ export default function Matter() {
   const { user } = useAuth();
   const { id } = useParams();
 
-  const { state, loading } = useHttp(`/matter/${id}`);
-  const { http: updateHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'POST' });
-  const { http: deleteHttp } = useHttp(`/matter/${id}`, { isManual: true, method: 'DELETE' });
+  const { state, loading } = useHttp(`/matterform/${id}?withChildren=true`);
+  const { http: updateHttp } = useHttp(`/matterform/${id}`, { isManual: true, method: 'POST' });
+  const { http: deleteHttp } = useHttp(`/matterform/${id}`, { isManual: true, method: 'DELETE' });
 
   const editable = user.id === state.user?.id &&
       (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) || 'AWAITING_FIX' === state.stepTwoStatus);
@@ -32,8 +32,8 @@ export default function Matter() {
 
   return <PageContainer
       content={<Space size={'large'}>
-        <Statistic title={'序号'} value={state.id}/>
-        <Statistic title={'责任主体'} value={state.department?.name}/>
+        <Statistic title={'序号'} value={state.id} />
+        <Statistic title={'责任主体'} value={state.department?.name} />
       </Space>}
       loading={loading}
   >
@@ -53,41 +53,38 @@ export default function Matter() {
         isInEdit={editable}
     />
 
-    <>
-      <Divider orientation={'left'}>审核流程</Divider>
-      <ApprovalTable value={state.approval}/>
-    </>
+    <ApprovalTable value={state.approval} />
 
     {editable &&
-    <FooterToolbar>
-      {
-        <Space>
-          <Button
-              type="primary"
-              icon={<EditOutlined/>}
-              onClick={() => updateHttp(null, null, {
-                ...info,
-                endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
-                measure,
-              }).then(() => window.location.reload())}
-          >
-            暂存更新
-          </Button>
-          <Button danger icon={<DeleteOutlined/>} onClick={() => {
-            Modal.confirm({
-              title: '是否删除该问题',
-              icon: <ExclamationCircleOutlined/>,
-              okType: 'danger',
-              onOk() {
-                deleteHttp().then(() => navigate('/fr/mz/list/matter'));
-              },
-            });
-          }}
-          >删除问题</Button>
-        </Space>
-      }
+        <FooterToolbar>
+          {
+            <Space>
+              <Button
+                  type="primary"
+                  icon={<EditOutlined />}
+                  onClick={() => updateHttp(null, null, {
+                    ...info,
+                    endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
+                    measure,
+                  }).then(() => window.location.reload())}
+              >
+                暂存更新
+              </Button>
+              <Button danger icon={<DeleteOutlined />} onClick={() => {
+                Modal.confirm({
+                  title: '是否删除该问题',
+                  icon: <ExclamationCircleOutlined />,
+                  okType: 'danger',
+                  onOk() {
+                    deleteHttp().then(() => navigate('/fr/mz/list/matter'));
+                  },
+                });
+              }}
+              >删除问题</Button>
+            </Space>
+          }
 
-    </FooterToolbar>
+        </FooterToolbar>
     }
 
   </PageContainer>;
