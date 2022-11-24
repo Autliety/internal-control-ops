@@ -9,6 +9,7 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
@@ -54,7 +55,7 @@ public class Three implements BasicPersistable, ApprovalEntity {
   private User requestUser;
 
   @ApiModelProperty("提交时间")
-  private LocalDateTime requestTime;
+  private LocalDate requestDate;
 
   @ApiModelProperty("拟提交事项")
   private String requestTitle;
@@ -77,7 +78,7 @@ public class Three implements BasicPersistable, ApprovalEntity {
 
   // decision
   @ApiModelProperty("决策时间")
-  private LocalDateTime decisionTime;
+  private LocalDate decisionDate;
 
   @ApiModelProperty("决策方式")
   private String decisionTitle;
@@ -101,7 +102,7 @@ public class Three implements BasicPersistable, ApprovalEntity {
 
   //execute
   @ApiModelProperty("执行时间")
-  private LocalDateTime executeTime;
+  private LocalDate executeDate;
 
   @ApiModelProperty("决策执行概述")
   @Column(columnDefinition = "LONGTEXT")

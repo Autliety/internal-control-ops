@@ -1,7 +1,7 @@
 package com.hcit.taserver.fr.inform;
 
 import com.hcit.taserver.department.user.AuthService;
-import com.hcit.taserver.fr.matter.MatterService;
+import com.hcit.taserver.fr.matter.form.MatterFormService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.util.CollectionUtils;
 public class InformService {
 
   private final InformRepository informRepository;
-  private final MatterService matterService;
+  private final MatterFormService matterFormService;
   private final AuthService authService;
 
   public List<Inform> findAll() {
@@ -37,7 +37,7 @@ public class InformService {
         m.setOrigin("镇本级/区（镇）反馈、交办/一单三书");
         m.setContent(inform.getContent());
       });
-      matterService.insertMatters(inform.getDestUser(), matters);
+      matterFormService.insertMatters(inform.getDestUser(), matters);
     }
     return informRepository.save(inform);
   }

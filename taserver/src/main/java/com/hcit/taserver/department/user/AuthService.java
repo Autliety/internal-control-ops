@@ -61,7 +61,7 @@ public class AuthService implements UserDetailsService {
     return getPrivilegePredicate(root, cb, userPath, null);
   }
 
-  private Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Path<?> userPath, User targetUser) {
+  public Predicate getPrivilegePredicate(Root<?> root, CriteriaBuilder cb, Path<?> userPath, User targetUser) {
     if (userPath == null) {
       userPath = root.get("user");
     }

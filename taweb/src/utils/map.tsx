@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function mapObjectChildrenRec(objs: any[], config: any) {
   return objs.map(obj => {
     for (const key in config) {
@@ -45,4 +47,12 @@ export function getBase64(file:any) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
+}
+
+export function toDate(input: any) {
+  return input ? moment(input).format('YYYY-MM-DD') : null;
+}
+
+export function toDateTime(input: any) {
+  return input ? moment(input).valueOf() : null;
 }

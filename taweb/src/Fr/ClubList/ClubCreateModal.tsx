@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
 import { useHttp } from '../../utils/request';
 import BaseStepForm from '../../components/BaseStepForm';
 import { clubColumns } from './index';
 import FileUpload from '../../components/FileUpload';
 import { useAuth } from '../../utils/auth';
+import { toDateTime } from '../../utils/map';
 
 type Props = {
   isFirstEdit: boolean,
@@ -41,8 +41,7 @@ function ClubCreateModal({ isFirstEdit, id }: Props) {
         isFirstEdit={isFirstEdit}
         value={state}
         onFinish={async data => {
-          if (data.time1)
-            data.time1 = moment(data.time1).valueOf();
+          data.time1 = toDateTime(data.time1);
           let res = isFirstEdit
               ? await http(null, null, { ...data, integer1: 1 })
               : await updateHttp(null, null, { ...state, ...data, integer1: parseInt(state.integer1) + 1 });

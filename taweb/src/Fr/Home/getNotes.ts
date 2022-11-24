@@ -41,3 +41,19 @@ export function getApprovalNotes(input: any) {
   result.time = moment(input.updateTime).format('YYYY-MM-DD HH:mm');
   return result;
 }
+
+export function getMatterAlertNotes(input: any) {
+  return {
+    link: `/fr/mz/list/matter/${input.id}`,
+    title: '问题清单超时预警',
+    content: `问题【${input.code}】措施执行即将或已经超时`,
+  }
+}
+
+export function getThreeAlertNotes(input: any) {
+  return {
+    link: `/fr/lz/three/${input.id}`,
+    title: '三重一大超时预警',
+    content: `三重一大议题【${input.requestTitle}】执行反馈即将或已经超时`,
+  }
+}

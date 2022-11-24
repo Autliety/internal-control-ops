@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.ordinal;
 
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
-import com.hcit.taserver.fr.matter.MatterService;
+import com.hcit.taserver.fr.matter.form.MatterFormService;
 import java.util.List;
 import javax.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class OrdinalFormService {
 
   private final OrdinalFormRepository ordinalFormRepository;
   private final AuthService authService;
-  private final MatterService matterService;
+  private final MatterFormService matterFormService;
 
   public List<OrdinalForm> findAllByFormType(FormType formType) {
     User u = authService.getCurrentUser();
@@ -64,7 +64,7 @@ public class OrdinalFormService {
     f.setMatter(null);
     if (!CollectionUtils.isEmpty(f.getMatter())) {
       matters.forEach(m -> m.setOrigin(formType.getRemark()));
-      var m = matterService.insertMatters(f.getDestUser(), matters);
+      var m = matterFormService.insertMatters(f.getDestUser(), matters);
       f.setMatter(m);
     }
     return ordinalFormRepository.save(f);

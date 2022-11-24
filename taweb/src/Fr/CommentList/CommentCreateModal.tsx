@@ -26,9 +26,7 @@ function CommentCreateModal({ isFirstEdit, id, size }: Props) {
         size={size}
         value={state}
         onFinish={async data => {
-          if (data.time1) {
-            data.time1 = moment(data.time1).valueOf();
-          }
+          data.time1 = moment(data.time1).valueOf();
           let res = isFirstEdit
               ? await http(null, null, { ...data, integer1: 1 })
               : await updateHttp(null, null, {

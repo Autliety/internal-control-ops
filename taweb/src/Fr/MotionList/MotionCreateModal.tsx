@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../utils/request';
 import BaseStepForm from '../../components/BaseStepForm';
 import { motionColumns } from './index';
+import { toDate } from '../../utils/map';
 
 type Props = {
   isFirstEdit: boolean,
@@ -27,10 +27,9 @@ function MotionCreateModal({ isFirstEdit, id, size }: Props) {
         isFirstEdit={isFirstEdit}
         value={state}
         onFinish={async data => {
-          data.requestTime = moment(data.requestTime).valueOf();
-          data.decisionTime = moment(data.decisionTime).valueOf();
-          data.executeTime = moment(data.executeTime).valueOf();
-
+          data.requestDate = toDate(data.requestDate);
+          data.decisionDate = toDate(data.decisionDate);
+          data.executeDate = toDate(data.executeDate);
           let res = isFirstEdit
               ? await createHttp(null, null, data)
               : await updateHttp(null, null, {
