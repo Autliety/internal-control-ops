@@ -1,31 +1,35 @@
 import React from 'react';
-import {FooterToolbar, PageContainer} from '@ant-design/pro-layout';
-import {ProColumns} from '@ant-design/pro-table';
-import { useSearchParams} from 'react-router-dom';
-import {Alert, Button, Descriptions, InputNumber} from 'antd';
+import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
+import { ProColumns } from '@ant-design/pro-table';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { Alert, Button, Descriptions, InputNumber, Tag, Typography } from 'antd';
 import showInfo from '../../utils/showInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import {useHttp} from '../../utils/request';
-import {useAuth} from '../../utils/auth';
+import { useHttp } from '../../utils/request';
+import { useAuth } from '../../utils/auth';
 
-function Score({page}) {
+function Score({ page }) {
 
   const [search] = useSearchParams();
   let isLeader = search.get('isLeader') === 'true';
 
-  const {user} = useAuth();
+  // 被评分人
+  const location = useLocation();
+  const { state: leaderDestUser }: any = location;
 
-  const {state} = useHttp(`/evaluation/${page}`, {initState: []});
-  const {state: scoreData} = useHttp(`/evaluation/score${isLeader ? '?userId=10' : ''}` , { initState: []});
-  const {http} = useHttp(isLeader ? '/evaluation?userId=10' : '/evaluation', {isManual: true, method:'POST'});
+  const { user } = useAuth();
 
-  // todo dev code
-  const leaderDestUser = {id: 10}
+  const { state } = useHttp(`/evaluation/${page}`, { initState: [] });
+  const { state: scoreData } = useHttp(`/evaluation/score${isLeader ? `?userId=${leaderDestUser.user?.id}` : ''}`, { initState: [] });
+  const { http } = useHttp(isLeader ? `/evaluation?userId=${leaderDestUser.user?.id}` : '/evaluation', {
+    isManual: true,
+    method: 'POST'
+  });
 
   const columns: ProColumns[] = [
-    {title: '序号', dataIndex: 'id', width: 80, editable: false},
-    {title: '考评模块', dataIndex: 'type', editable: false},
-    {title: '考核指标', dataIndex: 'name', editable: false},
+    { title: '序号', dataIndex: 'id', width: 80, editable: false },
+    { title: '考评模块', dataIndex: 'type', editable: false },
+    { title: '考核指标', dataIndex: 'name', editable: false },
     {
       title: '考评内容',
       dataIndex: 'content',
@@ -40,30 +44,30 @@ function Score({page}) {
       dataIndex: 'focus',
       editable: false,
       renderText: (text, record) => record.isColor
-          ? <div style={{color: 'red'}}>
+          ? <div style={{ color: 'red' }}>
             {text?.substring(0, 20)}
             {text?.length > 20 &&
-                <Button type={'link'} onClick={() => showInfo(text)} style={{color: 'red'}}>...[更多]</Button>}
+                <Button type={'link'} onClick={() => showInfo(text)} style={{ color: 'red' }}>...[更多]</Button>}
           </div>
           : <>
             {text?.substring(0, 20)}
             {text?.length > 20 && <Button type={'link'} onClick={() => showInfo(text)}>...[更多]</Button>}
           </>
     },
-    {title: '分值', dataIndex: 'value', width: 80, editable: false},
-    {title: '考评权重', dataIndex: 'weight', renderText: () => '20%', editable: false},
+    { title: '分值', dataIndex: 'value', width: 80, editable: false },
+    { title: '考评权重', dataIndex: 'weight', renderText: () => '20%', editable: false },
     {
       title: '考评得分',
       dataIndex: isLeader ? 'leader' : 'self',
       width: 100,
       valueType: 'digit',
-      renderFormItem: (r: any) => <InputNumber min={0} max={parseFloat(r.entry?.value)}/>
+      renderFormItem: (r: any) => <InputNumber min={0} max={parseFloat(r.entry?.value)} />
     },
   ];
 
   const [value, setValue] = React.useState([]);
   React.useEffect(() => {
-    setValue(state.map(item => ({...item, ...scoreData.find(i => i.evaluation.id === item.id)})))
+    setValue(state.map(item => ({ ...item, ...scoreData.find(i => i.evaluation.id === item.id) })))
   }, [state, scoreData]);
 
   // 求总分
@@ -77,8 +81,16 @@ function Score({page}) {
   }
 
   return <PageContainer>
-    <Alert type={'warning'} message={'注：每项所填考评得分不得超过该项总分值'} showIcon/>
-    <br/>
+    <Alert type={'warning'} message={'注：每项所填考评得分不得超过该项总分值'} showIcon />
+    <br />
+    {
+        isLeader && <div className={'content'}>
+          <Typography.Text>评分人：<Tag color={'processing'}>{user.name}</Tag></Typography.Text>
+          <br /><br />
+          <Typography.Text>被评人：<Tag color={'success'}>{leaderDestUser.user?.name}</Tag></Typography.Text>
+        </div>
+    }
+    <br />
     <BaseEditableTable
         rowkey={'id'}
         columns={isLeader ? columns : columns.filter(item => item.dataIndex !== 'weight')}
@@ -89,15 +101,15 @@ function Score({page}) {
         pagination={false}
         onChange={(v) => {
           setValue(v);
-          setCount(getTotal(v, 'self'));
+          isLeader ? setCount(getTotal(v, 'leader')) : setCount(getTotal(v, 'self'));
         }}
     />
-    <br/>
+    <br />
     <Descriptions bordered>
       <Descriptions.Item
           label='总得分'
-          labelStyle={{width: '86%', fontSize: 16}}
-          contentStyle={{textAlign: 'center', backgroundColor: '#FAFAFA', fontSize: 16}}
+          labelStyle={{ width: '86%', fontSize: 16 }}
+          contentStyle={{ textAlign: 'center', backgroundColor: '#FAFAFA', fontSize: 16 }}
       >
         {count.toFixed(2)}
       </Descriptions.Item>
@@ -109,7 +121,7 @@ function Score({page}) {
           onClick={
             () => http(null, null, value.map(item => ({
               evaluation: item,
-              user: isLeader ? leaderDestUser : user,
+              user: isLeader ? leaderDestUser.user : user,
               leaderUser: isLeader ? user : undefined,
               self: item?.self,
               leader: item?.leader,

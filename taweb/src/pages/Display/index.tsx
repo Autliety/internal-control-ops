@@ -11,6 +11,7 @@ import BulletChart from './BulletChart';
 import ColumnChart from './ColumnChart';
 import RoseChart from './RoseChart';
 import Title from './Title';
+import RingChart from "./RingChart";
 
 function Display() {
 
@@ -398,8 +399,8 @@ function Display() {
           <ColumnChart />
 
           {/* 空位置 */}
-          <div className={'box'} style={{ height: 280 }}>
-
+          <div style={{ height: 280 }}>
+            <RingChart />
           </div>
 
         </Space>
