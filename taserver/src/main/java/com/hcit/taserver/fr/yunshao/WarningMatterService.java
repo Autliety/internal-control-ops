@@ -44,4 +44,8 @@ public class WarningMatterService {
   public List<YellowMatter> findByCurrent() {
     return yellowMatterRepository.findAllByUserId(authService.getCurrentUser().getId());
   }
+
+  public YellowMatter findByWarningId(Long id) {
+    return yellowMatterRepository.findByYellowwarningId(id);
+  }
 }

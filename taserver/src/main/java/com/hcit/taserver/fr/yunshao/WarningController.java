@@ -119,5 +119,10 @@ public class WarningController {
     }
   }
 
+  @GetMapping("/yellow/matter/{id}")
+  public YellowMatter findByWarningId(@PathVariable Long id) {
+    return warningMatterService.findByWarningId(id);
+  }
+
 }
 
