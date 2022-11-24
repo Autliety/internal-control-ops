@@ -150,6 +150,6 @@ export default function ThreeList() {
       extra={<ThreeCreateModal isFirstEdit/>}
       loading={loading}
   >
-   <ThreeTable value={state} isEdit />
+    <ThreeTable value={state} isEdit/>
   </PageContainer>;
 }
