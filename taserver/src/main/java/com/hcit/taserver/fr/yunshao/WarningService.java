@@ -1,9 +1,10 @@
 package com.hcit.taserver.fr.yunshao;
 
-import com.hcit.taserver.attach.AttachRepository;
 import com.hcit.taserver.department.user.AuthService;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.hcit.taserver.fr.yunshao.red.Redwarning;
+import com.hcit.taserver.fr.yunshao.red.RedwarningRepository;
+import com.hcit.taserver.fr.yunshao.yellow.Yellowwarning;
+import com.hcit.taserver.fr.yunshao.yellow.YellowwarningRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -19,10 +20,8 @@ import org.springframework.stereotype.Service;
 //@Modifying
 public class WarningService {
 
-  private final static Path YW_PATH = Paths.get("fs/attach");
 
   public final AuthService authService;
-  private final AttachRepository attachRepository;
   private final YellowwarningRepository yellowwarningRepository;
   private final RedwarningRepository redwarningRepository;
 

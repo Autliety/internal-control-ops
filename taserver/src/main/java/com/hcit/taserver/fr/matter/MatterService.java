@@ -52,7 +52,7 @@ public class MatterService {
     if (user.getPrivilege() == Privilege.ADMIN) {
       user = userService.findById(1L);
     }
-    return mapWithChildren(matterFormRepository.findByUserAndYear(user, 2022));
+    return mapWithChildren(matterFormRepository.findByUserIdAndYear(user.getId(), 2022));
   }
 
   public MatterForm update(Long id, List<Matter> matters) {
@@ -66,7 +66,7 @@ public class MatterService {
   }
 
   public List<Matter> insertMatters(User user, List<Matter> matters) {
-    var form = matterFormRepository.findByUserAndYear(user, 2022);
+    var form = matterFormRepository.findByUserIdAndYear(user.getId(), 2022);
     matters.forEach(m -> {
       m.setId(null);
       m.setMatterForm(form);

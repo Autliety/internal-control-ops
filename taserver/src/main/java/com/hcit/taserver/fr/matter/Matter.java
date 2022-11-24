@@ -43,16 +43,16 @@ public class Matter implements BasicPersistable {
 
   private String code;
 
+  public String getCode() {
+    return String.format("WT2022-%04d", id);
+  }
+
   @JsonIgnoreProperties(value = {"matters"}, allowSetters = true)
   @ManyToOne
   private MatterForm matterForm;
 
   public Status getStatus() {
     return matterForm.getApprovalStatus();
-  }
-
-  public String getCode() {
-    return String.format("WT2022-%06d", id);
   }
 
   @ApiModelProperty("问题内容")

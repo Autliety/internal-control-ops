@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.yunshao;
+package com.hcit.taserver.fr.yunshao.red;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;

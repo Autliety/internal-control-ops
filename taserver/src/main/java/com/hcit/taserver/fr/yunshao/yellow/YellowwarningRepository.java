@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.yunshao;
+package com.hcit.taserver.fr.yunshao.yellow;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

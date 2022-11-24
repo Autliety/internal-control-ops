@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.yunshao;
+package com.hcit.taserver.fr.yunshao.yellow;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
@@ -115,6 +115,6 @@ public class Yellowwarning implements BasicPersistable {
   @ExcelProperty(value = "szfbm")
   private String szfbm;
 
-  @ExcelProperty(value ="szfmc")
+  @ExcelProperty(value = "szfmc")
   private String szfmc;
 }
