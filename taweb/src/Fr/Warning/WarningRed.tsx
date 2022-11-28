@@ -1,12 +1,12 @@
 import React from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
-import {Space, Statistic} from 'antd';
-import {useParams} from 'react-router-dom';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Space, Statistic } from 'antd';
+import { useParams } from 'react-router-dom';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import {redColumns} from '../TodoList';
-import {useHttp} from '../../utils/request';
+import { redColumns } from '../WarningList';
+import { useHttp } from '../../utils/request';
 
-function RedTodo() {
+function WarningRed() {
 
   const {id} = useParams();
   const {state, loading} = useHttp(`/warning/red/${id}`, {initState: {}});
@@ -22,4 +22,4 @@ function RedTodo() {
   </PageContainer>;
 }
 
-export default RedTodo;
+export default WarningRed;

@@ -76,7 +76,7 @@ export const redColumns: ProColumns[] = [
   { title: '是否复发', dataIndex: 'ssff', hideInTable: true },
 ];
 
-function TodoList() {
+function WarningList() {
 
   const navigate = useNavigate();
   const { state: yellowMatter } = useHttp('/warning/yellow/matter?current=false', { initState: [] });
@@ -119,7 +119,7 @@ function TodoList() {
                       type={'primary'}
                       icon={<ContainerOutlined />}
                       size={'small'}
-                      onClick={() => navigate(`/fr/zz/todo/yellow/${record.id}`)}
+                      onClick={() => navigate(`/fr/zz/warning/yellow/${record.id}`)}
                   />
                 </Tooltip>
                 <Tooltip placement='topLeft' title={'选择派发'}>
@@ -154,7 +154,7 @@ function TodoList() {
                     type={'primary'}
                     icon={<ContainerOutlined />}
                     size={'small'}
-                    onClick={() => navigate(`/fr/zz/todo/red/${record.id}`)}
+                    onClick={() => navigate(`/fr/zz/warning/red/${record.id}`)}
                 />
               </Space>,
               fixed: 'right',
@@ -200,4 +200,4 @@ function TodoList() {
   </PageContainer>;
 }
 
-export default TodoList;
+export default WarningList;

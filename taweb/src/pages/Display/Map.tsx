@@ -77,14 +77,14 @@ function Map() {
   ];
 
   return <div style={{ height: 570 }}>
-    <Title title={'各行政区详情'} />
+    <Title title={'责任清单地图'} />
     <Carousel dots={false} autoplay>
       {
         data.map(item => <div key={item.id}>
           <Row>
             <Col span={16}>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img src={item.img} alt={'各行政区域地图'} height={item?.height || 390} style={{ display: 'block' }} />
+                <img src={item.img} alt={'责任清单地图'} height={item?.height || 390} style={{ display: 'block' }} />
               </div>
             </Col>
             <Col span={8}>

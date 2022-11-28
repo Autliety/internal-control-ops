@@ -4,21 +4,22 @@ import { BellTwoTone, CarryOutTwoTone, TagsTwoTone } from '@ant-design/icons';
 import { Avatar, Empty, List, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../utils/request';
-import { getApprovalNotes } from './getNotes';
+import { getApprovalNotes, getMatterAlertNotes, getThreeAlertNotes } from './getNotes';
 
 export default function StatisticNotes() {
 
   const navigate = useNavigate();
-  const { state } = useHttp('/approval?current=true', { initState: {} });
+  const { state: ApprovalState } = useHttp('/approval?current=true', { initState: {} });
+  const { state: alertState } = useHttp('/alert?current=true', { initState: [] });
 
   const [onPage, setOnPage] = React.useState(0);
 
   const pageInfo = [
     {},
-    { title: '待办事项', data: state['AWAITING_REVIEW']?.reverse() || [] },
-    { title: '已处理待办事项', data: state['REVIEWED'] || [] },
-    { title: '未读提醒事项', data: [] },
-    { title: '已读提醒事项', data: [] },
+    { title: '待办事项', data: ApprovalState['AWAITING_REVIEW']?.reverse() || [], notes: getApprovalNotes },
+    { title: '已处理待办事项', data: ApprovalState['REVIEWED'] || [], notes: getApprovalNotes },
+    { title: '问题清单预警提醒', data: alertState['matter'] || [], notes: getMatterAlertNotes },
+    { title: '三重一大预警提醒', data: alertState['three'] || [], notes: getThreeAlertNotes },
     { title: '动态跟踪', data: [] },
     { title: '已完成动态跟踪', data: [] },
   ];
@@ -56,7 +57,7 @@ export default function StatisticNotes() {
 
     <StatisticCard.Group
         direction={'row'}
-        title={<b>提醒事项</b>}
+        title={<b>预警提醒</b>}
         split={'vertical'}
         headerBordered
         bordered
@@ -64,9 +65,9 @@ export default function StatisticNotes() {
       <StatisticCard
           style={{ padding: 24 }}
           statistic={{
-            title: '未读',
+            title: '问题清单',
             value: pageInfo[3].data.length,
-            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'red'}/>,
+            icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'yellow'}/>,
           }}
           onClick={() => setOnPage(3)
           }
@@ -74,7 +75,7 @@ export default function StatisticNotes() {
       <StatisticCard
           style={{ padding: 24 }}
           statistic={{
-            title: '已读',
+            title: '三重一大',
             value: pageInfo[4].data.length,
             icon: <BellTwoTone className={'homepage-icon'} twoToneColor={'blue'}/>,
           }}
@@ -130,7 +131,7 @@ export default function StatisticNotes() {
                 <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} style={{ marginLeft: '45%' }}/>
               </List.Item>
               : pageInfo[onPage].data
-              ?.map(o => getApprovalNotes(o))
+              ?.map(o => pageInfo[onPage].notes(o))
               .map(item =>
                   <List.Item
                       key={item.key}

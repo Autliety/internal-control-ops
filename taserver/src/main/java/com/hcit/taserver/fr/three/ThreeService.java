@@ -38,7 +38,7 @@ public class ThreeService {
             .requestContent(three.getRequestContent())
             .requestSource(three.getRequestSource())
             .requestAttach(three.getRequestAttach())
-            .requestTime(three.getRequestTime())
+            .requestDate(three.getRequestDate())
             .build());
     var approval = approvalService.generate(a -> a.withApprovalType("three").withThree(result),
         User.of(1L), null);

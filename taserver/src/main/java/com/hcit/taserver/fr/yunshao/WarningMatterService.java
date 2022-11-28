@@ -2,7 +2,7 @@ package com.hcit.taserver.fr.yunshao;
 
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.Matter;
-import com.hcit.taserver.fr.matter.MatterService;
+import com.hcit.taserver.fr.matter.form.MatterFormService;
 import com.hcit.taserver.fr.yunshao.yellow.YellowMatter;
 import com.hcit.taserver.fr.yunshao.yellow.YellowMatterRepository;
 import com.hcit.taserver.fr.yunshao.yellow.YellowwarningRepository;
@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 @Service
 public class WarningMatterService {
 
-  private final MatterService matterService;
+  private final MatterFormService matterFormService;
   private final YellowwarningRepository yellowwarningRepository;
   private final YellowMatterRepository yellowMatterRepository;
   private final AuthService authService;
@@ -25,7 +25,7 @@ public class WarningMatterService {
       throw new IllegalArgumentException();
     }
     var yw = yellowwarningRepository.findById(input.getYellowwarning().getId()).orElseThrow();
-    var matters = matterService.insertMatters(input.getUser(), List.of(Matter.builder()
+    var matters = matterFormService.insertMatters(input.getUser(), List.of(Matter.builder()
         .origin("云哨黄哨")
         .content(yw.getYjms())
         .endDate(input.getEndDate())
