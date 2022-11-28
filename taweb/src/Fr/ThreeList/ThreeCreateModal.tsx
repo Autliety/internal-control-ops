@@ -30,9 +30,9 @@ export default function ThreeCreateModal({ isFirstEdit, id, size }: Props) {
           data.decisionTime = moment(data.decisionTime).valueOf();
           data.executeTime = moment(data.executeTime).valueOf();
           let res = isFirstEdit
-              ? await http(null, null, data )
+              ? await http(null, null, data)
               : await updateHttp(null, null, {
-                ...state, ...data,
+                ...state, ...data, integer1: parseInt(state.integer1) + 1
               }).then(() => window.location.reload());
           navigate('/fr/lz/three/' + res.id);
         }}

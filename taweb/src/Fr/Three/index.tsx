@@ -15,14 +15,13 @@ export default function Three() {
   const { user } = useAuth();
   const { id } = useParams();
   const { state, loading } = useHttp(`/three/${id}`, { initState: {} });
-  // const { http } = useHttp(`/three/${id}`, {method: 'POST', isManual: true})
 
   return <PageContainer
       extra={[
-        ((user?.id === 1 && state.status === 'REVIEWED' && state.statusStep === 0)
-            || (user?.id === 28 && state.statusStep === 2)
-            || (state.statusStep === 3)
-            || (user.id === 28 && state.statusStep === 4)) &&
+        ((user?.id === 1 && state.approval?.status === 'REVIEWED' && state.integer1 === 1)
+            || (user?.id === 28 && state.integer1 === 2)
+            || (user.id === state.requestUser?.id && state.integer1 === 3)
+            || (user.id === 28 && state.integer1 === 4)) &&
         <ThreeCreateModal isFirstEdit={false} id={parseInt(id)} size='middle' />
       ]}
       loading={loading}

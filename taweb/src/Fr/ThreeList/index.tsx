@@ -170,15 +170,16 @@ export default function ThreeList() {
                   onClick={() => navigate(`/fr/lz/three/${record.id}`)}
               />
             </Tooltip>
-            {((
-                    user?.id === 1 && record.status === 'REVIEWED' && record.statusStep === 0)
-                || (user?.id === 28 && record.statusStep === 2)
-                || (record.statusStep === 3)
-                || (user.id === 28 && record.statusStep === 4)
+            {(
+                (user?.id === 1 && record.approval?.status === 'REVIEWED' && record.integer1 === 1)
+                || (user?.id === 28 && record.integer1 === 2)
+                || (record.integer1 === 3)
+                || (user.id === 28 && record.integer1 === 4)
             ) && <ThreeCreateModal isFirstEdit={false} id={record.id} />}
           </Space>,
         })}
         value={state}
+
     />
   </PageContainer>;
 }

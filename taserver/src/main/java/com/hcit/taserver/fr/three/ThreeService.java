@@ -1,5 +1,6 @@
 package com.hcit.taserver.fr.three;
 
+import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
@@ -31,7 +32,7 @@ public class ThreeService {
   public Three create(Three three) {
     var result = threeRepository.save(
         Three.builder()
-            .statusStep(0)
+            .integer1(1)
             .requestUser(authService.getCurrentUser())
             .requestTitle(three.getRequestTitle())
             .requestContent(three.getRequestContent())
@@ -51,6 +52,7 @@ public class ThreeService {
       throw new UnsupportedOperationException();
     }
     three.setId(id);
+    three.setApproval(origin.getApproval());
     return threeRepository.save(three);
   }
 }

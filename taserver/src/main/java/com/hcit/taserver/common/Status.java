@@ -39,7 +39,7 @@ public enum Status {
   EXT_TWO(true),
   EXT_THREE(true),
   EXT_FOUR(true),
-
+  EXT_FIVE(true),
   ;
 
   public static Status getExtStep(Integer step) {
@@ -47,16 +47,16 @@ public enum Status {
       step = 0;
     }
     switch (step) {
-      case 0:
-        return null;
       case 1:
-        return Status.EXT_ONE;
+        return null;
       case 2:
         return Status.EXT_TWO;
       case 3:
         return Status.EXT_THREE;
       case 4:
         return Status.EXT_FOUR;
+      case 5:
+        return Status.EXT_FIVE;
       default:
         throw new IllegalArgumentException();
     }

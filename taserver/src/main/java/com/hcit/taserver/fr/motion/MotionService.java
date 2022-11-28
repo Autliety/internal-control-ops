@@ -31,7 +31,7 @@ public class MotionService {
   public Motion create(Motion motion) {
     var result = motionRepository.save(
         Motion.builder()
-            .statusStep(0)
+            .integer1(1)
             .requestUser(authService.getCurrentUser())
             .requestTitle(motion.getRequestTitle())
             .requestContent(motion.getRequestContent())
@@ -50,6 +50,7 @@ public class MotionService {
       throw new UnsupportedOperationException();
     }
     motion.setId(id);
+    motion.setApproval(origin.getApproval());
     return motionRepository.save(motion);
   }
 }
