@@ -47,7 +47,7 @@ public class AlertService {
     return threeRepository.findAll((root, query, cb) ->
         query.where(
                 cb.and(
-                    cb.equal(root.get("statusStep"), 2),
+                    cb.equal(root.get("integer1"), 3),
                     cb.lessThan(root.get("executeDate"), LocalDate.now()),
                     isSelfOnly
                         ? cb.equal(root.get("requestUser").get("id"), authService.getCurrentUser().getId())
