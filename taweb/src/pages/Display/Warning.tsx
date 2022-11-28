@@ -28,8 +28,8 @@ function Warning() {
             </Col>
 
             <Col span={8}>
-              <span style={{ fontSize: 14, color: '#fff' }}>完成：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72</span>
+              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
+              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
           </Row>
         </Col>
@@ -57,8 +57,8 @@ function Warning() {
             </Col>
 
             <Col span={8}>
-              <span style={{ fontSize: 14, color: '#fff' }}>完成：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72</span>
+              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
+              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
           </Row>
         </Col>
@@ -86,8 +86,8 @@ function Warning() {
             </Col>
 
             <Col span={8}>
-              <span style={{ fontSize: 14, color: '#fff' }}>完成：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72</span>
+              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
+              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
           </Row>
         </Col>

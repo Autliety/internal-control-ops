@@ -11,7 +11,7 @@ import BulletChart from './BulletChart';
 import ColumnChart from './ColumnChart';
 import RoseChart from './RoseChart';
 import Title from './Title';
-import RingChart from "./RingChart";
+import RingChart from './RingChart';
 
 function Display() {
 
@@ -398,7 +398,6 @@ function Display() {
           </Carousel>
           <ColumnChart />
 
-          {/* 空位置 */}
           <div style={{ height: 280 }}>
             <RingChart />
           </div>
@@ -416,7 +415,7 @@ function Display() {
         <Warning />
         <br />
         <div>
-          <Title title={'班子成员等分情况'} />
+          <Title title={'班子成员考评得分'} />
           <Carousel autoplay dots={false} dotPosition={'right'}>
             {
               setData(data)?.map((item, index) => <div key={index}>
@@ -427,7 +426,7 @@ function Display() {
         </div>
         <br />
         <div>
-          <Title title={'站所等分情况'} />
+          <Title title={'站所考评得分'} />
           <Carousel autoplay dots={false} dotPosition={'right'}>
             {
               setData(data2)?.map((item, index) => <div key={index}>
@@ -438,7 +437,7 @@ function Display() {
         </div>
         <br />
         <div>
-          <Title title={'村（社）等分情况'} />
+          <Title title={'村（社）考评得分'} />
           <Carousel autoplay dots={false} dotPosition={'right'}>
             {
               setData(data3)?.map((item, index) => <div key={index}>

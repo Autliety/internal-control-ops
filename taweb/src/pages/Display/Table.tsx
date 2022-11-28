@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableSheet, S2Event } from '@antv/s2';
+import { S2Event, TableSheet } from '@antv/s2';
 import Title from './Title';
 
 function Table() {
@@ -174,7 +174,7 @@ function Table() {
   }, []);
 
   return <div>
-    <Title title={'三重一大数据展示'} />
+    <Title title={'三重一大、履责情况'} />
 
     <div style={{ display: 'flex' }}>
       <div id={'container'} style={{ marginRight: 10 }}>

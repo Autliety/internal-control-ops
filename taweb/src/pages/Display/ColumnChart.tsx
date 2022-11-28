@@ -5,11 +5,10 @@ import Title from './Title';
 export default function ColumnChart() {
 
   const data = [
-    { year: '三重一大', value: 102 },
-    { year: '5+1谈话', value: 104 },
-    { year: '相互监督提醒', value: 109 },
-    { year: '履责情况', value: 112 },
-    { year: '述责述廉评议', value: 85 }
+    { year: '一单三书', value: 102 },
+    { year: '纪委动议', value: 104 },
+    { year: '履责约谈', value: 109 },
+    { year: '履责追踪', value: 112 },
   ];
 
   const config = {
@@ -54,7 +53,7 @@ export default function ColumnChart() {
   };
 
   return <div>
-    <Title title={'一单三书类型运用情况'} />
+    <Title title={'督责情况'} />
     {/* @ts-ignore */}
     <Column {...config} />
   </div>;
