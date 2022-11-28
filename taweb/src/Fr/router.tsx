@@ -62,51 +62,41 @@ import WarningYellow from './Warning/WarningYellow';
 import Score from './Evaluation/Score';
 import WarningRed from './Warning/WarningRed';
 import AlertList from './AlertList';
+import List from './List';
 
 export const router = {
   routes: [
     {
       name: '首页',
-      icon: <HomeOutlined/>,
+      icon: <HomeOutlined />,
       path: '/fr/',
-      element: <Home/>,
+      element: <Home />,
     },
     {
       name: '明责',
-      icon: <BulbOutlined/>,
+      icon: <BulbOutlined />,
       path: '/fr/mz',
       routes: [
         {
           name: '“1+X”会议',
           path: '/fr/mz/meeting',
-          element: <MeetingList/>,
+          element: <MeetingList />,
         },
         {
           name: '建立责任清单',
           path: '/fr/mz/list',
-          routes: [
-            {
-              name: '问题清单',
-              path: '/fr/mz/list/matter',
-              element: <MatterList/>,
-            },
-            {
-              name: '措施清单',
-              path: '/fr/mz/list/measure',
-              element: <MeasureList/>,
-            },
-          ],
+          element: <List />,
         },
         {
           name: '第一议题制度',
           path: '/fr/mz/learning',
-          element: <LearnList/>,
+          element: <LearnList />,
         },
       ],
     },
     {
       name: '履责',
-      icon: <ProfileOutlined/>,
+      icon: <ProfileOutlined />,
       path: '/fr/lz',
       routes: [
         {
@@ -116,50 +106,50 @@ export const router = {
             {
               name: '履责情况',
               path: '/fr/lz/list/progress',
-              element: <ProgressList/>,
+              element: <ProgressList />,
             },
             {
               name: '动态跟踪',
               path: '/fr/lz/list/dynamic',
-              element: <ProgressList isTrace/>,
+              element: <ProgressList isTrace />,
             },
           ],
         },
         {
           name: '5+1谈话机制',
           path: '/fr/lz/talking',
-          element: <TalkingList/>,
+          element: <TalkingList />,
         },
         {
           name: '监督检查工作',
           path: '/fr/lz/inspect',
-          element: <InspectList/>,
+          element: <InspectList />,
         },
         {
           name: '三重一大决策',
           path: '/fr/lz/three',
-          element: <ThreeList/>,
+          element: <ThreeList />,
         },
 
         {
           name: '第一种形态运用',
           path: '/fr/lz/disposal',
-          element: <DisposalList/>,
+          element: <DisposalList />,
         },
         {
           name: '相互监督提醒',
           path: '/fr/lz/remind',
-          element: <RemindList/>,
+          element: <RemindList />,
         },
         {
           name: '履责情况报告',
           path: '/fr/lz/report',
-          element: <ReportList/>,
+          element: <ReportList />,
         },
         {
           name: '述责述廉评议',
           path: '/fr/lz/comment',
-          element: <CommentList/>,
+          element: <CommentList />,
         },
         // {
         //   name: '违纪违法上报',
@@ -169,17 +159,17 @@ export const router = {
         {
           name: '个人有关事项报告及公开',
           path: '/fr/lz/person',
-          element: <PersonList/>,
+          element: <PersonList />,
         },
         {
           name: '民主（组织）生活会督导',
           path: '/fr/lz/club',
-          element: <ClubList/>,
+          element: <ClubList />,
         },
         {
           name: '领导干部插手干预重大事项记录报告',
           path: '/fr/lz/leader',
-          element: <LeaderList/>,
+          element: <LeaderList />,
         },
         {
           name: '政治生态分析研判',
@@ -190,84 +180,84 @@ export const router = {
     },
     {
       name: '评责',
-      icon: <AuditOutlined/>,
+      icon: <AuditOutlined />,
       path: '/fr/pz',
       routes: [
         {
           name: '班子成员考评',
           path: '/fr/pz/evaluation/1',
-          element: <EvaluationList page={1}/>,
+          element: <EvaluationList page={1} />,
         },
         {
           name: '基层站所考评',
           path: '/fr/pz/evaluation/2',
-          element: <EvaluationList page={2}/>,
+          element: <EvaluationList page={2} />,
         },
         {
           name: '村(社)考评',
           path: '/fr/pz/performance/3',
-          element: <EvaluationList page={3}/>,
+          element: <EvaluationList page={3} />,
         },
       ],
     },
     {
       name: '督责',
-      icon: <SecurityScanOutlined/>,
+      icon: <SecurityScanOutlined />,
       path: '/fr/dz',
       routes: [
         {
           name: '一单三书',
           path: '/fr/dz/inform',
-          element: <InformList/>,
+          element: <InformList />,
         },
         {
           name: '纪委动议',
           path: '/fr/dz/motion',
-          element: <MotionList/>,
+          element: <MotionList />,
         },
         {
           name: '履责约谈',
           path: '/fr/dz/question',
-          element: <QuestionList/>,
+          element: <QuestionList />,
         },
         {
           name: '履责追踪',
           path: '/fr/dz/alert',
-          element: <AlertList/>,
+          element: <AlertList />,
         },
       ],
     },
     {
       name: '追责',
-      icon: <WarningOutlined/>,
+      icon: <WarningOutlined />,
       path: '/fr/zz',
       routes: [
         {
           name: '预警处置',
           path: '/fr/zz/warning',
-          element: <WarningList/>
+          element: <WarningList />
         },
       ],
     },
     {
       name: '系统设置',
-      icon: <SettingOutlined/>,
+      icon: <SettingOutlined />,
       path: '/fr/setting',
       routes: [
         {
           name: '部门及岗位',
           path: '/fr/setting/department',
-          element: <Department systemType='Fr' isUser={false}/>,
+          element: <Department systemType='Fr' isUser={false} />,
         },
         {
           name: '人员组成',
           path: '/fr/setting/user',
-          element: <Department systemType='Fr'/>,
+          element: <Department systemType='Fr' />,
         },
         {
           name: '权限管理',
           path: '/fr/setting/permission',
-          element: <Permission/>,
+          element: <Permission />,
         },
       ],
     },
@@ -277,193 +267,205 @@ export const router = {
       hideInMenu: true,
       name: '会议详情',
       path: '/fr/mz/meeting/:id',
-      element: <Meeting/>,
+      element: <Meeting />,
     },
     {
       hideInMenu: true,
       name: '会议通知',
       path: '/fr/mz/meeting/:id/notice',
-      element: <MeetingNotice/>,
+      element: <MeetingNotice />,
     },
     {
       hideInMenu: true,
       name: '会前准备',
       path: '/fr/mz/meeting/:id/topic/:tid',
-      element: <MeetingTopic/>,
+      element: <MeetingTopic />,
+    },
+    {
+      hideInMenu: true,
+      name: '问题清单',
+      path: '/fr/mz/list/matter',
+      element: <MatterList />,
+    },
+    {
+      hideInMenu: true,
+      name: '措施清单',
+      path: '/fr/mz/list/measure',
+      element: <MeasureList />,
     },
     {
       hideInMenu: true,
       name: '问题清单审核',
       path: '/fr/mz/list/matter/approval/:id',
-      element: <MatterListApproval/>
+      element: <MatterListApproval />
     },
     {
       hideInMenu: true,
       name: '问题详情',
       path: '/fr/mz/list/matter/:id',
-      element: <Matter/>,
+      element: <Matter />,
     },
     {
       hideInMenu: true,
       name: '措施详情',
       path: '/fr/mz/list/measure/:id',
-      element: <Measure/>,
+      element: <Measure />,
     },
     {
       hideInMenu: true,
       name: '第一议题制度',
       path: '/fr/mz/learning/:id',
-      element: <Learn/>,
+      element: <Learn />,
     },
     {
       hideInMenu: true,
       name: '监督检查详情',
       path: '/fr/lz/inspect/:id',
-      element: <Inspect/>,
+      element: <Inspect />,
     },
     {
       hideInMenu: true,
       name: '一单三书详情',
       path: '/fr/dz/inform/:id',
-      element: <Inform/>,
+      element: <Inform />,
     },
     {
       hideInMenu: true,
       name: '履责报告详情',
       path: '/fr/lz/report/:id',
-      element: <Report/>,
+      element: <Report />,
     },
     {
       hideInMenu: true,
       name: '第一种形态运用',
       path: '/fr/lz/disposal/:id',
-      element: <Disposal/>,
+      element: <Disposal />,
     },
     {
       hideInMenu: true,
       name: '履责情况详情',
       path: '/fr/lz/list/progress/:id',
-      element: <Progress/>,
+      element: <Progress />,
     },
     {
       hideInMenu: true,
       name: '重大事项请示报告详情',
       path: '/fr/lz/important/:id',
-      element: <Important/>,
+      element: <Important />,
     },
     {
       hideInMenu: true,
       name: '绩效考评详情',
       path: '/fr/pz/evaluation/:type/:year',
-      element: <Evaluation/>,
+      element: <Evaluation />,
     },
     {
       hideInMenu: true,
       name: '学习记录',
       path: '/fr/mz/learn/:id',
-      element: <Learn/>,
+      element: <Learn />,
     },
     {
       hideInMenu: true,
       name: '履责约谈记录',
       path: '/fr/dz/question/:id',
-      element: <Question/>,
+      element: <Question />,
     },
     {
       hideInMenu: true,
       name: '廉政风险排查防控记录',
       path: '/fr/lz/risk/:id',
-      element: <Risk/>,
+      element: <Risk />,
     },
     {
       hideInMenu: true,
       name: '三重一大集体决策',
       path: '/fr/lz/three/:id',
-      element: <Three/>,
+      element: <Three />,
     },
     {
       hideInMenu: true,
       name: '违纪违法上报详情',
       path: '/fr/lz/discipline/:id',
-      element: <Discipline/>,
+      element: <Discipline />,
     },
     {
       hideInMenu: true,
       name: '领导干部插手干预重大事项记录报告详情',
       path: '/fr/lz/leader/:id',
-      element: <Leader/>,
+      element: <Leader />,
     },
     {
       hideInMenu: true,
       name: '个人有关事项报告及公开详情',
       path: '/fr/lz/person/:id',
-      element: <Person/>,
+      element: <Person />,
     },
     {
       hideInMenu: true,
       name: '述责述廉评议详情',
       path: '/fr/lz/comment/:id',
-      element: <Comment/>,
+      element: <Comment />,
     },
     {
       hideInMenu: true,
       name: '相互监督提醒详情',
       path: '/fr/lz/remind/:id',
-      element: <Remind/>,
+      element: <Remind />,
     },
     {
       hideInMenu: true,
       name: '民主（组织）生活会督导详情',
       path: '/fr/lz/club/:id',
-      element: <Club/>,
+      element: <Club />,
     },
     {
       hideInMenu: true,
       name: '5+1 谈话内容详情',
       path: '/fr/lz/talking/:id',
-      element: <Talking/>,
+      element: <Talking />,
     },
     {
       hideInMenu: true,
       name: '纪委动议详情',
       path: '/fr/dz/motion/:id',
-      element: <Motion/>,
+      element: <Motion />,
     },
     {
       hideInMenu: true,
       name: '预警详情',
       path: '/fr/zz/warning/yellow/:id',
-      element: <WarningYellow/>
+      element: <WarningYellow />
     },
     {
       hideInMenu: true,
       name: '预警详情',
       path: '/fr/zz/warning/red/:id',
-      element: <WarningRed/>
+      element: <WarningRed />
     },
     {
       hideInMenu: true,
       name: '得分情况',
       path: '/fr/pz/score/1',
-      element: <Score page={1}/>
+      element: <Score page={1} />
     },
     {
       hideInMenu: true,
       name: '得分情况',
       path: '/fr/pz/score/2',
-      element: <Score page={2}/>
+      element: <Score page={2} />
     },
     {
       hideInMenu: true,
       name: '得分情况',
       path: '/fr/pz/score/3',
-      element: <Score page={3}/>
+      element: <Score page={3} />
     },
     {
       hideInMenu: true,
       name: '个人中心',
       path: '/fr/center',
-      element: <Settings/>,
+      element: <Settings />,
     },
   ],
 };

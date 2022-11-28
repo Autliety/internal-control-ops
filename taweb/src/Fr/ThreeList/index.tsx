@@ -1,12 +1,15 @@
 import React from 'react';
 import { ProColumns } from '@ant-design/pro-table';
+import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Select } from 'antd';
+import { Button, Select, Space, Tooltip } from 'antd';
+import { FileTextOutlined } from '@ant-design/icons';
 import ThreeCreateModal from './ThreeCreateModal';
 import { useHttp } from '../../utils/request';
+import BaseEditableTable from '../../components/BaseEditableTable';
 import FileUpload from '../../components/FileUpload';
+import { useAuth } from '../../utils/auth';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import ThreeTable from './ThreeTable';
 
 export const threeColumns: (ProColumns | any)[] = [
   {
@@ -21,10 +24,10 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '提交人',
     dataIndex: 'requestUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
+    renderFormItem: () => <UserSelectCascader isSelfOnly disabled />,
     onStep: 0,
   },
-  { title: '提交时间', dataIndex: 'requestDate', valueType: 'date', onStep: 0 },
+  { title: '提交时间', dataIndex: 'requestTime', valueType: 'date', onStep: 0 },
   {
     title: '拟提交事项',
     dataIndex: 'requestTitle',
@@ -54,7 +57,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'requestAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 0,
@@ -63,14 +66,14 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '议题审批',
     dataIndex: 'approvalApproveUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled/>,
+    renderFormItem: () => <UserSelectCascader value={{ id: 2 }} disabled />,
     hideInDescriptions: true,
     hideInTable: true,
     onStep: 0,
   },
   {
     title: '决策时间',
-    dataIndex: 'decisionDate',
+    dataIndex: 'decisionTime',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     onStep: 1,
@@ -103,7 +106,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'decisionAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 1,
@@ -113,12 +116,12 @@ export const threeColumns: (ProColumns | any)[] = [
     title: '决策执行人',
     dataIndex: 'requestUser',
     renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader isSelfOnly disabled/>,
+    renderFormItem: () => <UserSelectCascader isSelfOnly disabled />,
     onStep: 3,
   },
   {
     title: '执行时间',
-    dataIndex: 'executeDate',
+    dataIndex: 'executeTime',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     hideInTable: true,
@@ -134,7 +137,7 @@ export const threeColumns: (ProColumns | any)[] = [
   {
     title: '相关附件',
     dataIndex: 'decisionAttach',
-    renderFormItem: () => <FileUpload isInEdit/>,
+    renderFormItem: () => <FileUpload isInEdit />,
     hideInTable: true,
     hideInDescriptions: true,
     onStep: 3,
@@ -144,12 +147,39 @@ export const threeColumns: (ProColumns | any)[] = [
 
 export default function ThreeList() {
 
+  const { user } = useAuth();
   const { state, loading } = useHttp('/three', { initState: [] });
+  const navigate = useNavigate();
 
   return <PageContainer
-      extra={<ThreeCreateModal isFirstEdit/>}
+      extra={<ThreeCreateModal isFirstEdit />}
       loading={loading}
   >
-    <ThreeTable value={state} isEdit/>
+    <BaseEditableTable
+        columns={threeColumns.concat({
+          title: '操作',
+          dataIndex: 'operation',
+          width: 100,
+          align: 'center',
+          render: (_, record: any) => <Space>
+            <Tooltip title={'详情'}>
+              <Button
+                  type={'primary'}
+                  icon={<FileTextOutlined />}
+                  size={'small'}
+                  onClick={() => navigate(`/fr/lz/three/${record.id}`)}
+              />
+            </Tooltip>
+            {(
+                (user?.id === 1 && record.approval?.status === 'REVIEWED' && record.integer1 === 1)
+                || (user?.id === 28 && record.integer1 === 2)
+                || (record.integer1 === 3)
+                || (user.id === 28 && record.integer1 === 4)
+            ) && <ThreeCreateModal isFirstEdit={false} id={record.id} />}
+          </Space>,
+        })}
+        value={state}
+
+    />
   </PageContainer>;
 }

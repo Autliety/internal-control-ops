@@ -43,10 +43,10 @@ public class Three implements BasicPersistable, ApprovalEntity {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Integer statusStep;
+  private Integer integer1;
 
   public Status getStatus() {
-    return Status.getExtStep(statusStep);
+    return Status.getExtStep(integer1);
   }
 
   // request

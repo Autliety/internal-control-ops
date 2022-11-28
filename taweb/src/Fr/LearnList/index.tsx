@@ -8,7 +8,7 @@ import LearningCreateModal from './LearningCreateModal';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
 import { useHttp } from '../../utils/request';
 import BaseEditableTable from '../../components/BaseEditableTable';
-import FileUpload from "../../components/FileUpload";
+import FileUpload from '../../components/FileUpload';
 
 export const learningColumns: ProColumns[] = [
   {

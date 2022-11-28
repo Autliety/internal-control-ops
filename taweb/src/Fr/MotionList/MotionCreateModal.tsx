@@ -35,6 +35,7 @@ function MotionCreateModal({ isFirstEdit, id, size }: Props) {
               : await updateHttp(null, null, {
                 ...state,
                 ...data,
+                integer1: parseInt(state.integer1) + 1
               }).then(() => window.location.reload());
           navigate('/fr/dz/motion/' + res.id);
         }}
