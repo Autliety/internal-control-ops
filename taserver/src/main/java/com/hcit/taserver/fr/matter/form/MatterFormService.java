@@ -57,7 +57,6 @@ public class MatterFormService {
     matterRepository.saveAll(matters);
     form.setMatters(matters);
     matterFormRepository.save(form);
-//    matterRepository.deleteAllByMatterFormIsNull();
     return form;
   }
 

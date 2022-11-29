@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.progress;
 
-import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.measure.Measure;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class ProgressService implements ApprovalAdaptor {
+public class ProgressService {
 
   private final ProgressRepository progressRepository;
   private final ApprovalService approvalService;

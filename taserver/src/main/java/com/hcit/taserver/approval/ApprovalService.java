@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -21,6 +22,7 @@ public class ApprovalService {
   private final ApprovalStepRepository approvalStepRepository;
   private final AuthService authService;
   private final UserRepository userRepository;
+  private final ApplicationContext ctx;
 
   public Approval findById(Long id) {
     return approvalRepository.findById(id).orElseThrow();
@@ -105,6 +107,11 @@ public class ApprovalService {
       // 通过
       if (newStatus == Status.REVIEWED) {
         lastStep.setStatus(Status.REVIEWED);
+/* todo
+        if (approval.getMatterForm() != null) {
+          ctx.getBean("matterFormService", MatterFormService.class).onReviewed(approval.getMatterForm().getId());
+        }
+*/
       }
       // 不通过
       else if (newStatus == Status.REVIEW_DENIED) {
