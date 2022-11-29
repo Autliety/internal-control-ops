@@ -5,7 +5,7 @@ import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } f
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/login3.png';
+import bg from '../../image/login3.jpg';
 import headerBg from '../../image/header.png';
 import { useHttp } from '../../utils/request';
 
@@ -24,20 +24,10 @@ export default function LoginFr() {
       width: '100%'
     }}>
       <Space direction={'vertical'}>
-        <Typography.Title style={{ marginTop: 10, fontFamily: 'serif', fontWeight: 'bolder', color: '#f3e8b4' }}>
+        <Typography.Title level={2} style={{ marginTop: 15, fontFamily: 'serif', color: '#f3e8b4' }}>
           <Image src={logo} width={70} preview={false} />
           <Divider type={'vertical'} />
-          浙江百步经济开发区(百步镇)
-          <p
-              style={{
-                marginLeft: 90,
-                marginTop: -10,
-                fontSize: 18,
-                color: '#f3e8b4'
-              }}
-          >
-            全面从严治党责任落实应用系统
-          </p>
+          浙江百步经济开发区(百步镇)区（镇）村（社）一体“四责协同”监督应用系统
         </Typography.Title>
       </Space>
     </Layout.Header>
@@ -69,7 +59,7 @@ export default function LoginFr() {
               }}
           >
 
-            <Typography.Title level={4} style={{ textAlign: 'center' }}>全面从严治党责任落实应用系统</Typography.Title>
+            <Typography.Title level={4} style={{ textAlign: 'center' }}>区（镇）村（社）一体“四责协同”监督应用系统</Typography.Title>
             <Divider />
 
             <ProFormText
