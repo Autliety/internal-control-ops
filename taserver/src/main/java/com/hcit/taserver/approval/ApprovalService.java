@@ -73,8 +73,8 @@ public class ApprovalService {
         .copyUser(copyUser)
         .build();
     a = mapper.apply(a);
-    approvalRepository.save(a);
-    approvalStepRepository.save(ApprovalStep.builder()
+    approvalRepository.saveAndFlush(a);
+    approvalStepRepository.saveAndFlush(ApprovalStep.builder()
         .approval(a)
         .approveUser(a.getApproveUser())
         .status(Status.NONE_REVIEW)

@@ -44,16 +44,14 @@ public class MeetingService {
     if (!Objects.equals(meeting.getId(), update.getId())) {
       throw new IllegalArgumentException("id不匹配");
     }
-    if (update.getStatus() == Status.FINISHED) {
-      meeting.setStatus(update.getStatus());
+    update.setId(meeting.getId());
+    update.setCode(meeting.getCode());
+    update.setType(meeting.getType());
+    update.setApproval(meeting.getApproval());
+    if (update.getStatus() != Status.FINISHED) {
+      update.setStatus(meeting.getStatus());
     }
-    meeting.setPlacement(update.getPlacement());
-    meeting.setContent(update.getContent());
-    meeting.setStartTime(update.getStartTime());
-    meeting.setMeetingUser(update.getMeetingUser());
-    meeting.setSubUser(update.getSubUser());
-    meetingRepository.save(meeting);
-    return update;
+    return meetingRepository.save(update);
   }
 
 }
