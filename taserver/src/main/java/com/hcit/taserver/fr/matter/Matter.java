@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.matter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.form.MatterForm;
@@ -69,6 +70,11 @@ public class Matter implements BasicPersistable {
   @JoinColumn(name = "matter_id")
   @Fetch(FetchMode.SUBSELECT)
   private List<Measure> measure;
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  @JoinColumn(name = "source_progress_matter_form_id")
+  private List<Attach> progressAttach;
 
   @ApiModelProperty("截止日期")
   private LocalDate endDate;
