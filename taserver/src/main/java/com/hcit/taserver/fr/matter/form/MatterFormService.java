@@ -94,6 +94,9 @@ public class MatterFormService implements ApprovalAdaptor {
   @Override
   public void onReviewed(Long id) {
     var form = findById(id, false);
-    approvalService.generate(a -> a.withApprovalType("progressMatterForm").withProgressMatterForm(form), true);
+    approvalService.generate(a -> a.withApprovalType("progressMatterForm").withProgressMatterForm(form),
+        form.getApproval().getApproveUser(),
+        null,
+        form.getApproval().getRequestUser());
   }
 }

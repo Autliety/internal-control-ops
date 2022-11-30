@@ -26,7 +26,6 @@ import LearnList from './LearnList';
 import Learn from './Learn';
 import Inspect from './Inspect';
 import Motion from './Motion';
-import ProgressList from './ProgressList';
 import DisposalList from './DisposalList';
 import Report from './Report';
 import ReportList from './ReportList';
@@ -62,7 +61,8 @@ import WarningYellow from './Warning/WarningYellow';
 import Score from './Evaluation/Score';
 import WarningRed from './Warning/WarningRed';
 import AlertList from './AlertList';
-import List from './List';
+import Establish from './EstablishList';
+import Practicable from "./Practicable/Practicable";
 
 export const router = {
   routes: [
@@ -85,7 +85,7 @@ export const router = {
         {
           name: '建立责任清单',
           path: '/fr/mz/list',
-          element: <List />,
+          element: <Establish isEstablish={true} />,
         },
         {
           name: '第一议题制度',
@@ -102,18 +102,7 @@ export const router = {
         {
           name: '落实责任清单',
           path: '/fr/lz/list',
-          routes: [
-            {
-              name: '履责情况',
-              path: '/fr/lz/list/progress',
-              element: <ProgressList />,
-            },
-            {
-              name: '动态跟踪',
-              path: '/fr/lz/list/dynamic',
-              element: <ProgressList isTrace />,
-            },
-          ],
+          element: <Practicable />
         },
         {
           name: '5+1谈话机制',
@@ -280,6 +269,18 @@ export const router = {
       name: '会前准备',
       path: '/fr/mz/meeting/:id/topic/:tid',
       element: <MeetingTopic />,
+    },
+    {
+      name: '责任清单',
+      path: '/fr/mz/list/:id',
+      element: <Establish isEstablish={true} />,
+      hideInMenu: true,
+    },
+    {
+      name: '落实责任清单',
+      path: '/fr/lz/list/:id',
+      element: <Establish />,
+      hideInMenu: true,
     },
     {
       hideInMenu: true,

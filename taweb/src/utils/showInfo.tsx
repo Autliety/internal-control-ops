@@ -1,12 +1,12 @@
 import React from 'react';
-import { Divider, Modal } from 'antd';
+import { Divider, Modal, Typography } from 'antd';
 
 export default function showInfo(text) {
   Modal.info({
     title: '详细内容',
     content: <>
-      <Divider/>
-      <p>{text}</p>
+      <Divider />
+      <Typography.Paragraph>{text}</Typography.Paragraph>
     </>,
     icon: undefined,
     okText: '确定',

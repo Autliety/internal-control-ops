@@ -1,15 +1,18 @@
 import React from 'react';
-import { Button, Divider, Modal, Space, Statistic } from 'antd';
+import { BackTop, Button, Divider, Modal, Space, Statistic, Switch } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { ProColumns } from '@ant-design/pro-table';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useHttp } from '../../utils/request';
-import MeasureTable from '../MeasureList/MeasureTable';
-import MatterInfo from './MatterInfo';
+import { matterColumns } from './MatterInfo';
 import { useAuth } from '../../utils/auth';
+import BaseDescriptions from '../../components/BaseDescriptions';
+import { statusEnum } from "../../utils/nameMapTa";
 
 export default function Matter() {
+
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -19,11 +22,19 @@ export default function Matter() {
   const { http: updateHttp } = useHttp(`/matterform/0/matter/${id}`, { isManual: true, method: 'POST' });
   const { http: deleteHttp } = useHttp(`/matterform/0/matter/${id}`, { isManual: true, method: 'DELETE' });
 
-  const editable = user.id === state.user?.id &&
-      (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) || 'AWAITING_FIX' === state.stepTwoStatus);
+  // 根据状态编辑不同内容
+  const isEditMatter = user.id === state.matterForm?.user?.id && (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.matterForm?.approval?.status));
+  const isEditProgress = user.id === state.matterForm?.user?.id && (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.matterForm?.progressApproval?.status))
+
+  const columns: ProColumns[] = [
+    { title: '措施编号', dataIndex: 'code', editable: false, renderText: t => state.code + '-' + t },
+    { title: '措施内容', dataIndex: 'content', valueType: 'textarea' },
+    { title: '整改内容', dataIndex: 'progress', valueType: 'textarea' },
+    { title: '整改状态', dataIndex: 'progressStatus', renderText: t => statusEnum[t] }
+  ];
 
   const [info, setInfo] = React.useState<any>({});
-  const [measure, setMeasure] = React.useState([]);
+  const [measure, setMeasure] = React.useState<any>([]);
   React.useEffect(() => {
     setInfo(state);
     setMeasure(state.measure);
@@ -31,58 +42,92 @@ export default function Matter() {
 
   return <PageContainer
       content={<Space size={'large'}>
-        <Statistic title={'序号'} value={state.id}/>
-        <Statistic title={'责任主体'} value={state.department?.name}/>
+        <Statistic title={'问题编号'} value={state.code} />
+        <Statistic title={'责任主体'} value={state.matterForm?.user?.name} />
       </Space>}
       loading={loading}
   >
+    <BackTop />
 
     <Divider orientation={'left'}>问题详情</Divider>
-    <MatterInfo
+    <BaseDescriptions
         dataSource={info}
-        editable={editable ? {
-          onSave: async (_, newInfo) => setInfo(newInfo),
-        } : null}
+        columns={matterColumns.concat([
+          {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+            editable: false,
+            renderText: text => moment(text).format('YYYY-MM-DD HH:mm'),
+          },
+          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch /> 开启动态跟踪</Space>, editable: false },
+        ])}
+        editable={
+          isEditMatter
+              ? { onSave: async (_, newInfo) => setInfo(newInfo) }
+              : null
+        }
     />
 
-    <Divider orientation={'left'}>措施清单</Divider>
-    <MeasureTable
-        dataSource={measure}
-        onChange={setMeasure}
-        isInEdit={editable}
-    />
+    <Divider orientation={'left'}>措施及整改内容</Divider>
+    <div>
+      {
+        measure?.map(r => <div key={r.id}>
+          <BaseDescriptions
+              dataSource={r}
+              columns={columns.slice(0, 2)}
+              column={1}
+              editable={
+                isEditMatter
+                    ? { onSave: async (_, newMeasure) => setMeasure(measure?.filter(item => item.id !== newMeasure.id).concat([newMeasure])) }
+                    : null
+              }
+          />
+          <BaseDescriptions
+              column={1}
+              dataSource={r}
+              columns={columns.slice(2)}
+              editable={
+                isEditProgress
+                    ? { onSave: async (_, newMeasure) => setMeasure(measure?.filter(item => item.id !== newMeasure.id).concat([newMeasure])) }
+                    : null
+              }
+          />
+          <br />
+        </div>)
+      }
+    </div>
 
-    {editable &&
+
     <FooterToolbar>
       {
-        <Space>
-          <Button
-              type="primary"
-              icon={<EditOutlined/>}
-              onClick={() => updateHttp(null, null, {
-                ...info,
-                endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
-                measure,
-              }).then(() => window.location.reload())}
-          >
-            暂存更新
-          </Button>
-          <Button danger icon={<DeleteOutlined/>} onClick={() => {
-            Modal.confirm({
-              title: '是否删除该问题',
-              icon: <ExclamationCircleOutlined/>,
-              okType: 'danger',
-              onOk() {
-                deleteHttp().then(() => navigate('/fr/mz/list/matter'));
-              },
-            });
-          }}
-          >删除问题</Button>
-        </Space>
+          isEditMatter && <Space>
+            <Button
+                type='primary'
+                icon={<EditOutlined />}
+                onClick={() => updateHttp(null, null, {
+                  ...info,
+                  endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
+                  measure,
+                }).then(() => window.location.reload())}
+            >
+              暂存更新
+            </Button>
+            <Button danger icon={<DeleteOutlined />} onClick={() => {
+              Modal.confirm({
+                title: '是否删除该问题？',
+                icon: <ExclamationCircleOutlined />,
+                okType: 'danger',
+                onOk() {
+                  deleteHttp().then(() => navigate('/fr/mz/list'));
+                },
+              });
+            }}
+            >删除问题</Button>
+          </Space>
       }
 
     </FooterToolbar>
-    }
+
 
   </PageContainer>;
 
