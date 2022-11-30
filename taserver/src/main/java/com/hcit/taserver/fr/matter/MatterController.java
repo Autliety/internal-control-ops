@@ -54,7 +54,6 @@ public class MatterController {
     return matterService.findById(id);
   }
 
-
   @PostMapping("/*/matter/{id}")
   @Transactional
   public Matter update(@PathVariable Long id, @RequestBody Matter matter) {
@@ -69,5 +68,4 @@ public class MatterController {
   public void delete(@PathVariable Long id) {
     matterService.delete(id);
   }
-
 }

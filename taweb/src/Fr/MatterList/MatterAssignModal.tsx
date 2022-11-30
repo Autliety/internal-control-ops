@@ -27,6 +27,7 @@ function MatterAssignModal({ self }) {
 
   return <>
     <Button
+        disabled
         type={self ? 'primary' : 'dashed'}
         icon={self ? <PlusOutlined/> :<FunnelPlotOutlined/>}
         onClick={() => {

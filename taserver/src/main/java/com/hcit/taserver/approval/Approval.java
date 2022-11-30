@@ -8,7 +8,6 @@ import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.meeting.Meeting;
 import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import com.hcit.taserver.fr.motion.Motion;
-import com.hcit.taserver.fr.progress.Progress;
 import com.hcit.taserver.fr.three.Three;
 import com.hcit.taserver.ta.plan.Plan;
 import io.swagger.annotations.ApiModel;
@@ -88,13 +87,13 @@ public class Approval implements BasicPersistable {
   @OneToOne
   private MeetingTopic meetingTopic;
 
-  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"approval, progressApproval"}, allowSetters = true)
   @OneToOne
   private MatterForm matterForm;
 
-  @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"approval, progressApproval"}, allowSetters = true)
   @OneToOne
-  private Progress progress;
+  private MatterForm progressMatterForm;
 
   @JsonIgnoreProperties(value = {"approval"}, allowSetters = true)
   @OneToOne
