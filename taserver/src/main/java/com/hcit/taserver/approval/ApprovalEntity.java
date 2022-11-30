@@ -9,7 +9,7 @@ public interface ApprovalEntity {
 
   Approval getApproval();
 
-  @JsonProperty("status")
+  @JsonProperty("approvalStatus")
   default Status getApprovalStatus() {
     if (getStatus() != null) {
       return getStatus();

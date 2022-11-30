@@ -27,24 +27,27 @@ export default function Meeting() {
   const { http: topicCreate } = useHttp('/topic', { isManual: true, method: 'POST' });
 
   // 编辑
-  const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.status) && state.user?.id === user.id;
+  const isUpdate = ['NONE_REVIEW', 'AWAITING_FIX'].includes(state.approvalStatus) && state.user?.id === user.id;
 
   const [info, setInfo] = React.useState<any>({});
   const [meetingUser, setMeetingUser] = React.useState([]);
   const [subUser, setSubUser] = React.useState([]);
-
-  const onSave = () => meetingUpdate(null, null, {
-    ...info,
-    startTime: moment(info.startTime).valueOf(),
-    meetingUser: meetingUser,
-    subUser: subUser,
-  });
+  const [attach, setAttach] = React.useState([]);
 
   React.useEffect(() => {
     setMeetingUser(state.meetingUser);
     setSubUser(state.subUser);
     setInfo(state);
+    setAttach(state.attach);
   }, [state]);
+
+  const onSave = () => meetingUpdate(null, null, {
+    ...info,
+    startTime: moment(info.startTime).valueOf(),
+    meetingUser,
+    subUser,
+    attach,
+  });
 
   return <PageContainer
       content={<Space size={'large'}>
@@ -80,24 +83,28 @@ export default function Meeting() {
           : <MeetingAttendee data={subUser} isOptional/>
     }
 
-    <Divider orientation={'left'}>职责任务</Divider>
-    <TopicTask
-        isInEdit={false}
-        value={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta })))}
-    />
+    {state.type?.includes('X') ||
+    <>
+      <Divider orientation={'left'}>职责任务</Divider>
+      <TopicTask
+          isInEdit={false}
+          value={state.topic?.filter(t => t.status === 'REVIEWED').flatMap(t => t.task?.map(ta => ({ topic: t, ...ta })))}
+      />
+    </>
+    }
 
     <Divider orientation={'left'}>上传附件</Divider>
-    <FileUpload value={state.attach || []}/>
+    <FileUpload value={attach} onChange={setAttach} isInEdit={isUpdate}/>
 
     <ApprovalTable value={state.approval}/>
 
     <ApprovalFooterToolbar
         value={state.approval}
-        onSave={onSave}
+        onSave={isUpdate ? onSave : null}
         extraButton={{
           noneReview: <Button
               type={'primary'}
-              disabled={!state.meetingUser?.find(u => u.id === user.id)}
+              disabled={!state.meetingUser?.find(u => u.id === user.id) || state.type?.includes('X')}
               onClick={() => myTopicId ?
                   navigate(`/fr/mz/meeting/${id}/topic/${myTopicId}`)
                   :

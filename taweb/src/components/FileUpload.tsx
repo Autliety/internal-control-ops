@@ -12,7 +12,7 @@ type Props = {
 
 function FileUpload({ isInEdit, onChange, value }: Props) {
 
-  return <div className='content'>
+  return <div className="content">
     {
       value?.length === 0 && !isInEdit
           ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<p>暂无附件</p>}/>
@@ -36,7 +36,7 @@ function FileUpload({ isInEdit, onChange, value }: Props) {
               showUploadList={{ showRemoveIcon: isInEdit }}
           >
             {
-                isInEdit && <Button icon={<UploadOutlined/>}>选择文件</Button>
+              isInEdit && <Button icon={<UploadOutlined/>}>选择文件</Button>
             }
           </Upload>
     }
