@@ -1,15 +1,14 @@
 package com.hcit.taserver.fr.alert;
 
-import com.hcit.taserver.approval.ApprovalEntity;
-import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
-import com.hcit.taserver.fr.measure.Measure;
+import com.hcit.taserver.fr.matter.measure.Measure;
 import com.hcit.taserver.fr.three.Three;
 import com.hcit.taserver.fr.three.ThreeRepository;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,8 +36,7 @@ public class AlertService {
     );
     return matters.stream()
         .filter(m ->
-            m.getMeasure().stream().map(Measure::getProgress).map(ApprovalEntity::getApprovalStatus)
-                .anyMatch(status -> status != Status.REVIEWED)
+            m.getMeasure().stream().map(Measure::getProgressStatus).anyMatch(Objects::isNull)
         )
         .collect(Collectors.toList());
   }

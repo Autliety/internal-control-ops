@@ -1,6 +1,9 @@
 package com.hcit.taserver.fr.matter.form;
 
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
+import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.User;
@@ -9,12 +12,13 @@ import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MatterFormService {
+public class MatterFormService implements ApprovalAdaptor {
 
   private final MatterFormRepository matterFormRepository;
   private final MatterRepository matterRepository;
@@ -53,11 +57,15 @@ public class MatterFormService {
 
   public MatterForm update(Long id, List<Matter> matters) {
     var form = findById(id, false);
+    if (Optional.ofNullable(form.getApproval()).map(Approval::getStatus).orElse(Status.PASSED).isEditable()) {
+      // todo edit matter&measure
+    } else if (Optional.ofNullable(form.getProgressApproval()).map(Approval::getStatus).orElse(Status.FINISHED).isEditable()) {
+      // edit progress
+    }
     matters.forEach(m -> m.setMatterForm(form));
     matterRepository.saveAll(matters);
     form.setMatters(matters);
     matterFormRepository.save(form);
-//    matterRepository.deleteAllByMatterFormIsNull();
     return form;
   }
 
@@ -83,4 +91,9 @@ public class MatterFormService {
     return form;
   }
 
+  @Override
+  public void onReviewed(Long id) {
+    var form = findById(id, false);
+    approvalService.generate(a -> a.withApprovalType("progressMatterForm").withProgressMatterForm(form), true);
+  }
 }

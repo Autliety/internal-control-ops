@@ -1,13 +1,12 @@
 package com.hcit.taserver.ta.plan;
 
-import com.hcit.taserver.approval.ApprovalAdaptor;
 import com.hcit.taserver.approval.ApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PlanService implements ApprovalAdaptor {
+public class PlanService {
 
   private final PlanRepository planRepository;
   private final ApprovalService approvalService;

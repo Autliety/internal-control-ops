@@ -66,9 +66,13 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   @Fetch(FetchMode.SUBSELECT)
   private List<Matter> matters;
 
-  @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"matterForm", "progressMatterForm"}, allowSetters = true)
   @OneToOne(mappedBy = "matterForm")
   private Approval approval;
+
+  @JsonIgnoreProperties(value = {"matterForm", "progressMatterForm"}, allowSetters = true)
+  @OneToOne(mappedBy = "progressMatterForm")
+  private Approval progressApproval;
 
   @ApiModelProperty("更新时间")
   @UpdateTimestamp
