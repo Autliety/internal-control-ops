@@ -6,9 +6,12 @@ import com.hcit.taserver.department.user.Privilege;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+
+import com.hcit.taserver.fr.matter.form.MatterFormService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -107,11 +110,9 @@ public class ApprovalService {
       // 通过
       if (newStatus == Status.REVIEWED) {
         lastStep.setStatus(Status.REVIEWED);
-/* todo
-        if (approval.getMatterForm() != null) {
+        if (Objects.equals(approval.getApprovalType(), "matterForm") && approval.getMatterForm() != null) {
           ctx.getBean("matterFormService", MatterFormService.class).onReviewed(approval.getMatterForm().getId());
         }
-*/
       }
       // 不通过
       else if (newStatus == Status.REVIEW_DENIED) {

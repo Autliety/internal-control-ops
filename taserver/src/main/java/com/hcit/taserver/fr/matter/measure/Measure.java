@@ -31,6 +31,10 @@ public class Measure implements BasicPersistable {
 
   private String code;
 
+  public String getCode() {
+    return id.toString();
+  }
+
   @ApiModelProperty("工作措施详情")
   @Column(columnDefinition = "LONGTEXT")
   private String content;

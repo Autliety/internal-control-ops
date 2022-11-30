@@ -1,14 +1,13 @@
 import React from 'react';
-import { Button, Input, Space, Switch } from 'antd';
+import { Input, Space, Switch } from 'antd';
 import moment from 'moment';
 import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import showInfo from '../../utils/showInfo';
 import BaseDescriptions from '../../components/BaseDescriptions';
 import { statusEnum } from '../../utils/nameMapTa';
 
 export const matterColumns: ProColumns[] = [
-  { title: '序号', dataIndex: 'id', hideInForm: true, editable: false },
+  { title: '问题编号', dataIndex: 'code', hideInForm: true, editable: false },
   {
     title: '来源及类型',
     dataIndex: 'origin',
@@ -125,29 +124,18 @@ export const matterColumns: ProColumns[] = [
   {
     title: '问题内容',
     dataIndex: 'content',
-    render: (text: any) => <>
-      {text?.substring(0, 30)}
-      {text?.length > 30 && <Button type={'link'} onClick={() => showInfo(text)}>...[详情]</Button>}
-    </>,
-    renderFormItem: () => <Input.TextArea placeholder="问题内容" rows={1}/>,
+    renderFormItem: () => <Input.TextArea placeholder="问题内容" rows={1} />,
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   {
     title: '责任主体',
-    dataIndex: 'user',
-    renderText: u => u?.name,
-    renderFormItem: () => <UserSelectCascader/>,
+    renderText: (_, r) => r.matterForm?.user?.name,
+    renderFormItem: () => <UserSelectCascader />,
     editable: false,
   },
   {
     title: '审核状态',
     dataIndex: 'status',
-    valueEnum: statusEnum,
-    editable: false,
-  },
-  {
-    title: '二审状态',
-    dataIndex: 'stepTwoStatus',
     valueEnum: statusEnum,
     editable: false,
   },
@@ -164,7 +152,7 @@ export default function MatterInfo({ dataSource, editable = null }) {
             editable: false,
             renderText: text => moment(text).format('YYYY-MM-DD HH:mm'),
           },
-          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch/> 开启动态跟踪</Space>, editable: false },
+          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch /> 开启动态跟踪</Space>, editable: false },
         ])}
         dataSource={dataSource}
         editable={editable}

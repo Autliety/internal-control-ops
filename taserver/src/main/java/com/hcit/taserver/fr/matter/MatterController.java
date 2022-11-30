@@ -34,6 +34,9 @@ public class MatterController {
 
   @GetMapping("/{id}")
   public MatterForm getById(@PathVariable Long id, @RequestParam(required = false) Boolean withChildren) {
+    if (withChildren == null) {
+      withChildren = true;
+    }
     return matterFormService.findById(id, withChildren);
   }
 

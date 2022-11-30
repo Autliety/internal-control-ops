@@ -73,7 +73,7 @@ public class Matter implements BasicPersistable {
 
   @OneToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
-  @JoinColumn(name = "source_progress_matter_form_id")
+  @JoinColumn(name = "source_progress_matter_id")
   private List<Attach> progressAttach;
 
   @ApiModelProperty("截止日期")

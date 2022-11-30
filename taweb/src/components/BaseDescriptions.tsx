@@ -5,7 +5,6 @@ export default function BaseDescriptions(
     {
       columns,
       dataSource,
-      column = 2,
       isInEdit = false,
       ...restProps
     }
@@ -15,10 +14,11 @@ export default function BaseDescriptions(
         bordered
         size={'middle'}
         style={{ backgroundColor: 'white' }}
-        labelStyle={{ width: '14%' }}
-        contentStyle={{ width: '36%' }}
-        column={column}
+        labelStyle={restProps.column === 1 ? { width: '14%' } : { width: '14%' }}
+        contentStyle={restProps.column === 1 ? { width: '86%' } : { width: '36%' }}
+        column={restProps.column || 2}
         editable={isInEdit ? {} : null}
+        extra={restProps.extra}
 
         columns={columns}
         dataSource={dataSource}

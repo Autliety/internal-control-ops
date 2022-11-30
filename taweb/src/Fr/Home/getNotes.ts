@@ -17,19 +17,17 @@ export function getApprovalNotes(input: any) {
       content: `会议【${input.meetingTopic.meeting.code}】有1份新的会议议题，正在等待您审核`,
     }
 
-  } else if (input.matter) {
+  } else if (input.matterForm) {
     result = {
-      link: `/fr/mz/list/matter/approval/${input.id}`,
-      title: '问题清单审核',
-      content: `【${input.requestUser?.name}】提交了问题和措施清单，正在等待您审核`,
+      link: `/fr/mz/list/${input.matterForm.id}`,
+      title: '责任清单审核',
+      content: `【${input.requestUser?.name}】提交了责任清单，正在等待您审核`,
     }
-
-  } else if (input.progress) {
+  } else if (input.progressMatterForm) {
     result = {
-
-      link: `/fr/lz/list/progress/${input.progress.id}`,
-      title: '履责情况审核',
-      content: `措施【${input.progress.measure.code}】提交了履责情况表，正在等待您审核`,
+      link: `/fr/lz/list/${input.progressMatterForm.id}`,
+      title: '责任清单落实情况审核',
+      content: `【${input.requestUser?.name}】提交了责任清单的落实情况，正在等待您审核`,
     }
 
     // todo demo only

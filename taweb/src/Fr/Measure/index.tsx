@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useHttp } from '../../utils/request';
 import MeasureInfo from './MeasureInfo';
-import MatterInfo from '../Matter/MatterInfo';
 import BaseDivider from '../../components/BaseDivider';
 import ProgressInfo from '../Progress/ProgressInfo';
 import UserSelectCascader from '../../components/UserSelectCascader';
@@ -25,7 +24,7 @@ export default function Measure() {
         loading={loading}
     >
       <BaseDivider title={'所属问题'} onLink={() => navigate(`/fr/mz/list/matter/${state.matter?.id}`)}/>
-      <MatterInfo dataSource={state?.matter}/>
+      {/*<MatterInfo dataSource={state?.matter}/>*/}
 
       <Divider orientation={'left'}>措施详情</Divider>
       <MeasureInfo dataSource={state}/>
