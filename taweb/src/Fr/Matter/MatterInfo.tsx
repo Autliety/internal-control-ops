@@ -1,9 +1,7 @@
 import React from 'react';
-import { Input, Space, Switch } from 'antd';
-import moment from 'moment';
+import { Input } from 'antd';
 import { ProColumns } from '@ant-design/pro-table';
 import UserSelectCascader from '../../components/UserSelectCascader';
-import BaseDescriptions from '../../components/BaseDescriptions';
 import { statusEnum } from '../../utils/nameMapTa';
 
 export const matterColumns: ProColumns[] = [
@@ -124,7 +122,7 @@ export const matterColumns: ProColumns[] = [
   {
     title: '问题内容',
     dataIndex: 'content',
-    renderFormItem: () => <Input.TextArea placeholder="问题内容" rows={1} />,
+    renderFormItem: () => <Input.TextArea placeholder="问题内容" style={{ width: 400 }} />,
   },
   { title: '完成日期', dataIndex: 'endDate', valueType: 'date' },
   {
@@ -141,21 +139,8 @@ export const matterColumns: ProColumns[] = [
   },
 ];
 
-export default function MatterInfo({ dataSource, editable = null }) {
-
+export default function MatterInfo() {
   return <>
-    <BaseDescriptions
-        columns={matterColumns.concat([
-          {
-            title: '更新时间',
-            dataIndex: 'updateTime',
-            editable: false,
-            renderText: text => moment(text).format('YYYY-MM-DD HH:mm'),
-          },
-          { title: '动态跟踪', dataIndex: 'trace', render: () => <Space><Switch /> 开启动态跟踪</Space>, editable: false },
-        ])}
-        dataSource={dataSource}
-        editable={editable}
-    />
+
   </>;
 }
