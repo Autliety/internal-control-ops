@@ -32,13 +32,13 @@ function EstablishList({ isProgress = false }: Props) {
   return <PageContainer
       extra={
         <Space size={'middle'}>
-          <MatterAssignModal self={false}/>
-          <MatterAssignModal self={true}/>
+          <MatterAssignModal self={false} />
+          <MatterAssignModal self={true} />
         </Space>
       }
       loading={loading}
   >
-    <BackTop/>
+    <BackTop />
     <div className={'content'}>
       年度：<Select onChange={v => setYear(v)} value={year} style={{ width: 200 }}>
       <Select.Option value={2022}>2022年</Select.Option>
@@ -49,28 +49,26 @@ function EstablishList({ isProgress = false }: Props) {
       <div className="content">
         <Space direction={'vertical'} size={'small'}>
           <p>
-            责任主体：<UserSelectCascader value={state.user} disabled/>
+            责任主体：<UserSelectCascader value={state.user} disabled />
           </p>
-          <Space size={'large'}>
-            <span>当前状态：责任清单 {statusEnum[state.approval?.status]} 落实情况 {statusEnum[state.progressApproval?.status]}</span>
-            <span>更新时间：{moment(state.updateTime).format('YYYY-MM-DD HH:mm')}</span>
-          </Space>
+          <p>当前状态：责任清单 {statusEnum[state.approval?.status]} 落实情况 {statusEnum[state.progressApproval?.status]}</p>
+          <p>更新时间：{moment(state.updateTime).format('YYYY-MM-DD HH:mm')}</p>
         </Space>
       </div>
 
-      <BaseDivider title={'本主体责任清单'}/>
-      <MatterCardList value={state.matters} user={state.user}/>
+      <BaseDivider title={'本主体责任清单'} />
+      <MatterCardList value={state.matters} user={state.user} />
     </>}
 
     {!state.children?.length || <>
-      <BaseDivider title={'管理主体责任清单'}/>
+      <BaseDivider title={'管理主体责任清单'} />
       <BaseEditableTable
           value={state.children}
           columns={[
             { title: '责任主体', dataIndex: ['user', 'name'] },
             { title: '问题数', dataIndex: ['matters'], render: l => l?.length },
-            { title: '责任清单', dataIndex: ['approval', 'status'], render: s => statusEnum[s]},
-            { title: '落实情况', dataIndex: ['progressApproval', 'status'], render: s => statusEnum[s]},
+            { title: '责任清单', dataIndex: ['approval', 'status'], render: s => statusEnum[s] },
+            { title: '落实情况', dataIndex: ['progressApproval', 'status'], render: s => statusEnum[s] },
             {
               title: '详情',
               dataIndex: 'operation',
@@ -81,7 +79,7 @@ function EstablishList({ isProgress = false }: Props) {
                 <Tooltip title={'详情'}>
                   <Button
                       type={'primary'}
-                      icon={<ContainerOutlined/>}
+                      icon={<ContainerOutlined />}
                       size={'small'}
                       onClick={() => navigate(`/fr/${isProgress ? 'lz' : 'mz'}/list/${record.id}`)}
                   />
@@ -92,7 +90,7 @@ function EstablishList({ isProgress = false }: Props) {
       />
     </>}
 
-    <ApprovalTable value={state[isProgress ? 'progressApproval' : 'approval']}/>
+    <ApprovalTable value={state[isProgress ? 'progressApproval' : 'approval']} />
 
     <ApprovalFooterToolbar
         value={state[isProgress ? 'progressApproval' : 'approval']}

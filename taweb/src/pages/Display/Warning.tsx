@@ -15,19 +15,19 @@ function Warning() {
         <Col span={6}>
           <p style={{ color: '#efaf35' }}>云哨黄哨</p>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           <Row>
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>80</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>8</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={10}>
               <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
@@ -44,19 +44,19 @@ function Warning() {
         <Col span={6}>
           <p style={{ color: '#3cef21' }}>三重一大</p>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           <Row>
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>80</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>8</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={10}>
               <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
@@ -73,19 +73,19 @@ function Warning() {
         <Col span={6}>
           <p style={{ color: '#2bddf1' }}>系统预警</p>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           <Row>
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>80</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={7}>
               <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>8</span>
             </Col>
 
-            <Col span={8}>
+            <Col span={10}>
               <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
               <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
             </Col>
