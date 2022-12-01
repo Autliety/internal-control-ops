@@ -13,14 +13,16 @@ import org.springframework.stereotype.Service;
 public class MotionService {
 
   private final MotionRepository motionRepository;
-
   private final AuthService authService;
-
   private final ApprovalService approvalService;
 
   public List<Motion> findAll() {
     return motionRepository.findAll(
-        (root, query, cb) -> query.where(authService.getPrivilegePredicate(root, cb, root.get("requestUser")))
+        (root, query, cb) -> query.where(
+                cb.or(
+                    authService.getPrivilegePredicate(root, cb, root.get("requestUser")),
+                    cb.equal(root.joinList("executeUser").get("id"), authService.getCurrentUser().getId())
+                ))
             .getRestriction());
   }
 

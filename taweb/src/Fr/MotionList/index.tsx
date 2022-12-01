@@ -159,7 +159,7 @@ function MotionList() {
             </Tooltip>
             {(
                 (user?.id === 1 && record.approval?.status === 'REVIEWED' && record.integer1 === 1)
-                || (user?.id === record.requestUser?.id && record.integer1 === 2)
+                || (user?.id === record.executeUser?.[0]?.id && record.integer1 === 2)
             ) && <MotionCreateModal isFirstEdit={false} id={record.id} />}
           </Space>
 
