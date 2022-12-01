@@ -62,7 +62,6 @@ import Score from './Evaluation/Score';
 import WarningRed from './Warning/WarningRed';
 import AlertList from './AlertList';
 import Establish from './EstablishList';
-import Practicable from "./Practicable/Practicable";
 
 export const router = {
   routes: [
@@ -85,7 +84,7 @@ export const router = {
         {
           name: '建立责任清单',
           path: '/fr/mz/list',
-          element: <Establish isEstablish={true} />,
+          element: <Establish/>,
         },
         {
           name: '第一议题制度',
@@ -102,7 +101,7 @@ export const router = {
         {
           name: '落实责任清单',
           path: '/fr/lz/list',
-          element: <Practicable />
+          element: <Establish isProgress />
         },
         {
           name: '5+1谈话机制',
@@ -273,13 +272,13 @@ export const router = {
     {
       name: '责任清单',
       path: '/fr/mz/list/:id',
-      element: <Establish isEstablish={true} />,
+      element: <Establish />,
       hideInMenu: true,
     },
     {
       name: '落实责任清单',
       path: '/fr/lz/list/:id',
-      element: <Establish />,
+      element: <Establish isProgress />,
       hideInMenu: true,
     },
     {
