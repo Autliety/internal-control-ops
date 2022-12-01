@@ -65,8 +65,8 @@ WHERE
 AND a.approval_type = 'matterForm';
 
 ALTER TABLE attach
-  ADD COLUMN source_progress_matter_form_id BIGINT NULL,
-  ADD FOREIGN KEY (source_progress_matter_form_id) REFERENCES fr_matter (id),
+  ADD COLUMN source_progress_matter_id BIGINT NULL,
+  ADD FOREIGN KEY (source_progress_matter_id) REFERENCES fr_matter (id),
   DROP FOREIGN KEY fkm16lx43npbrmfknj2yahtgd2d,
   drop COLUMN source_progress_id;
 

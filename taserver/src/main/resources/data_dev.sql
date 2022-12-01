@@ -1072,7 +1072,7 @@ INSERT INTO `approval_step` (`id`, `content`, `status`, `update_time`, `approval
 	(933, NULL, 'NONE_REVIEW', '2022-11-15 15:38:08.648078', 933, 326),
 	(934, NULL, 'NONE_REVIEW', '2022-11-15 15:38:08.650100', 934, 326);
 
-INSERT INTO `attach` (`id`, `file_name`, `fs_file_name`, `update_time`, `upload_user_id`, `source_ordinal_form_id`, `source_meeting_id`, `source_inform_id`, `is_template`, `source_three_request_id`, `source_three_execute_id`, `source_three_decision_id`, `source_motion_request_id`, `source_motion_execute_id`, `source_motion_decision_id`, `source_progress_matter_form_id`) VALUES
+INSERT INTO `attach` (`id`, `file_name`, `fs_file_name`, `update_time`, `upload_user_id`, `source_ordinal_form_id`, `source_meeting_id`, `source_inform_id`, `is_template`, `source_three_request_id`, `source_three_execute_id`, `source_three_decision_id`, `source_motion_request_id`, `source_motion_execute_id`, `source_motion_decision_id`, `source_progress_matter_id`) VALUES
 	(1, '监督检查.jpg', '1_监督检查.jpg', '2022-06-28 15:53:09.127789', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(2, '（横港村202205）党风廉政建设意见书.doc', '（横港村202205）党风廉政建设意见书_20220711_003136.doc', '2022-07-11 00:31:36.814575', 1, NULL, NULL, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(3, '（农业农村办202205）党风廉政建设建议书.doc', '（农业农村办202205）党风廉政建设建议书_20220711_004017.doc', '2022-07-11 00:40:17.231204', 1, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
