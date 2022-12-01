@@ -23,6 +23,12 @@ export function getApprovalNotes(input: any) {
       title: '责任清单审核',
       content: `【${input.requestUser?.name}】提交了责任清单，正在等待您审核`,
     }
+  } else if (input.three) {
+    result = {
+      link: `/fr/lz/three/${input.three.id}`,
+      title: '三重一大审核',
+      content: `【${input.requestUser?.name}】提交了三重一大，正在等待您审核`,
+    }
   } else if (input.progressMatterForm) {
     result = {
       link: `/fr/lz/list/${input.progressMatterForm.id}`,
@@ -31,8 +37,14 @@ export function getApprovalNotes(input: any) {
     }
 
     // todo demo only
+  } else if (input.motion) {
+    result = {
+      link: `/fr/dz/motion/${input.motion.id}`,
+      title: '纪委动议审核',
+      content: `【${input.requestUser?.name}】提交了纪委动议，正在等待您审核`,
+    }
   } else {
-    result = {...input};
+    result = { ...input };
   }
 
   result.key = 'approval_' + input.id;
