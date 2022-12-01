@@ -31,7 +31,4 @@ public class FrResultData {
 
   @Column(columnDefinition = "LONGTEXT")
   private String result;
-
-  @ManyToOne
-  private Motion motion;
 }

@@ -12,7 +12,6 @@ import FileUpload from '../../components/FileUpload';
 import AttendeeSelectCard from '../MeetingList/AttendeeSelectCard';
 import { useAuth } from '../../utils/auth';
 
-
 export const motionColumns: (ProColumns | any)[] = [
   {
     title: '序号',
@@ -52,7 +51,7 @@ export const motionColumns: (ProColumns | any)[] = [
   {
     title: '参加人员',
     dataIndex: 'decisionUser',
-    renderText: u => u?.map(t => <Tag color={'processing'} key={t?.id}>{t?.name}</Tag>),
+    renderText: u => u?.map(t => <Tag color={'processing'} key={t?.id} style={{ marginBottom: 5 }}>{t?.name}</Tag>),
     renderFormItem: () => <AttendeeSelectCard />,
     onStep: 1,
     hideInTable: true,
@@ -77,6 +76,7 @@ export const motionColumns: (ProColumns | any)[] = [
         ]}
         isInEdit
     />,
+    renderText: t => t?.map((i, index) => <p>{index + 1 + '、' + i.content}</p>),
     onStep: 1,
     hideInTable: true,
   },
@@ -119,6 +119,7 @@ export const motionColumns: (ProColumns | any)[] = [
     />,
     hideInTable: true,
     onStep: 2,
+    renderText: () => ''
   },
   {
     dataIndex: 'executeAttach',

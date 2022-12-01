@@ -9,6 +9,7 @@ import ApprovalTable from '../../components/ApprovalTable';
 import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
 import { useAuth } from '../../utils/auth';
 import MotionCreateModal from '../MotionList/MotionCreateModal';
+import FileUpload from '../../components/FileUpload';
 
 export default function Motion() {
 
@@ -34,6 +35,9 @@ export default function Motion() {
 
     <BaseDivider title={'执行落实'} />
     <BaseDescriptions columns={motionColumns.filter(c => c.onStep === 2)} dataSource={state} />
+
+    <BaseDivider title={'相关附件'} />
+    <FileUpload isInEdit={false} value={state.requestAttach} />
 
     <ApprovalFooterToolbar value={state.approval} />
 

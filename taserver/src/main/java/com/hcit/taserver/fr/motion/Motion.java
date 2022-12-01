@@ -87,8 +87,8 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   private LocalDate decisionDate;
 
   @ApiModelProperty("研究交办事项、执行情况")
-  @JsonIgnoreProperties(value = {"motion"}, allowSetters = true)
-  @OneToMany(mappedBy = "motion", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @JoinColumn(name = "motion_id")
   @Fetch(FetchMode.SUBSELECT)
   private List<FrResultData> decisionExecuteResult;
 
