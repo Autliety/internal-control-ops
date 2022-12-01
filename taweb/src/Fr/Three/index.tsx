@@ -9,6 +9,7 @@ import { useAuth } from '../../utils/auth';
 import BaseDivider from '../../components/BaseDivider';
 import ApprovalTable from '../../components/ApprovalTable';
 import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
+import FileUpload from '../../components/FileUpload';
 
 export default function Three() {
 
@@ -31,6 +32,7 @@ export default function Three() {
         columns={threeColumns.filter(c => c.onStep === 0)}
         dataSource={state}
     />
+    <FileUpload value={state.requestAttach}/>
 
     <ApprovalTable value={state.approval} />
 
@@ -39,12 +41,14 @@ export default function Three() {
         columns={threeColumns.filter(c => c.onStep === 1 || c.onStep === 2)}
         dataSource={state}
     />
+    <FileUpload value={state.decisionAttach}/>
 
     <BaseDivider title={'决策执行'} />
     <BaseDescriptions
         columns={threeColumns.filter(c => c.onStep === 3 || c.onStep === 4)}
         dataSource={state}
     />
+    <FileUpload value={state.executeAttach}/>
 
     <ApprovalFooterToolbar value={state.approval} />
 

@@ -27,7 +27,7 @@ export const threeColumns: (ProColumns | any)[] = [
     renderFormItem: () => <UserSelectCascader isSelfOnly disabled />,
     onStep: 0,
   },
-  { title: '提交时间', dataIndex: 'requestTime', valueType: 'date', onStep: 0 },
+  { title: '提交时间', dataIndex: 'requestDate', valueType: 'date', onStep: 0 },
   {
     title: '拟提交事项',
     dataIndex: 'requestTitle',
@@ -73,7 +73,7 @@ export const threeColumns: (ProColumns | any)[] = [
   },
   {
     title: '决策时间',
-    dataIndex: 'decisionTime',
+    dataIndex: 'decisionDate',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     onStep: 1,
@@ -121,7 +121,7 @@ export const threeColumns: (ProColumns | any)[] = [
   },
   {
     title: '执行时间',
-    dataIndex: 'executeTime',
+    dataIndex: 'executeDate',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     hideInTable: true,
