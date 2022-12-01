@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackTop, Button, Divider, Modal, Space, Statistic, Switch } from 'antd';
+import { Button, Divider, Input, Modal, Space, Statistic, Switch } from 'antd';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
@@ -9,10 +9,11 @@ import { useHttp } from '../../utils/request';
 import { matterColumns } from './MatterInfo';
 import { useAuth } from '../../utils/auth';
 import BaseDescriptions from '../../components/BaseDescriptions';
-import { statusEnum } from "../../utils/nameMapTa";
+import { progressStatus } from '../../utils/nameMapTa';
+import BaseDivider from '../../components/BaseDivider';
+import FileUpload from '../../components/FileUpload';
 
 export default function Matter() {
-
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -28,16 +29,24 @@ export default function Matter() {
 
   const columns: ProColumns[] = [
     { title: '措施编号', dataIndex: 'code', editable: false, renderText: t => state.code + '-' + t },
-    { title: '措施内容', dataIndex: 'content', valueType: 'textarea' },
-    { title: '整改内容', dataIndex: 'progress', valueType: 'textarea' },
-    { title: '整改状态', dataIndex: 'progressStatus', renderText: t => statusEnum[t] }
+    { title: '措施内容', dataIndex: 'content', renderFormItem: () => <Input.TextArea style={{ width: 800 }} /> },
+    { title: '整改内容', dataIndex: 'progress', renderFormItem: () => <Input.TextArea style={{ width: 800 }} /> },
+    {
+      title: '整改状态',
+      dataIndex: 'progressStatus',
+      renderText: t => progressStatus[t],
+      valueType: 'select',
+      fieldProps: { options: [{ label: '已完成', value: 'DONE' }, { label: '部分完成', value: 'PART_DONE' }] }
+    }
   ];
 
   const [info, setInfo] = React.useState<any>({});
   const [measure, setMeasure] = React.useState<any>([]);
+  const [attach, setAttach] = React.useState<any>([]);
   React.useEffect(() => {
     setInfo(state);
     setMeasure(state.measure);
+    setAttach(state.progressAttach);
   }, [state]);
 
   return <PageContainer
@@ -47,7 +56,6 @@ export default function Matter() {
       </Space>}
       loading={loading}
   >
-    <BackTop />
 
     <Divider orientation={'left'}>问题详情</Divider>
     <BaseDescriptions
@@ -97,35 +105,41 @@ export default function Matter() {
       }
     </div>
 
+    <BaseDivider title={'相关文件'} />
+    <FileUpload value={attach} onChange={setAttach} isInEdit={isEditMatter || isEditProgress} />
 
     <FooterToolbar>
       {
-          isEditMatter && <Space>
-            <Button
-                type='primary'
-                icon={<EditOutlined />}
-                onClick={() => updateHttp(null, null, {
-                  ...info,
-                  endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
-                  measure,
-                }).then(() => window.location.reload())}
-            >
-              暂存更新
-            </Button>
-            <Button danger icon={<DeleteOutlined />} onClick={() => {
-              Modal.confirm({
-                title: '是否删除该问题？',
-                icon: <ExclamationCircleOutlined />,
-                okType: 'danger',
-                onOk() {
-                  deleteHttp().then(() => navigate('/fr/mz/list'));
-                },
-              });
-            }}
-            >删除问题</Button>
-          </Space>
+        <Space>
+          {
+              (isEditMatter || isEditProgress) && <Button
+                  type='primary'
+                  icon={<EditOutlined />}
+                  onClick={() => updateHttp(null, null, {
+                    ...info,
+                    endDate: info.endDate ? moment(info.endDate).format('YYYY-MM-DD') : null,
+                    measure,
+                    progressAttach: attach,
+                  }).then(() => window.location.reload())}
+              >
+                暂存更新
+              </Button>
+          }
+          {
+              isEditMatter && <Button danger icon={<DeleteOutlined />} onClick={() => {
+                Modal.confirm({
+                  title: '是否删除该问题？',
+                  icon: <ExclamationCircleOutlined />,
+                  okType: 'danger',
+                  onOk() {
+                    deleteHttp().then(() => navigate('/fr/mz/list'));
+                  },
+                });
+              }}
+              >删除问题</Button>
+          }
+        </Space>
       }
-
     </FooterToolbar>
 
 

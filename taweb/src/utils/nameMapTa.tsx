@@ -19,6 +19,11 @@ export const permissionTypeTa = {
   WALL: '回音壁相关权限',
 };
 
+export const progressStatus = {
+  DONE: <Tag color={'success'}>已完成</Tag>,
+  PART_DONE: <Tag color={'warning'}>部分完成</Tag>
+}
+
 
 
 
