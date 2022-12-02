@@ -58,7 +58,7 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   private Status status;
 
   @JsonIgnoreProperties(value = {"matterForm"}, allowSetters = true)
-  @OneToMany(mappedBy = "matterForm", cascade = CascadeType.ALL, fetch = EAGER)
+  @OneToMany(mappedBy = "matterForm", fetch = EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
   @Fetch(FetchMode.SUBSELECT)
   private List<Matter> matters;
 
