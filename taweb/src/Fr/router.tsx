@@ -301,8 +301,14 @@ export const router = {
     },
     {
       hideInMenu: true,
-      name: '问题详情',
+      name: '责任清单详情',
       path: '/fr/mz/list/matter/:id',
+      element: <Matter />,
+    },
+    {
+      hideInMenu: true,
+      name: '责任清单落实详情',
+      path: '/fr/lz/list/matter/:id',
       element: <Matter />,
     },
     {
