@@ -1,7 +1,10 @@
 import React from 'react';
-import { Carousel, Col, Row, Space, Typography } from 'antd';
+import { Button, Carousel, Col, Row, Space, Typography } from 'antd';
 import moment from 'moment';
 import { useInterval } from 'ahooks';
+import { RollbackOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+
 import bg from '../../image/bg.jpg';
 import Map from './Map';
 import Table from './Table';
@@ -15,6 +18,7 @@ import RingChart from './RingChart';
 
 function Display() {
 
+  const navigate = useNavigate();
   // 显示时间
   const [date, setDate] = React.useState('');
   useInterval(() => setDate(moment().format('YYYY月MM月DD日 HH:mm')), 1000 * 60, { immediate: true });
@@ -366,7 +370,16 @@ function Display() {
   >
     {/* 顶部 */}
     <Row style={{ color: '#2bddf1', fontWeight: 'bold' }}>
-      <Col span={7} />
+      <Col span={7}>
+        <Button
+            type={'primary'}
+            shape={'round'}
+            icon={<RollbackOutlined />}
+            onClick={() => navigate('/fr')}
+        >
+          返回首页
+        </Button>
+      </Col>
       <Col span={10}>
         <Typography.Title level={2} className={'title'}>百步经济开发区（百步镇）-- 数据可视化（测试）</Typography.Title>
       </Col>

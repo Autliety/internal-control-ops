@@ -136,6 +136,7 @@ export const matterColumns: ProColumns[] = [
     dataIndex: 'status',
     valueEnum: statusEnum,
     editable: false,
+    hideInForm: true,
   },
 ];
 

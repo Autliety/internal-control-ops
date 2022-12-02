@@ -1,9 +1,9 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { BackTop, Button, Select, Space, Tooltip } from 'antd';
+import moment from 'moment';
 import { useHttp } from '../../utils/request';
 import BaseDivider from '../../components/BaseDivider';
-import MatterAssignModal from '../MatterList/MatterAssignModal';
 import ApprovalTable from '../../components/ApprovalTable';
 import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
 import { useAuth } from '../../utils/auth';
@@ -12,8 +12,8 @@ import BaseEditableTable from '../../components/BaseEditableTable';
 import { ContainerOutlined } from '@ant-design/icons';
 import UserSelectCascader from '../../components/UserSelectCascader';
 import { statusEnum } from '../../utils/nameMapTa';
-import moment from 'moment';
 import MatterCardList from './MatterCardList';
+import MatterCreateModal from './MatterCreateModal';
 
 type Props = {
   isProgress?: boolean,
@@ -32,8 +32,10 @@ function EstablishList({ isProgress = false }: Props) {
   return <PageContainer
       extra={
         <Space size={'middle'}>
-          <MatterAssignModal self={false} />
-          <MatterAssignModal self={true} />
+          <MatterCreateModal
+              data={state}
+              isAdd={user.id === state?.user?.id && (['NONE_REVIEW', 'AWAITING_FIX'].includes(state?.approval?.status))}
+          />
         </Space>
       }
       loading={loading}
@@ -46,7 +48,7 @@ function EstablishList({ isProgress = false }: Props) {
     </div>
 
     {!state.matters?.length || <>
-      <div className="content">
+      <div className='content'>
         <Space direction={'vertical'} size={'small'}>
           <p>
             责任主体：<UserSelectCascader value={state.user} disabled />

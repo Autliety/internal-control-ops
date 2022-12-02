@@ -12,6 +12,8 @@ import BaseDescriptions from '../../components/BaseDescriptions';
 import { progressStatus } from '../../utils/nameMapTa';
 import BaseDivider from '../../components/BaseDivider';
 import FileUpload from '../../components/FileUpload';
+import MeasureCreateModal from '../EstablishList/MeasureCreateModal';
+import MeasureDeleteModal from '../EstablishList/MeasureDeleteModal';
 
 export default function Matter() {
 
@@ -54,6 +56,16 @@ export default function Matter() {
         <Statistic title={'问题编号'} value={state.code} />
         <Statistic title={'责任主体'} value={state.matterForm?.user?.name} />
       </Space>}
+      extra={[
+        <MeasureCreateModal
+            data={state}
+            isAdd={user.id === state.matterForm?.user?.id && (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.matterForm?.approval?.status))}
+        />,
+        <MeasureDeleteModal
+            data={state}
+            isDelete={user.id === state.matterForm?.user?.id && (['NONE_REVIEW', 'AWAITING_FIX'].includes(state.matterForm?.approval?.status))}
+        />
+      ]}
       loading={loading}
   >
 
