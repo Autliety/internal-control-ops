@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoginForm, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } from 'antd';
+import { Col, Divider, Image, Layout, message, Modal, notification, Row, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
@@ -21,7 +21,8 @@ export default function LoginFr() {
       backgroundImage: `url(${headerBg})`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      width: '100%'
+      width: '100%',
+      minHeight: 100
     }}>
       <Space direction={'vertical'}>
         <Typography.Title level={2} style={{ marginTop: 15, fontFamily: 'serif', color: '#f3e8b4' }}>
@@ -50,12 +51,9 @@ export default function LoginFr() {
                 }
                 await http(null, null, qs.stringify(values));
                 if (values.password === '1') {
-                  message.success('登录成功，请尽快修改初始密码');
-                  navigate(`/${values.system}/center`)
-                } else {
-                  message.success('登录成功');
-                  navigate(`/${values.system}`);
+                  notification.warning({ message: '登录成功', description: '请尽快修改初始密码！' });
                 }
+                navigate(`/data`)
               }}
           >
 
