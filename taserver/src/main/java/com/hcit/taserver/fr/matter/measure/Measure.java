@@ -1,8 +1,6 @@
 package com.hcit.taserver.fr.matter.measure;
 
 import com.hcit.taserver.common.BasicPersistable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@ApiModel("措施")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -35,7 +32,6 @@ public class Measure implements BasicPersistable {
     return id.toString();
   }
 
-  @ApiModelProperty("工作措施详情")
   @Column(columnDefinition = "LONGTEXT")
   private String content;
 

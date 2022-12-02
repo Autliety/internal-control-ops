@@ -21,8 +21,9 @@ spring:
     mode: always
     data-locations: classpath:/data_dev.sql
 
-springfox:
-  documentation.enabled: true
-
 config:
   dev-env: true
+
+springdoc:
+  api-docs.enabled: true
+  swagger-ui.enabled: true

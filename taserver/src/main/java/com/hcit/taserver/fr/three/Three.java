@@ -7,8 +7,6 @@ import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +29,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@ApiModel("三重一大")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -50,21 +47,16 @@ public class Three implements BasicPersistable, ApprovalEntity {
   }
 
   // request
-  @ApiModelProperty("提交人")
   @ManyToOne
   private User requestUser;
 
-  @ApiModelProperty("提交时间")
   private LocalDate requestDate;
 
-  @ApiModelProperty("拟提交事项")
   private String requestTitle;
 
-  @ApiModelProperty("拟提交事项内容")
   @Column(columnDefinition = "LONGTEXT")
   private String requestContent;
 
-  @ApiModelProperty("议题来源")
   private String requestSource;
 
   @OneToMany(fetch = FetchType.EAGER)
@@ -77,17 +69,13 @@ public class Three implements BasicPersistable, ApprovalEntity {
   private Approval approval;
 
   // decision
-  @ApiModelProperty("决策时间")
   private LocalDate decisionDate;
 
-  @ApiModelProperty("决策方式")
   private String decisionTitle;
 
-  @ApiModelProperty("决策过程描述")
   @Column(columnDefinition = "LONGTEXT")
   private String decisionContent;
 
-  @ApiModelProperty("决策结果")
   @Column(columnDefinition = "LONGTEXT")
   private String decisionResult;
 
@@ -96,15 +84,12 @@ public class Three implements BasicPersistable, ApprovalEntity {
   @JoinColumn(name = "source_three_decision_id")
   private List<Attach> decisionAttach;
 
-  @ApiModelProperty("纪委监督决策")
   @Column(columnDefinition = "LONGTEXT")
   private String decisionControl;
 
   //execute
-  @ApiModelProperty("执行时间")
   private LocalDate executeDate;
 
-  @ApiModelProperty("决策执行概述")
   @Column(columnDefinition = "LONGTEXT")
   private String executeContent;
 
@@ -113,7 +98,6 @@ public class Three implements BasicPersistable, ApprovalEntity {
   @JoinColumn(name = "source_three_execute_id")
   private List<Attach> executeAttach;
 
-  @ApiModelProperty("纪委监督执行")
   @Column(columnDefinition = "LONGTEXT")
   private String executeControl;
 

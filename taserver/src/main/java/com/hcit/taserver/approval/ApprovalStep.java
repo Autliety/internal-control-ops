@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@ApiModel("审批步骤")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

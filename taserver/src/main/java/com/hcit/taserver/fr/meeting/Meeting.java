@@ -8,8 +8,6 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +32,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@ApiModel("问题")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -51,25 +48,19 @@ public class Meeting implements BasicPersistable, ApprovalEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @ApiModelProperty("会议类型")
   private String type;
 
-  @ApiModelProperty("会议时间")
   private LocalDateTime startTime;
 
-  @ApiModelProperty("会议地点")
   private String placement;
 
-  @ApiModelProperty("责任主体")
   @ManyToOne
   private User user;
 
-  @ApiModelProperty("参会人员")
   @ManyToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<User> meetingUser;
 
-  @ApiModelProperty("列席人员")
   @ManyToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<User> subUser;
@@ -78,10 +69,8 @@ public class Meeting implements BasicPersistable, ApprovalEntity {
     return Optional.ofNullable(meetingUser).map(List::size).orElse(0);
   }
 
-  @ApiModelProperty("会议议题")
   private String content;
 
-  @ApiModelProperty("会议职责任务")
   @JsonIgnoreProperties(value = {"meeting"}, allowSetters = true)
   @OneToMany(mappedBy = "meeting", fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)

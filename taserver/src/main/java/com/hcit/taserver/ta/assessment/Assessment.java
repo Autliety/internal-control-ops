@@ -6,8 +6,6 @@ import com.hcit.taserver.common.ValueType;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.ta.plan.Plan;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,7 +31,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@ApiModel("指标")
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -46,34 +43,27 @@ public class Assessment {
   private Long id;
 
   @ExcelProperty("编号")
-  @ApiModelProperty("编号")
   private String code;
 
   @ExcelProperty("一级指标")
-  @ApiModelProperty("一级指标")
   private String levelOne;
 
   @ExcelProperty("二级指标")
-  @ApiModelProperty("二级指标")
   private String levelTwo;
 
   @ExcelProperty("三级指标")
-  @ApiModelProperty("三级指标")
   private String name;
 
   @ExcelProperty("分值")
-  @ApiModelProperty("分值")
   private BigDecimal point;
 
   @Enumerated(EnumType.STRING)
   private ValueType valueType;
 
   @ExcelProperty("指标要求")
-  @ApiModelProperty("指标要求")
   private String value;
 
   @ExcelProperty("考核标准")
-  @ApiModelProperty("考核标准")
   @Column(columnDefinition = "LONGTEXT")
   private String standard;
 
@@ -82,7 +72,6 @@ public class Assessment {
   private List<User> respUser;
 
   @ExcelProperty("责任领导")
-  @ApiModelProperty(hidden = true)
   @Transient
   private String respUserContent;
 
@@ -91,7 +80,6 @@ public class Assessment {
   private List<Department> respDepartment;
 
   @ExcelProperty("责任站办")
-  @ApiModelProperty(hidden = true)
   @Transient
   private String respDepartmentContent;
 

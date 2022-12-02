@@ -2,7 +2,6 @@ package com.hcit.taserver.fr.yunshao.yellow;
 
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@ApiModel("黄哨履责追踪")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

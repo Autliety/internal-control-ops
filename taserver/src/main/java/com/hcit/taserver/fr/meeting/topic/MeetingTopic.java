@@ -7,7 +7,6 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.meeting.Meeting;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@ApiModel("会议议题")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

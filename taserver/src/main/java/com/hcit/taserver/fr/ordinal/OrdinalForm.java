@@ -4,7 +4,6 @@ import com.hcit.taserver.attach.Attach;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -31,7 +30,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@ApiModel("常规表单")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

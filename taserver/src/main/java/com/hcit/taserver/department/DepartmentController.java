@@ -1,11 +1,15 @@
 package com.hcit.taserver.department;
 
 import java.util.List;
-
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 
@@ -30,7 +34,6 @@ public class DepartmentController {
     return departmentService.findAll();
   }
 
-  @ApiOperation("新建部门岗位")
   @Transactional
   @PostMapping
   public List<Department> create(@RequestBody Department department) {
@@ -41,12 +44,11 @@ public class DepartmentController {
   }
 
 
-  @ApiOperation("编辑部门岗位信息")
   @PostMapping("/{id}")
   @Transactional
   public Department updateDept(@PathVariable Long id,
                                @RequestBody Department update) {
-    Department department = departmentRepository.findById(id).get();
+    Department department = departmentRepository.findById(id).orElseThrow();
     department.setName(update.getName());
     department.setShortName(update.getShortName());
     return departmentRepository.save(department);

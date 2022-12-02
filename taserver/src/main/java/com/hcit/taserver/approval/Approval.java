@@ -10,8 +10,6 @@ import com.hcit.taserver.fr.meeting.topic.MeetingTopic;
 import com.hcit.taserver.fr.motion.Motion;
 import com.hcit.taserver.fr.three.Three;
 import com.hcit.taserver.ta.plan.Plan;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +33,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.util.CollectionUtils;
 
-@ApiModel("审批单")
 
 @Getter @Setter @With
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -46,15 +43,12 @@ public class Approval implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ApiModelProperty("申请人")
   @ManyToOne
   private User requestUser;
 
-  @ApiModelProperty("审核人")
   @ManyToOne
   private User approveUser;
 
-  @ApiModelProperty("抄送人")
   @ManyToOne
   private User copyUser;
 

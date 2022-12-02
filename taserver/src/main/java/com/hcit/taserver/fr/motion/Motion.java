@@ -8,8 +8,6 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.data.FrResultData;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +33,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.util.CollectionUtils;
 
-@ApiModel("纪委动议")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -54,17 +51,13 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   }
 
   // request
-  @ApiModelProperty("动议人")
   @ManyToOne
   private User requestUser;
 
-  @ApiModelProperty("动议时间")
   private LocalDate requestDate;
 
-  @ApiModelProperty("动议情形")
   private String requestTitle;
 
-  @ApiModelProperty("动议事项内容")
   @Column(columnDefinition = "LONGTEXT")
   private String requestContent;
 
@@ -78,15 +71,12 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   private Approval approval;
 
   // decision
-  @ApiModelProperty("参加人员")
   @ManyToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<User> decisionUser;
 
-  @ApiModelProperty("决策时间")
   private LocalDate decisionDate;
 
-  @ApiModelProperty("研究交办事项、执行情况")
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   @JoinColumn(name = "motion_id")
   @Fetch(FetchMode.SUBSELECT)
@@ -103,7 +93,6 @@ public class Motion implements BasicPersistable, ApprovalEntity {
   @JoinColumn(name = "source_motion_execute_id")
   private List<Attach> executeAttach;
 
-  @ApiModelProperty("交办责任主体")
   @ManyToMany(fetch = FetchType.EAGER)
   @Fetch(FetchMode.SUBSELECT)
   private List<User> executeUser;
@@ -112,7 +101,6 @@ public class Motion implements BasicPersistable, ApprovalEntity {
     return CollectionUtils.firstElement(executeUser);
   }
 
-  @ApiModelProperty("完成时限")
   private LocalDate executeDate;
 
   private LocalDateTime updateTime;

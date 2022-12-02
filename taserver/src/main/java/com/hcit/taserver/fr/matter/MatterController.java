@@ -2,7 +2,6 @@ package com.hcit.taserver.fr.matter;
 
 import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.matter.form.MatterFormService;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 
-@Api(tags = "问题")
 @RestController
 @RequestMapping("/matterform")
 public class MatterController {
@@ -50,6 +48,11 @@ public class MatterController {
   @PostMapping("/{id}")
   public MatterForm update(@PathVariable Long id, @RequestBody MatterForm matterForm) {
     return matterFormService.update(id, matterForm.getMatters());
+  }
+
+  @PostMapping("/{fid}/matter")
+  public Matter create(@PathVariable Long fid, @RequestBody Matter matter) {
+    return matterService.create(fid, matter);
   }
 
   @GetMapping("/*/matter/{id}")

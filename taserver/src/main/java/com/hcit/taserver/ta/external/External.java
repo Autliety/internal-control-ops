@@ -1,6 +1,5 @@
 package com.hcit.taserver.ta.external;
 
-import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-@ApiModel("附加指标")
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor

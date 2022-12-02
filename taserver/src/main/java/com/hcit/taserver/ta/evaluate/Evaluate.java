@@ -6,7 +6,6 @@ import com.hcit.taserver.ta.external.External;
 import com.hcit.taserver.ta.external.ExternalUsage;
 import com.hcit.taserver.ta.plan.Detail;
 import com.hcit.taserver.ta.task.Task;
-import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -18,7 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
-@ApiModel("评分")
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor

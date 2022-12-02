@@ -1,5 +1,6 @@
 package com.hcit.taserver.fr.matter;
 
+import com.hcit.taserver.fr.matter.form.MatterForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,11 @@ public class MatterService {
 
   public void delete(Long id) {
     matterRepository.deleteById(id);
+  }
+
+  public Matter create(Long fid, Matter matter) {
+    matter.setId(null);
+    matter.setMatterForm(MatterForm.builder().id(fid).build());
+    return matterRepository.save(matter);
   }
 }

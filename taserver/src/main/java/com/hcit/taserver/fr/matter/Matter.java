@@ -6,8 +6,6 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.matter.measure.Measure;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +29,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@ApiModel("问题")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -57,14 +54,11 @@ public class Matter implements BasicPersistable {
     return matterForm.getApprovalStatus();
   }
 
-  @ApiModelProperty("问题内容")
   @Column(columnDefinition = "LONGTEXT")
   private String content;
 
-  @ApiModelProperty("类型和来源")
   private String origin;
 
-  @ApiModelProperty("措施")
   @JsonIgnoreProperties(value = {"matter"}, allowSetters = true)
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "matter_id")
@@ -76,7 +70,6 @@ public class Matter implements BasicPersistable {
   @JoinColumn(name = "source_progress_matter_id")
   private List<Attach> progressAttach;
 
-  @ApiModelProperty("截止日期")
   private LocalDate endDate;
 
   @UpdateTimestamp

@@ -3,7 +3,6 @@ package com.hcit.taserver.fr.meeting.topic;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.user.User;
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@ApiModel("会议议题职责任务")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

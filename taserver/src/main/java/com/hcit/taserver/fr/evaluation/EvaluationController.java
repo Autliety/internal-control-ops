@@ -2,16 +2,19 @@ package com.hcit.taserver.fr.evaluation;
 
 import com.hcit.taserver.fr.evaluation.userEva.UserEvaService;
 import com.hcit.taserver.fr.evaluation.userEva.UserEvaluation;
-import io.swagger.annotations.Api;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 
-@Api(tags = "考评")
 @RestController
 @RequestMapping("/evaluation")
 public class EvaluationController {

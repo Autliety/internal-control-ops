@@ -1,6 +1,5 @@
 package com.hcit.taserver.fr.three;
 
-import io.swagger.annotations.Api;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Api(tags = "三重一大")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/three")

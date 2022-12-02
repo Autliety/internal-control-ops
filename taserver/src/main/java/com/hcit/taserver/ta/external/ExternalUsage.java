@@ -1,7 +1,6 @@
 package com.hcit.taserver.ta.external;
 
 import com.hcit.taserver.department.user.User;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-@ApiModel("附加指标应用纪录")
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor

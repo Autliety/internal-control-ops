@@ -5,7 +5,6 @@ import com.hcit.taserver.common.BasicPersistable;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -29,7 +28,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@ApiModel("告知")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder

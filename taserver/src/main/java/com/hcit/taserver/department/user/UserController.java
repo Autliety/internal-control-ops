@@ -3,12 +3,17 @@ package com.hcit.taserver.department.user;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,7 +45,6 @@ public class UserController {
     return userService.update(id, user);
   }
 
-  @ApiOperation("创建人员")
   @PostMapping
   @Transactional
   public User create(@RequestBody User userCreate) {
@@ -49,7 +53,6 @@ public class UserController {
     return userService.findById(userCreate.getId());
   }
 
-  @ApiOperation("删除人员")
   @DeleteMapping("/{id}")
   @Transactional
   public List<User> delete(@PathVariable Long id) throws Exception {

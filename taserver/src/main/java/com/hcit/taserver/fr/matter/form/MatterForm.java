@@ -10,8 +10,6 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.matter.Matter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +34,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@ApiModel("问题清单")
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
@@ -50,7 +47,6 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
 
   private Integer year;
 
-  @ApiModelProperty("负责人")
   @ManyToOne
   private User user;
 
@@ -74,7 +70,6 @@ public class MatterForm implements BasicPersistable, ApprovalEntity {
   @OneToOne(mappedBy = "progressMatterForm")
   private Approval progressApproval;
 
-  @ApiModelProperty("更新时间")
   @UpdateTimestamp
   private LocalDateTime updateTime;
 
