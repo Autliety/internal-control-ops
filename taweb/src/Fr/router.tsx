@@ -10,13 +10,10 @@ import {
 } from '@ant-design/icons';
 
 import Home from './Home';
-import MatterList from './MatterList';
 import Matter from './Matter';
 import MeetingList from './MeetingList';
 import Meeting from './Meeting';
 import MeetingTopic from './MeetingTopic';
-import MeasureList from './MeasureList';
-import Measure from './Measure';
 import InformList from './InformList';
 import Inform from './Inform';
 import MeetingNotice from './Meeting/MeetingNotice';
@@ -33,7 +30,6 @@ import Disposal from './Disposal';
 import Progress from './Progress';
 import Permission from './Permission';
 import InspectList from './InspectList';
-import Important from './Important';
 import Question from './Question';
 import QuestionList from './QuestionList';
 import Risk from './Risk';
@@ -55,7 +51,6 @@ import Talking from './Talking';
 import Department from '../pages/Department';
 import Settings from '../pages/Settings';
 import MotionList from './MotionList';
-import MatterListApproval from './MatterList/MatterListApproval';
 import WarningList from './WarningList';
 import WarningYellow from './Warning/WarningYellow';
 import Score from './Evaluation/Score';
@@ -84,7 +79,7 @@ export const router = {
         {
           name: '建立责任清单',
           path: '/fr/mz/list',
-          element: <Establish/>,
+          element: <Establish />,
         },
         {
           name: '第一议题制度',
@@ -283,24 +278,6 @@ export const router = {
     },
     {
       hideInMenu: true,
-      name: '问题清单',
-      path: '/fr/mz/list/matter',
-      element: <MatterList />,
-    },
-    {
-      hideInMenu: true,
-      name: '措施清单',
-      path: '/fr/mz/list/measure',
-      element: <MeasureList />,
-    },
-    {
-      hideInMenu: true,
-      name: '问题清单审核',
-      path: '/fr/mz/list/matter/approval/:id',
-      element: <MatterListApproval />
-    },
-    {
-      hideInMenu: true,
       name: '责任清单详情',
       path: '/fr/mz/list/matter/:id',
       element: <Matter />,
@@ -310,12 +287,6 @@ export const router = {
       name: '责任清单落实详情',
       path: '/fr/lz/list/matter/:id',
       element: <Matter />,
-    },
-    {
-      hideInMenu: true,
-      name: '措施详情',
-      path: '/fr/mz/list/measure/:id',
-      element: <Measure />,
     },
     {
       hideInMenu: true,
@@ -352,12 +323,6 @@ export const router = {
       name: '履责情况详情',
       path: '/fr/lz/list/progress/:id',
       element: <Progress />,
-    },
-    {
-      hideInMenu: true,
-      name: '重大事项请示报告详情',
-      path: '/fr/lz/important/:id',
-      element: <Important />,
     },
     {
       hideInMenu: true,
