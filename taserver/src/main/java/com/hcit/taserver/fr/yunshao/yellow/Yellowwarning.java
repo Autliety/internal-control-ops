@@ -3,19 +3,11 @@ package com.hcit.taserver.fr.yunshao.yellow;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.hcit.taserver.common.BasicPersistable;
-import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Proxy(lazy = false)
 
@@ -117,4 +109,7 @@ public class Yellowwarning implements BasicPersistable {
 
   @ExcelProperty(value = "szfmc")
   private String szfmc;
+
+  @ExcelIgnore
+  private Long userId;//用户Id
 }
