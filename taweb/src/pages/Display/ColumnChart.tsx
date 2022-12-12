@@ -5,9 +5,9 @@ import Title from './Title';
 export default function ColumnChart() {
 
   const data = [
+    { year: '履责约谈', value: 109 },
     { year: '一单三书', value: 102 },
     { year: '纪委动议', value: 104 },
-    { year: '履责约谈', value: 109 },
     { year: '履责追踪', value: 112 },
   ];
 
@@ -54,7 +54,9 @@ export default function ColumnChart() {
 
   return <div>
     <Title title={'督责情况'} />
+    <br />
     {/* @ts-ignore */}
     <Column {...config} />
+    <br />
   </div>;
 }

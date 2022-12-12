@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rose } from "@ant-design/charts";
+import { Rose } from '@ant-design/charts';
 
 function RoseChart() {
 
@@ -39,7 +39,7 @@ function RoseChart() {
 
   const config = {
     data,
-    height: 275,
+    height: 225,
     xField: 'type',
     yField: 'value',
     isStack: true,
@@ -63,6 +63,7 @@ function RoseChart() {
   };
   return <div>
     <Rose {...config} />
+    <br />
   </div>;
 }
 
