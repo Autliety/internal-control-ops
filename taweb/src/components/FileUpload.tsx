@@ -10,7 +10,7 @@ type Props = {
   value?: any[],
 }
 
-function FileUpload({ isInEdit, onChange, value }: Props) {
+function FileUpload({ isInEdit = false, onChange, value }: Props) {
 
   return <div className="content">
     {
