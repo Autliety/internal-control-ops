@@ -25,6 +25,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -74,5 +75,18 @@ public class Matter implements BasicPersistable {
 
   @UpdateTimestamp
   private LocalDateTime updateTime;
+
+  public Integer getMeasureCount() {
+    return CollectionUtils.size(measure);
+  }
+
+  public Integer getMeasurePercent() {
+    var count = getMeasureCount();
+    if (count == 0) {
+      return 0;
+    }
+    var done = measure.stream().filter(m -> m.getProgressStatus() != null).count();
+    return (int) (done / count * 100);
+  }
 
 }
