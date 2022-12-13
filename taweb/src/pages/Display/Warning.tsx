@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import { AlertTwoTone, BellTwoTone, BulbTwoTone } from '@ant-design/icons';
+import { BellTwoTone, BulbTwoTone } from '@ant-design/icons';
 import Title from './Title';
 import './style.css';
 
@@ -65,34 +65,6 @@ function Warning() {
       </Row>
     </div>
 
-    <div className={'box'}>
-      <Row>
-        <Col span={4}>
-          <AlertTwoTone twoToneColor={'#2bddf1'} style={{ fontSize: 40 }} />
-        </Col>
-        <Col span={6}>
-          <p style={{ color: '#2bddf1' }}>系统预警</p>
-        </Col>
-        <Col span={14}>
-          <Row>
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>80</span>
-            </Col>
-
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>8</span>
-            </Col>
-
-            <Col span={10}>
-              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </div>
   </div>;
 }
 

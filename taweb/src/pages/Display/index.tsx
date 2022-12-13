@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Carousel, Col, Row, Space, Typography } from 'antd';
 import moment from 'moment';
 import { useInterval } from 'ahooks';
-import { RollbackOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import bg from '../../image/bg.jpg';
@@ -15,6 +15,7 @@ import ColumnChart from './ColumnChart';
 import RoseChart from './RoseChart';
 import Title from './Title';
 import RingChart from './RingChart';
+import List from './List';
 
 function Display() {
 
@@ -374,7 +375,7 @@ function Display() {
         <Button
             type={'primary'}
             shape={'round'}
-            icon={<RollbackOutlined />}
+            icon={<HomeOutlined />}
             onClick={() => navigate('/fr')}
         >
           返回首页
@@ -409,10 +410,37 @@ function Display() {
               <RoseChart />
             </div>
           </Carousel>
-          <ColumnChart />
+          <div>
+            <Title title={'班子成员考评得分'} />
+            <Carousel autoplay dots={false} dotPosition={'right'}>
+              {
+                setData(data)?.map((item, index) => <div key={index}>
+                  <BulletChart data={item} />
+                </div>)
+              }
+            </Carousel>
+          </div>
 
-          <div style={{ height: 280 }}>
-            <RingChart />
+          <div>
+            <Title title={'站所考评得分'} />
+            <Carousel autoplay dots={false} dotPosition={'right'}>
+              {
+                setData(data2)?.map((item, index) => <div key={index}>
+                  <BulletChart data={item} />
+                </div>)
+              }
+            </Carousel>
+          </div>
+
+          <div>
+            <Title title={'村（社）考评得分'} />
+            <Carousel autoplay dots={false} dotPosition={'right'}>
+              {
+                setData(data3)?.map((item, index) => <div key={index}>
+                  <BulletChart data={item} />
+                </div>)
+              }
+            </Carousel>
           </div>
 
         </Space>
@@ -420,46 +448,29 @@ function Display() {
       {/* 中 */}
       <Col span={10}>
         <Map />
+        <Warning />
         <br />
         <Table />
       </Col>
       {/* 右 */}
       <Col span={7}>
-        <Warning />
-        <br />
-        <div>
-          <Title title={'班子成员考评得分'} />
-          <Carousel autoplay dots={false} dotPosition={'right'}>
-            {
-              setData(data)?.map((item, index) => <div key={index}>
-                <BulletChart data={item} />
-              </div>)
-            }
-          </Carousel>
-        </div>
-        <br />
-        <div>
-          <Title title={'站所考评得分'} />
-          <Carousel autoplay dots={false} dotPosition={'right'}>
-            {
-              setData(data2)?.map((item, index) => <div key={index}>
-                <BulletChart data={item} />
-              </div>)
-            }
-          </Carousel>
-        </div>
-        <br />
-        <div>
-          <Title title={'村（社）考评得分'} />
-          <Carousel autoplay dots={false} dotPosition={'right'}>
-            {
-              setData(data3)?.map((item, index) => <div key={index}>
-                <BulletChart data={item} />
-              </div>)
-            }
-          </Carousel>
-        </div>
+        <Title title={'预警指标'} />
+        <Carousel autoplay dots={false} effect='fade'>
+          <div>
+            <RoseChart />
+          </div>
+          <div>
+            <List />
+          </div>
+        </Carousel>
 
+        <br />
+        <ColumnChart />
+
+        <br />
+        <div style={{ height: 280 }}>
+          <RingChart />
+        </div>
       </Col>
     </Row>
 

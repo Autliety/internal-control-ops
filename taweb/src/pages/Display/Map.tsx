@@ -21,7 +21,6 @@ function Map() {
       id: 1,
       name: '百步镇',
       img: map,
-      height: 510
     },
     {
       id: 2,
@@ -76,7 +75,7 @@ function Map() {
     },
   ];
 
-  return <div style={{ height: 570 }}>
+  return <div style={{ height: 470 }}>
     <Title title={'责任清单地图'} />
     <Carousel dots={false} autoplay>
       {
@@ -84,7 +83,7 @@ function Map() {
           <Row>
             <Col span={16}>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img src={item.img} alt={'责任清单地图'} height={item?.height || 390} style={{ display: 'block' }} />
+                <img src={item.img} alt={'责任清单地图'} height={390} style={{ display: 'block' }} />
               </div>
             </Col>
             <Col span={8}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TagsTwoTone } from '@ant-design/icons';
-import { Space } from "antd";
+import { Space } from 'antd';
 
 function Title({ title }) {
   return <div className={'labelStyle'}>

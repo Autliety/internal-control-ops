@@ -5,7 +5,7 @@ import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } f
 import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
-import bg from '../../image/login2.png';
+import bg from '../../image/login.jpg';
 import headerBg from '../../image/header.png';
 import { useHttp } from '../../utils/request';
 
@@ -21,7 +21,8 @@ export default function LoginTa() {
       backgroundImage: `url(${headerBg})`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      width: '100%'
+      width: '100%',
+      minHeight: 100
     }}>
       <Space direction={'vertical'}>
         <Typography.Title style={{ marginTop: 10, fontFamily: 'serif', fontWeight: 'bolder', color: '#f3e8b4' }}>

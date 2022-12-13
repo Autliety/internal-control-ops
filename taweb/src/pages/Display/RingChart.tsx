@@ -68,7 +68,7 @@ function RingChart() {
     },
     interactions: [
       { type: 'element-selected' },
-      { type: 'element-active'},
+      { type: 'element-active' },
     ],
     statistic: {
       title: false,
@@ -76,7 +76,7 @@ function RingChart() {
     },
   };
   return <div>
-    <Title title={'追责人数'} />
+    <Title title={'追责情况'} />
     <Space>
       {/*@ts-ignore*/}
       <Pie {...config} data={data1} />

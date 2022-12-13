@@ -44,32 +44,10 @@ function Table() {
 
   React.useEffect(() => {
     const container = document.getElementById('container');
-    const box = document.getElementById('box');
 
     const s2Options = {
-      width: 600,
-      height: 340,
-      showSeriesNumber: false,
-      conditions: {
-        text: [
-          {
-            field: 'status',
-            mapping(fieldValue, data) {
-              return { fill: '#40ef19' };
-            },
-          },
-        ],
-      },
-      style: {
-        cellCfg: {
-          height: 50
-        }
-      }
-    };
-
-    const s2Options2 = {
-      width: 200,
-      height: 360,
+      width: 810,
+      height: 240,
       showSeriesNumber: false,
       conditions: {
         text: [
@@ -116,24 +94,7 @@ function Table() {
       ],
     };
 
-    const s2DataConfig2 = {
-      fields: {
-        columns: ['name', 'count'],
-      },
-      meta: [
-        { field: 'name', name: '类别' },
-        { field: 'count', name: '数量' },
-      ],
-      data: [
-        { id: 1, name: '三重一大', count: 18 },
-        { id: 2, name: '5+1谈话', count: 10 },
-        { id: 3, name: '相互监督提醒', count: 15 },
-        { id: 4, name: '履责情况', count: 9 },
-        { id: 5, name: '述责述廉评议', count: 18 },
-        { id: 6, name: '民主生活会督导', count: 17 },
-      ],
-    };
-    const s2 = new TableSheet(container, s2DataConfig, s2Options), s22 = new TableSheet(box, s2DataConfig2, s2Options2);
+    const s2 = new TableSheet(container, s2DataConfig, s2Options);
 
     s2.setThemeCfg({
       theme: {
@@ -149,38 +110,21 @@ function Table() {
       },
     })
 
-    s22.setThemeCfg({
-      theme: {
-        dataCell: {
-          cell: {
-            crossBackgroundColor: '#3e5586',
-            backgroundColor: '#1F2E4D',
-            backgroundColorOpacity: 0.8,
-          },
-          text: { fill: '#fff', textAlign: 'center' },
-        },
-        background: { color: '#1F2E4D', opacity: 0 },
-      },
-    })
 
     s2.on(S2Event.LAYOUT_DESTROY, () => {
       clearInterval(timer);
     });
 
     s2.render();
-    s22.render();
 
     addScrollButton(s2);
   }, []);
 
   return <div>
-    <Title title={'三重一大、履责情况'} />
+    <Title title={'三重一大决策监督'} />
 
     <div style={{ display: 'flex' }}>
       <div id={'container'} style={{ marginRight: 10 }}>
-
-      </div>
-      <div id={'box'}>
 
       </div>
     </div>
