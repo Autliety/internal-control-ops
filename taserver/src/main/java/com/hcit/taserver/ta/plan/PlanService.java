@@ -1,6 +1,7 @@
 package com.hcit.taserver.ta.plan;
 
 import com.hcit.taserver.approval.ApprovalService;
+import com.hcit.taserver.common.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,11 @@ public class PlanService {
   }
 
   public Plan create(Plan plan) {
+    var approveUser = plan.getApproval().getApproveUser();
+    plan.setApproval(null);
     var p = planRepository.save(plan);
-    approvalService.generate(a -> a.withApprovalType("plan").withPlan(p));
+    var approval = approvalService.generate(a -> a.withApprovalType("plan").withPlan(p), approveUser, null);
+    approvalService.stepIn(approval.getId(), Status.AWAITING_REVIEW, null);
     return p;
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Cascader, Divider, Modal, Space } from 'antd';
+import { Button, Cascader, Divider, message, Modal, Space } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import BaseEditableTable from '../../components/BaseEditableTable';
@@ -31,26 +31,33 @@ export default function PlanCreateModal({ title = '制定计划', isSelectAssess
         visible={isVisible}
         closable
         onCancel={() => setIsVisible(false)}
-        onOk={() => http(null, null, {
-          assessment: isSelectAssessment ? { id: assessmentId } : { id },
-          user,
-          department: user.department,
-          detail: detailData,
-          approval: { approveUser: { id: approveId } },
-        }).then(res => navigate(`/ta/plan/${res.id}`))}
+        onOk={() => {
+          if (approveId > 0) {
+            http(null, null, {
+              assessment: isSelectAssessment ? { id: assessmentId } : { id },
+              user,
+              department: user.department,
+              detail: detailData,
+              approval: { approveUser: { id: approveId } },
+            })
+            .then(res => navigate(`/ta/plan/${res.id}`));
+          } else {
+            message.warning('请选择审核人');
+          }
+        }}
     >
       <Space size={'large'}>
         {
-            isSelectAssessment && <>
-              选择指标：
-              <Cascader
-                  dropdownMenuColumnStyle={{ width: 400, overflow: 'hidden' }}
-                  fieldNames={{ label: 'name', value: 'id' }}
-                  options={state}
-                  placeholder='请选择'
-                  onChange={v => setAssessmentId(v.at(-1))}
-              />
-            </>
+          isSelectAssessment && <>
+            选择指标：
+            <Cascader
+                dropdownMenuColumnStyle={{ width: 400, overflow: 'hidden' }}
+                fieldNames={{ label: 'name', value: 'id' }}
+                options={state}
+                placeholder="请选择"
+                onChange={v => setAssessmentId(v.at(-1))}
+            />
+          </>
         }
         计划负责人:
         <UserSelectCascader value={user} disabled/>
@@ -68,4 +75,4 @@ export default function PlanCreateModal({ title = '制定计划', isSelectAssess
 
     </Modal>
   </>;
-}
+};

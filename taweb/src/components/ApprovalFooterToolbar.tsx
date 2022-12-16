@@ -43,11 +43,11 @@ function ApprovalFooterToolbar({ value, onSave, extraButton, defaultConfig }: Pr
       extra: <>
         <>
           {
-              (user.id !== 1 && user.privilege === 'DEPT')
+              (user?.id !== 1 && user?.privilege === 'DEPT')
               && <Alert
                   showIcon
                   type={'warning'}
-                  message={`请确认${user.department?.name}内所有人员的责任清单均已审核通过后，再提交当前主体的责任清单`}
+                  message={`请确认${user?.department?.name}内所有人员的责任清单均已审核通过后，再提交当前主体的责任清单`}
               />
           }
           <br />
