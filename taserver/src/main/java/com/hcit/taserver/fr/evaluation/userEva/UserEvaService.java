@@ -1,11 +1,18 @@
 package com.hcit.taserver.fr.evaluation.userEva;
 
 import com.hcit.taserver.department.user.AuthService;
+import com.hcit.taserver.department.user.User;
+import com.hcit.taserver.department.user.UserRepository;
+import com.hcit.taserver.fr.matter.Matter;
+import com.hcit.taserver.fr.matter.MatterRepository;
+import com.hcit.taserver.fr.matter.form.MatterForm;
+import com.hcit.taserver.fr.matter.form.MatterFormRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,6 +26,10 @@ public class UserEvaService {
   private static final BigDecimal LEADER_WEIGHT = BigDecimal.valueOf(0.2);
   private static final BigDecimal AUTO_WEIGHT = BigDecimal.valueOf(0.7);
   private static final BigDecimal SPECIAL_WEIGHT = BigDecimal.valueOf(0.9);
+
+  private final MatterFormRepository matterFormRepository;
+  private final MatterRepository matterRepository;
+  private final UserRepository userRepository;
 
   private final UserEvaRepository userEvaRepository;
   private final AuthService authService;
@@ -93,5 +104,48 @@ public class UserEvaService {
     }
   }
 
+  public void evaluationAllUser() {
+    List<User> users = userRepository.findAll();
+    for (User user : users) {
+      try {
+        Long id = user.getId();
+        evaluationUser(id);
+      } catch (NullPointerException e) {
+        System.out.println(e);
+      }
+    }
+  }
 
+  public Integer evaluationUser(Long userId) {
+
+    int scoreMatter = 0;
+    int scoreMeasure = 0;
+    int scoreTotal = 0;
+
+    MatterForm matterFrom = matterFormRepository.findByUserId(userId);
+    if (matterFrom == null) {
+      scoreTotal = 8;
+      return scoreTotal;
+    }
+    List<Matter> matters = matterRepository.findByMatterFormId(matterFrom.getId());
+    int size = matters.size();
+    scoreMatter = Math.min(size, 4);
+
+    var endTime = LocalDate.now().withMonth(3).withDayOfMonth(31);
+    if (endTime.isBefore(LocalDate.now())) {
+      for (Matter matter : matters) {
+        assert matter.getId() != null;
+        if (matterRepository.findByMatterId(matter.getId()).size() != 0) {
+          scoreMeasure++;
+          if (scoreMeasure >= 4) {
+            scoreMeasure = 4;
+          }
+        }
+        scoreTotal = scoreMatter + scoreMeasure;
+      }
+    } else {
+      scoreTotal = 8;
+    }
+    return scoreTotal;
+  }
 }
