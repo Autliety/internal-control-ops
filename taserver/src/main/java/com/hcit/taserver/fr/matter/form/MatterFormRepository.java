@@ -9,4 +9,5 @@ public interface MatterFormRepository extends JpaRepository<MatterForm, Long>, J
 
   MatterForm findByUserIdAndYear(Long userId, Integer year);
 
+  MatterForm findByUserId(Long userId);
 }
