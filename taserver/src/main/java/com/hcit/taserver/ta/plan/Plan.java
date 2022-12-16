@@ -2,6 +2,7 @@ package com.hcit.taserver.ta.plan;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalEntity;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.Department;
 import com.hcit.taserver.department.user.User;
@@ -40,7 +41,7 @@ import org.springframework.util.CollectionUtils;
 
 @Entity
 @Table(name = "ta_plan")
-public class Plan {
+public class Plan implements ApprovalEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

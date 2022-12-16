@@ -9,14 +9,24 @@ import { getApprovalNotes } from './getNotes';
 export default function StatisticNotes() {
 
   const navigate = useNavigate();
-  const { state } = useHttp('/notification/uat', { initState: {} });
+  const { state } = useHttp('/approval?current=true', { initState: {} });
 
   const [onPage, setOnPage] = React.useState(0);
 
   const pageInfo = [
     {},
-    { title: '待办事项', data: state['AWAITING_REVIEW'] || [] },
-    { title: '已处理待办事项', data: state['REVIEWED'] || [] },
+    {
+      title: '待办事项', data: state['AWAITING_REVIEW']
+          ?.map(a => getApprovalNotes(a))
+          .filter(n => !!n.link)
+          ?? [],
+    },
+    {
+      title: '已处理待办事项', data: state['REVIEWED']
+          ?.map(a => getApprovalNotes(a))
+          .filter(n => !!n.link)
+          ?? [],
+    },
     { title: '未读提醒事项', data: [] },
     { title: '已读提醒事项', data: [] },
     { title: '动态跟踪', data: [] },
@@ -125,8 +135,7 @@ export default function StatisticNotes() {
           itemLayout="horizontal"
       >
         {pageInfo[onPage].data
-        ?.map(o => getApprovalNotes(o))
-        .map(item =>
+        ?.map(item =>
             <List.Item
                 key={item.key}
                 style={{ cursor: 'pointer' }}

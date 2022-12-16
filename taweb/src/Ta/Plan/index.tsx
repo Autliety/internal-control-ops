@@ -8,6 +8,7 @@ import PlanInfo from './PlanInfo';
 import PlanDetailTable from './PlanDetailTable';
 import AssessmentInfo from '../Assessment/AssessmentInfo';
 import ApprovalTable from '../../components/ApprovalTable';
+import ApprovalFooterToolbar from '../../components/ApprovalFooterToolbar';
 
 export default function Plan() {
 
@@ -29,8 +30,8 @@ export default function Plan() {
     <Divider orientation={'left'}>{'计划措施'}</Divider>
     <PlanDetailTable value={state.detail}/>
 
-    <Divider orientation='left'>审核流程</Divider>
     <ApprovalTable value={state.approval}/>
+    <ApprovalFooterToolbar value={state.approval}/>
 
   </PageContainer>;
 }
