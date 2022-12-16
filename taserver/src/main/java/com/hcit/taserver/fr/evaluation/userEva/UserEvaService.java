@@ -9,6 +9,7 @@ import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.matter.form.MatterFormRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -104,6 +105,7 @@ public class UserEvaService {
     }
   }
 
+  @Scheduled(cron = "0 0 5 * * ? ")
   public void evaluationAllUser() {
     List<User> users = userRepository.findAll();
     for (User user : users) {
