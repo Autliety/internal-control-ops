@@ -111,14 +111,13 @@ public class UserEvaService {
         Long id = user.getId();
         evaluationUser(id);
       } catch (NullPointerException e) {
-        System.out.println(e);
       }
     }
   }
 
   public Integer evaluationUser(Long userId) {
 
-    int scoreMatter = 0;
+    int scoreMatter;
     int scoreMeasure = 0;
     int scoreTotal = 0;
 
