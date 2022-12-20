@@ -47,7 +47,7 @@ function Table() {
 
     const s2Options = {
       width: 810,
-      height: 240,
+      height: 340,
       showSeriesNumber: false,
       conditions: {
         text: [
@@ -76,8 +76,8 @@ function Table() {
         { field: 'status', name: '决策状态' },
       ],
       data: [
-        { id: 1, date: '2022-06-05', content: '横港村副书记俞惠飞违纪案', status: '已完成' },
-        { id: 2, date: '2022-06-05', content: '横港村党委书记钱伟斌违纪案', status: '已完成' },
+        { id: 1, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
+        { id: 2, date: '2022-06-05', content: '百步镇2022年下半年征兵初定兵工作', status: '已完成' },
         { id: 3, date: '2022-06-05', content: '沈伟佳参加工作时间认定', status: '已完成' },
         { id: 4, date: '2022-06-05', content: '党员发展', status: '已完成' },
         { id: 5, date: '2022-06-05', content: '党费使用', status: '已完成' },
