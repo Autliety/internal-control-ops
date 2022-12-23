@@ -62,12 +62,21 @@ public class UserEvaService {
         }
         if (inputUe.getLeader() == null) {
           inputUe.setLeader(BigDecimal.ZERO);
-        } else {
+        }
+
+        //todo
+        if (inputUe.getAuto() == null) {
+          for (UserEvaluation oneOrigin:origin) {
+          }
+          if (inputUe.getId().getEvaluation().getId() == 2) {
+            inputUe.setAuto(BigDecimal.valueOf(evaluationUser(authService.getCurrentUser().getId())));
+          }else {
+            inputUe.setAuto(BigDecimal.ZERO);
+          }
+        }else {
           inputUe.setLeaderUser(authService.getCurrentUser());
         }
-        if (inputUe.getAuto() == null) {
-          inputUe.setAuto(BigDecimal.ZERO);
-        }
+        inputUe.setYear(LocalDate.now().getYear());
         inputUe.setTotal(countTotal(inputUe));
         result.add(inputUe);
 
