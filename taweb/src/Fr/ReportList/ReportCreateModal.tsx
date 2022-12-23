@@ -34,42 +34,42 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
 
   // 根据用户决定报告类型和监督评议人
   function setType(user: any) {
-    let option = [], supervisor = [];
+    let option = [], supervisor: any = {};
     if (user.id === 1 && user.department?.id === 1) {
       option = [reportType[5]];
     } else if (user.id === 2 && user.department?.id === 2) {
-      supervisor = userState.find(u => u.id === 1);
+      supervisor = userState?.find(u => u.id === 1);
       option = [reportType[2], reportType[5]];
     } else if (user.privilege === 'DOUBLE' && user.department?.id === 3) {
-      supervisor = userState.find(u => u.id === 2);
+      supervisor = userState?.find(u => u.id === 2);
       option = [reportType[1], reportType[2], reportType[3]];
     } else if (user.department?.id === 4) {
-      supervisor = userState.find(u => u.id === 1);
+      supervisor = userState?.find(u => u.id === 1);
       option = [reportType[2], reportType[5]];
     } else if (user.department?.id === 5) {
-      supervisor = userState.find(u => u.id === 1);
+      supervisor = userState?.find(u => u.id === 1);
       option = [reportType[2]];
     } else if (user.privilege === 'DEPT' && user.department?.deptType === 'VILLAGE') {
-      supervisor = userState.find(u => u.id === 1);
+      supervisor = userState?.find(u => u.id === 1);
       option = [reportType[4]];
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'VILLAGE') {
-      supervisor = userState.find(u => u.id === 2);
+      supervisor = userState?.find(u => u.id === 2);
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DOUBLE' && user.department?.deptType === 'VILLAGE') {
-      // todo
-      supervisor = userState.filter(u => u.department?.first);
+      // todo 给当前user的department添加字段（用于判断村社书记或党组织）
+      supervisor = userState?.find(u => u.department?.first);
       option = [reportType[1], reportType[2], reportType[3]];
     } else if (user.privilege === 'DEPT_J' && user.department?.deptType === 'VILLAGE') {
-      // todo
-      supervisor = userState.filter(u => u.department?.dept);
+      // todo 同上
+      supervisor = userState?.find(u => u.department?.dept);
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DEPT' && user.department?.deptType === 'STATION') {
-      // todo
-      supervisor = userState.filter(u => u.department?.first);
+      // todo 同上
+      supervisor = userState?.find(u => u.department?.first);
       option = [reportType[6]]
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'STATION') {
-      // todo
-      supervisor = userState.filter(u => u.department?.first);
+      // todo 同上
+      supervisor = userState?.find(u => u.department?.first);
       option = [reportType[6]];
     }
     return { supervisor, option };
@@ -82,7 +82,6 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
       dataIndex: 'singleUser1',
       renderText: t => t?.name,
       renderFormItem: () => <UserSelectCascader disabled value={user} />,
-      formItemProps: { rules: [{ required: true, message: '此项必填' }] },
     },
     {
       title: '报告类型',
@@ -115,19 +114,20 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
     },
     {
       title: '监督评议人',
-      dataIndex: 'supervisor',
+      dataIndex: 'singleUser2',
       renderFormItem: () => <Select>
-        {
-          setType(user).supervisor?.map(u => <Select.Option value={u.id} key={u.id}>{u.name}</Select.Option>)
-        }
-      </Select>
+        <Select.Option value={setType(user).supervisor?.id}>
+          {setType(user).supervisor?.name}
+        </Select.Option>
+      </Select>,
+      renderText: () => setType(user).supervisor?.name
     },
     { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit />, hideInDescriptions: true },
     {
       title: '监督评议主体',
       dataIndex: 'singleUser2',
       renderText: t => t?.name,
-      renderFormItem: () => <UserSelectCascader />
+      renderFormItem: () => <UserSelectCascader disabled value={setType(user).supervisor} />
     },
     { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
     { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },
@@ -138,8 +138,8 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
         title='履责报告'
         isFirstEdit={isFirstEdit}
         formConfig={{
-          0: { title: '基本信息', columns: reportColumns.slice(0, 5) },
-          1: { title: '监督评议', columns: reportColumns.slice(5) },
+          0: { title: '基本信息', columns: reportColumns.slice(0, 6) },
+          1: { title: '监督评议', columns: reportColumns.slice(6) },
         }}
         value={state}
         onFinish={async (data: any) => {
@@ -150,7 +150,7 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
             data.time2 = moment(data.time2).valueOf();
           }
           let res = isFirstEdit
-              ? await http(null, null, { ...data, integer1: 1 })
+              ? await http(null, null, { ...data, singleUser1: user, integer1: 1 })
               : await updateHttp(null, null, { ...state, ...data, integer1: parseInt(state.integer1) + 1 });
           navigate('/fr/lz/report/' + res.id);
         }}
