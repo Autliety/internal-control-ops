@@ -57,19 +57,19 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DOUBLE' && user.department?.deptType === 'VILLAGE') {
       // todo 给当前user的department添加字段（用于判断村社书记或党组织）
-      supervisor = userState?.find(u => u.department?.first);
+      supervisor = userState?.find(u => u.department?.firstUser);
       option = [reportType[1], reportType[2], reportType[3]];
     } else if (user.privilege === 'DEPT_J' && user.department?.deptType === 'VILLAGE') {
       // todo 同上
-      supervisor = userState?.find(u => u.department?.dept);
+      supervisor = userState?.find(u => u.department?.deptUser);
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DEPT' && user.department?.deptType === 'STATION') {
       // todo 同上
-      supervisor = userState?.find(u => u.department?.first);
+      supervisor = userState?.find(u => u.department?.firstUser);
       option = [reportType[6]]
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'STATION') {
       // todo 同上
-      supervisor = userState?.find(u => u.department?.first);
+      supervisor = userState?.find(u => u.department?.firstUser);
       option = [reportType[6]];
     }
     return { supervisor, option };
