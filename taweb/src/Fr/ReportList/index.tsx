@@ -12,6 +12,13 @@ import FileUpload from '../../components/FileUpload';
 
 export const reportColumns: ProColumns[] = [
   {
+    title: '报告人',
+    dataIndex: 'singleUser1',
+    renderText: t => t?.name,
+    renderFormItem: () => <UserSelectCascader />,
+    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
+  },
+  {
     title: '报告类型',
     dataIndex: 'content1',
     renderFormItem: () => <Select>
@@ -24,13 +31,6 @@ export const reportColumns: ProColumns[] = [
     </Select>,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  {
-    title: '报告人',
-    dataIndex: 'singleUser1',
-    renderText: t => t?.name,
-    renderFormItem: () => <UserSelectCascader/>,
-    formItemProps: { rules: [{ required: true, message: '此项必填' }] },
-  },
 
   {
     title: '履责情况报告',
@@ -40,13 +40,17 @@ export const reportColumns: ProColumns[] = [
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
   {
+    title: '监督评议人',
+    dataIndex: 'supervisor',
+  },
+  {
     title: '报告日期',
     dataIndex: 'time1',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit/>, hideInDescriptions: true },
-  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t?.name, renderFormItem: () => <UserSelectCascader/> },
+  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit />, hideInDescriptions: true },
+  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t?.name, renderFormItem: () => <UserSelectCascader /> },
   { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },
 ];
@@ -58,7 +62,7 @@ export default function ReportList() {
 
   return <PageContainer
       extra={
-        <ReportCreateModal isFirstEdit/>
+        <ReportCreateModal isFirstEdit />
       }
       loading={loading}
   >
@@ -73,12 +77,12 @@ export default function ReportList() {
                 <Tooltip title={'查看详情'}>
                   <Button
                       type={'primary'}
-                      icon={<MailOutlined/>}
+                      icon={<MailOutlined />}
                       size={'small'}
                       onClick={() => navigate(`/fr/lz/report/${record.id}`)}
                   />
                 </Tooltip>
-                <ReportCreateModal isFirstEdit={false} id={record.id}/>
+                <ReportCreateModal isFirstEdit={false} id={record.id} />
               </Space>,
             },
         )}

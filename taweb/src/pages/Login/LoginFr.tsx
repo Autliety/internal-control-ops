@@ -1,47 +1,49 @@
 import React from 'react';
+import { Col, Divider, Image, message, Modal, notification, Row, Typography } from 'antd';
+import qs from 'query-string';
 import { LoginForm, ProFormText } from '@ant-design/pro-form';
 import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, Image, Layout, message, Modal, notification, Row, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import qs from 'query-string';
-import logo from '../../image/logo.png';
-import bg from '../../image/login.png';
-import headerBg from '../../image/header.png';
-
 import { useHttp } from '../../utils/request';
+import bg from '../../image/login.jpg';
+import logo from '../../image/logo.png';
 
-export default function Login() {
+function LoginFr() {
 
   const navigate = useNavigate();
   const { http } = useHttp('/login', { method: 'POST', isManual: true });
 
-  return <Layout style={{ height: '100%' }}>
-    <Layout.Header style={{
-      position: 'fixed',
-      height: '10%',
-      backgroundImage: `url(${headerBg})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      width: '100%',
-      minHeight: 100
-    }}>
-      <Space direction={'vertical'}>
-        <Typography.Title level={2} style={{ marginTop: 15, fontFamily: 'serif', color: '#f3e8b4' }}>
-          <Image src={logo} width={70} preview={false} />
+  return <div
+      style={{
+        height: '100%',
+        backgroundImage: `url(${bg})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+  >
+    <Row>
+      <Col span={4} />
+      <Col span={16}>
+        <Typography.Title level={2} style={{
+          marginTop: 120,
+          marginBottom: 30,
+          textAlign: 'center',
+          color: '#fff',
+          letterSpacing: 5
+        }}>
+          <Image src={logo} width={50} preview={false} />
           <Divider type={'vertical'} />
-          浙江百步经济开发区(百步镇)区（镇）村（社）一体“四责协同”监督应用系统
+          浙江百步经济开发区(百步镇)区（镇）村（社）<br />一体“四责协同”监督应用系统
         </Typography.Title>
-      </Space>
-    </Layout.Header>
-    <Layout.Content style={{
-      height: '80%',
-      backgroundImage: `url(${bg})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-    }}>
-      <Row>
-        <Col span={16} />
-        <Col span={4} className={'bgStyle'} style={{ minWidth: 360, marginTop: 200 }}>
+
+        <div style={{
+          minWidth: 360,
+          backgroundColor: '#fff',
+          width: 600,
+          margin: 'auto',
+          padding: 30,
+          borderRadius: 10
+        }}>
           <LoginForm
               onFinish={async (values: any) => {
 
@@ -58,8 +60,7 @@ export default function Login() {
               }}
           >
 
-            <Typography.Title level={4} style={{ textAlign: 'center' }}>区（镇）村（社）一体“四责协同”监督应用系统</Typography.Title>
-            <Divider />
+            <Typography.Title level={4} style={{ textAlign: 'center', marginBottom: 30 }}>你好，欢迎登陆！</Typography.Title>
 
             <ProFormText
                 name='username'
@@ -107,16 +108,13 @@ export default function Login() {
             </div>
             <br /><br />
           </LoginForm>
-        </Col>
-        <Col span={4} />
-      </Row>
-    </Layout.Content>
+        </div>
 
-    <Layout.Footer style={{ height: '10%', textAlign: 'center' }}>
-      <p>
-        Copyright@2021 嘉兴海创信息技术有限公司 ALL rights reserved
-      </p>
-      <p style={{ fontSize: 12 }}>建议您使用IE9及以上版本、Edge、Chrome、Firefox和360等主流浏览器浏览本网站</p>
-    </Layout.Footer>
-  </Layout>;
+      </Col>
+      <Col span={4} />
+    </Row>
+
+  </div>;
 }
+
+export default LoginFr;
