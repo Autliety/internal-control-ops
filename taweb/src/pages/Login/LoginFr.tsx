@@ -24,14 +24,16 @@ function LoginFr() {
     <Row>
       <Col span={4} />
       <Col span={16}>
-        <Typography.Title level={3} style={{
-          marginTop: 100,
-          marginBottom: 30,
-          textAlign: 'center',
-          color: '#fff',
-          letterSpacing: 5,
-          whiteSpace: 'nowrap'
-        }}>
+        <Typography.Title
+            level={3}
+            style={{
+              marginTop: 100,
+              marginBottom: 30,
+              textAlign: 'center',
+              color: '#fff',
+              letterSpacing: 5,
+              whiteSpace: 'nowrap'
+            }}>
           <Image src={logo} width={40} preview={false} />
           <Divider type={'vertical'} />
           浙江百步经济开发区(百步镇)区（镇）村（社）一体<br />“四责协同”监督应用系统
@@ -40,9 +42,9 @@ function LoginFr() {
         <div style={{
           minWidth: 360,
           backgroundColor: '#fff',
-          width: 600,
+          width: 550,
           margin: 'auto',
-          padding: 30,
+          padding: 10,
           borderRadius: 10
         }}>
           <LoginForm
@@ -60,6 +62,7 @@ function LoginFr() {
                 navigate(`/data`)
               }}
           >
+            <Typography.Title level={4} style={{ textAlign: 'center', marginBottom: 20 }}>你好，欢迎登陆！</Typography.Title>
 
             <ProFormText
                 name='username'
