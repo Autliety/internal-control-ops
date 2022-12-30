@@ -39,18 +39,14 @@ export const reportColumns: ProColumns[] = [
     hideInTable: true,
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  {
-    title: '监督评议人',
-    dataIndex: 'supervisor',
-  },
+  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t?.name, renderFormItem: () => <UserSelectCascader /> },
   {
     title: '报告日期',
     dataIndex: 'time1',
     valueType: 'date',
     formItemProps: { rules: [{ required: true, message: '此项必填' }] },
   },
-  { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit />, hideInDescriptions: true },
-  { title: '监督评议主体', dataIndex: 'singleUser2', renderText: t => t?.name, renderFormItem: () => <UserSelectCascader /> },
+  { title: '相关附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit />, hideInDescriptions: true },
   { title: '监督评议意见', dataIndex: 'longContent2', valueType: 'textarea', hideInTable: true },
   { title: '监督评议时间', dataIndex: 'time2', valueType: 'date' },
 ];

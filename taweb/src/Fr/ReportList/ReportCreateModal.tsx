@@ -115,12 +115,9 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
     {
       title: '监督评议人',
       dataIndex: 'singleUser2',
-      renderFormItem: () => <Select>
-        <Select.Option value={setType(user).supervisor?.id}>
-          {setType(user).supervisor?.name}
-        </Select.Option>
-      </Select>,
-      renderText: () => setType(user).supervisor?.name
+      renderFormItem: () => <UserSelectCascader disabled value={setType(user).supervisor} />,
+      hideInDescriptions: true,
+      hideInTable: true,
     },
     { title: '上传附件', dataIndex: 'attach', renderFormItem: () => <FileUpload isInEdit />, hideInDescriptions: true },
     {
@@ -150,7 +147,12 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
             data.time2 = moment(data.time2).valueOf();
           }
           let res = isFirstEdit
-              ? await http(null, null, { ...data, singleUser1: user, integer1: 1 })
+              ? await http(null, null, {
+                ...data,
+                singleUser1: user,
+                singleUser2: setType(user)?.supervisor,
+                integer1: 1
+              })
               : await updateHttp(null, null, { ...state, ...data, integer1: parseInt(state.integer1) + 1 });
           navigate('/fr/lz/report/' + res.id);
         }}
