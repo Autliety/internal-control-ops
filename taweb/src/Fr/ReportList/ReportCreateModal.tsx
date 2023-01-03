@@ -65,11 +65,16 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
       option = [reportType[6]]
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'STATION') {
       supervisor = user.department?.deptUser?.parent
-      option = [reportType[6]];
+      option = [reportType[6]]
+    } else if (user.privilege === 'DOUBLE' && user.department?.deptType === 'STATION') {
+      supervisor = user.department?.deptUser?.parent
+      option = [reportType[6]]
     }
     return { supervisor, option };
 
   }
+
+  console.log(setType(user).supervisor)
 
   const reportColumns: ProColumns[] = [
     {
@@ -126,6 +131,7 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
   ];
 
   return <>
+
     <BaseStepForm
         title='履责报告'
         isFirstEdit={isFirstEdit}
