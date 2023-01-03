@@ -1,6 +1,8 @@
 package com.hcit.taserver.department.user;
 
+import com.hcit.taserver.department.DepartmentService;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Path;
@@ -22,11 +24,17 @@ public class AuthService implements UserDetailsService {
   @Value("${config.dev-env}")
   private Boolean envDev;
   private final UserService userService;
+  private final DepartmentService departmentService;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     try {
-      return new Auth(userService.findByName(username));
+      var user = userService.findByName(username);
+      if (!Objects.equals(user.getId(), -999L) && user.getDepartment() != null) {
+        var dept = departmentService.bindData(user.getDepartment());
+        user.setDepartment(dept);
+      }
+      return new Auth(user);
     } catch (Exception e) {
       throw new UsernameNotFoundException("用户 " + username + " 不存在");
     }

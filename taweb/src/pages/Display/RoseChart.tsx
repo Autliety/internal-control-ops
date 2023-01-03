@@ -63,7 +63,6 @@ function RoseChart() {
   };
   return <div>
     <Rose {...config} />
-    <br />
   </div>;
 }
 

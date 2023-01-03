@@ -13,7 +13,7 @@ export default function ColumnChart() {
 
   const config = {
     data,
-    height: 275,
+    height: 325,
     xField: 'year',
     yField: 'value',
     point: { size: 5, shape: 'diamond' },
