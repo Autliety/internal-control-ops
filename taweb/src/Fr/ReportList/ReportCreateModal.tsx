@@ -27,7 +27,6 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
 
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { state: userState } = useHttp('/user', { initState: [] });
   const { state } = useHttp(`/ordinal/report/${id}`, { initState: {}, isManual: !id });
   const { http: updateHttp } = useHttp(`/ordinal/report/${id}`, { method: 'POST', isManual: true });
   const { http } = useHttp('/ordinal/report', { method: 'POST', isManual: true });
@@ -38,38 +37,34 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
     if (user.id === 1 && user.department?.id === 1) {
       option = [reportType[5]];
     } else if (user.id === 2 && user.department?.id === 2) {
-      supervisor = userState?.find(u => u.id === 1);
+      supervisor = { id: 1 }
       option = [reportType[2], reportType[5]];
     } else if (user.privilege === 'DOUBLE' && user.department?.id === 3) {
-      supervisor = userState?.find(u => u.id === 2);
+      supervisor = { id: 2 }
       option = [reportType[1], reportType[2], reportType[3]];
     } else if (user.department?.id === 4) {
-      supervisor = userState?.find(u => u.id === 1);
+      supervisor = { id: 1 }
       option = [reportType[2], reportType[5]];
     } else if (user.department?.id === 5) {
-      supervisor = userState?.find(u => u.id === 1);
+      supervisor = { id: 1 }
       option = [reportType[2]];
     } else if (user.privilege === 'DEPT' && user.department?.deptType === 'VILLAGE') {
-      supervisor = userState?.find(u => u.id === 1);
+      supervisor = { id: 1 }
       option = [reportType[4]];
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'VILLAGE') {
-      supervisor = userState?.find(u => u.id === 2);
+      supervisor = { id: 2 }
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DOUBLE' && user.department?.deptType === 'VILLAGE') {
-      // todo 给当前user的department添加字段（用于判断村社书记或党组织）
-      supervisor = userState?.find(u => u.department?.firstUser);
+      supervisor = user.department?.firstUser
       option = [reportType[1], reportType[2], reportType[3]];
     } else if (user.privilege === 'DEPT_J' && user.department?.deptType === 'VILLAGE') {
-      // todo 同上
-      supervisor = userState?.find(u => u.department?.deptUser);
+      supervisor = user.department?.deptUser
       option = [reportType[2], reportType[4]];
     } else if (user.privilege === 'DEPT' && user.department?.deptType === 'STATION') {
-      // todo 同上
-      supervisor = userState?.find(u => u.department?.firstUser);
+      supervisor = user.department?.deptUser?.parent
       option = [reportType[6]]
     } else if (user.privilege === 'FIRST' && user.department?.deptType === 'STATION') {
-      // todo 同上
-      supervisor = userState?.find(u => u.department?.firstUser);
+      supervisor = user.department?.deptUser?.parent
       option = [reportType[6]];
     }
     return { supervisor, option };
@@ -81,7 +76,7 @@ export default function ReportCreateModal({ isFirstEdit, id }: Props) {
       title: '报告人',
       dataIndex: 'singleUser1',
       renderText: t => t?.name,
-      renderFormItem: () => <UserSelectCascader disabled value={user} />,
+      renderFormItem: () => <UserSelectCascader disabled isSelfOnly />,
     },
     {
       title: '报告类型',
