@@ -42,5 +42,4 @@ public class UserEvaluation {
   private BigDecimal auto;
 
   private BigDecimal total;
-
 }

@@ -3,17 +3,14 @@ package com.hcit.taserver.fr.evaluation.userEva;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,7 +23,6 @@ public class UserEvaService {
   private static final BigDecimal SPECIAL_WEIGHT = BigDecimal.valueOf(0.9);
 
   private final UserRepository userRepository;
-
   private final UserEvaRepository userEvaRepository;
   private final AuthService authService;
 
@@ -71,7 +67,7 @@ public class UserEvaService {
     return userEvaRepository.saveAll(result);
   }
 
-  public BigDecimal countTotal(UserEvaluation ue) {
+  private BigDecimal countTotal(UserEvaluation ue) {
     // todo if (ue.getId().getEvaluation().isSpecial()) {} else
     return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
         .add(
