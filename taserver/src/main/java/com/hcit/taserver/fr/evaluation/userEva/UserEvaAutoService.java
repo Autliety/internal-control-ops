@@ -81,7 +81,6 @@ public class UserEvaAutoService {
       }
     }
     scoreMeasure = Math.min(scoreMeasure, 4);
-
     return new BigDecimal(scoreMatter + scoreMeasure);
   }
 
