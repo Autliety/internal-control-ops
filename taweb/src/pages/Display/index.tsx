@@ -358,7 +358,6 @@ function Display() {
     return newData;
   }
 
-
   return <div
       style={{
         padding: 20,
@@ -382,13 +381,12 @@ function Display() {
         </Button>
       </Col>
       <Col span={10}>
-        <Typography.Title level={2} className={'title'}>百步经济开发区（百步镇）-- 数据可视化（测试）</Typography.Title>
+        <Typography.Title level={2} className={'title'}>百步经济开发区（百步镇）-- 数据可视化</Typography.Title>
       </Col>
       <Col span={7}>
         <p style={{ textAlign: 'center' }}>
           {date} / 星期四
         </p>
-        <p style={{ textAlign: 'center' }}>26°~35° / 阴</p>
       </Col>
     </Row>
 
@@ -396,22 +394,24 @@ function Display() {
       {/* 左 */}
       <Col span={7}>
         <Space direction='vertical' size='large' style={{ display: 'flex' }}>
+          <Title title={'明责情况'} />
           <Carousel autoplay dots={false} dotPosition={'right'}>
             <div>
-              <Title title={'问题清单'} />
+              <p className={'subTitle'}>【问题清单】</p>
               <RoseChart />
             </div>
             <div>
-              <Title title={'措施清单'} />
+              <p className={'subTitle'}>【措施清单】</p>
               <RoseChart />
             </div>
             <div>
-              <Title title={'整改清单'} />
+              <p className={'subTitle'}>【整改清单】</p>
               <RoseChart />
             </div>
           </Carousel>
           <div>
-            <Title title={'班子成员考评得分'} />
+            <Title title={'评责情况'} />
+            <p className={'subTitle'}>---班子成员考评得分---</p>
             <Carousel autoplay dots={false} dotPosition={'right'}>
               {
                 setData(data)?.map((item, index) => <div key={index}>
@@ -422,7 +422,7 @@ function Display() {
           </div>
 
           <div>
-            <Title title={'站所考评得分'} />
+            <p className={'subTitle'}>---站所考评得分---</p>
             <Carousel autoplay dots={false} dotPosition={'right'}>
               {
                 setData(data2)?.map((item, index) => <div key={index}>
@@ -433,7 +433,7 @@ function Display() {
           </div>
 
           <div>
-            <Title title={'村（社）考评得分'} />
+            <p className={'subTitle'}>---村（社）考评得分---</p>
             <Carousel autoplay dots={false} dotPosition={'right'}>
               {
                 setData(data3)?.map((item, index) => <div key={index}>
@@ -448,13 +448,14 @@ function Display() {
       {/* 中 */}
       <Col span={10}>
         <Map />
+        <br />
         <Warning />
         <br />
         <Table />
       </Col>
       {/* 右 */}
       <Col span={7}>
-        <Title title={'预警指标'} />
+        <Title title={'履责情况'} />
         <Carousel autoplay dots={false} effect='fade'>
           <div>
             <RoseChart />

@@ -53,3 +53,9 @@
   width: 150px;
   border-radius: 10px;
 }
+
+/* 副标题样式 */
+.subTitle {
+  color: #fff;
+  text-align: center;
+}

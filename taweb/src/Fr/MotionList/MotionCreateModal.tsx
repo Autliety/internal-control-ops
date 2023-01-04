@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 import { useHttp } from '../../utils/request';
 import BaseStepForm from '../../components/BaseStepForm';
@@ -23,10 +24,14 @@ function MotionCreateModal({ isFirstEdit, id, size }: Props) {
 
   return <>
     <BaseStepForm
-        title="纪委动议"
+        title='纪委动议'
         isFirstEdit={isFirstEdit}
         value={state}
         onFinish={async data => {
+          if (!data.requestAttach && isFirstEdit) {
+            message.warning('附件至少存在一条，请上传！');
+            return false;
+          }
           data.requestDate = toDate(data.requestDate);
           data.decisionDate = toDate(data.decisionDate);
           data.executeDate = toDate(data.executeDate);

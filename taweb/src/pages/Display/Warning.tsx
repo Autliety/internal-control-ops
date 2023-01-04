@@ -1,69 +1,72 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import { BellTwoTone, BulbTwoTone } from '@ant-design/icons';
 import Title from './Title';
 import './style.css';
 
 function Warning() {
   return <div style={{ fontFamily: 'serif', fontWeight: 'bold' }}>
     <Title title={'预警指标'} />
-    <div className={'box'}>
-      <Row>
-        <Col span={4}>
-          <BellTwoTone twoToneColor={'#efaf35'} style={{ fontSize: 40 }} />
-        </Col>
-        <Col span={6}>
-          <p style={{ color: '#efaf35' }}>云哨黄哨</p>
-        </Col>
-        <Col span={14}>
+    <Row gutter={8}>
+      <Col span={12}>
+        <div className={'box'}>
+
           <Row>
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>80</span>
+            <Col span={8}>
+              <p style={{ color: '#efaf35' }}>履责预警</p>
             </Col>
+            <Col span={16}>
+              <Row>
+                <Col span={7}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>80</span>
+                </Col>
 
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>8</span>
-            </Col>
+                <Col span={7}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>8</span>
+                </Col>
 
-            <Col span={10}>
-              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
+                <Col span={10}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-    </div>
+        </div>
+      </Col>
 
-    <div className={'box'}>
-      <Row>
-        <Col span={4}>
-          <BulbTwoTone twoToneColor={'#3cef21'} style={{ fontSize: 40 }} />
-        </Col>
-        <Col span={6}>
-          <p style={{ color: '#3cef21' }}>三重一大</p>
-        </Col>
-        <Col span={14}>
+
+      <Col span={12}>
+        <div className={'box'}>
           <Row>
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>80</span>
+            <Col span={8}>
+              <p style={{ color: '#3cef21' }}>用权预警</p>
             </Col>
+            <Col span={16}>
+              <Row>
+                <Col span={7}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>总数：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>80</span>
+                </Col>
 
-            <Col span={7}>
-              <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>8</span>
-            </Col>
+                <Col span={7}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>逾期：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>8</span>
+                </Col>
 
-            <Col span={10}>
-              <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
-              <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
+                <Col span={10}>
+                  <span style={{ fontSize: 14, color: '#fff' }}>处理率：</span>
+                  <span style={{ color: '#fff', fontSize: 24 }}>72%</span>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-    </div>
+        </div>
+      </Col>
+
+    </Row>
+
 
   </div>;
 }

@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 
 import './App.css';
-import LoginFr from './pages/Login';
+import LoginFr from './pages/Login/LoginFr';
 import Logout from './pages/Logout';
 import PagesTa from './Ta/index';
 import PagesFr from './Fr/index';
