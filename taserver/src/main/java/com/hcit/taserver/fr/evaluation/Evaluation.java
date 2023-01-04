@@ -25,6 +25,8 @@ public class Evaluation implements BasicPersistable {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private Integer year;
+
   private String type;
 
   private String name;
