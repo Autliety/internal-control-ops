@@ -20,8 +20,8 @@ function Score({ page }) {
   const { user } = useAuth();
 
   const { state } = useHttp(`/evaluation/${page}`, { initState: [] });
-  const { state: scoreData } = useHttp(`/evaluation/score${isLeader ? `?userId=${leaderDestUser.user?.id}` : ''}`, { initState: [] });
-  const { http } = useHttp(isLeader ? `/evaluation?userId=${leaderDestUser.user?.id}` : '/evaluation', {
+  const { state: scoreData } = useHttp(`/usereva/score${isLeader ? `?userId=${leaderDestUser.user?.id}` : ''}`, { initState: [] });
+  const { http } = useHttp(isLeader ? `/usereva?userId=${leaderDestUser.user?.id}` : '/usereva', {
     isManual: true,
     method: 'POST'
   });

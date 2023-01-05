@@ -4,6 +4,9 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.evaluation.Evaluation;
+import com.hcit.taserver.fr.evaluation.userEva.entity.Key;
+import com.hcit.taserver.fr.evaluation.userEva.entity.UpdateType;
+import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaluation;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.form.MatterForm;
@@ -12,14 +15,17 @@ import com.hcit.taserver.fr.meeting.MeetingRepository;
 import com.hcit.taserver.fr.ordinal.FormType;
 import com.hcit.taserver.fr.ordinal.OrdinalForm;
 import com.hcit.taserver.fr.ordinal.OrdinalFormRepository;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service

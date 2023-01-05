@@ -13,7 +13,7 @@ export default function Evaluation() {
 
   const { type, year } = useParams();
   const { state: evaluationData } = useHttp(`/evaluation/${type}`, { initState: [] });
-  const { state: scoreData } = useHttp(`/evaluation/score`, { initState: [] });
+  const { state: scoreData } = useHttp(`/usereva/score`, { initState: [] });
 
   const navigate = useNavigate();
 
