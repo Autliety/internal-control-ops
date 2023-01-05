@@ -75,12 +75,18 @@ public class UserEvaService {
   }
 
   private BigDecimal countTotal(UserEvaluation ue) {
-    // todo if (ue.getId().getEvaluation().isSpecial()) {} else
-    return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
-        .add(
-            Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(LEADER_WEIGHT))
-        .add(
-            Optional.ofNullable(ue.getAuto()).orElse(BigDecimal.ZERO).multiply(AUTO_WEIGHT));
+    if (ue.getId().getEvaluation().getIsSpecial()) {
+      return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
+          .add(
+              Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(SPECIAL_WEIGHT));
+
+    } else {
+      return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
+          .add(
+              Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(LEADER_WEIGHT))
+          .add(
+              Optional.ofNullable(ue.getAuto()).orElse(BigDecimal.ZERO).multiply(AUTO_WEIGHT));
+    }
   }
 
   public List<UserEvaluation> findAllByUserId(Long id) {
