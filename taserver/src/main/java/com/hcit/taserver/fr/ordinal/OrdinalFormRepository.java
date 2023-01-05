@@ -11,5 +11,7 @@ public interface OrdinalFormRepository extends JpaRepository<OrdinalForm, Long>,
 
   List<OrdinalForm> findAllByFormType(FormType formType);
 
+  List<OrdinalForm> findBySingleUser1Id(Long userId);
+
   List<OrdinalForm> findAllByFormTypeAndMultiUser1Id(FormType formType, Long userId);
 }
