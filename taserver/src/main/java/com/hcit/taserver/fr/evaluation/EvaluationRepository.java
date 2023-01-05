@@ -9,6 +9,6 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 
   List<Evaluation> findAllByPage(Integer page);
 
-  List<Evaluation> findAllByYearAndIsSpecialFalse(Integer year);
+  List<Evaluation> findAllByYear(Integer year);
 
 }

@@ -1,5 +1,10 @@
 package com.hcit.taserver.fr.evaluation.userEva;
 
+import static com.hcit.taserver.common.Status.REVIEW_DENIED;
+
+import com.hcit.taserver.approval.Approval;
+import com.hcit.taserver.approval.ApprovalRepository;
+import com.hcit.taserver.approval.ApprovalStepRepository;
 import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
@@ -8,6 +13,8 @@ import com.hcit.taserver.fr.evaluation.EvaluationRepository;
 import com.hcit.taserver.fr.evaluation.userEva.entity.Key;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UpdateType;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaluation;
+import com.hcit.taserver.fr.inform.Inform;
+import com.hcit.taserver.fr.inform.InformRepository;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.form.MatterForm;
@@ -18,6 +25,8 @@ import com.hcit.taserver.fr.motion.MotionRepository;
 import com.hcit.taserver.fr.ordinal.FormType;
 import com.hcit.taserver.fr.ordinal.OrdinalForm;
 import com.hcit.taserver.fr.ordinal.OrdinalFormRepository;
+import com.hcit.taserver.fr.three.Three;
+import com.hcit.taserver.fr.three.ThreeRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -28,12 +37,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserEvaAutoService {
 
   private final EvaluationRepository evaluationRepository;
@@ -44,10 +56,14 @@ public class UserEvaAutoService {
   private final MeetingRepository meetingRepository;
   private final OrdinalFormRepository ordinalFormRepository;
   private final MotionRepository motionRepository;
+  private final ThreeRepository threeRepository;
+  private final ApprovalRepository approvalRepository;
+  private final ApprovalStepRepository approvalStepRepository;
+  private final InformRepository informRepository;
 
   @Scheduled(cron = "0 0 5 * * ? ")
   public void autoEvaluations() {
-    var evaluations = evaluationRepository.findAllByYearAndIsSpecialFalse(2022);
+    var evaluations = evaluationRepository.findAllByYear(2022);
     var users = userRepository.findAll();
     // 班子成员
     var evaPage1 = evaluations.stream()
@@ -87,7 +103,21 @@ public class UserEvaAutoService {
     if (evaId == 6) {
       auto = evaluation6(userId);
     }
-
+    if (evaId == 7) {
+      auto = evaluation7(userId);
+    }
+    if (evaId == 9) {
+      auto = evaluation9(userId);
+    }
+    if (evaId == 10) {
+      auto = evaluation10(userId);
+    }
+    if (evaId == 11) {
+      auto = evaluation11(userId);
+    }
+    if (evaId == 16) {
+      auto = evaluation16(userId);
+    }
     if (evaId == 17) {
       auto = evaluation17(userId);
     }
@@ -97,6 +127,7 @@ public class UserEvaAutoService {
     if (evaId == 19) {
       auto = evaluation19(userId);
     }
+
     return UserEvaluation.builder()
         .id(new Key(User.builder().id(userId).build(), Evaluation.builder().id(evaId).build()))
         .auto(auto).build();
@@ -171,9 +202,13 @@ public class UserEvaAutoService {
   private BigDecimal evaluation4(Long userId) {
     var endDate2 = LocalDateTime.of(2023, 1, 10, 0, 0);
 
+    var form = matterFormRepository.findByUserId(userId);
+    if (form == null) {
+      return BigDecimal.valueOf(16);
+    }
     var notFinished = new ArrayList<Matter>();
     var timeOvered = new ArrayList<Matter>();
-    for (Matter m : matterFormRepository.findByUserId(userId).getMatters()) {
+    for (Matter m : form.getMatters()) {
       if (m.getMeasurePercent() < 100) {
         notFinished.add(m);
       } else if (m.getMeasure().stream().map(Measure::getUpdateTime).anyMatch(t -> t != null && t.isAfter(endDate2))) {
@@ -195,6 +230,63 @@ public class UserEvaAutoService {
     var inspectSize = inspect.size();
     var matterSize = inspect.stream().mapToLong(i -> i.getMatter().size()).sum();
     return new BigDecimal(Math.min(inspectSize, 2) + Math.min(matterSize, 2));
+  }
+
+  public BigDecimal evaluation7(Long userId) {
+    var threeByRequestUserId = threeRepository.findByRequestUserId(userId);
+
+    int quantity = 0;
+    BigDecimal opinionScore = BigDecimal.ZERO;
+    BigDecimal approvalScore = BigDecimal.ZERO;
+    for (Three three : threeByRequestUserId) {
+      var approvalsByThreeId = approvalRepository.findByThreeId(three.getId());
+      for (Approval approval : approvalsByThreeId) {
+        var approvalSteps = approvalStepRepository.findAllByApprovalId(approval.getId());
+        var count = approvalSteps.stream().filter(approvalStep -> approvalStep.getStatus() == REVIEW_DENIED).count();
+        approvalScore = BigDecimal.valueOf(count);
+      }
+
+      var decisionResult = three.getDecisionResult();
+      if (decisionResult != null && decisionResult.startsWith("同意")) {
+        quantity++;
+        opinionScore = BigDecimal.valueOf(quantity);
+      }
+    }
+    return BigDecimal.ZERO.max(
+        new BigDecimal(10)
+            .add(opinionScore.negate())
+            .add(approvalScore.negate())
+    );
+  }
+
+  public BigDecimal evaluation9(Long userId) {
+    var ordinalForm = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.REMIND, userId);
+    var count = ordinalForm.size();
+    return count == 0 ? BigDecimal.ZERO : BigDecimal.valueOf(2);
+  }
+
+  public BigDecimal evaluation10(Long userId) {
+    var ordinalFormList = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.REPORT, userId);
+    if (ordinalFormList.size() == 0) {
+      return BigDecimal.ONE;
+    }
+    var count = ordinalFormList.stream().filter(f -> StringUtils.isBlank(f.getLongContent2())).count();
+    return BigDecimal.valueOf(count == 0 ? 4 : 3);
+  }
+
+  public BigDecimal evaluation11(Long userId) {
+    return BigDecimal.valueOf(4);
+  }
+
+  public BigDecimal evaluation16(Long userId) {
+    var informsByUserId = informRepository.findAllByFromUserId(userId);
+    int count = 0;
+    for (Inform inform : informsByUserId) {
+      if (inform.getMatter().stream().map(Matter::getMeasurePercent).anyMatch(p -> p < 100)) {
+        count++;
+      }
+    }
+    return BigDecimal.valueOf(Math.max(0, 2 - count));
   }
 
   private BigDecimal evaluation17(Long userId) {

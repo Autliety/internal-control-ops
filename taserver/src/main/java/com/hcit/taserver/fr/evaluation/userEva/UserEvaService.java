@@ -17,6 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -75,7 +76,7 @@ public class UserEvaService {
   }
 
   private BigDecimal countTotal(UserEvaluation ue) {
-    if (ue.getId().getEvaluation().getIsSpecial()) {
+    if (BooleanUtils.isTrue(ue.getId().getEvaluation().getIsSpecial())) {
       return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
           .add(
               Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(SPECIAL_WEIGHT));
