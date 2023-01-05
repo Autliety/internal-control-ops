@@ -1,5 +1,7 @@
 package com.hcit.taserver.fr.evaluation.userEva;
 
+import static com.hcit.taserver.common.Status.REVIEW_DENIED;
+
 import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalRepository;
 import com.hcit.taserver.approval.ApprovalStepRepository;
@@ -7,12 +9,12 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.evaluation.Evaluation;
-import com.hcit.taserver.fr.inform.Inform;
-import com.hcit.taserver.fr.inform.InformRepository;
 import com.hcit.taserver.fr.evaluation.EvaluationRepository;
 import com.hcit.taserver.fr.evaluation.userEva.entity.Key;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UpdateType;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaluation;
+import com.hcit.taserver.fr.inform.Inform;
+import com.hcit.taserver.fr.inform.InformRepository;
 import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.form.MatterForm;
@@ -37,15 +39,9 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.hcit.taserver.common.Status.REVIEW_DENIED;
 
 @RequiredArgsConstructor
 @Service
@@ -67,7 +63,7 @@ public class UserEvaAutoService {
 
   @Scheduled(cron = "0 0 5 * * ? ")
   public void autoEvaluations() {
-    var evaluations = evaluationRepository.findAllByYearAndIsSpecialFalse(2022);
+    var evaluations = evaluationRepository.findAllByYear(2022);
     var users = userRepository.findAll();
     // 班子成员
     var evaPage1 = evaluations.stream()
@@ -206,9 +202,13 @@ public class UserEvaAutoService {
   private BigDecimal evaluation4(Long userId) {
     var endDate2 = LocalDateTime.of(2023, 1, 10, 0, 0);
 
+    var form = matterFormRepository.findByUserId(userId);
+    if (form == null) {
+      return BigDecimal.valueOf(16);
+    }
     var notFinished = new ArrayList<Matter>();
     var timeOvered = new ArrayList<Matter>();
-    for (Matter m : matterFormRepository.findByUserId(userId).getMatters()) {
+    for (Matter m : form.getMatters()) {
       if (m.getMeasurePercent() < 100) {
         notFinished.add(m);
       } else if (m.getMeasure().stream().map(Measure::getUpdateTime).anyMatch(t -> t != null && t.isAfter(endDate2))) {
@@ -232,6 +232,63 @@ public class UserEvaAutoService {
     return new BigDecimal(Math.min(inspectSize, 2) + Math.min(matterSize, 2));
   }
 
+  public BigDecimal evaluation7(Long userId) {
+    var threeByRequestUserId = threeRepository.findByRequestUserId(userId);
+
+    int quantity = 0;
+    BigDecimal opinionScore = BigDecimal.ZERO;
+    BigDecimal approvalScore = BigDecimal.ZERO;
+    for (Three three : threeByRequestUserId) {
+      var approvalsByThreeId = approvalRepository.findByThreeId(three.getId());
+      for (Approval approval : approvalsByThreeId) {
+        var approvalSteps = approvalStepRepository.findAllByApprovalId(approval.getId());
+        var count = approvalSteps.stream().filter(approvalStep -> approvalStep.getStatus() == REVIEW_DENIED).count();
+        approvalScore = BigDecimal.valueOf(count);
+      }
+
+      var decisionResult = three.getDecisionResult();
+      if (decisionResult != null && decisionResult.startsWith("同意")) {
+        quantity++;
+        opinionScore = BigDecimal.valueOf(quantity);
+      }
+    }
+    return BigDecimal.ZERO.max(
+        new BigDecimal(10)
+            .add(opinionScore.negate())
+            .add(approvalScore.negate())
+    );
+  }
+
+  public BigDecimal evaluation9(Long userId) {
+    var ordinalForm = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.REMIND, userId);
+    var count = ordinalForm.size();
+    return count == 0 ? BigDecimal.ZERO : BigDecimal.valueOf(2);
+  }
+
+  public BigDecimal evaluation10(Long userId) {
+    var ordinalFormList = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.REPORT, userId);
+    if (ordinalFormList.size() == 0) {
+      return BigDecimal.ONE;
+    }
+    var count = ordinalFormList.stream().filter(f -> StringUtils.isBlank(f.getLongContent2())).count();
+    return BigDecimal.valueOf(count == 0 ? 4 : 3);
+  }
+
+  public BigDecimal evaluation11(Long userId) {
+    return BigDecimal.valueOf(4);
+  }
+
+  public BigDecimal evaluation16(Long userId) {
+    var informsByUserId = informRepository.findAllByFromUserId(userId);
+    int count = 0;
+    for (Inform inform : informsByUserId) {
+      if (inform.getMatter().stream().map(Matter::getMeasurePercent).anyMatch(p -> p < 100)) {
+        count++;
+      }
+    }
+    return BigDecimal.valueOf(Math.max(0, 2 - count));
+  }
+
   private BigDecimal evaluation17(Long userId) {
     var motions = motionRepository.findAllByExecuteUser_Id(userId);
     var count = motions.stream().filter(m -> CollectionUtils.isEmpty(m.getExecuteAttach())).count();
@@ -245,96 +302,6 @@ public class UserEvaAutoService {
 
   private BigDecimal evaluation19(Long userId) {
     return new BigDecimal(4);
-  }
-
-  public BigDecimal evaluation7(Long userId) {
-    var threeByRequestUserId = threeRepository.findByRequestUserId(userId);
-
-    int quantity = 0;
-    BigDecimal opinionScore = null;
-    BigDecimal approvalScore = null;
-    for (Three three : threeByRequestUserId) {
-      var approvalsByThreeId = approvalRepository.findByThreeId(three.getId());
-      for (Approval approval : approvalsByThreeId) {
-        var approvalSteps = approvalStepRepository.findAllByApprovalId(approval.getId());
-        var count = approvalSteps.stream().filter(approvalStep -> approvalStep.getStatus() == REVIEW_DENIED).count();
-        approvalScore = BigDecimal.valueOf(count);
-      }
-
-      var decisionResult = three.getDecisionResult();
-      if (decisionResult.startsWith("同意")) {
-        quantity++;
-        opinionScore = BigDecimal.valueOf(quantity);
-      }
-    }
-    return BigDecimal.ZERO.max(
-        new BigDecimal(10)
-            .add(opinionScore.negate())
-            .add(approvalScore.negate())
-    );
-  }
-
-  public BigDecimal evaluation9(Long userId) {
-    var ordinalForm = ordinalFormRepository.findBySingleUser1Id(userId);
-    var count = ordinalForm.stream().filter(o -> o.getFormType() == FormType.REMIND).count();
-    BigDecimal score = null;
-    if (count == 0) {
-      score = BigDecimal.ZERO;
-    } else {
-      score = BigDecimal.valueOf(2);
-    }
-    log.info("score: " + score);
-    return score;
-  }
-
-  public BigDecimal evaluation10(Long userId) {
-    var ordinalForm = ordinalFormRepository.findBySingleUser1Id(userId);
-    var ordinalFormList = ordinalForm.stream().filter(o -> o.getFormType() == FormType.REPORT).collect(Collectors.toList());
-    BigDecimal totalScore = null;
-    if (ordinalFormList.size() == 0) {
-      totalScore = BigDecimal.ONE;
-    } else {
-      var count = ordinalFormList.stream().filter(longContent2 -> longContent2.getContent2() == null).count();
-      if (count != 0) {
-        totalScore = BigDecimal.valueOf(3);
-      } else {
-        totalScore = BigDecimal.valueOf(4);
-      }
-    }
-    log.info("score: " + totalScore);
-    return totalScore;
-  }
-
-  public BigDecimal evaluation11(Long userId) {
-    return BigDecimal.valueOf(4);
-  }
-
-  public BigDecimal evaluation16(Long userId) {
-    var informsByUserId = informRepository.findByFromUserId(userId);
-    ArrayList percent = new ArrayList<>();
-    int count = 0;
-    for (Inform inform : informsByUserId) {
-      var matters = matterRepository.findAllBySourceInformId(inform.getId());
-      for (Matter matter : matters) {
-        Integer measurePercent = matter.getMeasurePercent();
-        if (measurePercent != 100) {
-          log.info("percent" + measurePercent);
-          count++;
-        }
-      }
-    }
-    BigDecimal score = null;
-    if (count >= 2) {
-      score = BigDecimal.ZERO;
-    }
-    if (count == 1) {
-      score = BigDecimal.ONE;
-    }
-    if (count == 0) {
-      score = BigDecimal.valueOf(2);
-    }
-    log.info("score； " + score);
-    return score;
   }
 
 }
