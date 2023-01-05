@@ -1,6 +1,7 @@
 package com.hcit.taserver.fr.matter.measure;
 
 import com.hcit.taserver.common.BasicPersistable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Getter @Setter
@@ -40,5 +42,8 @@ public class Measure implements BasicPersistable {
 
   @Enumerated(EnumType.STRING)
   private ProgressStatus progressStatus;
+
+  @UpdateTimestamp
+  private LocalDateTime updateTime;
 
 }

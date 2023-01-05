@@ -3,14 +3,21 @@ package com.hcit.taserver.fr.evaluation.userEva;
 import com.hcit.taserver.department.user.AuthService;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
+import com.hcit.taserver.fr.evaluation.userEva.entity.Key;
+import com.hcit.taserver.fr.evaluation.userEva.entity.UpdateType;
+import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaListDto;
+import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaluation;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -68,12 +75,18 @@ public class UserEvaService {
   }
 
   private BigDecimal countTotal(UserEvaluation ue) {
-    // todo if (ue.getId().getEvaluation().isSpecial()) {} else
-    return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
-        .add(
-            Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(LEADER_WEIGHT))
-        .add(
-            Optional.ofNullable(ue.getAuto()).orElse(BigDecimal.ZERO).multiply(AUTO_WEIGHT));
+    if (ue.getId().getEvaluation().getIsSpecial()) {
+      return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
+          .add(
+              Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(SPECIAL_WEIGHT));
+
+    } else {
+      return Optional.ofNullable(ue.getSelf()).orElse(BigDecimal.ZERO).multiply(SELF_WEIGHT)
+          .add(
+              Optional.ofNullable(ue.getLeader()).orElse(BigDecimal.ZERO).multiply(LEADER_WEIGHT))
+          .add(
+              Optional.ofNullable(ue.getAuto()).orElse(BigDecimal.ZERO).multiply(AUTO_WEIGHT));
+    }
   }
 
   public List<UserEvaluation> findAllByUserId(Long id) {
@@ -84,4 +97,19 @@ public class UserEvaService {
     }
   }
 
+  public List<UserEvaListDto> findAllByUserPrivilege() {
+    var evas = userEvaRepository.findAll((root, query, cb) ->
+        query.where(authService.getPrivilegePredicate(root, cb, root.get("id").get("user")))
+            .getRestriction()
+    );
+    var evaMaps = evas.stream().collect(Collectors.groupingBy(eva -> eva.getId().getUser()));
+    return evaMaps.entrySet()
+        .stream()
+        .map(entry -> UserEvaListDto.builder()
+            .user(entry.getKey())
+            .year(2022)
+            .userEvaluations(entry.getValue())
+            .build())
+        .collect(Collectors.toList());
+  }
 }

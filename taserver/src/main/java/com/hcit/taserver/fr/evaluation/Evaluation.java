@@ -47,4 +47,6 @@ public class Evaluation implements BasicPersistable {
   * */
   private Integer page;
 
+  private Boolean isSpecial;
+
 }

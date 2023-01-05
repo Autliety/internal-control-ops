@@ -1,4 +1,4 @@
-package com.hcit.taserver.fr.evaluation.userEva;
+package com.hcit.taserver.fr.evaluation.userEva.entity;
 
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.fr.evaluation.Evaluation;
