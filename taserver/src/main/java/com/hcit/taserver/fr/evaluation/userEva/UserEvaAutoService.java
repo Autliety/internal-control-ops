@@ -4,6 +4,7 @@ import com.hcit.taserver.common.Status;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.evaluation.Evaluation;
+import com.hcit.taserver.fr.evaluation.EvaluationRepository;
 import com.hcit.taserver.fr.evaluation.userEva.entity.Key;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UpdateType;
 import com.hcit.taserver.fr.evaluation.userEva.entity.UserEvaluation;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserEvaAutoService {
 
+  private final EvaluationRepository evaluationRepository;
   private final UserEvaService userEvaService;
   private final UserRepository userRepository;
   private final MatterFormRepository matterFormRepository;
@@ -45,28 +47,38 @@ public class UserEvaAutoService {
 
   @Scheduled(cron = "0 0 5 * * ? ")
   public void autoEvaluations() {
-    List<User> users = userRepository.findAllByDepartmentIdOrderByUserOrderDesc(3L);
-    for (User user : users) {
-      var result = new ArrayList<UserEvaluation>();
-      for (long l = 1L; l <= 21; l++) {
-        result.add(userEvaAuto(l, user.getId()));
-      }
+    var evaluations = evaluationRepository.findAllByYearAndIsSpecialFalse(2022);
+    var users = userRepository.findAll();
+    // 班子成员
+    var evaPage1 = evaluations.stream()
+        .filter(e -> Objects.equals(e.getPage(), 1))
+        .collect(Collectors.toList());
+    List<User> usersPage1 = users.stream()
+        .filter(u -> Objects.equals(3L, u.getDepartment().getId()))
+        .collect(Collectors.toList());
+    for (User user : usersPage1) {
+      var result = evaPage1.stream()
+          .map(e -> userEvaAuto(e.getId(), user.getId()))
+          .filter(Objects::nonNull)
+          .collect(Collectors.toList());
       userEvaService.updateEvaluation(result, UpdateType.AUTO, user.getId());
     }
+
+    // todo 站办
   }
 
-  public UserEvaluation userEvaAuto(long evaId, Long userId) {
+  public UserEvaluation userEvaAuto(Long evaId, Long userId) {
     BigDecimal auto = BigDecimal.ZERO;
-    if (evaId == 1) {
+    if (evaId == 1 || evaId == 22) {
       auto = evaluation1(userId);
     }
-    if (evaId == 2) {
+    if (evaId == 2 || evaId == 23) {
       auto = evaluation2(userId);
     }
-    if (evaId == 3) {
+    if (evaId == 3 || evaId == 24) {
       auto = evaluation3(userId);
     }
-    if (evaId == 4) {
+    if (evaId == 4 || evaId == 25) {
       auto = evaluation4(userId);
     }
     if (evaId == 5) {

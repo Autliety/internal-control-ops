@@ -20,7 +20,6 @@ public class EvaluationController {
     return evaluationService.findAll();
   }
 
-  /**/
   @GetMapping("/{page}")
   public List<Evaluation> fetch(@PathVariable Integer page) {
     return evaluationService.findAllByPage(page);
