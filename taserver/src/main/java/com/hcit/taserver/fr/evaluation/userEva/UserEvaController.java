@@ -28,6 +28,7 @@ public class UserEvaController {
   }
 
   @PostMapping(params = {"userId"})
+  @Transactional
   public List<UserEvaluation> leaderEvaluation(@RequestParam Long userId,
       @RequestBody List<UserEvaluation> evaluations) {
     return userEvaService.updateEvaluation(evaluations, UpdateType.LEADER, userId);
