@@ -11,12 +11,15 @@ import com.hcit.taserver.fr.matter.Matter;
 import com.hcit.taserver.fr.matter.MatterRepository;
 import com.hcit.taserver.fr.matter.form.MatterForm;
 import com.hcit.taserver.fr.matter.form.MatterFormRepository;
+import com.hcit.taserver.fr.matter.measure.Measure;
 import com.hcit.taserver.fr.meeting.MeetingRepository;
+import com.hcit.taserver.fr.motion.MotionRepository;
 import com.hcit.taserver.fr.ordinal.FormType;
 import com.hcit.taserver.fr.ordinal.OrdinalForm;
 import com.hcit.taserver.fr.ordinal.OrdinalFormRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +41,11 @@ public class UserEvaAutoService {
   private final MatterRepository matterRepository;
   private final MeetingRepository meetingRepository;
   private final OrdinalFormRepository ordinalFormRepository;
+  private final MotionRepository motionRepository;
 
   @Scheduled(cron = "0 0 5 * * ? ")
   public void autoEvaluations() {
-    List<User> users = userRepository.findAll();
+    List<User> users = userRepository.findAllByDepartmentIdOrderByUserOrderDesc(3L);
     for (User user : users) {
       var result = new ArrayList<UserEvaluation>();
       for (long l = 1L; l <= 21; l++) {
@@ -60,6 +65,25 @@ public class UserEvaAutoService {
     }
     if (evaId == 3) {
       auto = evaluation3(userId);
+    }
+    if (evaId == 4) {
+      auto = evaluation4(userId);
+    }
+    if (evaId == 5) {
+      auto = evaluation5(userId);
+    }
+    if (evaId == 6) {
+      auto = evaluation6(userId);
+    }
+
+    if (evaId == 17) {
+      auto = evaluation17(userId);
+    }
+    if (evaId == 18) {
+      auto = evaluation18(userId);
+    }
+    if (evaId == 19) {
+      auto = evaluation19(userId);
     }
     return UserEvaluation.builder()
         .id(new Key(User.builder().id(userId).build(), Evaluation.builder().id(evaId).build()))
@@ -114,7 +138,7 @@ public class UserEvaAutoService {
   }
 
   private BigDecimal evaluation3(Long userId) {
-    var ordinalForms = ordinalFormRepository.findAllByFormTypeAndMultiUser1Id(FormType.LEARNING, userId);
+    var ordinalForms = ordinalFormRepository.findAllByFormTypeAndMultiUser1_Id(FormType.LEARNING, userId);
 
     Set<Integer> months = new HashSet<>();
     for (OrdinalForm ordinalForm : ordinalForms) {
@@ -130,6 +154,50 @@ public class UserEvaAutoService {
                     new BigDecimal(12).add(new BigDecimal(months.size()).negate())))
         ).divide(BigDecimal.TEN, 2, RoundingMode.HALF_UP)
     );
+  }
+
+  private BigDecimal evaluation4(Long userId) {
+    var endDate2 = LocalDateTime.of(2023, 1, 10, 0, 0);
+
+    var notFinished = new ArrayList<Matter>();
+    var timeOvered = new ArrayList<Matter>();
+    for (Matter m : matterFormRepository.findByUserId(userId).getMatters()) {
+      if (m.getMeasurePercent() < 100) {
+        notFinished.add(m);
+      } else if (m.getMeasure().stream().map(Measure::getUpdateTime).anyMatch(t -> t != null && t.isAfter(endDate2))) {
+        timeOvered.add(m);
+      }
+    }
+
+    // max(0, 16 - 2*notFinished.size - 1*timeOvered.size)
+    return BigDecimal.ZERO.max(new BigDecimal(16 - 2 * notFinished.size() - timeOvered.size()));
+  }
+
+  private BigDecimal evaluation5(Long userId) {
+    var talking = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.TALKING, userId);
+    return new BigDecimal(talking.size() == 0 ? 0 : 2);
+  }
+
+  private BigDecimal evaluation6(Long userId) {
+    var inspect = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.INSPECT, userId);
+    var inspectSize = inspect.size();
+    var matterSize = inspect.stream().mapToLong(i -> i.getMatter().size()).sum();
+    return new BigDecimal(Math.min(inspectSize, 2) + Math.min(matterSize, 2));
+  }
+
+  private BigDecimal evaluation17(Long userId) {
+    var motions = motionRepository.findAllByExecuteUser_Id(userId);
+    var count = motions.stream().filter(m -> CollectionUtils.isEmpty(m.getExecuteAttach())).count();
+    return new BigDecimal(Math.max(0, 2 - count));
+  }
+
+  private BigDecimal evaluation18(Long userId) {
+    var list = ordinalFormRepository.findAllByFormTypeAndSingleUser1_Id(FormType.QUESTION, userId);
+    return new BigDecimal(list.size() > 0 ? 2 : 1);
+  }
+
+  private BigDecimal evaluation19(Long userId) {
+    return new BigDecimal(4);
   }
 
 }
