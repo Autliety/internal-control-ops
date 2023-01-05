@@ -93,7 +93,7 @@ public class UserEvaService {
 
   public List<UserEvaListDto> findAllByUserPrivilege() {
     var evas = userEvaRepository.findAll((root, query, cb) ->
-        query.where(authService.getPrivilegePredicate(root, cb, root.get("id").get("user").get("id")))
+        query.where(authService.getPrivilegePredicate(root, cb, root.get("id").get("user")))
             .getRestriction()
     );
     var evaMaps = evas.stream().collect(Collectors.groupingBy(eva -> eva.getId().getUser()));
