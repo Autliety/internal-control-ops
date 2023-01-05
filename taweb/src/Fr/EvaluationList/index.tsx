@@ -5,14 +5,18 @@ import { Button, Tooltip } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import BaseEditableTable from '../../components/BaseEditableTable';
+import { useHttp } from '../../utils/request';
+import BaseDivider from '../../components/BaseDivider';
+import { useAuth } from '../../utils/auth';
 
 export default function EvaluationList({ page }) {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const columns: ProColumns[] = [
     { title: '年度', dataIndex: 'year' },
-    { title: '总分值', dataIndex: 'count' },
+    { title: '姓名', dataIndex: 'user', renderText: t => t.name },
     { title: '考核指标总数（项）', dataIndex: 'amount' },
     { title: '系统评分【70%】', dataIndex: 'auto' },
     { title: '领导评分【20%】', dataIndex: 'leader' },
@@ -26,24 +30,25 @@ export default function EvaluationList({ page }) {
       render: (_, record: any) => <Tooltip title={'绩效详情'}>
         <Button
             type={'primary'}
-            icon={<FileTextOutlined/>}
+            icon={<FileTextOutlined />}
             size={'small'}
-            onClick={() => navigate(`/fr/pz/evaluation/${page}/${record.year}`)}
+            onClick={() => navigate(`/fr/pz/evaluation/${page}/${record.year}?userId=${record.user?.id}`)}
         />
       </Tooltip>,
     },
   ];
 
-  const data = [
-    {
-      id: 1,
-      year: '2022',
-      count: 100,
-      amount: 14,
-    },
-  ];
+  const { state, loading } = useHttp('/usereva', { initState: [] });
 
-  return <PageContainer>
-    <BaseEditableTable columns={columns} value={data}/>
+  return <PageContainer loading={loading}>
+    <BaseEditableTable columns={columns} value={[state?.find(item => item.user?.id === user.id)]} />
+
+    {
+        state?.filter(item => item.user?.id !== user.id).length === 0 || <>
+          <BaseDivider title={'【他人评分】'} />
+          <BaseEditableTable columns={columns} value={state?.filter(item => item.user?.id !== user.id)} />
+        </>
+    }
+
   </PageContainer>;
 }

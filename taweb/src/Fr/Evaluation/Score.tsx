@@ -7,6 +7,7 @@ import showInfo from '../../utils/showInfo';
 import BaseEditableTable from '../../components/BaseEditableTable';
 import { useHttp } from '../../utils/request';
 import { useAuth } from '../../utils/auth';
+import UserSelectCascader from '../../components/UserSelectCascader';
 
 function Score({ page }) {
 
@@ -87,7 +88,7 @@ function Score({ page }) {
         isLeader && <div className={'content'}>
           <Typography.Text>评分人：<Tag color={'processing'}>{user.name}</Tag></Typography.Text>
           <br /><br />
-          <Typography.Text>被评人：<Tag color={'success'}>{leaderDestUser.user?.name}</Tag></Typography.Text>
+          <Typography.Text>被评人：<UserSelectCascader value={leaderDestUser.user} disabled /></Typography.Text>
         </div>
     }
     <br />
@@ -130,7 +131,7 @@ function Score({ page }) {
       >
         提交
       </Button>
-      <Button onClick={() => window.location.reload()}>取消</Button>
+      <Button onClick={() => window.location.href = 'javascript:history.go(-1)'}>取消</Button>
     </FooterToolbar>
   </PageContainer>;
 }
