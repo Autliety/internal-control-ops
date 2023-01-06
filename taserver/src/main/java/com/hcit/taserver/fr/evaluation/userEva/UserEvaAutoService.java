@@ -6,6 +6,7 @@ import com.hcit.taserver.approval.Approval;
 import com.hcit.taserver.approval.ApprovalRepository;
 import com.hcit.taserver.approval.ApprovalStepRepository;
 import com.hcit.taserver.common.Status;
+import com.hcit.taserver.department.DeptType;
 import com.hcit.taserver.department.user.User;
 import com.hcit.taserver.department.user.UserRepository;
 import com.hcit.taserver.fr.evaluation.Evaluation;
@@ -72,15 +73,35 @@ public class UserEvaAutoService {
     List<User> usersPage1 = users.stream()
         .filter(u -> Objects.equals(3L, u.getDepartment().getId()))
         .collect(Collectors.toList());
-    for (User user : usersPage1) {
-      var result = evaPage1.stream()
+    autoEvaluations(evaPage1, usersPage1);
+
+    // 站办
+    var evaPage2 = evaluations.stream()
+        .filter(e -> Objects.equals(e.getPage(), 2))
+        .collect(Collectors.toList());
+    var usersPage2 = users.stream()
+        .filter(u -> u.getDepartment().getDeptType() == DeptType.STATION)
+        .collect(Collectors.toList());
+    autoEvaluations(evaPage2, usersPage2);
+
+    // 村社
+    var evaPage3 = evaluations.stream()
+        .filter(e -> Objects.equals(e.getPage(), 3))
+        .collect(Collectors.toList());
+    var usersPage3 = users.stream()
+        .filter(u -> u.getDepartment().getDeptType() == DeptType.VILLAGE)
+        .collect(Collectors.toList());
+    autoEvaluations(evaPage3, usersPage3);
+  }
+
+  private void autoEvaluations(List<Evaluation> evaluations, List<User> users) {
+    for (User user : users) {
+      var result = evaluations.stream()
           .map(e -> userEvaAuto(e.getId(), user.getId()))
           .filter(Objects::nonNull)
           .collect(Collectors.toList());
       userEvaService.updateEvaluation(result, UpdateType.AUTO, user.getId());
     }
-
-    // todo 站办
   }
 
   public UserEvaluation userEvaAuto(Long evaId, Long userId) {
