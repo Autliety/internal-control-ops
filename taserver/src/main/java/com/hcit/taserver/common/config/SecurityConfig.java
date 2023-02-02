@@ -83,11 +83,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
     return provider;
   }
-//
-//  private void writeResponse(HttpServletResponse response, int statusCode, Object payload) throws IOException {
-//    response.setContentType("application/json;charset=utf-8");
-//    response.setStatus(statusCode);
-//    mapper.writeValue(response.getOutputStream(), payload);
-//  }
 }
 
