@@ -2,9 +2,9 @@ package com.hcit.taserver.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcit.taserver.department.user.AuthService;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,59 +14,71 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final ObjectMapper mapper;
   private final AuthService authService;
+  private final ValidateCodeFilter validateCodeFilter;
+
 
   @Value("${server.ssl.enabled}")
   private Boolean sslEnabled;
 
+  @Value("${config.dev-env}")
+  private Boolean devEnv;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    if (sslEnabled) {
-      http.requiresChannel(registry -> registry.anyRequest().requiresSecure())
-          .authorizeRequests(registry -> registry.antMatchers("/api/**").authenticated());
-    } else {
-      http.authorizeRequests(registry -> registry.antMatchers("/api/**").permitAll());
+    if (BooleanUtils.isTrue(sslEnabled)) {
+      http.requiresChannel(registry -> registry.anyRequest().requiresSecure());
     }
 
     http.authenticationProvider(authenticationProvider())
         .httpBasic().disable()
-        .authorizeRequests(registry -> registry.anyRequest().permitAll())
 
         .formLogin()
-          .loginProcessingUrl("/api/login")
-          .successHandler((request, response, authentication) ->
-              writeResponse(response, 200, authentication.getPrincipal()))
-          .failureHandler((request, response, exception) ->
-              writeResponse(response, 401, mapper.createObjectNode().put("error", "登录失败")))
-          .permitAll()
+        .loginProcessingUrl("/api/login")
+        .permitAll()
         .and()
 
         .logout()
-          .logoutUrl("/api/logout")
-          .logoutSuccessHandler((request, response, authentication) ->
-              writeResponse(response, 200, mapper.createObjectNode().put("msg", "登出成功")))
+        .logoutUrl("/api/logout")
+        .logoutSuccessHandler((request, response, authentication) ->
+            writeResponse(response, 200, mapper.createObjectNode().put("msg", "登出成功")))
         .and()
 
         .exceptionHandling()
-          .authenticationEntryPoint((request, response, e) ->
-              writeResponse(response, 401, mapper.createObjectNode().put("error", "未登录")))
-          .accessDeniedHandler((request, response, e) ->
-              writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
+        .authenticationEntryPoint((request, response, e) ->
+            writeResponse(response, 401, mapper.createObjectNode().put("error", "未登录")))
+        .accessDeniedHandler((request, response, e) ->
+            writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
         .and()
+
+        .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
 
         .cors().and()
         .csrf().disable();
 
+    if (BooleanUtils.isTrue(devEnv)) {
+      http.authorizeRequests(registry -> registry.antMatchers("/api/**").permitAll());
+    } else {
+      http.authorizeRequests(registry -> registry.antMatchers("/api/**").authenticated());
+    }
+    http.authorizeRequests(registry -> registry.anyRequest().permitAll());
+
   }
 
-  @Bean AuthenticationProvider authenticationProvider() {
+  @Bean
+  AuthenticationProvider authenticationProvider() {
     var provider = new DaoAuthenticationProvider();
     provider.setUserDetailsService(authService);
     //noinspection deprecation
@@ -79,5 +91,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     response.setStatus(statusCode);
     mapper.writeValue(response.getOutputStream(), payload);
   }
-
 }
+

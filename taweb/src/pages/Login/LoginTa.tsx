@@ -1,20 +1,28 @@
 import React from 'react';
-import { LoginForm, ProFormText } from '@ant-design/pro-form';
-import { LockOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
-import { Col, Divider, Image, Layout, message, Modal, Row, Space, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import {LoginForm, ProFormText} from '@ant-design/pro-form';
+import {LockOutlined, SafetyOutlined, UserOutlined} from '@ant-design/icons';
+import {Col, Divider, Image, Layout, message, Modal, Row, Space, Typography} from 'antd';
+import {useNavigate} from 'react-router-dom';
 import qs from 'query-string';
 import logo from '../../image/logo.png';
 import bg from '../../image/login.jpg';
 import headerBg from '../../image/header.png';
-import { useHttp } from '../../utils/request';
+import {host, useHttp} from '../../utils/request';
 
 export default function LoginTa() {
 
   const navigate = useNavigate();
-  const { http } = useHttp('/login', { method: 'POST', isManual: true });
+  const {http} = useHttp('/login', {method: 'POST', isManual: true});
 
-  return <Layout style={{ height: '100%' }}>
+  // captcha
+  const {state: code, http: codeHttp} = useHttp('/getCode', {initState: {}});
+  console.log(code);
+
+  React.useEffect(() => {
+    document.getElementById('img').setAttribute('src', host + '/getCode');
+  }, [code])
+
+  return <Layout style={{height: '100%'}}>
     <Layout.Header style={{
       position: 'fixed',
       height: '10%',
@@ -25,9 +33,9 @@ export default function LoginTa() {
       minHeight: 100
     }}>
       <Space direction={'vertical'}>
-        <Typography.Title style={{ marginTop: 10, fontFamily: 'serif', fontWeight: 'bolder', color: '#f3e8b4' }}>
-          <Image src={logo} width={70} preview={false} />
-          <Divider type={'vertical'} />
+        <Typography.Title style={{marginTop: 10, fontFamily: 'serif', fontWeight: 'bolder', color: '#f3e8b4'}}>
+          <Image src={logo} width={70} preview={false}/>
+          <Divider type={'vertical'}/>
           浙江百步经济开发区(百步镇)
           <p
               style={{
@@ -49,10 +57,12 @@ export default function LoginTa() {
       backgroundRepeat: 'no-repeat',
     }}>
       <Row>
-        <Col span={16} />
-        <Col span={4} className={'bgStyle'} style={{ minWidth: 360, marginTop: 200 }}>
+        <Col span={16}/>
+        <Col span={4} className={'bgStyle'} style={{minWidth: 360, marginTop: 200}}>
           <LoginForm
               onFinish={async (values: any) => {
+
+                values.code = values.code.toString().trim().toLowerCase();
 
                 values.system = 'ta';
                 if (values.username.includes('（')) {
@@ -70,17 +80,17 @@ export default function LoginTa() {
               }}
           >
 
-            <Typography.Title level={4} style={{ textAlign: 'center' }}>督查考核系统</Typography.Title>
-            <Divider />
+            <Typography.Title level={4} style={{textAlign: 'center'}}>督查考核系统</Typography.Title>
+            <Divider/>
 
             <ProFormText
                 name='username'
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={'prefixIcon'} />,
+                  prefix: <UserOutlined className={'prefixIcon'}/>,
                 }}
                 placeholder={'用户名'}
-                rules={[{ required: true, message: '请输入用户名' }]}
+                rules={[{required: true, message: '请输入用户名'}]}
                 validateTrigger={'onBlur'}
             />
 
@@ -89,46 +99,51 @@ export default function LoginTa() {
 
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={'prefixIcon'} />,
+                  prefix: <LockOutlined className={'prefixIcon'}/>,
                 }}
                 placeholder={'密码'}
-                rules={[{ required: true, message: '请输入密码' }]}
+                rules={[{required: true, message: '请输入密码'}]}
             />
 
-            <ProFormText
-                disabled
-                name='validation'
-                fieldProps={{
-                  size: 'large',
-                  prefix: <SafetyOutlined className={'prefixIcon'} />,
-                }}
-                placeholder={'验证码'}
-            />
+            <Space size={'small'} align={'start'}>
+              <ProFormText
+                  name='code'
+                  fieldProps={{
+                    size: 'large',
+                    prefix: <SafetyOutlined className={'prefixIcon'}/>,
+                  }}
+                  rules={[{required: true, message: '验证码必填'}]}
+                  placeholder={'验证码'}
+              />
+              <div style={{height: 40, width: 120, cursor: 'pointer'}} onClick={() => codeHttp()}>
+                <img id={'img'} alt={'图片'}/>
+              </div>
+            </Space>
 
             <div>
               <a
-                  style={{ float: 'right' }}
+                  style={{float: 'right'}}
                   onClick={() => Modal.warning({
                     title: '忘记密码',
-                    content: <p style={{ marginTop: 20 }}>请联系系统管理员【邬先生】：0573-86116553</p>,
+                    content: <p style={{marginTop: 20}}>请联系系统管理员【邬先生】：0573-86116553</p>,
                     okText: '确定',
                   })}
               >
                 忘记密码
               </a>
             </div>
-            <br /><br />
+            <br/><br/>
           </LoginForm>
         </Col>
-        <Col span={4} />
+        <Col span={4}/>
       </Row>
     </Layout.Content>
 
-    <Layout.Footer style={{ height: '10%', textAlign: 'center' }}>
+    <Layout.Footer style={{height: '10%', textAlign: 'center'}}>
       <p>
         Copyright@2021 嘉兴海创信息技术有限公司 ALL rights reserved
       </p>
-      <p style={{ fontSize: 12 }}>建议您使用IE9及以上版本、Edge、Chrome、Firefox和360等主流浏览器浏览本网站</p>
+      <p style={{fontSize: 12}}>建议您使用IE9及以上版本、Edge、Chrome、Firefox和360等主流浏览器浏览本网站</p>
     </Layout.Footer>
   </Layout>;
 }
