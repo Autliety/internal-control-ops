@@ -16,9 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -28,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final ObjectMapper mapper;
   private final AuthService authService;
   private final ValidateCodeFilter validateCodeFilter;
+  private final WriteResponseService writeResponseService;
 
 
   @Value("${server.ssl.enabled}")
@@ -53,14 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logout()
         .logoutUrl("/api/logout")
         .logoutSuccessHandler((request, response, authentication) ->
-            writeResponse(response, 200, mapper.createObjectNode().put("msg", "登出成功")))
+            writeResponseService.writeResponse(response, 200, mapper.createObjectNode().put("msg", "登出成功")))
         .and()
 
         .exceptionHandling()
         .authenticationEntryPoint((request, response, e) ->
-            writeResponse(response, 401, mapper.createObjectNode().put("error", "未登录")))
+            writeResponseService.writeResponse(response, 401, mapper.createObjectNode().put("error", "未登录")))
         .accessDeniedHandler((request, response, e) ->
-            writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
+           writeResponseService.writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
         .and()
 
         .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
@@ -85,11 +83,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
     return provider;
   }
-
-  private void writeResponse(HttpServletResponse response, int statusCode, Object payload) throws IOException {
-    response.setContentType("application/json;charset=utf-8");
-    response.setStatus(statusCode);
-    mapper.writeValue(response.getOutputStream(), payload);
-  }
+//
+//  private void writeResponse(HttpServletResponse response, int statusCode, Object payload) throws IOException {
+//    response.setContentType("application/json;charset=utf-8");
+//    response.setStatus(statusCode);
+//    mapper.writeValue(response.getOutputStream(), payload);
+//  }
 }
 
