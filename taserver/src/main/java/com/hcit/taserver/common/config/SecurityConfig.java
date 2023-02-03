@@ -58,10 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticationEntryPoint((request, response, e) ->
             writeResponseService.writeResponse(response, 401, mapper.createObjectNode().put("error", "未登录")))
         .accessDeniedHandler((request, response, e) ->
-           writeResponseService.writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
+            writeResponseService.writeResponse(response, 403, mapper.createObjectNode().put("error", "未授权访问")))
         .and()
-
-        .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
 
         .cors().and()
         .csrf().disable();
@@ -69,7 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     if (BooleanUtils.isTrue(devEnv)) {
       http.authorizeRequests(registry -> registry.antMatchers("/api/**").permitAll());
     } else {
-      http.authorizeRequests(registry -> registry.antMatchers("/api/**").authenticated());
+      http
+          .authorizeRequests(registry -> registry
+              .antMatchers("/api/getCode").permitAll()
+              .antMatchers("/api/**").authenticated())
+          .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
     }
     http.authorizeRequests(registry -> registry.anyRequest().permitAll());
 
