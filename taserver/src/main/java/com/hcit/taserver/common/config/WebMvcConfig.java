@@ -25,7 +25,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     configurer.addPathPrefix("/api", c -> c.isAnnotationPresent(RestController.class));
   }
 
-  @SuppressWarnings("SpringMVCViewInspection")
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     if (BooleanUtils.isNotTrue(devEnv)) {

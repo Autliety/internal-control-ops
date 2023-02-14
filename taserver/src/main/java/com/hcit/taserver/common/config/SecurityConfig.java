@@ -45,6 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         .formLogin()
         .loginProcessingUrl("/api/login")
+        .successHandler((request, response, authentication) ->
+            writeResponseService.writeResponse(response, 200, authentication.getPrincipal()))
+        .failureHandler((request, response, exception) ->
+            writeResponseService.writeResponse(response, 401, mapper.createObjectNode().put("error", "登录失败")))
         .permitAll()
         .and()
 
