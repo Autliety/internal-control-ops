@@ -59,3 +59,4 @@ local.properties
 .DS_Store
 *.jsbundle
 /ios/Pods/
+/internal-doc/
