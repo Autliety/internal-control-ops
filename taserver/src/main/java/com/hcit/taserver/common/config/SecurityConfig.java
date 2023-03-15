@@ -73,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     } else {
       http
           .authorizeRequests(registry -> registry
+              .antMatchers("/api/user/pwd/**").permitAll()
               .antMatchers("/api/getCode").permitAll()
               .antMatchers("/api/**").authenticated())
           .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
