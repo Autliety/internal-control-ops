@@ -19,7 +19,7 @@ spring:
     defer-datasource-initialization: on
   sql.init:
     mode: always
-    data-locations: classpath:/data_dev.sql
+    data-locations: classpath:/data_empty.sql
 
 config:
   dev-env: true
